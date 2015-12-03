@@ -2,3 +2,4 @@ node_modules
 .DS_Store
 mysqldb.json
 secret.json
+aws.json

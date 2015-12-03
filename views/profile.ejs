@@ -1,20 +1,33 @@
 <% layout( 'layout' ) -%>
 <link rel="stylesheet" type="text/css" href="profile.css">
+<script type="text/javascript" src="profile.js"></script>
 
 <div class="container" align="center">
 	<br>
 	
 	<div class="row">
-		<button type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</button>
-	</div>
-	<br>
-	<div class="row">
 		<div class="col-sm-6">
-			<img class="profileImg" src="http://splitsider.com/wp-content/uploads/sites/2/2014/09/aziz_ansari.jpg">
+			<div class="profileImg">
+				<image src="<%= image %>" id="profileImg">
+			</div>
+			<form role="form" action="/editProfilePhoto" method="post" enctype="multipart/form-data" onerror="window.location='/profile'" id="photoForm">
+				<input type="file" id="fileInput" name="photo">
+				<input class="btn btn-default" type="submit" value="Submit" id="submitPhotoBtn">
+			</form>
 		</div>
 		<div class="col-sm-6">
-			<h5>Aziz Ansari</h5>
-			<p>This is your bio!</p>
+			<button type="submit" class="btn btn-default btn-sm" id="editBtn"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</button>
+			<br><br>
+			<h5 id="profileName"><%= name %></h5>
+			<p id="profileBio"><%= bio %></p>
+
+			<div id="issue" class="alert alert-danger" role="alert" align="center" hidden></div>
+			<br>
+			<input type="text" class="form-control" id="inputName" value="<%= name %>" onkeydown="if (event.keyCode == 13) document.getElementById('saveBtn').click();">
+			<br>
+			<textarea class="form-control" rows="6" id="inputBio" onkeydown="if (event.keyCode == 13) document.getElementById('saveBtn').click();"><%= bio %></textarea>
+			<br>
+			<button type="submit" class="btn btn-default btn-sm" id="saveBtn">Save</button>
 		</div>
 	</div>
 	<br>

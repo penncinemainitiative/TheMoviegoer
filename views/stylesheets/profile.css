@@ -1,3 +1,17 @@
 .profileImg {
+	width: 75%;
+	background-color: #000;
+}
+
+.profileImg > img {
 	width: 100%;
+}
+
+.profileImg > img:hover {
+	opacity: 0.5;
+	cursor: pointer;
+}
+
+#issue {
+	width: 60%;
 }

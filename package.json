@@ -32,7 +32,8 @@
     "fs": "*",
     "s3": "*",
     "request": "*",
-    "mysql": "*"
+    "mysql": "*",
+    "multer-s3":"*"
   },
   "author": "",
   "license": "",
