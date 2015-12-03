@@ -1,0 +1,16 @@
+.newImage {
+	width: 100%;
+}
+
+.newImage:hover {
+	opacity: 0.5;
+	cursor: copy;
+}
+
+.newImageDiv {
+	background-color: #000;
+}
+
+textarea {
+	max-width: 100%;
+}
