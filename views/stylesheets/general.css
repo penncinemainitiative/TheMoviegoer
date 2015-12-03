@@ -1,0 +1,17 @@
+html, body {
+	min-height:100%;
+	height:100%;
+	width: 100%;
+}
+
+#all {
+	height: 100%;
+}
+
+#notFooter {
+	min-height: 94% !important;
+}
+
+#footer {
+	min-height: 6%;
+}

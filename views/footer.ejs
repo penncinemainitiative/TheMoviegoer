@@ -1,0 +1,10 @@
+<div class="container" align="center">
+	<%if (console) { %>
+		<a class="footerItem" href="/">Go to The Moviegoer</a> 
+	<% } else { %>
+		<a class="footerItem" href="/console">Go to Author Console</a>
+	<% } %>
+	<%if (login) { %>
+		• <span class="footerItem">Logout</span>
+	<% } %>
+</div>

@@ -1,0 +1,9 @@
+.footerItem {
+	color: #c29d52 !important;
+}
+
+.footerItem:hover {
+	text-decoration: none;
+	color: #000 !important;
+	cursor: pointer;
+}

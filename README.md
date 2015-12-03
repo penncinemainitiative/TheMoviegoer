@@ -8,7 +8,8 @@ The Moviegoer Web App
 	- articles [columns: articleId, isPublished, publicationDate, submissionDate, type, title, cleanTitle, urlTitle, authorUsername, image, displayImage, text]
 	- events [columns: eventId, date, location, image, presenter, authorUsername, refreshments, goingCount, fbLink]
 	- authors [columns: username, email, name, password, isEditor, image, bio]
-- [DynamoDB](https://www.youtube.com/watch?v=tDqLwzQEOmM "Video Tutorial") Tables or RDS
+	- users [columns: userId, email]
+- [DynamoDB](https://www.youtube.com/watch?v=tDqLwzQEOmM "Video Tutorial") Tables
 	- articles [key: articleId, value: { imgList: [{imageUrl, caption}], history: [{authorUsername, date, text}] }]
 	- events [key: eventId, value: { rsvpList: [{authorUsername}] }]
 	- authors [key: username, value: { articleList: [{articleId}] }]
@@ -32,3 +33,5 @@ The Moviegoer Web App
 	- Send notifications to authors 
 	- Add events
 	- View and change editor privileges
+- User
+	- Sign up for emails
