@@ -3,3 +3,5 @@ node_modules
 mysqldb.json
 secret.json
 aws.json
+json
+uploads
