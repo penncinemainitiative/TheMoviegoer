@@ -5,12 +5,12 @@ The Moviegoer Web App
 
 - NodeJS/Express server
 - Amazon RDS Tables
-	- articles [columns: articleId, isPublished, publicationDate, submissionDate, type, title, cleanTitle, urlTitle, authorUsername, image, displayImage, text]
+	- articles [columns: articleId, isPublished (0 = saved, 1 = submitted, 2 = published), publicationDate, updateDate, type, title, cleanTitle, url, authorUsername, image]
 	- events [columns: eventId, date, location, image, presenter, authorUsername, refreshments, goingCount, fbLink]
 	- authors [columns: username, email, name, password, isEditor, image, bio]
 	- users [columns: userId, email]
 - [DynamoDB](https://www.youtube.com/watch?v=tDqLwzQEOmM "Video Tutorial") Tables
-	- articles [key: articleId, value: { imgList: [{imageUrl, caption}], history: [{authorUsername, date, text}] }]
+	- articles [key: articleId, value: { imgList: [imageUrl], captionList: [captions] text, history: [{authorUsername, date, text}] }]
 	- events [key: eventId, value: { rsvpList: [{authorUsername}] }]
 	- authors [key: username, value: { articleList: [{articleId}] }]
 - S3 storage

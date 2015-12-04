@@ -40,6 +40,12 @@ var connection = mysql.createConnection({
   database : mysqlObj.database
 });
 
+var ddb = require('dynamodb').ddb({ 
+  accessKeyId: awsObj.accessKeyId, 
+  secretAccessKey: awsObj.secretAccessKey,
+  region: "us-east-1"
+});
+
 app.get('/', function (req, res) {
   var t = 'The Moviegoer';
   res.render('index', { 
@@ -67,7 +73,7 @@ app.post('/login', function (req, res) {
   var user = req.body.username;
   var pw = req.body.password;
 
-  var query = 'SELECT username, password FROM authors WHERE username=\'' + user + '\'';
+  var query = 'SELECT username, password, name FROM authors WHERE username=\'' + user + '\'';
 
   connection.query(query, function(err, rows, fields) {
     if (err) {
@@ -81,6 +87,7 @@ app.post('/login', function (req, res) {
     } else {
       req.session.login = true;
       req.session.username = user;
+      req.session.name = rows[0].name;
       res.send({success: true, msg: 'Welcome!'});
     }
   });
@@ -249,8 +256,42 @@ app.get('/new', function (req, res) {
   res.render('new', { 
     title: t,
     login: true,
-    console: true
+    console: true,
+    name: req.session.name,
+    isNew: true
   });
+});
+
+app.get('/article/*', function (req, res) {
+  if(!req.session.login) {
+    res.redirect('/console');
+    return;
+  }
+
+  var articleId = req.params['0'];
+
+  console.log(articleId);
+
+  var item = { 
+    articleId: parseInt(articleId),
+    imgList: [ 
+      'http://pennmoviegoer.com/images/windrises.jpg',
+      'http://pennmoviegoer.com/images/windrises2.jpg'
+    ],
+    captionList: [
+      'Copyright Disney 2015',
+      'Copyright Dreamworks 2015'
+    ]
+  };
+
+  ddb.putItem('articles', item, {}, function (err, res, cap) {
+    console.log(err);
+    ddb.getItem('articles', parseInt(articleId), null, {}, function (err, res, cap) {
+      console.log(res);
+    });
+  });
+
+  // Pull article from db and render article.ejs
 });
 
 var server = app.listen(8080, function () {

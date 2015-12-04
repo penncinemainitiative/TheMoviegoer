@@ -15,3 +15,7 @@
 #issue {
 	width: 60%;
 }
+
+#inputName, #inputBio, #saveBtn {
+	display: none;
+}

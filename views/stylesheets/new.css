@@ -2,15 +2,32 @@
 	width: 100%;
 }
 
-.newImage:hover {
-	opacity: 0.5;
-	cursor: copy;
+textarea {
+	max-width: 100%;
 }
 
-.newImageDiv {
+#previewView {
+	display: none;
+}
+
+#editBtn {
+	display: none;
+}
+
+.profileImg {
+	width: 75%;
 	background-color: #000;
 }
 
-textarea {
-	max-width: 100%;
+.profileImg > img {
+	width: 100%;
+}
+
+.profileImg > img:hover {
+	opacity: 0.5;
+	cursor: pointer;
+}
+
+#captionInput {
+	width: 60%;
 }

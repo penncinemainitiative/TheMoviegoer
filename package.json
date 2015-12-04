@@ -33,7 +33,8 @@
     "s3": "*",
     "request": "*",
     "mysql": "*",
-    "multer-s3":"*"
+    "multer-s3": "*",
+    "dynamodb": "*"
   },
   "author": "",
   "license": "",

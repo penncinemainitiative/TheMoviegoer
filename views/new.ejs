@@ -1,51 +1,97 @@
 <% layout( 'layout' ) -%>
 
 <link rel="stylesheet" type="text/css" href="new.css">
+<script type="text/javascript" src="new.js"></script>
 
 <div class="container" align="center">
 	<br>
-	<div class="row">
+	<div class="row" id="editView">
 		<div class="col-lg-9 col-md-8 col-sm-6">
-			<input type="text" class="form-control" id="input1" placeholder="Article Title">
+			<input type="text" class="form-control" id="headInput" placeholder="Article Title" value="Untitled Article">
 			<br>
 			<div class="radio">
 			  <label>
-			    <input type="radio" name="optionsRadios" id="optionsRadios1" value="feature" checked>
+			    <input type="radio" name="typeInput" id="optionsRadios1" value="feature" checked>
 			    Feature Article
 			  </label>
 			</div>
 			<div class="radio">
 			  <label>
-			    <input type="radio" name="optionsRadios" id="optionsRadios2" value="newmovie">
+			    <input type="radio" name="typeInput" id="optionsRadios2" value="newmovie">
 			    New Release Movie
 			  </label>
 			</div>
 			<div class="radio">
 			  <label>
-			    <input type="radio" name="optionsRadios" id="optionsRadios3" value="oldmovie">
+			    <input type="radio" name="typeInput" id="optionsRadios3" value="oldmovie">
 			    Old Release Movie
 			  </label>
 			</div>
 			<br>
-			<textarea class="form-control" rows="12" placeholder="Article Text..."></textarea>
+			<textarea class="form-control" rows="14" placeholder="Article Text..." id="textInput"></textarea>
 		</div>
 		<div class="col-lg-3 col-md-4 col-sm-6">
-			<p>Primary Image</p>
-			<button type="submit" class="btn btn-default">
-				<span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
-			</button>
-			<br><br>
 			<p>Images</p>
 			<div class="newImageDiv">
-				<img src="http://pennmoviegoer.com/images/holymotors.jpg" class="newImage">
+				<img src="http://pennmoviegoer.com/images/holymotors.jpg" class="newImage" alt="Copyright Miramax 2012">
+				<div class="input-group">
+					<span class="input-group-btn">
+		        <button class="btn btn-default btn-warning" type="button"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></button>
+		      </span>
+		      <input type="text" class="form-control" value="<img src='http://pennmoviegoer.com/images/holymotors.jpg' class='newImage' alt='Copyright Miramax 2012'>" onClick="this.select();">
+		      <span class="input-group-btn">
+		        <button class="btn btn-default btn-danger" type="button"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+		      </span>
+		    </div>
 			</div>
 			<br>
-			<button type="submit" class="btn btn-default">
+
+			<button type="button" class="btn btn-default" data-toggle="modal" data-target=".img-upload-modal">
 				<span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
 			</button>
+
+			<!-- Image Upload Modal -->
+			<div class="modal fade img-upload-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+			  <div class="modal-dialog modal-lg">
+			    <div class="modal-content">
+			    	<div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="myModalLabel">Upload Image</h4>
+			      </div>
+			      <div class="modal-body">
+			      	<div class="profileImg">
+								<image src="https://www.royalacademy.org.uk/assets/placeholder-1e385d52942ef11d42405be4f7d0a30d.jpg" id="profileImg">
+							</div>
+							<br>
+							<input type="text" class="form-control" id="captionInput" placeholder="Image Caption">
+							<br>
+							<form role="form" action="/editProfilePhoto" method="post" enctype="multipart/form-data" onerror="window.location='/profile'" id="photoForm">
+								<input type="file" id="fileInput" name="photo">
+								<input class="btn btn-default" type="submit" value="Submit" id="submitPhotoBtn">
+							</form>
+			        <button type="button" class="btn btn-default btn-sm">Save</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
 		</div>
 	</div>
 	<br>
-	<button type="submit" class="btn btn-default btn-sm">Submit</button>
+	<div class="row" id="previewView">
+		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
+			<h4 id="headPrev"></h4>
+			<h5><span id="authorPrev">
+				<% if (isNew) { %>
+					<%=  name %>
+				<% } %>
+			</span> • <span id="typePrev"></span></h5>
+			<div id="window" align="left"></div>
+		</div>
+	</div>
+	<div id="issue" class="alert alert-danger" role="alert" align="center" hidden></div>
+	<br>
+	<button type="submit" class="btn btn-default btn-sm" id="editBtn">Edit</button> 
+	<button type="submit" class="btn btn-default btn-sm" id="prevBtn">Preview</button> 
+	<button type="submit" class="btn btn-default btn-sm" id="submBtn">Submit</button> 
 </div>
 <br>

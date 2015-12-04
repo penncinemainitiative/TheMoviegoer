@@ -1,16 +1,11 @@
 $( document ).ready(function() {
 
-  $('#inputName').hide();
-  $('#inputBio').hide();
-  $('#saveBtn').hide();
   $('#photoForm').hide();
 
   var initName;
   var initBio;
 
-  $('#fileInput').change(function () { 
-    // select the form and submit
-    console.log('lol');
+  $('#fileInput').change(function () {
     $('#photoForm').submit(); 
   });
 
