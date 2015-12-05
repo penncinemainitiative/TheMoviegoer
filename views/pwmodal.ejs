@@ -8,14 +8,14 @@
       </div>
       <div class="modal-body">
         <br>
-				<input type="password" class="form-control pwinput" id="oldpw" placeholder="Old Password">
+				<input type="password" class="form-control pwinput" id="oldpw" placeholder="Old Password" onkeydown="if (event.keyCode == 13) document.getElementById('pwcBtn').click();">
 				<br>
-        <input type="password" class="form-control pwinput" id="newpw1" placeholder="New Password">
+        <input type="password" class="form-control pwinput" id="newpw1" placeholder="New Password" onkeydown="if (event.keyCode == 13) document.getElementById('pwcBtn').click();">
         <br>
-        <input type="password" class="form-control pwinput" id="newpw2" placeholder="Re-type New Password">
+        <input type="password" class="form-control pwinput" id="newpw2" placeholder="Re-type New Password" onkeydown="if (event.keyCode == 13) document.getElementById('pwcBtn').click();">
         <br>
 				<div id="issueModal" class="alert alert-danger" role="alert" align="center" hidden></div>
-        <button type="button" class="btn btn-default btn-danger btn-sm" id="modalImgUpload">Change</button>
+        <button type="button" class="btn btn-default btn-danger btn-sm" id="pwcBtn">Change</button>
       </div>
     </div>
   </div>

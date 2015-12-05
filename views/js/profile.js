@@ -63,4 +63,50 @@ $( document ).ready(function() {
     $('#fileInput').trigger('click');
   });
 
+  var showSave = function () {
+    $('#saveAlert').show();
+    setTimeout(function () {
+      $('#saveAlert').fadeOut();
+    }, 3000);
+  };
+
+  $('#pwcBtn').click(function () {
+    $('#issueModal').hide();
+
+    var opw = $('#oldpw').val();
+    var npw1 = $('#newpw1').val();
+    var npw2 = $('#newpw2').val();
+
+    if (opw === '' || npw1 === '' || npw2 === '') {
+      return;
+    }
+
+    if (npw1 !== npw2) {
+      $('#issueModal').show();
+      $('#issueModal').empty();
+      $('#issueModal').append('New passwords do not match up!');
+      return;
+    }
+
+    var postData = {
+      oldpassword: opw,
+      newpassword: npw1
+    };
+
+    $.post('/changePassword', postData, function (data) {
+      if (!data.success) {
+        $('#issueModal').show();
+        $('#issueModal').empty();
+        $('#issueModal').append(data.msg);
+        return;
+      } else {
+        // close modal and show success
+        setTimeout(function () {
+          $('#closeModalBtn').trigger('click');
+          showSave();
+        }, 500);
+      }
+    });
+  });
+
 });

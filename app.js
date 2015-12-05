@@ -610,8 +610,7 @@ app.post('/publishArticle', function (req, res) {
 });
 
 app.post('/changePassword', function (req, res) {
-  var oldpassword1 = req.body.oldpassword1;
-  var oldpassword2 = req.body.oldpassword2;
+  var oldpassword = req.body.oldpassword;
   var newpassword = req.body.newpassword;
 
   var queryString = 'SELECT password FROM authors WHERE username=' + 
@@ -621,7 +620,7 @@ app.post('/changePassword', function (req, res) {
     if (err) {
       console.log(err);
     }
-    if (oldpassword1 === rows[0].password && oldpassword1 === oldpassword2) {
+    if (oldpassword === rows[0].password) {
       var queryString1 = 'UPDATE authors SET password=' + 
                          connection.escape(newpassword) + ' WHERE username=' + 
                          connection.escape(req.session.username);
