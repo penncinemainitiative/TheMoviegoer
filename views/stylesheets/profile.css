@@ -19,3 +19,7 @@
 #inputName, #inputBio, #saveBtn {
 	display: none;
 }
+
+.pwinput {
+	width: 60%;
+}

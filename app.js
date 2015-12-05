@@ -51,8 +51,10 @@ var ddb = require('dynamodb').ddb({
 app.get('/', function (req, res) {
   var t = 'The Moviegoer';
 
-  var queryString = 'SELECT isPublished, url, pubDate, title, author, image ' +
+  var queryString = 'SELECT articleId, isPublished, url, pubDate, title, author, image ' +
                     'FROM articles WHERE isPublished=2';
+
+  queryString = queryString + ' ORDER BY pubDate DESC, articleId DESC';
 
   connection.query(queryString, function (err, rows, fields) {
     if (err) {
@@ -125,14 +127,17 @@ app.get('/home', function (req, res) {
 
   var t = 'Home';
 
-  var queryString = 'SELECT isPublished, url, updateDate, title, author, image ' +
+  var queryString = 'SELECT articleId, isPublished, url, updateDate, title, author, image ' +
                     'FROM articles WHERE isPublished!=2';
 
   if (req.session.isEditor === 0) {
     queryString = queryString + ' AND author=\'' + req.session.username + '\'';
   } else if (req.session.isEditor === 1) {
-    queryString = queryString + ' AND isPublished!=0';
+    queryString = queryString + ' AND (author=\'' + req.session.username + '\'' + 
+                  'OR isPublished=1)';
   }
+
+  queryString = queryString + ' ORDER BY updateDate DESC, articleId DESC';
 
   connection.query(queryString, function (err, rows, fields) {
     if (err) {
@@ -290,13 +295,58 @@ app.get('/new', function (req, res) {
     return;
   }
 
-  var t = 'New Article';
-  res.render('new', { 
-    title: t,
-    login: true,
-    console: true,
-    name: req.session.name,
-    isNew: true
+  var type = 'feature';
+  var title = 'Untitled Article';
+  var author = req.session.username;
+  var image = 'https://www.royalacademy.org.uk/' + 
+              'assets/placeholder-1e385d52942ef11d42405be4f7d0a30d.jpg';
+
+  var updateDate = new Date();
+  var insertData = {
+    isPublished: 0,
+    updateDate: updateDate,
+    type: type,
+    title: title,
+    author: author,
+    image: image,
+    url: '/'
+  }
+
+  var queryString = 'INSERT INTO articles SET ?';
+
+  connection.query(queryString, insertData, function (err, result) {
+    if (err) {
+      console.log('Insert Error');
+      console.log(err);
+    }
+    var url = '/article/' + result.insertId;
+    var queryString1 = 'UPDATE articles SET url=\'' + url + '\'' + 
+                       ' WHERE articleId=' + result.insertId;
+
+    connection.query(queryString1, function (err1, rows1, fields1) {
+      if (err1) {
+        console.log('Update Error');
+        console.log(err1);
+      }
+      var value = {
+        text: '',
+        imgList: [],
+        captionList: [],
+        caption: -1
+      }
+      var newItem = {
+        articleId: parseInt(result.insertId),
+        value: JSON.stringify(value)
+      };
+      ddb.putItem('articles', newItem, {}, function (err2, res2, cap2) {
+        if (err2) {
+          console.log('DDB Error');
+          console.log(err2);
+        }
+        res.redirect(url);
+        return;
+      });
+    });
   });
 });
 
@@ -401,7 +451,8 @@ app.post('/saveArticle', function (req, res) {
   var type = req.body.type;
   var text = req.body.text;
 
-  var queryString = 'UPDATE articles SET title=' + connection.escape(title) +
+  var queryString = 'UPDATE articles SET updateDate=NOW(), ' + 
+                    'title=' + connection.escape(title) +
                     ',type=' + connection.escape(type) + ' WHERE articleId=' + articleId;
 
   connection.query(queryString, function (err, rows, fields) {
@@ -438,7 +489,8 @@ app.post('/saveCover', function (req, res) {
   var image = req.body.image;
   var imageIndex = parseInt(req.body.imageIndex);
 
-  var queryString = 'UPDATE articles SET image=' + connection.escape(image) +
+  var queryString = 'UPDATE articles SET updateDate=NOW(), ' + 
+                    'image=' + connection.escape(image) +
                     ' WHERE articleId=' + articleId;
 
   connection.query(queryString, function (err, rows, fields) {
@@ -489,7 +541,7 @@ app.post('/addPhoto', function (req, res) {
       var value = JSON.parse(res1.value);
       value.imgList.push(image_url);
       value.captionList.push(caption);
-      if (value.caption === 0) {
+      if (value.caption === -1) {
         value.caption = 0;
         flag = true;
       }
@@ -506,7 +558,8 @@ app.post('/addPhoto', function (req, res) {
             console.log(err3);
           }
           if (flag) {
-              var queryString = 'UPDATE articles SET image=' + image_url +
+              var queryString = 'UPDATE articles SET updateDate=NOW(), ' + 
+                                'image=\'' + image_url + '\'' + 
                                 ' WHERE articleId=' + articleId;
 
               connection.query(queryString, function (err4, rows4, fields4) {
@@ -525,17 +578,109 @@ app.post('/addPhoto', function (req, res) {
 });
 
 app.post('/submitArticle', function (req, res) {
-  var articleId = req.body.articleId;
+  var articleId = parseInt(req.body.articleId);
+
+  var queryString = 'UPDATE articles SET updateDate=NOW(), ' + 
+                    'isPublished=1 WHERE articleId=' + articleId;
+
+  connection.query(queryString, function (err, rows, fields) {
+    if (err) {
+      console.log(err);
+    }
+    res.send({success: true});
+  });
 });
 
 app.post('/publishArticle', function (req, res) {
-  var articleId = req.body.articleId;
+  var articleId = parseInt(req.body.articleId);
+
+  if (req.session.isEditor !== 1) {
+    res.send({success: false, msg: 'Only an editor can publish articles!'});
+  }
+
+  var queryString = 'UPDATE articles SET pubDate=NOW(), updateDate=NOW(), ' + 
+                    'isPublished=2 WHERE articleId=' + articleId;
+
+  connection.query(queryString, function (err, rows, fields) {
+    if (err) {
+      console.log(err);
+    }
+    res.send({success: true});
+  });
 });
 
 app.post('/changePassword', function (req, res) {
   var oldpassword1 = req.body.oldpassword1;
   var oldpassword2 = req.body.oldpassword2;
   var newpassword = req.body.newpassword;
+
+  var queryString = 'SELECT password FROM authors WHERE username=' + 
+                    connection.escape(req.session.username);
+
+  connection.query(queryString, function (err, rows, fields) {
+    if (err) {
+      console.log(err);
+    }
+    if (oldpassword1 === rows[0].password && oldpassword1 === oldpassword2) {
+      var queryString1 = 'UPDATE authors SET password=' + 
+                         connection.escape(newpassword) + ' WHERE username=' + 
+                         connection.escape(req.session.username);
+
+      connection.query(queryString1, function (err1, rows1, fields1) {
+        if (err1) {
+          console.log(err1);
+        }
+        res.send({success: true, msg: "Password has been successfully changed!"});
+      });
+    } else {
+      res.send({success: false, msg: "Passwords do not match!"});
+    }
+  });
+});
+
+app.post('/createAccount', function (req, res) {
+  var username = req.body.username;
+  var email = req.body.email;
+  var name = req.body.name;
+  var password = req.body.password;
+  var isEditor = -1;
+  var image = 'https://www.royalacademy.org.uk/' + 
+              'assets/placeholder-1e385d52942ef11d42405be4f7d0a30d.jpg';
+  var bio = '...';
+
+  var queryString = 'INSERT INTO authors (username,email,name,password,isEditor,' + 
+                    'image,bio) VALUES (' + 
+                    connection.escape(username) + ',' +
+                    connection.escape(email) + ',' +
+                    connection.escape(name) + ',' +
+                    connection.escape(password) + ',' +
+                    isEditor + ',' + 
+                    connection.escape(image) + ',' +
+                    connection.escape(bio) + ')';
+
+  connection.query(queryString, function (err, result) {
+    if (err) {
+      console.log(err);
+      res.send({success: false, msg: err});
+    }
+    else {
+      res.send({success: true, msg: 'Account has been created and is awaiting approval!'});
+    }
+  });
+});
+
+app.post('/approveAccount', function (req, res) {
+  var username = req.body.username;
+
+  var queryString = 'UPDATE authors SET ' + 
+                    'isEditor=0 WHERE username=' + connection.escape(username);
+
+  connection.query(queryString, function (err, rows, fields) {
+    if (err) {
+      console.log(err);
+    }
+    res.send({success: true});
+  });
 });
 
 var server = app.listen(8080, function () {

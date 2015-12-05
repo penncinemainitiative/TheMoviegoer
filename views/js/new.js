@@ -173,6 +173,37 @@ $( document ).ready(function() {
 		});
 	});
 
+	$('button#submBtn').click(function () {
+		$('#issue').hide();
+		var text = $('#textInput').val();
+		var heading = $('#headInput').val();
+		var typeVal = $('input[name=typeInput]:checked').val();
+
+		if (text === '' || heading === '') {
+			$('#issue').show();
+			$('#issue').empty();
+			$('#issue').append('Please enter a title and text for the article before you <b>Save</b>!');
+			return;
+		}
+
+		var postData = {
+			articleId: articleId,
+			title: heading,
+			type: typeVal,
+			text: text
+		};
+		$.post('/saveArticle', postData, function (data) {
+			if (data.success) {
+				showSave();
+				$.post('/submitArticle', postData, function (data1) {
+					if (data.success) {
+						window.location = '/home';
+					}
+				});
+			}
+		});
+	});
+
 	$('button.starBtn').click(function (e) {
 		
 		var currentbtn = $(e.target).closest('button');

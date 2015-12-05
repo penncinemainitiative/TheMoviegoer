@@ -21,6 +21,9 @@
 			<h5 id="profileName"><%= name %></h5>
 			<p id="profileBio"><%= bio %></p>
 
+			<br>
+			<button type="submit" class="btn btn-default btn-sm" id="pwBtn" data-toggle="modal" data-target=".pw-change-modal"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Change Password</button>
+
 			<div id="issue" class="alert alert-danger" role="alert" align="center" hidden></div>
 			<br>
 			<input type="text" class="form-control" id="inputName" value="<%= name %>" onkeydown="if (event.keyCode == 13) document.getElementById('saveBtn').click();">
@@ -32,3 +35,5 @@
 	</div>
 	<br>
 </div>
+
+<% include pwmodal %>

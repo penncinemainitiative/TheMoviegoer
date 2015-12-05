@@ -11,6 +11,7 @@ $( document ).ready(function() {
 
   $('button#editBtn').click(function () {
     $('#editBtn').hide();
+    $('#pwBtn').hide();
     $('#profileName').hide();
     $('#profileBio').hide();
     $('#inputName').show();
@@ -49,6 +50,7 @@ $( document ).ready(function() {
     }
 
     $('#editBtn').show();
+    $('#pwBtn').show();
     $('#profileName').show();
     $('#profileBio').show();
     $('#issue').hide();
