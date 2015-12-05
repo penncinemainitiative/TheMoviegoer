@@ -1,0 +1,80 @@
+<% layout( 'layout' ) -%>
+
+<link rel="stylesheet" type="text/css" href="/new.css">
+<script type="text/javascript" src="/filereader.js"></script>
+<script type="text/javascript" src="/new.js"></script>
+
+<div class="container" align="center">
+	<br>
+	<div class="row" id="editView">
+		<div class="col-lg-9 col-md-8 col-sm-6">
+			<input type="text" class="form-control" id="headInput" placeholder="Article Title" value="<%= title %>">
+			<br>
+			<div id="typeRadioVal" hidden><%= type %></div>
+			<div class="radio">
+			  <label>
+			    <input type="radio" name="typeInput" id="featureRadio" value="feature" checked>
+			    Feature Article
+			  </label>
+			</div>
+			<div class="radio">
+			  <label>
+			    <input type="radio" name="typeInput" id="newmovieRadio" value="newmovie">
+			    New Release Movie
+			  </label>
+			</div>
+			<div class="radio">
+			  <label>
+			    <input type="radio" name="typeInput" id="oldmovieRadio" value="oldmovie">
+			    Old Release Movie
+			  </label>
+			</div>
+			<br>
+			<textarea class="form-control" rows="14" placeholder="Article Text..." id="textInput"><%- text %></textarea>
+		</div>
+		<div class="col-lg-3 col-md-4 col-sm-6">
+			<p>Images</p>
+
+			<% for (var i = 0; i < imgList.length; i++) { %>
+				<div class="newImageDiv">
+					<img src="<%= imgList[i] %>" class="newImage" alt="<%= captionList[i] %>">
+					<div class="input-group">
+			      <input type="text" class="form-control" value="<img src='<%= imgList[i] %>' class='newImage' alt='<%= captionList[i] %>'>" onClick="this.select();">
+			      <span class="input-group-btn">
+			      	<% if (cover === i) { %>
+			        	<button class="btn btn-default btn-primary starBtn" type="button" value="<%= i %>;<%= imgList[i] %>"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></button>
+			        <% } else { %>
+			        	<button class="btn btn-default starBtn" type="button" value="<%= i %>;<%= imgList[i] %>"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></button>
+			        <% } %>
+			      </span>
+			    </div>
+				</div>
+				<br>
+			<% } %>
+
+			<button type="button" class="btn btn-default" data-toggle="modal" data-target=".img-upload-modal" id="imgUploadBtn">
+				<span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
+			</button>
+
+		</div>
+	</div>
+	<br>
+	<% include view %>
+	<div class="alert alert-success alert-dismissible" role="alert" id="saveAlert" hidden>
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	  The article has been <strong>saved</strong>!
+	</div>
+	<div id="issue" class="alert alert-danger" role="alert" align="center" hidden></div>
+	<br>
+	<button type="submit" class="btn btn-default btn-sm" id="editBtn">Edit</button> 
+	<button type="submit" class="btn btn-default btn-sm" id="saveBtn">Save</button> 
+	<button type="submit" class="btn btn-default btn-sm" id="prevBtn">Preview</button> 
+	<% if (isPublished === 0) { %>
+		<button type="submit" class="btn btn-default btn-sm" id="submBtn">Submit</button>
+	<% } %> 
+	<% if (isEditor === 1) { %>
+		<button type="submit" class="btn btn-default btn-sm" id="publBtn">Publish</button>
+	<% } %> 
+</div>
+<br>
+<% include imagemodal %>

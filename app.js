@@ -9,9 +9,11 @@ var multer  = require('multer');
 var s3 = require('multer-s3');
 var bodyParser = require('body-parser');
 var fs = require('fs');
+var async = require('async');
 var secretObj = JSON.parse(fs.readFileSync('json/secret.json', 'utf8'));
 var mysqlObj = JSON.parse(fs.readFileSync('json/mysqldb.json', 'utf8'));
 var awsObj = JSON.parse(fs.readFileSync('json/aws.json', 'utf8'));
+var dateFormat = require('dateformat');
 app.engine('ejs', engine);
 app.set('views', path.join( __dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -48,10 +50,21 @@ var ddb = require('dynamodb').ddb({
 
 app.get('/', function (req, res) {
   var t = 'The Moviegoer';
-  res.render('index', { 
-    title: t,
-    login: false,
-    console: false
+
+  var queryString = 'SELECT isPublished, url, pubDate, title, author, image ' +
+                    'FROM articles WHERE isPublished=2';
+
+  connection.query(queryString, function (err, rows, fields) {
+    if (err) {
+      console.log(err);
+    }
+    var returnData = {
+      title: t,
+      login: req.session.login,
+      console: false,
+      articleList: rows
+    };
+    res.render('index', returnData);
   });
 });
 
@@ -73,21 +86,25 @@ app.post('/login', function (req, res) {
   var user = req.body.username;
   var pw = req.body.password;
 
-  var query = 'SELECT username, password, name FROM authors WHERE username=\'' + user + '\'';
+  var query = 'SELECT username, password, name, isEditor FROM authors ' + 
+              'WHERE username=' + connection.escape(user);
 
-  connection.query(query, function(err, rows, fields) {
+  connection.query(query, function (err, rows, fields) {
     if (err) {
       throw err;
     }
 
-     if (rows.length === 0) {
-       res.send({success: false, msg: 'Username not found!'});
-     } else if (rows[0].password !== pw) {
-       res.send({success: false, msg: 'Incorrect password!'});
+    if (rows.length === 0) {
+      res.send({success: false, msg: 'Username not found!'});
+    } else if (rows[0].password !== pw) {
+      res.send({success: false, msg: 'Incorrect password!'});
+    } else if (rows[0].isEditor === -1) {
+      res.send({success: false, msg: 'Your account has not been approved yet!'});
     } else {
       req.session.login = true;
       req.session.username = user;
       req.session.name = rows[0].name;
+      req.session.isEditor = rows[0].isEditor;
       res.send({success: true, msg: 'Welcome!'});
     }
   });
@@ -107,10 +124,27 @@ app.get('/home', function (req, res) {
   }
 
   var t = 'Home';
-  res.render('home', { 
-    title: t,
-    login: true,
-    console: true
+
+  var queryString = 'SELECT isPublished, url, updateDate, title, author, image ' +
+                    'FROM articles WHERE isPublished!=2';
+
+  if (req.session.isEditor === 0) {
+    queryString = queryString + ' AND author=\'' + req.session.username + '\'';
+  } else if (req.session.isEditor === 1) {
+    queryString = queryString + ' AND isPublished!=0';
+  }
+
+  connection.query(queryString, function (err, rows, fields) {
+    if (err) {
+      console.log(err);
+    }
+    var returnData = {
+      title: t,
+      login: req.session.login,
+      console: true,
+      articleList: rows
+    };
+    res.render('index', returnData);
   });
 });
 
@@ -130,7 +164,7 @@ app.get('/profile', function (req, res) {
   var query = 'SELECT username, email, name, bio, image' + 
               ' FROM authors WHERE username=\'' + req.session.username + '\'';
 
-  connection.query(query, function(err, rows, fields) {
+  connection.query(query, function (err, rows, fields) {
     if (err) {
       throw err;
     }
@@ -150,11 +184,11 @@ app.post('/editProfile', function (req, res) {
   var bio = req.body.bio;
 
   var query = 'UPDATE authors SET ' +
-              'name=\'' + name + '\', ' +
-              'bio=\'' + bio + '\' WHERE ' + 
-              'username=\'' + req.session.username + '\'';
+              'name=' + connection.escape(name) +
+              'bio=' + connection.escape(bio) + ' WHERE ' + 
+              'username=' + connection.escape(req.session.username);
 
-  connection.query(query, function(err, rows, fields) {
+  connection.query(query, function (err, rows, fields) {
     if (err) {
       throw err;
       res.send({success: false});
@@ -164,7 +198,7 @@ app.post('/editProfile', function (req, res) {
   });
 });
 
-app.post('/editProfilePhoto', function (req, res) {
+var uploadToS3 = function (file, callback) {
   var uuid = require('node-uuid');
   var file_suffix = uuid.v1()
   var s3 = require('s3');
@@ -184,23 +218,23 @@ app.post('/editProfilePhoto', function (req, res) {
 
   var file_ext = '';
 
-  if (req.file.mimetype === 'image/jpeg') {
+  if (file.mimetype === 'image/jpeg') {
     file_ext = ".jpg";
-  } else if (req.file.mimetype === 'image/png') {
+  } else if (file.mimetype === 'image/png') {
     file_ext = ".png";
   } else {
     res.send({success: false, msg: 'Please upload only .png or .jpg images!'});
   }
 
   var params = {
-    localFile: req.file.path,     
+    localFile: file.path,     
     s3Params: {
       Bucket: 'moviegoer',
       Key: 'uploads/' + file_suffix + file_ext
       // other options supported by putObject, except Body and ContentLength. 
       // See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#putObject-property 
     },
-    defaultContentType: req.file.mimetype
+    defaultContentType: file.mimetype
   };
 
   var uploader = client.uploadFile(params);
@@ -214,7 +248,12 @@ app.post('/editProfilePhoto', function (req, res) {
   uploader.on('end', function() {
     console.log("done uploading");
     var image_url = 'https://s3.amazonaws.com/moviegoer/uploads/' + file_suffix + file_ext;
+    callback(image_url);
+  });
+};
 
+app.post('/editProfilePhoto', function (req, res) {
+  uploadToS3(req.file, function (image_url) {
     var query = 'UPDATE authors SET ' +
                 'image=\'' + image_url + '\' WHERE ' + 
                 'username=\'' + req.session.username + '\'';
@@ -229,7 +268,6 @@ app.post('/editProfilePhoto', function (req, res) {
       }
     });
   });
-
 });
 
 app.get('/events', function (req, res) {
@@ -262,36 +300,242 @@ app.get('/new', function (req, res) {
   });
 });
 
-app.get('/article/*', function (req, res) {
+app.get('/article/:id', function (req, res) {
+  var articleId = parseInt(req.params.id);
+
+  var queryString = 'SELECT isPublished, pubDate, type, title, author ' +
+              'FROM articles WHERE articleId=' + articleId;
+
+  connection.query(queryString, function (err, rows, fields) {
+    if (err) {
+      console.log(err);
+    }
+    if (rows[0].isPublished === 0 || rows[0].isPublished === 1) {
+      res.redirect('/newarticle/' + req.params.id);
+      return;
+    } else {
+      var queryString1 = 'SELECT name FROM authors WHERE username=\'' + 
+              rows[0].author + '\'';
+
+      connection.query(queryString1, function(err1, rows1, fields1) {
+        if (err1) {
+          console.log(err1);
+        }
+        ddb.getItem('articles', articleId, null, {}, function (err2, res2, cap2) {
+          if (err2) {
+            console.log(err2);
+          }
+          var value = JSON.parse(res2.value);
+          var returnData = {
+            title: rows[0].title,
+            login: req.session.login,
+            console: false,
+            date: dateFormat(rows[0].pubDate, "mmmm d, yyyy"),
+            type: rows[0].type,
+            author: rows1[0].name,
+            text: value.text
+          };
+          res.render('article', returnData);
+        });
+      });
+    }
+  });
+});
+
+app.get('/newarticle/:id', function (req, res) {
   if(!req.session.login) {
     res.redirect('/console');
     return;
   }
 
-  var articleId = req.params['0'];
+  var articleId = parseInt(req.params.id);
 
-  console.log(articleId);
+  var queryString = 'SELECT isPublished, pubDate, type, title, author ' +
+              'FROM articles WHERE articleId=' + articleId;
 
-  var item = { 
-    articleId: parseInt(articleId),
-    imgList: [ 
-      'http://pennmoviegoer.com/images/windrises.jpg',
-      'http://pennmoviegoer.com/images/windrises2.jpg'
-    ],
-    captionList: [
-      'Copyright Disney 2015',
-      'Copyright Dreamworks 2015'
-    ]
-  };
+  connection.query(queryString, function (err, rows, fields) {
+    if (err) {
+      console.log(err);
+    }
+    if (rows[0].isPublished === 2) {
+      res.redirect('/article/' + req.params.id);
+      return;
+    } else {
+      var queryString1 = 'SELECT name FROM authors WHERE username=\'' + 
+              rows[0].author + '\'';
 
-  ddb.putItem('articles', item, {}, function (err, res, cap) {
-    console.log(err);
-    ddb.getItem('articles', parseInt(articleId), null, {}, function (err, res, cap) {
-      console.log(res);
+      connection.query(queryString1, function(err1, rows1, fields1) {
+        if (err1) {
+          console.log(err1);
+        }
+        ddb.getItem('articles', articleId, null, {}, function (err2, res2, cap2) {
+          if (err2) {
+            console.log(err2);
+          }
+          var value = JSON.parse(res2.value);
+          var returnData = {
+            title: rows[0].title,
+            login: req.session.login,
+            console: true,
+            date: dateFormat(rows[0].updateDate, "mmmm d, yyyy"),
+            type: rows[0].type,
+            author: rows1[0].name,
+            text: value.text,
+            imgList: value.imgList,
+            captionList: value.captionList,
+            cover: value.cover,
+            isEditor: req.session.isEditor,
+            isPublished: rows[0].isPublished,
+            articleId: articleId
+          };
+          res.render('newarticle', returnData);
+        });
+      });
+    }
+  });
+});
+
+app.post('/saveArticle', function (req, res) {
+  var articleId = parseInt(req.body.articleId);
+  var title = req.body.title;
+  var type = req.body.type;
+  var text = req.body.text;
+
+  var queryString = 'UPDATE articles SET title=' + connection.escape(title) +
+                    ',type=' + connection.escape(type) + ' WHERE articleId=' + articleId;
+
+  connection.query(queryString, function (err, rows, fields) {
+    if (err) {
+      console.log(err);
+    }
+    ddb.getItem('articles', articleId, null, {}, function (err1, res1, cap1) {
+      if (err1) {
+        console.log(err1);
+      }
+      var value = JSON.parse(res1.value);
+      value.text = text;
+      var newItem = {
+        articleId: articleId,
+        value: JSON.stringify(value)
+      };
+      ddb.deleteItem('articles', articleId, null, {}, function (err2, res2, cap2) {
+        if (err2) {
+          console.log(err2);
+        }
+        ddb.putItem('articles', newItem, {}, function (err3, res3, cap3) {
+          if (err3) {
+            console.log(err3);
+          }
+          res.send({success: true});
+        });
+      });
     });
   });
+});
 
-  // Pull article from db and render article.ejs
+app.post('/saveCover', function (req, res) {
+  var articleId = parseInt(req.body.articleId);
+  var image = req.body.image;
+  var imageIndex = parseInt(req.body.imageIndex);
+
+  var queryString = 'UPDATE articles SET image=' + connection.escape(image) +
+                    ' WHERE articleId=' + articleId;
+
+  connection.query(queryString, function (err, rows, fields) {
+    if (err) {
+      console.log(err);
+    }
+    ddb.getItem('articles', articleId, null, {}, function (err1, res1, cap1) {
+      if (err1) {
+        console.log(err1);
+      }
+      var value = JSON.parse(res1.value);
+      value.cover = imageIndex;
+      var newItem = {
+        articleId: articleId,
+        value: JSON.stringify(value)
+      };
+      ddb.deleteItem('articles', articleId, null, {}, function (err2, res2, cap2) {
+        if (err2) {
+          console.log(err2);
+        }
+        ddb.putItem('articles', newItem, {}, function (err3, res3, cap3) {
+          if (err3) {
+            console.log(err3);
+          }
+          res.send({success: true});
+        });
+      });
+    });
+  });
+});
+
+app.post('/addCaption', function (req, res) {
+  console.log('caption is here');
+  req.session.caption = req.body.caption;
+  res.send({success: true});
+});
+
+app.post('/addPhoto', function (req, res) {
+  var flag = false;
+  var articleId = parseInt(req.body.articleId);
+  uploadToS3(req.file, function (image_url) {
+    var caption = req.session.caption;
+
+    ddb.getItem('articles', articleId, null, {}, function (err1, res1, cap1) {
+      if (err1) {
+        console.log(err1);
+      }
+      var value = JSON.parse(res1.value);
+      value.imgList.push(image_url);
+      value.captionList.push(caption);
+      if (value.caption === 0) {
+        value.caption = 0;
+        flag = true;
+      }
+      var newItem = {
+        articleId: articleId,
+        value: JSON.stringify(value)
+      };
+      ddb.deleteItem('articles', articleId, null, {}, function (err2, res2, cap2) {
+        if (err2) {
+          console.log(err2);
+        }
+        ddb.putItem('articles', newItem, {}, function (err3, res3, cap3) {
+          if (err3) {
+            console.log(err3);
+          }
+          if (flag) {
+              var queryString = 'UPDATE articles SET image=' + image_url +
+                                ' WHERE articleId=' + articleId;
+
+              connection.query(queryString, function (err4, rows4, fields4) {
+                if (err4) {
+                  console.log(err4);
+                }
+                res.redirect('/article/' + articleId);
+              });
+          } else {
+            res.redirect('/article/' + articleId);
+          }
+        });
+      });
+    });
+  });
+});
+
+app.post('/submitArticle', function (req, res) {
+  var articleId = req.body.articleId;
+});
+
+app.post('/publishArticle', function (req, res) {
+  var articleId = req.body.articleId;
+});
+
+app.post('/changePassword', function (req, res) {
+  var oldpassword1 = req.body.oldpassword1;
+  var oldpassword2 = req.body.oldpassword2;
+  var newpassword = req.body.newpassword;
 });
 
 var server = app.listen(8080, function () {

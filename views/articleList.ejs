@@ -1,0 +1,29 @@
+<% for(var i=0; i < articleList.length; i++) { %>
+	<div class="row">
+		<div class="col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-1 col-xs-6">
+			<a href="<%= articleList[i].url %>" class="articleTitle">
+				<img src="<%= articleList[i].image %>" class="articleImg">
+			</a>
+		</div>
+		<div class="col-lg-5 col-md-5 col-xs-6" align="left">
+			<h4>
+				<a href="<%= articleList[i].url %>" class="articleTitle">
+					<%= articleList[i].title %>
+				</a>
+			</h4>
+			<h5><%= articleList[i].author %></h5>
+			<% if (articleList[i].isPublished === 2) { %>
+				<h5><%= articleList[i].pubDate %></h5>
+			<% } else { %>
+				<h5><%= articleList[i].updateDate %></h5>
+			<% } %>
+			<% if (articleList[i].isPublished === 0) { %>
+				<br>
+				<h5 class="goldh5">Saved Locally</h5>
+			<% } else if (articleList[i].isPublished === 1) { %>
+				<br>
+				<h5 class="goldh5">Submitted for Review</h5>
+			<% } %>
+		</div>
+	</div>
+<% } %>

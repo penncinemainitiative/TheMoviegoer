@@ -14,19 +14,19 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" href="favicon.png">
+	<link rel="shortcut icon" href="/favicon.png">
 
 	<!-- Our Stylesheets -->
-	<link rel="stylesheet" type="text/css" href="general.css">
-	<link rel="stylesheet" type="text/css" href="navbar.css">
-	<link rel="stylesheet" type="text/css" href="header.css">
-	<link rel="stylesheet" type="text/css" href="footer.css">
+	<link rel="stylesheet" type="text/css" href="/general.css">
+	<link rel="stylesheet" type="text/css" href="/navbar.css">
+	<link rel="stylesheet" type="text/css" href="/header.css">
+	<link rel="stylesheet" type="text/css" href="/footer.css">
 </head>
 <body>
 	<div id="all">
 		<div id="notFooter">
 			<% include header %>
-			<%if (login) { %>
+			<%if (login && console) { %>
 				<% include navbar %>
 			<% } %>
 			<%- body %>

@@ -1,0 +1,26 @@
+<!-- Image Upload Modal -->
+<div class="modal fade img-upload-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" align="center">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+    	<div class="modal-header">
+        <button id="closeModalBtn" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Upload Image</h4>
+      </div>
+      <div class="modal-body">
+      	<div class="profileImg">
+					<image src="https://www.royalacademy.org.uk/assets/placeholder-1e385d52942ef11d42405be4f7d0a30d.jpg" id="profileImg">
+				</div>
+				<br>
+				<input type="text" class="form-control" id="captionInput" placeholder="Image Caption">
+				<br>
+				<form role="form" action="/addPhoto" method="post" enctype="multipart/form-data" onerror="window.location='/profile'" id="photoForm">
+					<input type="text" value="<%= articleId %>" name="articleId">
+					<input type="file" id="fileInput" name="photo">
+					<input class="btn btn-default" type="submit" value="Submit" id="submitPhotoBtn">
+				</form>
+				<div id="issueModal" class="alert alert-danger" role="alert" align="center" hidden></div>
+        <button type="button" class="btn btn-default btn-sm" id="modalImgUpload">Upload</button>
+      </div>
+    </div>
+  </div>
+</div>

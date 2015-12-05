@@ -34,7 +34,8 @@
     "request": "*",
     "mysql": "*",
     "multer-s3": "*",
-    "dynamodb": "*"
+    "dynamodb": "*",
+    "dateformat": "*"
   },
   "author": "",
   "license": "",

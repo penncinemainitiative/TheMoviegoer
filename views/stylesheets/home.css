@@ -1,3 +1,16 @@
 .articleImg {
 	width: 100%;
 }
+
+.articleTitle {
+	color: #000 !important;
+}
+
+.articleTitle:hover {
+	color: #000 !important;
+	text-decoration: none !important;
+}
+
+.goldh5 {
+	color: #c29d52;
+}
