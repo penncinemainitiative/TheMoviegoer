@@ -182,7 +182,7 @@ $( document ).ready(function() {
 		if (text === '' || heading === '') {
 			$('#issue').show();
 			$('#issue').empty();
-			$('#issue').append('Please enter a title and text for the article before you <b>Save</b>!');
+			$('#issue').append('Please enter a title and text for the article before you <b>Submit</b>!');
 			return;
 		}
 
@@ -198,6 +198,37 @@ $( document ).ready(function() {
 				$.post('/submitArticle', postData, function (data1) {
 					if (data.success) {
 						window.location = '/home';
+					}
+				});
+			}
+		});
+	});
+
+	$('button#publBtn').click(function () {
+		$('#issue').hide();
+		var text = $('#textInput').val();
+		var heading = $('#headInput').val();
+		var typeVal = $('input[name=typeInput]:checked').val();
+
+		if (text === '' || heading === '') {
+			$('#issue').show();
+			$('#issue').empty();
+			$('#issue').append('Please enter a title and text for the article before you <b>Publish</b>!');
+			return;
+		}
+
+		var postData = {
+			articleId: articleId,
+			title: heading,
+			type: typeVal,
+			text: text
+		};
+		$.post('/saveArticle', postData, function (data) {
+			if (data.success) {
+				showSave();
+				$.post('/publishArticle', postData, function (data1) {
+					if (data.success) {
+						window.location = '/';
 					}
 				});
 			}

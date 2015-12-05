@@ -60,13 +60,33 @@ app.get('/', function (req, res) {
     if (err) {
       console.log(err);
     }
-    var returnData = {
-      title: t,
-      login: req.session.login,
-      console: false,
-      articleList: rows
+
+    // Take rows and do shit! 
+    var getInfo = function (item, callback) {
+      item.pubDate = dateFormat(item.pubDate, "mmmm d, yyyy");
+
+      queryString1 = 'SELECT name FROM authors WHERE username=' + 
+                     connection.escape(item.author);
+      connection.query(queryString1, function (err1, rows1, fields1) {
+        if (err1) {
+          console.log(err1);
+        }
+        item.authorname = rows1[0].name;
+        newrows.push(item);
+        callback();
+      });
     };
-    res.render('index', returnData);
+
+    var newrows = [];
+    async.eachSeries(rows, getInfo, function (err) {
+      var returnData = {
+        title: t,
+        login: req.session.login,
+        console: false,
+        articleList: newrows
+      };
+      res.render('index', returnData);
+    });
   });
 });
 
@@ -143,13 +163,33 @@ app.get('/home', function (req, res) {
     if (err) {
       console.log(err);
     }
-    var returnData = {
-      title: t,
-      login: req.session.login,
-      console: true,
-      articleList: rows
+
+    // Take rows and do shit! 
+    var getInfo = function (item, callback) {
+      item.updateDate = dateFormat(item.updateDate, "mmmm d, yyyy");
+
+      queryString1 = 'SELECT name FROM authors WHERE username=' + 
+                     connection.escape(item.author);
+      connection.query(queryString1, function (err1, rows1, fields1) {
+        if (err1) {
+          console.log(err1);
+        }
+        item.authorname = rows1[0].name;
+        newrows.push(item);
+        callback();
+      });
     };
-    res.render('index', returnData);
+
+    var newrows = [];
+    async.eachSeries(rows, getInfo, function (err) {
+      var returnData = {
+        title: t,
+        login: req.session.login,
+        console: true,
+        articleList: newrows
+      };
+      res.render('home', returnData);
+    });
   });
 });
 
