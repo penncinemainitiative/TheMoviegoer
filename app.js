@@ -235,7 +235,8 @@ app.post('/editProfile', function (req, res) {
 
   connection.query(query, function (err, rows, fields) {
     if (err) {
-      throw err;
+      console.log('Profile Edit Error');
+      console.log(err);
       res.send({success: false});
     } else {
       res.send({success: true});
