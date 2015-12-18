@@ -229,7 +229,7 @@ app.post('/editProfile', function (req, res) {
   var bio = req.body.bio;
 
   var query = 'UPDATE authors SET ' +
-              'name=' + connection.escape(name) +
+              'name=' + connection.escape(name) + ', ' +
               'bio=' + connection.escape(bio) + ' WHERE ' + 
               'username=' + connection.escape(req.session.username);
 
