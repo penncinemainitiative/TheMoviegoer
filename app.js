@@ -500,6 +500,7 @@ app.post('/saveArticle', function (req, res) {
     if (err) {
       console.log(err);
     }
+
     ddb.getItem('articles', articleId, null, {}, function (err1, res1, cap1) {
       if (err1) {
         console.log(err1);
@@ -507,19 +508,13 @@ app.post('/saveArticle', function (req, res) {
       var value = JSON.parse(res1.value);
       value.text = text;
       var newItem = {
-        articleId: articleId,
-        value: JSON.stringify(value)
+        'value': { value: JSON.stringify(value) }
       };
-      ddb.deleteItem('articles', articleId, null, {}, function (err2, res2, cap2) {
+      ddb.updateItem('articles', articleId, null, newItem, {}, function (err2, res2, cap2) {
         if (err2) {
           console.log(err2);
         }
-        ddb.putItem('articles', newItem, {}, function (err3, res3, cap3) {
-          if (err3) {
-            console.log(err3);
-          }
-          res.send({success: true});
-        });
+        res.send({success: true});
       });
     });
   });
@@ -545,19 +540,13 @@ app.post('/saveCover', function (req, res) {
       var value = JSON.parse(res1.value);
       value.cover = imageIndex;
       var newItem = {
-        articleId: articleId,
-        value: JSON.stringify(value)
+        'value': { value: JSON.stringify(value) }
       };
-      ddb.deleteItem('articles', articleId, null, {}, function (err2, res2, cap2) {
+      ddb.updateItem('articles', articleId, null, newItem, {}, function (err2, res2, cap2) {
         if (err2) {
           console.log(err2);
         }
-        ddb.putItem('articles', newItem, {}, function (err3, res3, cap3) {
-          if (err3) {
-            console.log(err3);
-          }
-          res.send({success: true});
-        });
+        res.send({success: true});
       });
     });
   });
@@ -587,32 +576,26 @@ app.post('/addPhoto', function (req, res) {
         flag = true;
       }
       var newItem = {
-        articleId: articleId,
-        value: JSON.stringify(value)
+        'value': { value: JSON.stringify(value) }
       };
-      ddb.deleteItem('articles', articleId, null, {}, function (err2, res2, cap2) {
+      ddb.updateItem('articles', articleId, null, newItem, {}, function (err2, res2, cap2) {
         if (err2) {
           console.log(err2);
         }
-        ddb.putItem('articles', newItem, {}, function (err3, res3, cap3) {
-          if (err3) {
-            console.log(err3);
-          }
-          if (flag) {
-              var queryString = 'UPDATE articles SET updateDate=NOW(), ' + 
-                                'image=\'' + image_url + '\'' + 
-                                ' WHERE articleId=' + articleId;
+        if (flag) {
+          var queryString = 'UPDATE articles SET updateDate=NOW(), ' +
+                            'image=\'' + image_url + '\'' +
+                            ' WHERE articleId=' + articleId;
 
-              connection.query(queryString, function (err4, rows4, fields4) {
-                if (err4) {
-                  console.log(err4);
-                }
-                res.redirect('/article/' + articleId);
-              });
-          } else {
+          connection.query(queryString, function (err4, rows4, fields4) {
+            if (err4) {
+              console.log(err4);
+            }
             res.redirect('/article/' + articleId);
-          }
-        });
+          });
+        } else {
+          res.redirect('/article/' + articleId);
+        }
       });
     });
   });
