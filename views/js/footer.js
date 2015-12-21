@@ -1,7 +1,7 @@
 $( document ).ready(function() {
 
   $('span#logout').click(function () {
-    $.post('/logout', {}, function (data) {
+    $.post('/console/logout', {}, function (data) {
       if (data.success) {
         window.location = '/console';
       }

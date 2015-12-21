@@ -16,13 +16,13 @@ $( document ).ready(function() {
       password: pw
     };
 
-    $.post('/login', loginData, function (data) {
+    $.post('/console/login', loginData, function (data) {
       if (!data.success) {
         $('#issue').show();
         $('#issue').empty();
         $('#issue').append(data.msg);
       } else {
-        window.location = '/home';
+        window.location = '/console/home';
       }
     });
   });

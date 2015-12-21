@@ -10,7 +10,7 @@
 			<div class="profileImg">
 				<image src="<%= image %>" id="profileImg">
 			</div>
-			<form role="form" action="/editProfilePhoto" method="post" enctype="multipart/form-data" onerror="window.location='/profile'" id="photoForm">
+			<form role="form" action="/account/profile/picture" method="post" enctype="multipart/form-data" onerror="window.location='/account/profile'" id="photoForm">
 				<input type="file" id="fileInput" name="photo">
 				<input class="btn btn-default" type="submit" value="Submit" id="submitPhotoBtn">
 			</form>

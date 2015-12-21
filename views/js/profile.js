@@ -42,11 +42,7 @@ $( document ).ready(function() {
         name: name,
         bio: bio
       };
-      $.post('/editProfile', editData, function (data) {
-        if (!data.success) {
-          return;
-        }
-      });
+      $.post('/account/profile/description', editData);
     }
 
     $('#editBtn').show();
@@ -93,7 +89,7 @@ $( document ).ready(function() {
       newpassword: npw1
     };
 
-    $.post('/changePassword', postData, function (data) {
+    $.post('/account/password', postData, function (data) {
       if (!data.success) {
         $('#issueModal').show();
         $('#issueModal').empty();
