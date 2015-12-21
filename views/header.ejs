@@ -1,20 +1,16 @@
-<div class="container" align="center">
-	<%if (console) { %>
-	
-	<h2>
-		<a href="/console" id="headerTitle">
-			<img src="/logo.png" class="headerlogo">
-			<small> Author Console</small>
-		</a>
-	</h2>
-	
-	<% } else { %>
-	
-	<h2>
-		<a href="/" id="headerTitle">
-			<img src="/logo.png" class="headerlogo">
-		</a>
-	</h2>
-	
-	<% } %>
-</div>
+<link rel="stylesheet" type="text/css" href="/header.css">
+    <div class="row">
+      <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-xs-2 col-xs-offset-1">
+        <h5 class="headerh5" id="features"><a href="/features" class="headeritem">Features</a></h5>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+        <h5 class="headerh5" id="movies"><a href="/movies" class="headeritem">Movies</a></h5>
+      </div>
+      <% include logo %>
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+        <h5 class="headerh5" id="events"><a href="/events" class="headeritem">Events</a></h5>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+        <h5 class="headerh5" id="about"><a href="/about" class="headeritem">About</a></h5>
+      </div>
+    </div>

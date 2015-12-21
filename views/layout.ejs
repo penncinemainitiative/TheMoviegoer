@@ -18,22 +18,26 @@
 
 	<!-- Our Stylesheets -->
 	<link rel="stylesheet" type="text/css" href="/general.css">
-	<link rel="stylesheet" type="text/css" href="/navbar.css">
 	<link rel="stylesheet" type="text/css" href="/header.css">
 	<link rel="stylesheet" type="text/css" href="/footer.css">
 </head>
 <body>
-	<div id="all">
-		<div id="notFooter">
-			<% include header %>
-			<% if (login && console) { %>
-				<% include navbar %>
-			<% } %>
-			<%- body %>
-		</div>
-		<div id="footer">
-			<% include footer %>
-		</div>
+	<div id="notFooter">
+            <div id="header" align="center">
+                <div class="container-fluid">
+	        <% if (login && console) { %>
+			<% include navbar %>
+                <% } else { %>
+                        <% include header %>
+                <% } %>
+                </div>
+            </div>
+            <div id="content" align="center">
+	      <%- body %>
+            </div>
+	</div>
+	<div id="footer">
+		<% include footer %>
 	</div>
 </body>	
 </html>

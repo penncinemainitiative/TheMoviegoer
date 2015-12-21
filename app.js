@@ -23,6 +23,7 @@ app.use(express.static(path.join(__dirname, 'public' )));
 app.use(express.static(__dirname + '/views/stylesheets'));
 app.use(express.static(__dirname + '/views/images'));
 app.use(express.static(__dirname + '/views/js'));
+app.use(express.static(__dirname + '/views/fonts'));
 app.use(bodyParser.urlencoded({extended: true }));
 app.use(bodyParser.json());
 
@@ -185,6 +186,7 @@ app.get('/home', function (req, res) {
       var returnData = {
         title: t,
         login: req.session.login,
+        name: req.session.name,
         console: true,
         articleList: newrows
       };

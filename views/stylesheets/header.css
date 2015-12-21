@@ -1,12 +1,33 @@
-#headerTitle {
-	color: #000;
-}
-
-#headerTitle:hover {
-	text-decoration: none !important;
-	color: #000;
-}
-
 .headerlogo {
-	height: 42px;
+  height: 42px;
+}
+
+#header {
+  min-height: 8%;
+  background-color: #2B292B;
+  color: #c29d52;
+  padding-top: 15px;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  font-family: gotham;
+}
+
+.headeritem {
+  color: inherit;
+}
+
+.headeritem, .headeritem:hover, .headeritem:active {
+  text-decoration: none;
+}
+
+.headeritem:hover, .headeritem:active {
+  color: #f5f2ed;
+}
+
+.title {
+  font-family: gotham;
+  color: #2B292B;
+  padding-bottom: 16px;
+  font-size: 36px;
 }
