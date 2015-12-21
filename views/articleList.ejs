@@ -16,6 +16,7 @@
 				<h5><%= articleList[i].pubDate %></h5>
 			<% } else { %>
 				<h5><%= articleList[i].updateDate %></h5>
+				<h5><a href="/deleteArticle/<%= articleList[i].articleId %>">Delete Article</a></h5>
 			<% } %>
 			<% if (articleList[i].isPublished === 0) { %>
 				<br>

@@ -19,7 +19,7 @@ app.set('views', path.join( __dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(multer({dest: './uploads/', includeEmptyFields: true}).single('photo'));
-app.use( express.static( path.join( __dirname, 'public' )));
+app.use(express.static(path.join(__dirname, 'public' )));
 app.use(express.static(__dirname + '/views/stylesheets'));
 app.use(express.static(__dirname + '/views/images'));
 app.use(express.static(__dirname + '/views/js'));
@@ -246,7 +246,7 @@ app.post('/editProfile', function (req, res) {
 
 var uploadToS3 = function (file, callback) {
   var uuid = require('node-uuid');
-  var file_suffix = uuid.v1()
+  var file_suffix = uuid.v1();
   var s3 = require('s3');
   var client = s3.createClient({
     maxAsyncS3: 20,     // this is the default 
@@ -259,7 +259,7 @@ var uploadToS3 = function (file, callback) {
       secretAccessKey: awsObj.secretAccessKey
       // any other options are passed to new AWS.S3() 
       // See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Config.html#constructor-property 
-    },
+    }
   });
 
   var file_ext = '';
@@ -430,6 +430,35 @@ app.get('/article/:id', function (req, res) {
         });
       });
     }
+  });
+});
+
+app.get('/deleteArticle/:id', function (req, res) {
+  if (!req.session.login) {
+    res.redirect('/console');
+    return;
+  }
+
+  var articleId = parseInt(req.params.id);
+
+  var queryString1 = 'SELECT author FROM articles WHERE articleId=' + articleId;
+  var queryString2 = 'DELETE FROM articles WHERE articleId=' + articleId;
+
+  connection.query(queryString1, function (err1, rows1, fields1) {
+    if (err1) {
+      console.log(err);
+    }
+    if (rows1[0].author !== req.session.username && req.session.isEditor !== 1) {
+      res.redirect('/home');
+      return;
+    }
+    connection.query(queryString2, function (err2, rows2, fields2) {
+      if (err2) {
+        console.log(err);
+      }
+      res.redirect('/home');
+      return;
+    });
   });
 });
 
