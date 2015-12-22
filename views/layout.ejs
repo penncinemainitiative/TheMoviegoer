@@ -1,43 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title><%= title %></title>
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <title><%= title %></title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+  <!-- Optional theme -->
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 
-	<!-- jQuery for Bootstrap -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <!-- jQuery for Bootstrap -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-	<!-- Favicon -->
-	<link rel="shortcut icon" href="/favicon.png">
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="/favicon.png">
 
-	<!-- Our Stylesheets -->
-	<link rel="stylesheet" type="text/css" href="/general.css">
-	<link rel="stylesheet" type="text/css" href="/header.css">
-	<link rel="stylesheet" type="text/css" href="/footer.css">
+  <!-- Our Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="/general.css">
+  <link rel="stylesheet" type="text/css" href="/header.css">
+  <link rel="stylesheet" type="text/css" href="/footer.css">
 </head>
 <body>
-	<div id="notFooter">
-            <div id="header" align="center">
-                <div class="container-fluid">
-	        <% if (login && console) { %>
-			<% include navbar %>
-                <% } else { %>
-                        <% include header %>
-                <% } %>
-                </div>
-            </div>
-            <div id="content" align="center">
-	      <%- body %>
-            </div>
-	</div>
-	<div id="footer">
-		<% include footer %>
-	</div>
-</body>	
+<div id="notFooter">
+  <div id="header" align="center">
+    <div class="container-fluid">
+      <% if (login && console) { %>
+      <% include navbar %>
+      <% } else { %>
+      <% include header %>
+      <% } %>
+    </div>
+  </div>
+  <div id="content" align="center">
+    <%- body %>
+  </div>
+</div>
+<div id="footer">
+  <% include footer %>
+</div>
+</body>
 </html>

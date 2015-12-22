@@ -1,9 +1,34 @@
-.footerItem {
-	color: #c29d52 !important;
+#footer {
+	color: #c29d52;
+	background-color: #2B292B;
+	padding: 20px 0;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	height: 200px;
+	width: 100%;
 }
 
-.footerItem:hover {
+#footer p {
+	color: #f5f2ed;
+}
+
+.footerimg {
+	width: 24px;
+	height: 24px;
+	margin: 0 8px 8px 8px;
+}
+.afooter, .afooter:active, .afooter:visited {
 	text-decoration: none;
-	color: #000 !important;
-	cursor: pointer;
+	color: #c29d52;
+}
+
+.afooter:hover {
+	color: #c29d52;
+	text-decoration: underline;
+}
+
+.emailFooter {
+	width: 200px;
+	margin: 20px auto;
 }

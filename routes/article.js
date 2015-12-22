@@ -168,7 +168,7 @@ router.get('/:id/draft', function (req, res) {
     returnData.imgList = value.imgList;
     returnData.captionList = value.captionList;
     returnData.cover = value.cover;
-    res.render('newarticle', returnData);
+    res.render('draft', returnData);
   });
 });
 

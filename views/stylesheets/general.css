@@ -3,17 +3,20 @@
   src: url('/gotham.ttf') format('truetype');
 }
 
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
   background-color: #f5f2ed;
+  margin: 0 0 200px;
 }
 
 #content {
   padding-top: 100px;
 }
 
-#footer {
-  min-height: 6%;
+.spacebelow {
+  margin-bottom: 16px !important;
 }

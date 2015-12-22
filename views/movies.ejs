@@ -1,0 +1,46 @@
+<% layout( 'layout' ) -%>
+<link rel="stylesheet" type="text/css" href="/movies.css">
+
+<div class="container">
+  <div class="title">Movies</div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="sidebar">
+          <div class="upcomingBar" align="center">
+            <h4>New Releases</h4>
+          </div>
+          <% for(var i=0; i < newReleases.length; i++) { %>
+          <div class="topstory">
+            <div class="col-sm-12">
+              <a href="<%= newReleases[i].url %>"><img src="<%= newReleases[i].image %>" alt="" style="width: 100%;"></a>
+              <div class="col-sm-offset-1 col-sm-10 spacebelow">
+                <h3><a href="<%= newReleases[i].url %>" class="linkwhite"><%= newReleases[i].title %></a></h3>
+                <h4><small><%= newReleases[i].pubDate %></small> <%= newReleases[i].authorname %></h4>
+              </div>
+            </div>
+          </div>
+          <% } %>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="sidebar">
+          <div class="upcomingBar" align="center">
+            <h4>Old Releases</h4>
+          </div>
+          <% for(var i=0; i < oldReleases.length; i++) { %>
+          <div class="topstory">
+            <div class="col-sm-12">
+              <a href="<%= oldReleases[i].url %>"><img src="<%= oldReleases[i].image %>" alt="" style="width: 100%;"></a>
+              <div class="col-sm-offset-1 col-sm-10 spacebelow">
+                <h3><a href="<%= oldReleases[i].url %>" class="linkwhite"><%= oldReleases[i].title %></a></h3>
+                <h4><small><%= oldReleases[i].pubDate %></small> <%= oldReleases[i].authorname %></h4>
+              </div>
+            </div>
+          </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
