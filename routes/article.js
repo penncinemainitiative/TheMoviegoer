@@ -7,6 +7,7 @@ var dateFormat = require('dateformat');
 var connection = require('../databases/sql');
 var ddb = require('../databases/ddb');
 var uploadToS3 = require('../databases/uploadS3');
+var analytics = require('../databases/analytics');
 
 router.get('/', function (req, res) {
   if (!req.session.login) {
