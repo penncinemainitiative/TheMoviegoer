@@ -7,12 +7,14 @@ var connection = require('../databases/sql');
 var ddb = require('../databases/ddb');
 var uploadToS3 = require('../databases/uploadS3');
 
-router.get('/profile', function (req, res) {
+router.use(function authenticate(req, res, next) {
   if (!req.session.login) {
-    res.redirect('/console');
-    return;
+    return res.redirect('/console');
   }
+  next();
+});
 
+router.get('/profile', function (req, res) {
   var returnData = {
     title: 'Profile',
     login: true,

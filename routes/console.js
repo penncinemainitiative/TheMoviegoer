@@ -7,10 +7,16 @@ var dateFormat = require('dateformat');
 var connection = require('../databases/sql');
 var ddb = require('../databases/ddb');
 
+var authenticate = function (req, res, next) {
+  if (!req.session.login) {
+    return res.redirect('/console');
+  }
+  next();
+};
+
 router.get('/', function (req, res) {
   if (req.session.login) {
-    res.redirect('/console/home');
-    return;
+    return res.redirect('/console/home');
   }
 
   res.render('console', {
@@ -57,12 +63,7 @@ router.post('/logout', function (req, res) {
   res.send({success: true, msg: 'Bye!'});
 });
 
-router.get('/home', function (req, res) {
-  if (!req.session.login) {
-    res.redirect('/console');
-    return;
-  }
-
+router.get('/home', authenticate, function (req, res) {
   var newRows = [];
 
   var getInfo = function (item, callback) {

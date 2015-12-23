@@ -9,12 +9,14 @@ var ddb = require('../databases/ddb');
 var uploadToS3 = require('../databases/uploadS3');
 var analytics = require('../databases/analytics');
 
-router.get('/', function (req, res) {
+var authenticate = function (req, res, next) {
   if (!req.session.login) {
-    res.redirect('/console');
-    return;
+    return res.redirect('/console');
   }
+  next();
+};
 
+router.get('/', authenticate, function (req, res) {
   var insertData = {
     isPublished: 0,
     updateDate: new Date(),
@@ -96,7 +98,7 @@ router.get('/:id', function (req, res) {
   });
 });
 
-router.post('/:id', function (req, res) {
+router.post('/:id', authenticate, function (req, res) {
   var articleId = parseInt(req.params.id);
   var title = req.body.title;
   var type = req.body.type;
@@ -125,12 +127,7 @@ router.post('/:id', function (req, res) {
   });
 });
 
-router.get('/:id/draft', function (req, res) {
-  if (!req.session.login) {
-    res.redirect('/console');
-    return;
-  }
-
+router.get('/:id/draft', authenticate, function (req, res) {
   var articleId = parseInt(req.params.id);
 
   var returnData = {
@@ -173,12 +170,7 @@ router.get('/:id/draft', function (req, res) {
   });
 });
 
-router.get('/:id/delete', function (req, res) {
-  if (!req.session.login) {
-    res.redirect('/console');
-    return;
-  }
-
+router.get('/:id/delete', authenticate, function (req, res) {
   var articleId = parseInt(req.params.id);
 
   async.waterfall([
@@ -201,7 +193,7 @@ router.get('/:id/delete', function (req, res) {
   });
 });
 
-router.post('/:id/cover', function (req, res) {
+router.post('/:id/cover', authenticate, function (req, res) {
   var articleId = parseInt(req.params.id);
   var image = req.body.image;
   var imageIndex = parseInt(req.body.imageIndex);
@@ -229,12 +221,12 @@ router.post('/:id/cover', function (req, res) {
   });
 });
 
-router.post('/:id/captions', function (req, res) {
+router.post('/:id/captions', authenticate, function (req, res) {
   req.session.caption = req.body.caption;
   res.send({success: true});
 });
 
-router.post('/:id/photos', function (req, res) {
+router.post('/:id/photos', authenticate, function (req, res) {
   var flag = false;
   var articleId = parseInt(req.params.id);
   uploadToS3(req.file, function (image_url) {
@@ -273,7 +265,7 @@ router.post('/:id/photos', function (req, res) {
   });
 });
 
-router.post('/:id/submit', function (req, res) {
+router.post('/:id/submit', authenticate, function (req, res) {
   var articleId = parseInt(req.params.id);
 
   var queryString = 'UPDATE articles SET updateDate=NOW(), ' +
@@ -287,12 +279,12 @@ router.post('/:id/submit', function (req, res) {
   });
 });
 
-router.post('/:id/publish', function (req, res) {
-  var articleId = parseInt(req.params.id);
-
+router.post('/:id/publish', authenticate, function (req, res) {
   if (req.session.isEditor !== 1) {
     return res.send({success: false, msg: 'Only an editor can publish articles!'});
   }
+
+  var articleId = parseInt(req.params.id);
 
   var queryString = 'UPDATE articles SET pubDate=NOW(), updateDate=NOW(), ' +
     'isPublished=2 WHERE articleId=' + articleId;

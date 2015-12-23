@@ -3,12 +3,14 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function (req, res) {
+var authenticate = function (req, res, next) {
   if (!req.session.login) {
-    res.redirect('/console');
-    return;
+    return res.redirect('/console');
   }
+  next();
+};
 
+router.get('/', authenticate, function (req, res) {
   res.render('events', {
     title: 'Events',
     login: true,
