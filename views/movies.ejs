@@ -1,8 +1,7 @@
 <% layout( 'layout' ) -%>
-<link rel="stylesheet" type="text/css" href="/stylesheets/movies.css">
 
-<div class="container">
-  <div class="title">Movies</div>
+<div id="movie-content" class="container">
+  <div class="title white">Movies</div>
   <div class="container">
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -11,11 +10,11 @@
             <h4>New Releases</h4>
           </div>
           <% newReleases.forEach(function(movie) { %>
-          <div class="topstory">
+          <div class="top-story">
             <div class="col-sm-12">
               <a href="<%= movie.url %>"><img src="<%= movie.image %>" alt="" style="width: 100%;"></a>
               <div class="col-sm-offset-1 col-sm-10 spacebelow">
-                <h3><a href="<%= movie.url %>" class="linkwhite"><%= movie.title %></a></h3>
+                <h3><a href="<%= movie.url %>"><%= movie.title %></a></h3>
                 <h4><small><%= movie.pubDate %></small> <%= movie.authorname %></h4>
               </div>
             </div>
@@ -29,11 +28,11 @@
             <h4>Old Releases</h4>
           </div>
           <% oldReleases.forEach(function(movie) { %>
-          <div class="topstory">
+          <div class="top-story">
             <div class="col-sm-12">
               <a href="<%= movie.url %>"><img src="<%= movie.image %>" alt="" style="width: 100%;"></a>
               <div class="col-sm-offset-1 col-sm-10 spacebelow">
-                <h3><a href="<%= movie.url %>" class="linkwhite"><%= movie.title %></a></h3>
+                <h3><a href="<%= movie.url %>"><%= movie.title %></a></h3>
                 <h4><small><%= movie.pubDate %></small> <%= movie.authorname %></h4>
               </div>
             </div>

@@ -1,14 +1,11 @@
 <% layout( 'layout' ) -%>
-<link rel="stylesheet" type="text/css" href="/stylesheets/profile.css">
-<script type="text/javascript" src="/js/profile.js"></script>
 
-<div class="container" align="center">
-	<br>
-	
+<div id="profile" class="container">
+	<div class="title">Profile</div>
 	<div class="row">
 		<div class="col-sm-6">
 			<div class="profileImg">
-				<image src="<%= image %>" id="profileImg">
+				<image src="<%= image %>" id="profileImg"/>
 			</div>
 			<form role="form" action="/account/profile/picture" method="post" enctype="multipart/form-data" onerror="window.location='/account/profile'" id="photoForm">
 				<input type="file" id="fileInput" name="photo">

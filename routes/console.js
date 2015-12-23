@@ -57,10 +57,10 @@ router.post('/login', function (req, res) {
   });
 });
 
-router.post('/logout', function (req, res) {
+router.get('/logout', function (req, res) {
   req.session.login = false;
   req.session.username = undefined;
-  res.send({success: true, msg: 'Bye!'});
+  res.redirect('/');
 });
 
 router.get('/home', authenticate, function (req, res) {

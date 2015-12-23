@@ -19,23 +19,16 @@
   <link rel="shortcut icon" href="/images/favicon.png">
 
   <!-- Our Stylesheets -->
-  <link rel="stylesheet" type="text/css" href="/stylesheets/general.css">
-  <link rel="stylesheet" type="text/css" href="/stylesheets/header.css">
-  <link rel="stylesheet" type="text/css" href="/stylesheets/footer.css">
+  <link rel="stylesheet" type="text/css" href="/css/style.min.css">
 </head>
 <body>
 <div id="notFooter">
-  <div id="header" align="center">
-    <div class="container-fluid">
-      <% include header %>
-    </div>
-  </div>
+  <% include header %>
   <div id="content">
     <%- body %>
   </div>
 </div>
-<div id="footer">
-  <% include footer %>
-</div>
+<% include footer %>
+<script type="text/javascript" src="/js/page.js"></script>
 </body>
 </html>

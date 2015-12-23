@@ -1,9 +1,9 @@
 $( document ).ready(function() {
   var path = window.location.pathname;
 
-  if (path === '/console/home' || path === '/') {
+  if (path === '/console/home' || path === '/features') {
   	$('#navbar1').addClass('active');
-  } else if (path === '/account/profile' || path === '/features') {
+  } else if (path === '/account/profile' || path === '/movies') {
   	$('#navbar2').addClass('active');
   } else if (path === '/events') {
   	$('#navbar3').addClass('active');

@@ -1,0 +1,42 @@
+.fancy {
+  text-align: center;
+  line-height: 0.38;
+  font-family: gotham;
+  span {
+    display: inline-block;
+    position: relative;
+    &:before, &:after {
+      content: "";
+      position: absolute;
+      height: 5px;
+      border-bottom: 1px solid @black;
+      border-top: 1px solid @black;
+      top: 0;
+      width: 150px;
+    }
+    &:before {
+      right: 100%;
+      margin-right: 15px;
+    }
+    &:after {
+      left: 100%;
+      margin-left: 15px;
+    }
+  }
+}
+
+.fancywhite {
+  span {
+    &:before, &:after {
+      border-bottom: 1px solid @white;
+      border-top: 1px solid @white;
+    }
+  }
+}
+
+#movie-content {
+  width: 100%;
+  background-color: #6A6A6A;
+  padding-top: 8px;
+  color: @white;
+}
