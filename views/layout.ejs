@@ -16,22 +16,18 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
   <!-- Favicon -->
-  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="shortcut icon" href="/images/favicon.png">
 
   <!-- Our Stylesheets -->
-  <link rel="stylesheet" type="text/css" href="/general.css">
-  <link rel="stylesheet" type="text/css" href="/header.css">
-  <link rel="stylesheet" type="text/css" href="/footer.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/general.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/header.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/footer.css">
 </head>
 <body>
 <div id="notFooter">
   <div id="header" align="center">
     <div class="container-fluid">
-      <% if (login && console) { %>
-      <% include navbar %>
-      <% } else { %>
       <% include header %>
-      <% } %>
     </div>
   </div>
   <div id="content">

@@ -21,10 +21,7 @@ app.set('view engine', 'ejs');
 
 app.use(multer({dest: './uploads/', includeEmptyFields: true}).single('photo'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(__dirname + '/views/stylesheets'));
-app.use(express.static(__dirname + '/views/images'));
-app.use(express.static(__dirname + '/views/js'));
-app.use(express.static(__dirname + '/views/fonts'));
+app.use(express.static(__dirname + '/static'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
