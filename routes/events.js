@@ -10,11 +10,9 @@ var authenticate = function (req, res, next) {
   next();
 };
 
-router.get('/', authenticate, function (req, res) {
+router.get('/', function (req, res) {
   res.render('events', {
-    title: 'Events',
-    login: true,
-    console: true
+    title: 'Events'
   });
 });
 

@@ -19,10 +19,8 @@
 				<a href="/article/<%= article.articleId %>/delete">Delete article</a>
 			<% } %>
 			<% if (article.isPublished === 0) { %>
-				<br>
 				<h5 class="goldh5">Saved Locally</h5>
 			<% } else if (article.isPublished === 1) { %>
-				<br>
 				<h5 class="goldh5">Submitted for Review</h5>
 			<% } %>
 		</div>

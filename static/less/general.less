@@ -26,9 +26,13 @@ body {
 .title {
   font-family: gotham;
   color: @black;
-  padding-bottom: 16px;
+  padding: 16px 0;
   font-size: 36px;
   text-align: center;
+
+  small {
+    color: @gold;
+  }
 }
 
 .white {
@@ -39,6 +43,7 @@ body {
   width: 100%;
 }
 
+@import "about";
 @import "console";
 @import "draft";
 @import "events";

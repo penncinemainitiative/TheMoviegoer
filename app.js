@@ -32,9 +32,18 @@ app.use(session({
   login: false
 }));
 
+app.use(function(req, res, next) {
+  res.locals.login = req.session.login;
+  res.locals.name = req.session.name;
+  res.locals.username = req.session.username;
+  res.locals.isEditor = req.session.isEditor;
+  res.locals.inConsole = false;
+  next();
+});
+
 app.use('/', require('./routes/index'));
 app.use('/console', require('./routes/console'));
-app.use('/account', require('./routes/account'));
+app.use('/author', require('./routes/author'));
 app.use('/article', require('./routes/article'));
 app.use('/events', require('./routes/events'));
 

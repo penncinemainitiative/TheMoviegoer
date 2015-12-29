@@ -3,43 +3,85 @@
 var express = require('express');
 var router = express.Router();
 var async = require('async');
+var dateFormat = require('dateformat');
 var connection = require('../databases/sql');
 var ddb = require('../databases/ddb');
 var uploadToS3 = require('../databases/uploadS3');
 
-router.use(function authenticate(req, res, next) {
+var authorMovies = function (username, call) {
+  var newRows = [];
+
+  var getInfo = function (item, callback) {
+    item.pubDate = dateFormat(item.pubDate, "mmmm d, yyyy");
+
+    var queryString = 'SELECT name FROM authors WHERE username='
+      + connection.escape(item.author);
+    connection.query(queryString, function (err, rows) {
+      item.authorname = rows[0].name;
+      newRows.push(item);
+      callback();
+    });
+  };
+
+  var queryString = 'SELECT articleId, isPublished, url, pubDate, title, ' +
+    'author, image FROM articles WHERE isPublished=2 AND author=\'' +
+    username + '\' ORDER BY pubDate DESC, articleId DESC';
+
+  async.waterfall([
+    function (callback) {
+      connection.query(queryString, callback);
+    }, function (rows, fields, callback) {
+      async.eachSeries(rows, getInfo, callback);
+    }
+  ], function () {
+    call(null, newRows);
+  });
+};
+
+var authenticate = function (req, res, next) {
   if (!req.session.login) {
     return res.redirect('/console');
   }
+  res.locals.inConsole = true;
   next();
-});
+};
 
-router.get('/profile', function (req, res) {
+var profile = function (req, res, query) {
   var returnData = {
-    title: 'Profile',
-    login: true,
-    console: true
+    inConsole: res.locals.inConsole
   };
 
-  var query = 'SELECT username, email, name, bio, image FROM authors ' +
-    'WHERE username=\'' + req.session.username + '\'';
-
-  connection.query(query, function (err, rows) {
-    if (err) {
-      throw err;
-    }
-
-    var userInfo = rows[0];
-    returnData.email = userInfo.email;
-    returnData.name = userInfo.name;
-    returnData.bio = userInfo.bio;
-    returnData.image = userInfo.image;
-
+  async.waterfall([
+    function (callback) {
+      connection.query(query, callback);
+    }, function (rows, fields, callback) {
+      var username = rows[0].username;
+      returnData.title = rows[0].name;
+      returnData.email = rows[0].email;
+      returnData.name = rows[0].name;
+      returnData.bio = rows[0].bio;
+      returnData.image = rows[0].image;
+      authorMovies(username, callback);
+    }], function (err, results) {
+    returnData.moviesList = results;
     res.render('profile', returnData);
   });
+};
+
+router.get('/profile', authenticate, function (req, res) {
+  var query = 'SELECT username, email, name, bio, image FROM authors ' +
+    'WHERE username=\'' + req.session.username + '\'';
+  profile(req, res, query);
 });
 
-router.post('/profile/description', function (req, res) {
+router.get('/profile/:author', function (req, res) {
+  var query = 'SELECT username, email, name, bio, image FROM authors WHERE ' +
+    'REPLACE(name, " ", "") = REPLACE(' +
+    connection.escape(req.params.author) + ', " ", "")';
+  profile(req, res, query);
+});
+
+router.post('/profile/description', authenticate, function (req, res) {
   var name = req.body.name;
   var bio = req.body.bio;
 
@@ -59,7 +101,7 @@ router.post('/profile/description', function (req, res) {
   });
 });
 
-router.post('/profile/picture', function (req, res) {
+router.post('/profile/picture', authenticate, function (req, res) {
   uploadToS3(req.file, function (image_url) {
     var query = 'UPDATE authors SET image=\'' + image_url + '\' WHERE '
       + 'username=\'' + req.session.username + '\'';
@@ -68,13 +110,13 @@ router.post('/profile/picture', function (req, res) {
       if (err) {
         res.send({success: false});
       } else {
-        res.redirect('/profile');
+        res.redirect('/author/profile');
       }
     });
   });
 });
 
-router.post('/password', function (req, res) {
+router.post('/password', authenticate, function (req, res) {
   var oldPassword = req.body.oldpassword;
   var newPassword = req.body.newpassword;
 
@@ -102,7 +144,7 @@ router.post('/password', function (req, res) {
   });
 });
 
-router.post('/create', function (req, res) {
+router.post('/create', authenticate, function (req, res) {
   var username = req.body.username;
   var email = req.body.email;
   var name = req.body.name;
@@ -133,7 +175,7 @@ router.post('/create', function (req, res) {
   });
 });
 
-router.post('/approve', function (req, res) {
+router.post('/approve', authenticate, function (req, res) {
   var username = req.body.username;
 
   var queryString = 'UPDATE authors SET isEditor=0 WHERE username=' +

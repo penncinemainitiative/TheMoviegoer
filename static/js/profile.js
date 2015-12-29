@@ -1,12 +1,13 @@
 $( document ).ready(function() {
 
   $('#photoForm').hide();
+  $('#updateProfile').hide();
 
   var initName;
   var initBio;
 
   $('#fileInput').change(function () {
-    $('#photoForm').submit(); 
+    $('#photoForm').submit();
   });
 
   $('button#editBtn').click(function () {
@@ -16,12 +17,12 @@ $( document ).ready(function() {
     $('#profileBio').hide();
     $('#inputName').show();
     $('#inputBio').show();
-    $('#saveBtn').show();
+    $('#updateProfile').show();
     initName = $('#inputName').val();
     initBio = $('#inputBio').val();
   });
 
-  $('button#saveBtn').click(function () {
+  $('button#updateProfile').click(function () {
     var name = $('#inputName').val();
     var bio = $('#inputBio').val();
 
@@ -42,7 +43,7 @@ $( document ).ready(function() {
         name: name,
         bio: bio
       };
-      $.post('/account/profile/description', editData);
+      $.post('/author/profile/description', editData);
     }
 
     $('#editBtn').show();
@@ -52,11 +53,7 @@ $( document ).ready(function() {
     $('#issue').hide();
     $('#inputName').hide();
     $('#inputBio').hide();
-    $('#saveBtn').hide();
-  });
-
-  $('#profileImg').click(function () {
-    $('#fileInput').trigger('click');
+    $('#updateProfile').hide();
   });
 
   var showSave = function () {
@@ -89,7 +86,7 @@ $( document ).ready(function() {
       newpassword: npw1
     };
 
-    $.post('/account/password', postData, function (data) {
+    $.post('/author/password', postData, function (data) {
       if (!data.success) {
         $('#issueModal').show();
         $('#issueModal').empty();

@@ -13,6 +13,7 @@ var authenticate = function (req, res, next) {
   if (!req.session.login) {
     return res.redirect('/console');
   }
+  res.locals.inConsole = true;
   next();
 };
 
@@ -65,8 +66,7 @@ router.get('/:id', function (req, res) {
   var articleId = parseInt(req.params.id);
 
   var returnData = {
-    login: req.session.login,
-    console: false
+    articleId: articleId
   };
 
   async.waterfall([
@@ -131,10 +131,7 @@ router.get('/:id/draft', authenticate, function (req, res) {
   var articleId = parseInt(req.params.id);
 
   var returnData = {
-    login: req.session.login,
-    console: true,
-    articleId: articleId,
-    isEditor: req.session.isEditor
+    articleId: articleId
   };
 
   async.waterfall([
@@ -143,7 +140,7 @@ router.get('/:id/draft', authenticate, function (req, res) {
         'FROM articles WHERE articleId=' + articleId;
       connection.query(queryString, callback);
     }, function (rows, fields, callback) {
-      if (rows[0].isPublished === 2) {
+      if (rows[0].isPublished === 2 && !req.session.isEditor) {
         return res.redirect('/article/' + req.params.id);
       }
       returnData.title = rows[0].title;
@@ -270,6 +267,20 @@ router.post('/:id/submit', authenticate, function (req, res) {
 
   var queryString = 'UPDATE articles SET updateDate=NOW(), ' +
     'isPublished=1 WHERE articleId=' + articleId;
+
+  connection.query(queryString, function (err) {
+    if (err) {
+      console.log(err);
+    }
+    res.send({success: true});
+  });
+});
+
+router.post('/:id/retract', authenticate, function (req, res) {
+  var articleId = parseInt(req.params.id);
+
+  var queryString = 'UPDATE articles SET updateDate=NOW(), ' +
+    'isPublished=0 WHERE articleId=' + articleId;
 
   connection.query(queryString, function (err) {
     if (err) {

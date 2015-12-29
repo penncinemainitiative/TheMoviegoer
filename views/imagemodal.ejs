@@ -13,7 +13,7 @@
 				<br>
 				<input type="text" class="form-control" id="captionInput" placeholder="Image Caption">
 				<br>
-				<form role="form" action="/article/<%= articleId %>/photos" method="post" enctype="multipart/form-data" onerror="window.location='/account/profile'" id="photoForm">
+				<form role="form" action="/article/<%= articleId %>/photos" method="post" enctype="multipart/form-data" onerror="window.location='/author/profile'" id="photoForm">
 					<input type="text" value="<%= articleId %>" name="articleId">
 					<input type="file" id="fileInput" name="photo">
 					<input class="btn btn-default" type="submit" value="Submit" id="submitPhotoBtn">

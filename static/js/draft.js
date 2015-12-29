@@ -163,7 +163,7 @@ $(document).ready(function () {
       type: typeVal,
       text: text
     };
-    console.log(articleId);
+
     $.post('/article/' + articleId, postData, function (data) {
       if (data.success) {
         showSave();
@@ -193,7 +193,7 @@ $(document).ready(function () {
       if (data.success) {
         showSave();
         $.post('/article/' + articleId + '/submit', postData, function (data1) {
-          if (data.success) {
+          if (data1.success) {
             window.location = '/console/home';
           }
         });
@@ -223,10 +223,20 @@ $(document).ready(function () {
       if (data.success) {
         showSave();
         $.post('/article/' + articleId + '/publish', postData, function (data1) {
-          if (data.success) {
+          if (data1.success) {
             window.location = '/';
           }
         });
+      }
+    });
+  });
+
+  $('button#retractBtn').click(function () {
+    $('#issue').hide();
+
+    $.post('/article/' + articleId + '/retract', function (data) {
+      if (data.success) {
+        window.location = '/';
       }
     });
   });

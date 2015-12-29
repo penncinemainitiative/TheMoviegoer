@@ -11,6 +11,7 @@ var authenticate = function (req, res, next) {
   if (!req.session.login) {
     return res.redirect('/console');
   }
+  res.locals.inConsole = true;
   next();
 };
 
@@ -20,9 +21,7 @@ router.get('/', function (req, res) {
   }
 
   res.render('console', {
-    title: 'Author Console',
-    login: false,
-    console: true
+    title: 'Author Console'
   });
 });
 
@@ -60,6 +59,8 @@ router.post('/login', function (req, res) {
 router.get('/logout', function (req, res) {
   req.session.login = false;
   req.session.username = undefined;
+  req.session.name = undefined;
+  req.session.isEditor = -1;
   res.redirect('/');
 });
 
@@ -101,9 +102,6 @@ router.get('/home', authenticate, function (req, res) {
     }
     var returnData = {
       title: 'Home',
-      login: req.session.login,
-      name: req.session.name,
-      console: true,
       articleList: newRows
     };
     res.render('home', returnData);

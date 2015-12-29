@@ -3,7 +3,7 @@ $( document ).ready(function() {
 
   if (path === '/console/home' || path === '/features') {
   	$('#navbar1').addClass('active');
-  } else if (path === '/account/profile' || path === '/movies') {
+  } else if (path === '/author/profile' || path === '/movies') {
   	$('#navbar2').addClass('active');
   } else if (path === '/events') {
   	$('#navbar3').addClass('active');

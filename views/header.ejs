@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-xs-2 col-xs-offset-1">
-        <% if (console) { %>
+        <% if (inConsole) { %>
         <h5 id="navbar1"><a href="/console/home" class="headerItem">Home</a>
         </h5>
         <% } else { %>
@@ -11,8 +11,8 @@
         <% } %>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-        <% if (console) { %>
-        <h5 id="navbar2"><a href="/account/profile"
+        <% if (inConsole) { %>
+        <h5 id="navbar2"><a href="/author/profile"
                             class="headerItem">Profile</a></h5>
         <% } else { %>
         <h5 id="navbar2"><a href="/movies" class="headerItem">Movies</a></h5>
@@ -27,7 +27,7 @@
         <h5 id="navbar3"><a href="/events" class="headerItem">Events</a></h5>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-        <% if (console) { %>
+        <% if (inConsole) { %>
         <h5 id="navbar4"><a href="/article" class="headerItem">New Article</a>
         </h5>
         <% } else { %>

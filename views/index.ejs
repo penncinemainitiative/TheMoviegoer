@@ -1,13 +1,74 @@
 <% layout( 'layout' ) -%>
 
-<div class="container">
+<div class="wrapper">
   <div class="title">The Moviegoer</div>
-  <% include articleList %>
+  <div id="feature-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12">
+          <% var post = features[0] %>
+          <div class="top-story">
+            <div class="col-sm-12">
+              <a href="<%= post.url %>"><img src="<%= post.image %>" alt="" style="width: 100%;"></a>
+              <div class="col-sm-offset-1 col-sm-10 spacebelow">
+                <h3><a href="<%= post.url %>" class="black"><%= post.title %></a></h3>
+                <h4><small><%= post.pubDate %></small><%= post.authorname %></h4>
+              </div>
+            </div>
+          </div>
+          <% for (var i=1; i<=2; i++) { %>
+          <div class="top-story">
+            <div class="col-sm-6">
+              <a href="<%= features[i].url %>"><img src="<%= features[i].image %>" alt="" style="width: 100%;"></a>
+              <div class="col-sm-offset-1 col-sm-10 spacebelow">
+                <h3><a href="<%= features[i].url %>" class="black"><%= features[i].title %></a></h3>
+                <h4><small><%= features[i].pubDate %></small><%= features[i].authorname %></h4>
+              </div>
+            </div>
+          </div>
+          <% } %>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+          <% include popular %>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div id="movie-content">
     <div id="pcisubwhite"><h2 class="fancy fancywhite"><span>Reviews</span></h2></div>
     <div class="container">
       <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+          <div class="sidebar">
+            <div class="upcomingBar">
+              <h4>Upcoming Events</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12">
+          <% var post = movies[0] %>
+          <div class="top-story">
+            <div class="col-sm-12">
+              <a href="<%= post.url %>"><img src="<%= post.image %>" alt="" style="width: 100%;"></a>
+              <div class="col-sm-offset-1 col-sm-10 spacebelow">
+                <h3><a href="<%= post.url %>" class="linkblack"><%= post.title %></a></h3>
+                <h4><small><%= post.pubDate %></small><%= post.authorname %></h4>
+              </div>
+            </div>
+          </div>
+          <% for (var i=1; i<=2; i++) { %>
+          <div class="top-story">
+            <div class="col-sm-6">
+              <a href="<%= movies[i].url %>"><img src="<%= movies[i].image %>" alt="" style="width: 100%;"></a>
+              <div class="col-sm-offset-1 col-sm-10 spacebelow">
+                <h3><a href="<%= movies[i].url %>" class="linkblack"><%= movies[i].title %></a></h3>
+                <h4><small><%= movies[i].pubDate %></small><%= movies[i].authorname %></h4>
+              </div>
+            </div>
+          </div>
+          <% } %>
+        </div>
       </div>
     </div>
   </div>
