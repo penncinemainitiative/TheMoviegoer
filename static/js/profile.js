@@ -4,6 +4,7 @@ $( document ).ready(function() {
   $('#updateProfile').hide();
 
   var initName;
+  var initEmail;
   var initBio;
 
   $('#fileInput').change(function () {
@@ -16,24 +17,27 @@ $( document ).ready(function() {
     $('#profileName').hide();
     $('#profileBio').hide();
     $('#inputName').show();
+    $('#inputEmail').show();
     $('#inputBio').show();
     $('#updateProfile').show();
     initName = $('#inputName').val();
+    initEmail = $('#inputEmail').val();
     initBio = $('#inputBio').val();
   });
 
   $('button#updateProfile').click(function () {
     var name = $('#inputName').val();
+    var email = $('#inputEmail').val();
     var bio = $('#inputBio').val();
 
-    if (name === '' || bio === '') {
+    if (name === '' || bio === '' || email === '') {
       $('#issue').show();
       $('#issue').empty();
-      $('#issue').append('You really should have a name and bio!');
+      $('#issue').append('Please fill out all the fields!');
       return;
     }
 
-    if (name !== initName || bio !== initBio) {
+    if (name !== initName || bio !== initBio || email !== initEmail) {
       $('#profileName').empty();
       $('#profileName').append(name);
       $('#profileBio').empty();
@@ -41,7 +45,8 @@ $( document ).ready(function() {
 
       var editData = {
         name: name,
-        bio: bio
+        bio: bio,
+        email: email
       };
       $.post('/author/profile/description', editData);
     }
@@ -52,6 +57,7 @@ $( document ).ready(function() {
     $('#profileBio').show();
     $('#issue').hide();
     $('#inputName').hide();
+    $('#inputEmail').hide();
     $('#inputBio').hide();
     $('#updateProfile').hide();
   });

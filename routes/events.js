@@ -11,6 +11,7 @@ var authenticate = function (req, res, next) {
 };
 
 router.get('/', function (req, res) {
+  res.locals.inConsole = req.session.login;
   res.render('events', {
     title: 'Events'
   });

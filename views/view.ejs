@@ -1,7 +1,7 @@
 <div id="previewView">
   <header class="post-header">
     <h2 class="post-title"><%= title %></h2>
-    <p class="post-meta"><%= date %> • <%= author %>
+    <p class="post-meta"><%= date %> • <a href="/author/profile/<%= author.replace(/\s+/g, '') %>"><%= author %></a>
       <% if (isEditor) { %>
       • <a href="/article/<%= articleId %>/draft">Edit Article</a>
       <% } %>

@@ -83,10 +83,12 @@ router.get('/profile/:author', function (req, res) {
 
 router.post('/profile/description', authenticate, function (req, res) {
   var name = req.body.name;
+  var email = req.body.email;
   var bio = req.body.bio;
 
   var query = 'UPDATE authors SET ' +
     'name=' + connection.escape(name) + ', ' +
+    'email=' + connection.escape(email) + ', ' +
     'bio=' + connection.escape(bio) + ' WHERE ' +
     'username=' + connection.escape(req.session.username);
 
@@ -144,7 +146,11 @@ router.post('/password', authenticate, function (req, res) {
   });
 });
 
-router.post('/create', authenticate, function (req, res) {
+router.post('/create', function (req, res) {
+  if (req.session.login) {
+    return res.redirect('/console');
+  }
+
   var username = req.body.username;
   var email = req.body.email;
   var name = req.body.name;
@@ -175,17 +181,18 @@ router.post('/create', authenticate, function (req, res) {
   });
 });
 
-router.post('/approve', authenticate, function (req, res) {
-  var username = req.body.username;
-
+router.get('/approve/:username', authenticate, function (req, res) {
+  if (req.session.isEditor !== 1) {
+    return res.redirect('/console/home');
+  }
   var queryString = 'UPDATE authors SET isEditor=0 WHERE username=' +
-    connection.escape(username);
+    connection.escape(req.params.username);
 
   connection.query(queryString, function (err) {
     if (err) {
       console.log(err);
     }
-    res.send({success: true});
+    res.redirect('/console/home');
   });
 });
 

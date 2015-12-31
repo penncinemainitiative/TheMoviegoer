@@ -3,7 +3,7 @@
 <div id="profile" class="container">
 	<div class="title"><h2><small>Articles by</small><br><%= name %></h2></div>
 	<div id="bioImage">
-    <% if (console) { %>
+    <% if (inConsole) { %>
     <button type="submit" class="btn btn-default btn-sm" id="editBtn"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit bio</button>
     <button type="submit" class="btn btn-default btn-sm" id="pwBtn" data-toggle="modal" data-target=".pw-change-modal"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Change Password</button>
     <button type="submit" class="btn btn-default btn-sm" id="updateProfile">Save</button>
@@ -21,7 +21,8 @@
 			<div class="col-lg-8 col-sm-8 col-xs-7">
         <p id="profileBio"><%= bio %></p>
         <input type="text" class="form-control" id="inputName" value="<%= name %>" onkeydown="if (event.keyCode == 13) document.getElementById('updateProfile').click();">
-        <textarea class="form-control" rows="6" id="inputBio" onkeydown="if (event.keyCode == 13) document.getElementById('updateProfile').click();"><%= bio %></textarea>
+        <input type="text" class="form-control" id="inputEmail" value="<%= email %>" onkeydown="if (event.keyCode == 13) document.getElementById('updateProfile').click();">
+        <textarea class="form-control" rows="4" id="inputBio" onkeydown="if (event.keyCode == 13) document.getElementById('updateProfile').click();"><%= bio %></textarea>
       </div>
     </div>
 	</div>

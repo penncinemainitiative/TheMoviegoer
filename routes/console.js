@@ -7,6 +7,44 @@ var dateFormat = require('dateformat');
 var connection = require('../databases/sql');
 var ddb = require('../databases/ddb');
 
+var authorMovies = function (req, call) {
+  var newRows = [];
+
+  var getInfo = function (item, callback) {
+    item.updateDate = dateFormat(item.updateDate, "mmmm d, yyyy");
+
+    var queryString = 'SELECT name FROM authors WHERE username='
+      + connection.escape(item.author);
+    connection.query(queryString, function (err, rows) {
+      item.authorname = rows[0].name;
+      newRows.push(item);
+      callback();
+    });
+  };
+
+  var queryString = 'SELECT articleId, isPublished, url, updateDate, ' +
+    'title, author, image FROM articles WHERE isPublished!=2';
+
+  if (req.session.isEditor === 0) {
+    queryString = queryString + ' AND author=\'' + req.session.username + '\'';
+  } else if (req.session.isEditor === 1) {
+    queryString = queryString + ' AND (author=\'' + req.session.username + '\'' +
+      'OR isPublished=1)';
+  }
+
+  queryString = queryString + ' ORDER BY updateDate DESC, articleId DESC';
+
+  async.waterfall([
+    function (callback) {
+      connection.query(queryString, callback);
+    }, function (rows, fields, callback) {
+      async.eachSeries(rows, getInfo, callback);
+    }
+  ], function () {
+    call(null, newRows);
+  });
+};
+
 var authenticate = function (req, res, next) {
   if (!req.session.login) {
     return res.redirect('/console');
@@ -22,6 +60,16 @@ router.get('/', function (req, res) {
 
   res.render('console', {
     title: 'Author Console'
+  });
+});
+
+router.get('/signup', function (req, res) {
+  if (req.session.login) {
+    return res.redirect('/console/home');
+  }
+
+  res.render('signup', {
+    title: 'Become an author!'
   });
 });
 
@@ -65,44 +113,21 @@ router.get('/logout', function (req, res) {
 });
 
 router.get('/home', authenticate, function (req, res) {
-  var newRows = [];
-
-  var getInfo = function (item, callback) {
-    item.updateDate = dateFormat(item.updateDate, "mmmm d, yyyy");
-
-    var queryString = 'SELECT name FROM authors WHERE username='
-      + connection.escape(item.author);
-    connection.query(queryString, function (err, rows) {
-      item.authorname = rows[0].name;
-      newRows.push(item);
-      callback();
-    });
-  };
-
-  async.waterfall([
+  async.parallel([
     function (callback) {
-      var queryString = 'SELECT articleId, isPublished, url, updateDate, ' +
-        'title, author, image FROM articles WHERE isPublished!=2';
-
-      if (req.session.isEditor === 0) {
-        queryString = queryString + ' AND author=\'' + req.session.username + '\'';
-      } else if (req.session.isEditor === 1) {
-        queryString = queryString + ' AND (author=\'' + req.session.username + '\'' +
-          'OR isPublished=1)';
-      }
-
-      queryString = queryString + ' ORDER BY updateDate DESC, articleId DESC';
-      connection.query(queryString, callback);
-    }, function (rows, fields, callback) {
-      async.eachSeries(rows, getInfo, callback);
+      authorMovies(req, callback);
+    }, function (callback) {
+      var query = 'SELECT name, username FROM authors WHERE isEditor=-1';
+      connection.query(query, callback);
     }
-  ], function (err) {
+  ], function (err, results) {
     if (err) {
       console.log(err);
     }
     var returnData = {
       title: 'Home',
-      articleList: newRows
+      articleList: results[0],
+      pendingAuthors: results[1][0]
     };
     res.render('home', returnData);
   });

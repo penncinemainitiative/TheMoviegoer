@@ -27,4 +27,46 @@ $( document ).ready(function() {
     });
   });
 
+  $('button#signupBtn').click(function () {
+    var username = $('#inputUser').val();
+    var name = $('#inputName').val();
+    var email = $('#inputEmail').val();
+    var pw = $('#inputPassword').val();
+    var pwConfirm = $('#inputPasswordConfirm').val();
+
+    if (username === '' || email === '' || pw === '' || pwConfirm === '' || name === '') {
+      $('#issue').show();
+      $('#issue').empty();
+      $('#issue').append('Please fill out all fields!');
+      return;
+    }
+
+    if (pw !== pwConfirm) {
+      $('#issue').show();
+      $('#issue').empty();
+      $('#issue').append('Passwords do not match!');
+      return;
+    }
+
+    var signupData = {
+      username: username,
+      name: name,
+      password: pw,
+      email: email
+    };
+
+    $.post('/author/create', signupData, function (data) {
+      $('#issue').show();
+      $('#issue').empty();
+      if (data.success) {
+        $('#issue').removeClass("alert-danger");
+        $('#issue').addClass("alert-success");
+      } else {
+        $('#issue').removeClass("alert-success");
+        $('#issue').addClass("alert-danger");
+      }
+      $('#issue').append(data.msg);
+    });
+  });
+
 });
