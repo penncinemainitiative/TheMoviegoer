@@ -140,7 +140,7 @@ router.get('/:id/draft', authenticate, function (req, res) {
         'FROM articles WHERE articleId=' + articleId;
       connection.query(queryString, callback);
     }, function (rows, fields, callback) {
-      if (rows[0].isPublished === 2 && !req.session.isEditor) {
+      if (rows[0].isPublished === 2 && req.session.isEditor !== 1) {
         return res.redirect('/article/' + req.params.id);
       }
       returnData.title = rows[0].title;

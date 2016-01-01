@@ -1,7 +1,19 @@
-<% layout( 'layout' ) -%>
+<% layout('layout') -%>
 
 <div id="events" class="container">
-	<div class="title">Features</div>
-	<img src="http://pennmoviegoer.com/images/events/paths.jpg">
-	<img src="http://pennmoviegoer.com/images/events/shorts.jpg">
+  <div class="title">Features</div>
+  <% if (isEditor === 1) { %>
+  <button type="submit" class="btn btn-default btn-sm" id="eventBtn"
+          data-toggle="modal" data-target=".event-modal"><span
+            class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+    Create event
+  </button>
+  <% } %>
+  <% events.forEach(function(event) { %>
+  <div class="row">
+    <img src="<%= event.image %>">
+  </div>
+  <% }); %>
 </div>
+
+<% include eventmodal %>

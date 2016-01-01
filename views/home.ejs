@@ -3,7 +3,7 @@
 <div class="container" align="center" align="center">
   <div class="title">Author Console</div>
   <h4>Welcome, <%= name %>!</h4>
-  <% if (isEditor && pendingAuthors.length > 0) { %>
+  <% if (isEditor === 1&& pendingAuthors.length > 0) { %>
     <h5>Pending Account Requests</h5>
     <% pendingAuthors.forEach(function(author) { %>
     <%= author.name %> <a href="/author/approve/<%= author.username %>">Approve</a>

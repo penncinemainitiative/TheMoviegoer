@@ -1,0 +1,45 @@
+<!-- Event Modal -->
+<div class="modal fade event-modal" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel" align="center">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button id="closeModalBtn" type="button" class="close"
+                data-dismiss="modal" aria-label="Close"><span
+                  aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">New Event</h4>
+      </div>
+      <div class="modal-body">
+        <!--
+        <div class="eventImg">
+          <img src="https://www.royalacademy.org.uk/assets/placeholder-1e385d52942ef11d42405be4f7d0a30d.jpg" id="eventImg"/>
+        </div>
+        <input type="text" class="form-control" id="title"
+               placeholder="Title"
+               onkeydown="if (event.keyCode == 13) document.getElementById('submitEvent').click();">
+        <input type="date" class="form-control" id="date"
+               placeholder="Date"
+               onkeydown="if (event.keyCode == 13) document.getElementById('submitEvent').click();">
+        <input type="time" class="form-control" id="time"
+               placeholder="Old Password"
+               onkeydown="if (event.keyCode == 13) document.getElementById('submitEvent').click();">
+        <input type="text" class="form-control" id="location"
+               placeholder="Location"
+               onkeydown="if (event.keyCode == 13) document.getElementById('submitEvent').click();">
+        <input type="text" class="form-control" id="fbLink"
+               placeholder="Facebook link"
+               onkeydown="if (event.keyCode == 13) document.getElementById('submitEvent').click();">
+        <input type="text" class="form-control" id="presenter"
+               placeholder="Presenter"
+               onkeydown="if (event.keyCode == 13) document.getElementById('submitEvent').click();">
+               -->
+        <div id="text" class="alert alert-danger" role="alert"
+             align="center" hidden></div>
+        <form role="form" action="/events/create" method="post" enctype="multipart/form-data" onerror="window.location='/events'" id="eventForm">
+          <input type="file" id="fileInput" name="photo">
+          <input class="btn btn-default" type="submit" value="Submit" id="submitPhotoBtn">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

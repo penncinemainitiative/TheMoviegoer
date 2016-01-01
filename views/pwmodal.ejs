@@ -1,21 +1,33 @@
 <!-- PW Change Modal -->
-<div class="modal fade pw-change-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" align="center">
+<div class="modal fade pw-change-modal" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel" align="center">
   <div class="modal-dialog">
     <div class="modal-content">
-    	<div class="modal-header">
-        <button id="closeModalBtn" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-header">
+        <button id="closeModalBtn" type="button" class="close"
+                data-dismiss="modal" aria-label="Close"><span
+                  aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Change Password</h4>
       </div>
       <div class="modal-body">
         <br>
-				<input type="password" class="form-control pwinput" id="oldpw" placeholder="Old Password" onkeydown="if (event.keyCode == 13) document.getElementById('pwcBtn').click();">
-				<br>
-        <input type="password" class="form-control pwinput" id="newpw1" placeholder="New Password" onkeydown="if (event.keyCode == 13) document.getElementById('pwcBtn').click();">
+        <input type="password" class="form-control pwinput" id="oldpw"
+               placeholder="Old Password"
+               onkeydown="if (event.keyCode == 13) document.getElementById('pwcBtn').click();">
         <br>
-        <input type="password" class="form-control pwinput" id="newpw2" placeholder="Re-type New Password" onkeydown="if (event.keyCode == 13) document.getElementById('pwcBtn').click();">
+        <input type="password" class="form-control pwinput" id="newpw1"
+               placeholder="New Password"
+               onkeydown="if (event.keyCode == 13) document.getElementById('pwcBtn').click();">
         <br>
-				<div id="issueModal" class="alert alert-danger" role="alert" align="center" hidden></div>
-        <button type="button" class="btn btn-default btn-danger btn-sm" id="pwcBtn">Change</button>
+        <input type="password" class="form-control pwinput" id="newpw2"
+               placeholder="Re-type New Password"
+               onkeydown="if (event.keyCode == 13) document.getElementById('pwcBtn').click();">
+        <br>
+        <div id="issueModal" class="alert alert-danger" role="alert"
+             align="center" hidden></div>
+        <button type="button" class="btn btn-default btn-danger btn-sm"
+                id="pwcBtn">Change
+        </button>
       </div>
     </div>
   </div>
