@@ -14,10 +14,9 @@ var fs = require('fs');
 var async = require('async');
 var secretObj = JSON.parse(fs.readFileSync('json/secret.json', 'utf8'));
 
-app.engine('ejs', engine);
-
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set('view engine', 'jsx');
+app.engine('jsx', require('express-react-views').createEngine());
 
 app.use(multer({dest: './uploads/', includeEmptyFields: true}).single('photo'));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -48,8 +47,6 @@ app.use('/article', require('./routes/article'));
 app.use('/events', require('./routes/events'));
 
 var server = app.listen(8080, function () {
-  var host = server.address().address;
   var port = server.address().port;
-
-  console.log('Example app listening at http://%s:%s', host, port);
+  console.log('Example app listening at http://localhost:%s', port);
 });

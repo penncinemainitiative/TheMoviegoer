@@ -7,10 +7,6 @@ $( document ).ready(function() {
   var initEmail;
   var initBio;
 
-  $('#fileInput').change(function () {
-    $('#photoForm').submit();
-  });
-
   $('button#editBtn').click(function () {
     $('#editBtn').hide();
     $('#pwBtn').hide();
@@ -69,35 +65,31 @@ $( document ).ready(function() {
     }, 3000);
   };
 
-  $('#pwcBtn').click(function () {
-    $('#issueModal').hide();
+  var changePassword = function () {
+    var issueModal = $('#issueModal');
+    issueModal.hide();
 
-    var opw = $('#oldpw').val();
-    var npw1 = $('#newpw1').val();
-    var npw2 = $('#newpw2').val();
+    var oldPassword = $('#oldpw').val();
+    var newPassword = $('#newpw1').val();
+    var confirmPassword = $('#newpw2').val();
 
-    if (opw === '' || npw1 === '' || npw2 === '') {
+    if (oldPassword === '' || newPassword === '' || confirmPassword === '') {
       return;
     }
 
-    if (npw1 !== npw2) {
-      $('#issueModal').show();
-      $('#issueModal').empty();
-      $('#issueModal').append('New passwords do not match up!');
+    if (newPassword !== confirmPassword) {
+      issueModal.show().empty().append('New passwords do not match up!');
       return;
     }
 
     var postData = {
-      oldpassword: opw,
-      newpassword: npw1
+      oldpassword: oldPassword,
+      newpassword: newPassword
     };
 
     $.post('/author/password', postData, function (data) {
       if (!data.success) {
-        $('#issueModal').show();
-        $('#issueModal').empty();
-        $('#issueModal').append(data.msg);
-        return;
+        return issueModal.show().empty().append(data.msg);
       } else {
         // close modal and show success
         setTimeout(function () {
@@ -106,6 +98,13 @@ $( document ).ready(function() {
         }, 500);
       }
     });
-  });
+  };
+
+  var submitPhoto = function () {
+    $('#photoForm').submit();
+  };
+
+  $('#pwcBtn').click(changePassword);
+  $('#fileInput').change(submitPhoto);
 
 });

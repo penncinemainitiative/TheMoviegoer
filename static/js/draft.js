@@ -76,8 +76,7 @@ $(document).ready(function () {
     $('#editBtn').show();
     $('#saveBtn').hide();
 
-    $('#window').empty();
-    $('#window').append(text);
+    $('.posttxt').empty().html(marked(text));
     $('#headPrev').empty();
     $('#headPrev').append(heading);
     $('#typePrev').empty();

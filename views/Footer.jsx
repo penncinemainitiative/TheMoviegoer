@@ -1,0 +1,49 @@
+'use strict';
+
+var React = require('react');
+
+var FooterItem = React.createClass({
+  render: function() {
+    return (
+      <a className="footerItem" href={this.props.url}>{this.props.text}</a>
+    );
+  }
+});
+
+var Footer = React.createClass({
+  render: function () {
+    return (
+      <div id="footer">
+        <div className={"container"}>
+          <div className={"row"}>
+            <div className={"col-sm-offset-1 col-sm-10"}>
+              <p>The Moviegoer is a student-run blog dedicated to film
+                appreciation - posting film analyses, reviews, previews, and all things
+                related.
+                We seek to build a film community on-campus and online through
+                collaboration as well as other PCI-sponsored initiatives. If you
+                would like to work with us, please find out more under the <a
+                  href="/about">about</a> tab.</p>
+            </div>
+          </div>
+          <a
+            href="http://www.facebook.com/pages/Penn-Cinema-Initiative/1536055873314021"><img
+            src="/images/facebook-logo.png" alt="Facebook"/></a>
+        </div>
+        <div>
+          &copy; Penn Cinema Initiative <br/>
+          {this.props.inConsole ? (
+            <FooterItem url="/" text="Go to The Moviegoer"/>
+          ) :
+            <FooterItem url="/console" text="Go to Author Console"/>
+          }
+          {this.props.login ? (
+            <FooterItem url="/console/logout" text="Logout"/>
+          ) : null }
+        </div>
+      </div>
+    );
+  }
+});
+
+module.exports = Footer;

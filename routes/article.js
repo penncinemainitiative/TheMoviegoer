@@ -4,6 +4,7 @@ var express = require('express');
 var router = express.Router();
 var async = require('async');
 var dateFormat = require('dateformat');
+var escape = require('escape-html');
 var connection = require('../databases/sql');
 var ddb = require('../databases/ddb');
 var uploadToS3 = require('../databases/uploadS3');
@@ -71,13 +72,14 @@ router.get('/:id', function (req, res) {
 
   async.waterfall([
     function (callback) {
-      var queryString = 'SELECT isPublished, pubDate, type, title, author ' +
+      var queryString = 'SELECT image, isPublished, pubDate, type, title, author ' +
         'FROM articles WHERE articleId=' + articleId;
       connection.query(queryString, callback);
     }, function (rows, fields, callback) {
       if (rows[0].isPublished === 0 || rows[0].isPublished === 1) {
         return res.redirect('/article/' + req.params.id + '/draft');
       }
+      returnData.image = rows[0].image;
       returnData.title = rows[0].title;
       returnData.date = dateFormat(rows[0].pubDate, "mmmm d, yyyy");
       returnData.type = rows[0].type;
@@ -102,7 +104,7 @@ router.post('/:id', authenticate, function (req, res) {
   var articleId = parseInt(req.params.id);
   var title = req.body.title;
   var type = req.body.type;
-  var text = req.body.text;
+  var text = escape(req.body.text);
 
   async.waterfall([
     function (callback) {
@@ -136,13 +138,14 @@ router.get('/:id/draft', authenticate, function (req, res) {
 
   async.waterfall([
     function (callback) {
-      var queryString = 'SELECT isPublished, pubDate, type, title, author ' +
+      var queryString = 'SELECT image, isPublished, pubDate, type, title, author ' +
         'FROM articles WHERE articleId=' + articleId;
       connection.query(queryString, callback);
     }, function (rows, fields, callback) {
       if (rows[0].isPublished === 2 && req.session.isEditor !== 1) {
         return res.redirect('/article/' + req.params.id);
       }
+      returnData.image = rows[0].image;
       returnData.title = rows[0].title;
       returnData.date = dateFormat(rows[0].updateDate, "mmmm d, yyyy");
       returnData.isPublished = rows[0].isPublished;

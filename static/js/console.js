@@ -1,14 +1,11 @@
 $( document ).ready(function() {
 
-  $('button#loginBtn').click(function () {
+  var login = function () {
     var un = $('#inputEmail').val();
     var pw = $('#inputPassword').val();
 
     if (un === '' || pw === '') {
-      $('#issue').show();
-      $('#issue').empty();
-      $('#issue').append('Please enter username and password!');
-      return;
+      return $('#issue').show().empty().append('Missing data!');
     }
 
     var loginData = {
@@ -18,16 +15,14 @@ $( document ).ready(function() {
 
     $.post('/console/login', loginData, function (data) {
       if (!data.success) {
-        $('#issue').show();
-        $('#issue').empty();
-        $('#issue').append(data.msg);
+        $('#issue').show().empty().append(data.msg);
       } else {
         window.location = '/console/home';
       }
     });
-  });
+  };
 
-  $('button#signupBtn').click(function () {
+  var signup = function () {
     var username = $('#inputUser').val();
     var name = $('#inputName').val();
     var email = $('#inputEmail').val();
@@ -35,16 +30,11 @@ $( document ).ready(function() {
     var pwConfirm = $('#inputPasswordConfirm').val();
 
     if (username === '' || email === '' || pw === '' || pwConfirm === '' || name === '') {
-      $('#issue').show();
-      $('#issue').empty();
-      $('#issue').append('Please fill out all fields!');
-      return;
+      return $('#issue').show().empty().append('Missing data!');
     }
 
     if (pw !== pwConfirm) {
-      $('#issue').show();
-      $('#issue').empty();
-      $('#issue').append('Passwords do not match!');
+      $('#issue').show().empty().append('Passwords do not match!');
       return;
     }
 
@@ -56,17 +46,16 @@ $( document ).ready(function() {
     };
 
     $.post('/author/create', signupData, function (data) {
-      $('#issue').show();
-      $('#issue').empty();
+      var issue = $('#issue');
       if (data.success) {
-        $('#issue').removeClass("alert-danger");
-        $('#issue').addClass("alert-success");
+        issue.removeClass("alert-danger").addClass("alert-success");
       } else {
-        $('#issue').removeClass("alert-success");
-        $('#issue').addClass("alert-danger");
+        issue.removeClass("alert-success").addClass("alert-danger");
       }
-      $('#issue').append(data.msg);
+      issue.show().empty().append(data.msg);
     });
-  });
+  };
 
+  $('button#loginBtn').click(login);
+  $('button#signupBtn').click(signup);
 });
