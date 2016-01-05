@@ -1,0 +1,21 @@
+---
+layout: post
+title: "Podcast 2: Beasts of No Nation"
+author: PCI
+date: 2015-11-02
+excerpt: "Brad and Nikhil discuss Netflix's first feature, *Beasts of No Nation*, on the second ever Moviegoer Podcast."
+image: "/images/podcast.jpg"
+displayimage: "yes"
+tags: 
+- feature
+---
+
+Brad and Nikhil discuss Netflix's first feature, *Beasts of No Nation*, on the second ever Moviegoer Podcast. 
+
+*In West Africa, the life of young Agu (Abraham Attah) is disrupted when his father is slaughtered in a civil war and he is inscripted as a child soldier into a mercenary unit led by the sadistic Commandant (Idris Elba).*
+
+**Warning: Podcast will be full spoilers**
+
+<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/231270775&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe>
+
+Special Thanks to the Kelly Writer's House and the Wexler Recording Studio for their assistance.

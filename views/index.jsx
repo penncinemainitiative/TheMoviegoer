@@ -3,6 +3,7 @@
 var React = require('react');
 var Layout = require('./Layout.jsx');
 var IndexReviews = require('./IndexReviews.jsx');
+var Row = require('react-bootstrap').Row;
 
 var Index = React.createClass({
   render: function () {
@@ -11,10 +12,14 @@ var Index = React.createClass({
         <div className="title">The Moviegoer</div>
         <IndexReviews {...this.props}/>
         <div id="screening-banner">
-          <div id="pcisub"><h2 className="fancy"><span>Next Screening</span></h2></div>
+          <div id="pcisub"><h2 className="fancy"><span>Next Screening</span>
+          </h2></div>
           <div className="container">
-            <div className="row">
-            </div>
+            <Row>
+              <div className="col-lg-9 col-md-8 col-sm-8 col-xs-12">
+                <img src={this.props.nextEvent.image}/>
+              </div>
+            </Row>
           </div>
         </div>
       </Layout>

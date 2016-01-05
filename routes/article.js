@@ -4,7 +4,6 @@ var express = require('express');
 var router = express.Router();
 var async = require('async');
 var dateFormat = require('dateformat');
-var escape = require('escape-html');
 var connection = require('../databases/sql');
 var ddb = require('../databases/ddb');
 var uploadToS3 = require('../databases/uploadS3');
@@ -72,13 +71,14 @@ router.get('/:id', function (req, res) {
 
   async.waterfall([
     function (callback) {
-      var queryString = 'SELECT image, isPublished, pubDate, type, title, author ' +
+      var queryString = 'SELECT excerpt, image, isPublished, pubDate, type, title, author ' +
         'FROM articles WHERE articleId=' + articleId;
       connection.query(queryString, callback);
     }, function (rows, fields, callback) {
       if (rows[0].isPublished === 0 || rows[0].isPublished === 1) {
         return res.redirect('/article/' + req.params.id + '/draft');
       }
+      returnData.excerpt = rows[0].excerpt;
       returnData.image = rows[0].image;
       returnData.title = rows[0].title;
       returnData.date = dateFormat(rows[0].pubDate, "mmmm d, yyyy");
@@ -86,7 +86,7 @@ router.get('/:id', function (req, res) {
       var queryString = 'SELECT name FROM authors WHERE username=\'' +
         rows[0].author + '\'';
       connection.query(queryString, callback);
-    }, function(rows, fields, callback) {
+    }, function (rows, fields, callback) {
       returnData.author = rows[0].name;
       ddb.getItem('articles', articleId, null, {}, callback);
     }
@@ -104,16 +104,17 @@ router.post('/:id', authenticate, function (req, res) {
   var articleId = parseInt(req.params.id);
   var title = req.body.title;
   var type = req.body.type;
-  var text = escape(req.body.text);
+  var text = req.body.text;
+  var excerpt = req.body.excerpt;
 
   async.waterfall([
     function (callback) {
       var queryString = 'UPDATE articles SET updateDate=NOW(), title=' + connection.escape(title) +
-        ',type=' + connection.escape(type) + ' WHERE articleId=' + articleId;
+        ',type=' + connection.escape(type) + ',excerpt=' + connection.escape(excerpt) + ' WHERE articleId=' + articleId;
       connection.query(queryString, callback);
-    }, function(rows, fields, callback) {
+    }, function (rows, fields, callback) {
       ddb.getItem('articles', articleId, null, {}, callback);
-    }, function(result, cap, callback) {
+    }, function (result, cap, callback) {
       var value = JSON.parse(result.value);
       value.text = text;
       var newItem = {
@@ -138,13 +139,14 @@ router.get('/:id/draft', authenticate, function (req, res) {
 
   async.waterfall([
     function (callback) {
-      var queryString = 'SELECT image, isPublished, pubDate, type, title, author ' +
+      var queryString = 'SELECT excerpt, image, isPublished, pubDate, type, title, author ' +
         'FROM articles WHERE articleId=' + articleId;
       connection.query(queryString, callback);
     }, function (rows, fields, callback) {
       if (rows[0].isPublished === 2 && req.session.isEditor !== 1) {
         return res.redirect('/article/' + req.params.id);
       }
+      returnData.excerpt = rows[0].excerpt;
       returnData.image = rows[0].image;
       returnData.title = rows[0].title;
       returnData.date = dateFormat(rows[0].updateDate, "mmmm d, yyyy");
@@ -153,7 +155,7 @@ router.get('/:id/draft', authenticate, function (req, res) {
       var queryString = 'SELECT name FROM authors WHERE username=\'' +
         rows[0].author + '\'';
       connection.query(queryString, callback);
-    }, function(rows, fields, callback) {
+    }, function (rows, fields, callback) {
       returnData.author = rows[0].name;
       ddb.getItem('articles', articleId, null, {}, callback);
     }
@@ -203,9 +205,9 @@ router.post('/:id/cover', authenticate, function (req, res) {
       var queryString = 'UPDATE articles SET updateDate=NOW(), image=' + connection.escape(image) +
         ' WHERE articleId=' + articleId;
       connection.query(queryString, callback);
-    }, function(rows, fields, callback) {
+    }, function (rows, fields, callback) {
       ddb.getItem('articles', articleId, null, {}, callback);
-    }, function(result, cap, callback) {
+    }, function (result, cap, callback) {
       var value = JSON.parse(result.value);
       value.cover = imageIndex;
       var newItem = {
@@ -235,7 +237,7 @@ router.post('/:id/photos', authenticate, function (req, res) {
     async.waterfall([
       function (callback) {
         ddb.getItem('articles', articleId, null, {}, callback);
-      }, function(result, cap, callback) {
+      }, function (result, cap, callback) {
         var value = JSON.parse(result.value);
         value.imgList.push(image_url);
         value.captionList.push(caption);
@@ -247,7 +249,7 @@ router.post('/:id/photos', authenticate, function (req, res) {
           'value': {value: JSON.stringify(value)}
         };
         ddb.updateItem('articles', articleId, null, newItem, {}, callback);
-      }, function(result, cap, callback) {
+      }, function (result, cap, callback) {
         if (!flag) {
           return res.redirect('/article/' + articleId);
         }
@@ -295,7 +297,10 @@ router.post('/:id/retract', authenticate, function (req, res) {
 
 router.post('/:id/publish', authenticate, function (req, res) {
   if (req.session.isEditor !== 1) {
-    return res.send({success: false, msg: 'Only an editor can publish articles!'});
+    return res.send({
+      success: false,
+      msg: 'Only an editor can publish articles!'
+    });
   }
 
   var articleId = parseInt(req.params.id);

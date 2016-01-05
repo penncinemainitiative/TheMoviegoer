@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var Row = require('react-bootstrap').Row;
 
 var HeaderItem = React.createClass({
   render: function () {
@@ -39,7 +40,7 @@ var Header = React.createClass({
     return (
       <div id="header">
         <div className="container-fluid">
-          <div className="row">
+          <Row>
             <HeaderItem {...items[0]}/>
             <HeaderItem {...items[1]}/>
             <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2">
@@ -49,7 +50,7 @@ var Header = React.createClass({
             </div>
             <HeaderItem {...items[2]}/>
             <HeaderItem {...items[3]}/>
-          </div>
+          </Row>
         </div>
       </div>
     );

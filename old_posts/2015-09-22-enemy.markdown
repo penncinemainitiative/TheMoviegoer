@@ -1,0 +1,36 @@
+---
+layout: post
+title: "The Chaotic Order of <i>Enemy</i>"
+cleantitle: "The Chaotic Order of Enemy"
+author: Nikhil Venkatesa
+authorurl: "/writer/NikhilVenkatesa/"
+date: 2015-09-22
+excerpt: "Every frame of Denis Villeneuve’s low-key existential masterpiece Enemy feels fraught with meaning. In a world already filled with patterns of repetition that limit individual expression, what if you met someone who looked exactly like you?"
+image: "/images/enemy/enemy.png"
+displayimage: "yes"
+tags: 
+- feature
+- popular
+---
+	
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It was Robert McKee, the legendary screenwriting guru, who advised screenwriters to leave their audiences with ‘an ending to remember’. He says the same to Charlie Kaufman in *Adaptation*; no matter what the first two-thirds of a film are, its ending is what makes or breaks it. This is certainly the case for *Enemy*; it has a short-story ending that Kafka would be proud of. My childhood fascination with giant spiders returned with a vengeance after watching it.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Every frame of Denis Villeneuve’s low-key existential masterpiece Enemy feels fraught with meaning. Part of that comes from its very premise of “the double”, which is a literary trope that comes with a lot of thematic baggage, having been used by writers like Dostoyevsky, Poe and Stevenson, and filmmakers like Kieslowski and Chaplin. In a world already filled with patterns of repetition that limit individual expression, what if you met someone who looked exactly like you, right down to a very specific kind of scar on your chest? What does that say about you? And what if this “copy” of you was leading the fantasy life you always wanted to have? 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enemy’s depth also comes from an aesthetic place; fewer recent films are as clever and directed with such precision. Take one of the pivotal scenes of the film for instance, when Adam (Jake Gyllenhaal) and Anthony (Jake Gyllenhaal) meet face to face for the first time, in a dingy motel room of all places. Adam is lit better than Anthony, even though Adam stands with his back against the window and Anthony faces it as he walks through the door. Even when Adam leaves through the same way Anthony came in, he’s still lit better than Anthony. 
+
+![pic1](/images/enemy/enemy1.png)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;When both of them are against the curtain in the room facing each other, we only see Adam in close-up, never Anthony, because we’ve been following Adam for the most part. And Villeneuve cuts the scene short by having Adam run out of the meeting, denying us the satisfaction of seeing Gyllenhaal and Gyllenhaal act together ad infinitum. Good things come in small doses. 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It’s important to remember that Enemy isn’t a typical thriller. Yes, there is a driving mystery at the center of the film — what Anthony could be to Adam, and vice versa — but it does not drive the film itself. Instead, Enemy sits squarely in the genre of the puzzle film, joining the ranks of films like *The Machinist*, *Memento*, and even *Shutter Island*; these films are existential nightmares that have emotional underpinnings. For both the protagonists of these films and for us, the actual puzzle doesn't really matter; notice how Teddy Daniels and Leonard solve their mysteries, but overlook them and continue “searching”. The real pleasures of these films are in picking the pieces that we are given, in making order out of chaos, in trying to make the objective out of the subjective. As an audience, we respond to Villeneuve’s directorial decisions much more because of how important those decisions become for the story; clues, even the tiniest of them, that are embedded within the background emerge to the foreground of the puzzle.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The film finds Villeneuve at the height of his powers. In his earlier films, like *August 32nd on Earth* and *Polytechnique*, he demonstrated a strong directorial hand, but was undermined by weak writing, sometimes of his own doing. From *Incendies* on, along with *Prisoners*, *Enemy* and his short film *Next Floor*, Villeneuve has been able to fuse together his distinct visual style, one that echoes of Kubrick, Fincher, and Refn, with strong writing and complex characters. That style includes a lingering camera that intently observes but does not violate, a sense of underlying dread, and a world, always built more out of shadow than light, that reflects character above all else. Those three elements arrive at a disturbing confluence in Enemy; while watching it, a friend of mine wondered why she felt so uneasy by watching the more mundane events that take place on screen. To borrow from the title of a similarly unsettling recent film, it gets under the skin. 
+
+![pic2](/images/enemy/enemy2.png)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It helps that the images in the film are beautifully photographed. The world gets filtered through Villeneuve and Nicolas Bolduc, the director of photography, into a diseased metropolis. It feels like an outward manifestation of Adam’s state of malaise and guilt, or perhaps it reflects the moral pollution that is a part of Anthony’s mind. Both are equally true, just like in the world of Edwin Schrodinger. Instead of cats, we have spiders. 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Out of Villeneuve’s last three features, *Incendies* and *Prisoners* had linear narratives that were easy on the viewer. Enemy dispenses with that and instead provides us with a narrative that acquires the shape of a Mobius strip, leaving Villeneuve to play around with the film’s form. Images might appear in a sequence, as with any other film, but Villeneuve positions them in such a way that they are not context-dependent. Sequences might look like cross-cutting between the two Jakes, such as in the climax of the film, or they might look like one Jake having memories of himself as the other. The two sequences of images we get through jump cuts are themselves forcefully taken out of context; we in turn are forced to make sense of them based on what we’ve seen before. It’s a design that deserves repeat viewing, and Villeneuve knows it.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Even after all of this, you might still be annoyed that I haven’t answered the question: what does the giant spider mean at the end? Was the movie all a dream? Who’s the real Jake, Adam or Anthony? We all have our own answers to these questions, and that’s Villeneuve’s narrative sleight of hand at work. We as an audience need more films like *Enemy*, although we might not realize it. For order to exist, you need some chaos. 

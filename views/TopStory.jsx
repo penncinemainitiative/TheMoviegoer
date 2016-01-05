@@ -13,6 +13,7 @@ var TopStory = React.createClass({
     } else {
       classes = 'col-sm-12';
     }
+    var title = {__html: this.props.title};
     return (
       <div className="top-story">
         <div className={classes}>
@@ -22,7 +23,7 @@ var TopStory = React.createClass({
             </a>
             <div className="col-sm-offset-1 col-sm-10 spacebelow">
               <h3><a href={this.props.url}
-                     className="black">{this.props.title}</a>
+                     className="black" dangerouslySetInnerHTML={title}></a>
               </h3>
               <h4>
                 <small>{this.props.pubDate}</small>

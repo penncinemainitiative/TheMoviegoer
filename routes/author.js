@@ -5,7 +5,6 @@ var router = express.Router();
 var async = require('async');
 var dateFormat = require('dateformat');
 var connection = require('../databases/sql');
-var ddb = require('../databases/ddb');
 var uploadToS3 = require('../databases/uploadS3');
 
 var authorMovies = function (username, call) {

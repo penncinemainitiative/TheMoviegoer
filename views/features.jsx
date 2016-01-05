@@ -16,12 +16,14 @@ var FeatureImage = React.createClass({
 
 var FeatureText = React.createClass({
   render: function () {
+    var title = {__html: this.props.title};
     return (
       <div className="col-sm-4 col-xs-12">
-        <h3><a href={this.props.url}>{this.props.title}</a></h3>
+        <h3><a href={this.props.url} dangerouslySetInnerHTML={title}></a></h3>
         <h4>
           <small>{this.props.pubDate}</small> {this.props.authorname}
         </h4>
+        <p>{this.props.excerpt}</p>
       </div>
     );
   }

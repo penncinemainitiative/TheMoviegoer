@@ -9,7 +9,7 @@ var Layout = React.createClass({
     return (
       <html>
       <head>
-        <title>{this.props.title}</title>
+        <title>{this.props.title.replace(/(<([^>]+)>)/ig, "")}</title>
         <link rel="stylesheet"
               href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
         <link rel="stylesheet"

@@ -2,6 +2,7 @@
 
 var React = require('react');
 var Layout = require('./Layout.jsx');
+var Row = require('react-bootstrap').Row;
 
 var About = React.createClass({
   render: function () {
@@ -9,7 +10,7 @@ var About = React.createClass({
       <Layout {...this.props}>
         <div id="about" className="container">
           <div className="title">About</div>
-          <div className="row">
+          <Row>
             <div className="col-md-10 col-md-offset-1 col-xs-12" id="pci-description">
               <p>Penn Cinema Initiative is proud to present <i>The Moviegoer</i>.</p>
 
@@ -37,7 +38,7 @@ var About = React.createClass({
                 Pennsylvania Cinema Studies Department and Harrison College House.</p>
             </div>
             <img src="https://scontent-cdg2-1.xx.fbcdn.net/hphotos-xfa1/t31.0-8/s960x960/1890590_1536326326620309_6231478269899912810_o.jpg"/>
-          </div>
+          </Row>
         </div>
       </Layout>
     );

@@ -5,7 +5,6 @@ var router = express.Router();
 var async = require('async');
 var dateFormat = require('dateformat');
 var connection = require('../databases/sql');
-var ddb = require('../databases/ddb');
 
 var movieList = function (movieType, call) {
   var newRows = [];
@@ -45,11 +44,16 @@ router.get('/', function (req, res) {
     }, function (callback) {
       var movieType = "type=\'feature\'";
       movieList(movieType, callback);
+    }, function (callback) {
+      var queryString = 'SELECT image FROM events';
+      connection.query(queryString, callback);
     }], function (err, results) {
+    var events = results[2][0];
     var returnData = {
       title: 'The Moviegoer',
       movies: results[0],
-      features: results[1]
+      features: results[1],
+      nextEvent: events[0]
     };
     res.render('index', returnData);
   });

@@ -148,19 +148,19 @@ $(document).ready(function () {
     $('#issue').hide();
     var text = $('#textInput').val();
     var heading = $('#headInput').val();
+    var excerpt = $('#excerptInput').val();
     var typeVal = $('input[name=typeInput]:checked').val();
 
     if (text === '' || heading === '') {
-      $('#issue').show();
-      $('#issue').empty();
-      $('#issue').append('Please enter a title and text for the article before you <b>Save</b>!');
+      $('#issue').show().empty().append('Please enter a title and text for the article before you <b>Save</b>!');
       return;
     }
 
     var postData = {
       title: heading,
       type: typeVal,
-      text: text
+      text: text,
+      excerpt: excerpt
     };
 
     $.post('/article/' + articleId, postData, function (data) {

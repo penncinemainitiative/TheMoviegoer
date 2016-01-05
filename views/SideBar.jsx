@@ -15,8 +15,8 @@ var SideBar = React.createClass({
         <div className="sidebar">
           <div className="upcomingBar">
             <h4>{this.props.name}</h4>
-            {this.props.children}
           </div>
+          {this.props.children}
         </div>
       </div>
     );

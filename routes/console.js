@@ -5,7 +5,6 @@ var router = express.Router();
 var async = require('async');
 var dateFormat = require('dateformat');
 var connection = require('../databases/sql');
-var ddb = require('../databases/ddb');
 
 var authorMovies = function (req, call) {
   var newRows = [];

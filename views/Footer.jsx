@@ -1,9 +1,10 @@
 'use strict';
 
 var React = require('react');
+var Row = require('react-bootstrap').Row;
 
 var FooterItem = React.createClass({
-  render: function() {
+  render: function () {
     return (
       <a className="footerItem" href={this.props.url}>{this.props.text}</a>
     );
@@ -14,18 +15,18 @@ var Footer = React.createClass({
   render: function () {
     return (
       <div id="footer">
-        <div className={"container"}>
-          <div className={"row"}>
-            <div className={"col-sm-offset-1 col-sm-10"}>
+        <div className="container">
+          <Row>
+            <div className="col-sm-offset-1 col-sm-10">
               <p>The Moviegoer is a student-run blog dedicated to film
-                appreciation - posting film analyses, reviews, previews, and all things
-                related.
+                appreciation - posting film analyses, reviews, previews, and all
+                things related.
                 We seek to build a film community on-campus and online through
                 collaboration as well as other PCI-sponsored initiatives. If you
                 would like to work with us, please find out more under the <a
                   href="/about">about</a> tab.</p>
             </div>
-          </div>
+          </Row>
           <a
             href="http://www.facebook.com/pages/Penn-Cinema-Initiative/1536055873314021"><img
             src="/images/facebook-logo.png" alt="Facebook"/></a>

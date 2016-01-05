@@ -2,6 +2,7 @@
 
 var React = require('react');
 var SideBar = require('./SideBar.jsx');
+var Popular = require('./Popular.jsx');
 var TopStory = require('./TopStory.jsx');
 
 var IndexReviews = React.createClass({
@@ -20,7 +21,7 @@ var IndexReviews = React.createClass({
                 <TopStory {...this.props.features[1]}/>
                 <TopStory {...this.props.features[2]}/>
               </div>
-              <SideBar name="Popular"/>
+              <Popular numPopular="5"/>
             </div>
           </div>
         </div>

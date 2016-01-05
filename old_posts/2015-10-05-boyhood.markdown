@@ -1,0 +1,37 @@
+---
+layout: post
+title: "Revisiting <i>Boyhood</i>"
+cleantitle: "Revisiting Boyhood"
+author: Alexander Atienza
+authorurl: "/writer/AlexanderAtienza/"
+date: 2015-10-05
+excerpt: "In the year since it's been out, much attention has been given to Boyhood's idiosyncratic narrative. However, discourse centered on the film’s longitudinal format neglect the other ways in which it is important, such as its uniquely sympathetic portrayal of childhood."
+image: "/images/boyhood/boyhood1.jpg"
+displayimage: "yes"
+tags: 
+- movie
+- classicmovie
+- popular
+---
+	
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The critical acclaim “Boyhood” has received in the months following its release has obscured its real artistic contributions. Richard Linklater’s latest film follows the childhood, adolescence, and young adulthood of six-year-old Mason and his sister Sam as they negotiate between competing loyalties to their divorced parents, Olivia and Mason Sr., and try to create meaningful lives amid shifting alliances and moral ambiguity. The completion of a film shot over 12 years with the same cast is doubtlessly an important event. Though it is common to cast different actors as the same character to represent different ages, or cast the same actor disguised in makeup, Mason’s seamless transition from boyhood to young adulthood reduces the need to suspend disbelief. However, discourse centered on the film’s longitudinal format neglect the other ways in which it is important, such as its uniquely sympathetic portrayal of childhood, which it neither patronizes nor satirizes, and its severing of narrative links between cause and effect to reflect the constructed nature of personal history, what might be called its “poetics of causality”.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It might be more useful to evaluate a film as lauded as “Boyhood” in terms of its contribution to the medium rather than in absolutes. Demonstrating how “Boyhood” has succeeded where other films have failed, it seems, would be a sufficient condition for praise.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mason and Sam are neither spoiled brats nor wise-beyond-their-years savants. They do not communicate with ghosts, extraterrestrials, or aquatic creatures. In fact, they have no connection, spiritual or otherwise, to the natural or supernatural world. Their parents feud and divorce, they break up with their friends, they fantasize about sex, they question religion and fear death, they eventually move to college, and like many millennials, they read Harry Potter, surf the internet for porn, form opinions about the Iraq war, and post on Facebook. They are not noble savages untainted by the cynicism of adulthood; when an adolescent Sam cringes as her dad lectures her on the importance of contraception, or when Mason feigns sickness to spare himself from embarrassment at school after his stepfather cuts his hair against his will, their awkwardness and vulnerability reveal internal lives fraught with doubt.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The challenge of telling a story that is universal is the risk of becoming generic. “Boyhood” is particularly meaningful to viewers like me who have grown up in the 2000s, and though films set in the last decade are frequently either nonfiction or stories in which historical context is incidental, Mason’s first interactions with technology and politics tie private life to historical context.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If a style is present, it is hard to pin down, as “Boyhood” refrains from resorting to stream-of-consciousness techniques and documentarian pretenses to produce an air of realism. There are no dream sequences, no breaking the fourth wall, no fancy camerawork, and barely any music. In the opening minutes of the film, explicit mentions of Mason Sr. and Olivia’s divorce are omitted, though the father is noticeably absent. The hidden narratorial hand guiding the audience through swooning music and discursive expressions of emotion is replaced by narrative context, allowing audiences to form their own conclusions about the characters’ internal lives.
+
+![pic1](/images/boyhood/boyhood2.jpg)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Detractors frequently cite the film’s twelve-year production as an explanation for its popularity, implying that beyond novelty, the film has few redeeming qualities. However, beyond arguing that audiences’ enthusiasm is misdirected, they rarely specify where the film itself falls short. Detractors’ preoccupation with discrediting the acclaim externally contrasts with that of its advocates, who are often able to point to its performances, script, and direction.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Particularly contentious is whether its lack of a traditional plot is an aesthetic flaw or purposeful transgression. Since the nineteenth century, many great works of art and literature have eschewed grand dramas for the everyday lives of ordinary people, from French realism to James Joyce. The everyman is just as noble and interesting as the adventurer and monarch. Throughout the intellectual free exchange of the early 20th century, artists and writers reshaped their craft to suit new ideas in in psychology and philosophy.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Among the film’s insights, perhaps its most novel, is its representation of cause and effect. The production notes to the director’s 1991 film “Slacker” say “the relationship between various scenes can be connected later […] the audience will itself construct causal relationships.” This is as true of “Boyhood” as it is of “Slacker”. When Sam defends her brother’s rebellious behavior from their second stepfather, Jim, he remarks that “When [he] was in high school, having a job, being responsible, being able to afford a car, that was cool.” A few scenes later, without any apparent confrontation, Mason is washing dishes at a fast food joint, the subtle ellipsis challenging viewers to piece together his motives. The events and rites of passage that define long-term change defy explicit exposition and are left to the viewer to deduce. This thesis, what might be called a “poetics of causality”, is the film’s foremost innovation, and the decision to film it over 12 years merely reinforces it.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All the above being said, script is not without its flaws. Devices that had worked so well in Linklater’s previous films wear out after three hours. The shallow “carpe diem” philosophizing of older Mason as he prepares for his independent life as an adult is hardly helped by Elar Coltrane’s performance. Additionally, the confrontation between Bill and Olivia make an early climax and leave little room for dramatic escalation in the remainder of the film. Indeed, it’s Olivia’s struggles as a single mother that dictate the path of the story, and in some ways, she is the true protagonist of the film. However, these temporary lapses are forgivable, since the film’s virtues ultimately outweigh its vices.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“Boyhood” stands as the paradigm “coming-of-age” narrative whose respect for its subject matter is evinced by the subtlety of its character development. If a psychologically realistic depiction of changes over a lifetime communicates a valuable insight into the human condition, as all great art aspires, then “Boyhood” has succeeded spectacularly.
