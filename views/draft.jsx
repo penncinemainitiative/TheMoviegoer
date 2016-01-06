@@ -62,23 +62,22 @@ var Article = React.createClass({
             <div className="col-lg-3 col-md-4 col-sm-6">
               <p>Images</p>
               {this.props.imgList.map(function (image, i) {
-                var imgString = '<img src="' + image + '" class="newImage" alt="Picture"/>';
-                var numImg = i + ';' + image;
+                var imgString = '<img src="' + image.image + '" class="newImage" alt="Picture"/>';
                 return (
                   <div className="newImageDiv">
-                    <img src={image} className="newImage"
+                    <img src={image.image} className="newImage"
                          alt="Picture"/>
                     <div className="input-group">
                       <Input type="text" value={imgString}
                              onClick="this.select();"/>
                       <span className="input-group-btn">
-                        {cover === i ? (
+                        {cover === image.image ? (
                           <Button className="btn-primary starBtn"
-                                  value={numImg}>
+                                  value={image.image}>
                             <Glyphicon glyph="star"/>
                           </Button>
                         ) :
-                          <Button className="starBtn" value={numImg}>
+                          <Button className="starBtn" value={image.image}>
                             <Glyphicon glyph="star"/>
                           </Button>
                         }

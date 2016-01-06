@@ -1,6 +1,18 @@
 The Moviegoer Web App
 ---------------------
 
+### Development
+
+1. In MySQL, create a database called `MOVIEGOER`, and create a user `moviegoeradmin`. Give the user all permissions on the database. Put the database config settings in a `.json` file in directory called `json`.
+2. For `load_db.py`, make sure you have the python mysqldb package installed (a virtualenv may be required). This loads `MOVIEGOER` with all the posts from the old site.
+3. Run the following commands:
+```
+$ npm install
+$ npm run dev
+$ python load_db.py
+$ node app.js
+```
+
 ### Breakdown 
 
 - NodeJS/Express server

@@ -7,7 +7,7 @@ var dateFormat = require('dateformat');
 var connection = require('../databases/sql');
 var uploadToS3 = require('../databases/uploadS3');
 var deleteS3Dir = require('../databases/deleteS3Dir');
-var analytics = require('../databases/analytics');
+var getPopularMovies = require('../databases/analytics');
 
 var authenticate = function (req, res, next) {
   if (!req.session.login) {
@@ -71,7 +71,10 @@ router.get('/:id', function (req, res) {
       console.log(err);
     }
     returnData.author = rows[0].name;
-    res.render('article', returnData);
+    getPopularMovies(function (err, popular) {
+      returnData.popularMovies = popular;
+      res.render('article', returnData);
+    });
   });
 });
 
@@ -83,7 +86,7 @@ router.post('/:id', authenticate, function (req, res) {
   var excerpt = req.body.excerpt;
 
   var queryString = 'UPDATE articles SET updateDate=NOW(), title=' + connection.escape(title) +
-    ',type=' + connection.escape(type) + ',text=' + text + 'excerpt=' + connection.escape(excerpt) + ' WHERE articleId=' + articleId;
+    ',type=' + connection.escape(type) + ',text=' + connection.escape(text) + ',excerpt=' + connection.escape(excerpt) + ' WHERE articleId=' + articleId;
 
   connection.query(queryString, function (err) {
     if (err) {

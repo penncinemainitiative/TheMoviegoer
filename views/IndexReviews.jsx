@@ -21,7 +21,7 @@ var IndexReviews = React.createClass({
                 <TopStory {...this.props.features[1]}/>
                 <TopStory {...this.props.features[2]}/>
               </div>
-              <Popular numPopular="5"/>
+              <Popular popularMovies={this.props.popularMovies} numPopular="3"/>
             </div>
           </div>
         </div>

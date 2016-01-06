@@ -12,7 +12,7 @@ tags:
 - feature
 ---
 
-#####*I’ve been thinking about my grandfather for some reason...*
+##### *I’ve been thinking about my grandfather for some reason...*
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Youth is many things: a family drama, a buddy comedy, a tour de force in cinematography, a rejection of apathy - but above all it’s an artist’s manifesto.

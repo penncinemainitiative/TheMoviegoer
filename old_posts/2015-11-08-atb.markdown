@@ -9,13 +9,13 @@ displayimage: "yes"
 tags: 
 - feature
 ---
-##Around Campus
+## Around Campus
 
-####**PCI Weekly Screening**
+#### **PCI Weekly Screening**
 This week, PCI will be screening Chaplin's silent film classic, *City Lights*.The story follows the misadventures of Chaplin's Tramp as he falls in love with a blind girl and develops a turbulent friendship with an alcoholic millionaire. PCI Board member Ashley Stinnett will be moderating the screening on **Thursday, November 12, 9:00pm**, at Harrison M20. 
 
 
-####**Gregory College House**
+#### **Gregory College House**
 Gregory College House runs a [Film Culture Program](http://gregory.house.upenn.edu/film_culture) for its residents, with screenings happening every day. 
 
 This week they will be screening *Murder on the Orient* Express on Monday, 11/09, *The Texas Chain Saw Massacre* on Tuesday, 11/10, *Tiny Furniture* on Wednesday, 11/11, and *Wonder Woman* on Thursday, 11/12.
@@ -24,14 +24,14 @@ This week they will be screening *Murder on the Orient* Express on Monday, 11/09
 All films will start at 8pm on their respective dates.
 
 
-####**International House**
+#### **International House**
 
 This week, Intnational House is Hosting the Philadelphia Asian American film festival starting Thursday, 11/12 and ending on Wednesday, 11/18. More details, including a full schedule on the [official site](http://www.phillyasianfilmfest.org).
 
 
-##Around the City
+## Around the City
 
-####**This Week at the Ritz**
+#### **This Week at the Ritz**
 
 This week, the Ritz East is showing [*Spotlight*](http://www.landmarktheatres.com/philadelphia/film-info/spotlight), the investigative thriller about a team of journalists looking into allegations of abuse in the Catholic Church. The film has already generated a ton of buzz and looks to be a frontrunner for this year's oscars. This **Thursday, 11/11 at 7pm**, they will also be hosting a Q&A with co-writer Josh Singer in attendance.
 

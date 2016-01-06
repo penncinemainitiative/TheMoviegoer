@@ -5,6 +5,7 @@ var router = express.Router();
 var async = require('async');
 var dateFormat = require('dateformat');
 var connection = require('../databases/sql');
+var getPopularMovies = require('../databases/analytics');
 
 var movieList = function (movieType, call) {
   var newRows = [];
@@ -48,13 +49,16 @@ router.get('/', function (req, res) {
     }, function (callback) {
       var queryString = 'SELECT image FROM events';
       connection.query(queryString, callback);
+    }, function (callback) {
+      getPopularMovies(callback);
     }], function (err, results) {
     var events = results[2][0];
     var returnData = {
       title: 'The Moviegoer',
       movies: results[0],
       features: results[1],
-      nextEvent: events[0]
+      nextEvent: events[0],
+      popularMovies: results[3]
     };
     res.render('index', returnData);
   });
@@ -67,21 +71,42 @@ router.get('/about', function (req, res) {
 });
 
 router.get('/features', function (req, res) {
+  res.redirect('/features/1');
+});
+
+router.get('/features/:page', function(req, res) {
+  var page = parseInt(req.params.page);
+  var perPage = 4;
   async.waterfall([
     function (callback) {
       var movieType = "type=\'feature\'";
       movieList(movieType, callback);
     }
   ], function (err, results) {
+    var features = results;
+    var totalPages = Math.ceil(features.length / perPage);
+    if (page >= totalPages) {
+      res.redirect('/features');
+    }
+    var startSlice = (page - 1) * perPage;
     var returnData = {
       title: 'Features',
-      features: results
+      features: features.slice(startSlice, startSlice + perPage),
+      page: page,
+      totalPages: totalPages,
+      baseUrl: '/features/'
     };
     res.render('features', returnData);
   });
 });
 
 router.get('/movies', function (req, res) {
+  res.redirect('/movies/1');
+});
+
+router.get('/movies/:page', function (req, res) {
+  var page = parseInt(req.params.page);
+  var perPage = 4;
   async.parallel([
     function (callback) {
       var movieType = "type=\'newmovie\'";
@@ -90,10 +115,23 @@ router.get('/movies', function (req, res) {
       var movieType = "type=\'oldmovie\'";
       movieList(movieType, callback);
     }], function (err, results) {
+    var newReleases = results[0];
+    var oldReleases = results[1];
+    var newPages = Math.ceil(newReleases.length / perPage);
+    var oldPages = Math.ceil(oldReleases.length / perPage);
+    var totalPages = Math.max(newPages, oldPages);
+    if (page <= 0 || page >= totalPages) {
+      res.redirect('/movies');
+    }
+    var startSlice = (page - 1) * perPage;
+
     var returnData = {
       title: 'Movies',
-      newReleases: results[0],
-      oldReleases: results[1]
+      newReleases: newReleases.slice(startSlice, startSlice + perPage),
+      oldReleases: oldReleases.slice(startSlice, startSlice + perPage),
+      page: page,
+      totalPages: totalPages,
+      baseUrl: '/movies/'
     };
     res.render('movies', returnData);
   });

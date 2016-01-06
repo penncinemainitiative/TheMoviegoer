@@ -4,7 +4,8 @@
   "description": "Web application for The Moviegoer blog",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified! Configure in package.json\" && exit 1"
+    "dev": "./node_modules/gulp/bin/gulp.js",
+    "watch": "./node_modules/gulp/bin/gulp.js watch"
   },
   "repository": "",
   "keywords": [

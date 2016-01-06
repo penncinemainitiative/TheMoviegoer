@@ -13,9 +13,9 @@ tags:
 - popular
 ---
 
-###45 Years
+### 45 Years
 
-#####(10/29) 7:00pm, Ritz East B; (11/1) 5:00pm, Ritz East B
+##### (10/29) 7:00pm, Ritz East B; (11/1) 5:00pm, Ritz East B
 
 **Director:** Andrew Haigh
 
@@ -24,9 +24,9 @@ tags:
 **Why You Should Care:** The sensitivity and bravery of “Weekend”, which turned heads at SXSW in 2011, demonstrated Andrew Haigh’s promising talent as an emerging filmmaker. His preference for small-scale drama shows in his latest film, which returns to the themes of unconventional romance and interpersonal strain, this time with a couple who has been together for a few decades rather than a few days. Whether Haigh can meet the standard set by his previous film will depend on whether he can resurrect intimate dialogue and quiet realism that made “Weekend” a hit.
 
 
-###Anomalisa
+### Anomalisa
 
-#####(10/22) 6:00 pm, 8:30 pm, Prince Theater
+##### (10/22) 6:00 pm, 8:30 pm, Prince Theater
 
 **Director:** Charlie Kaufman, Duke Johnson
 
@@ -35,9 +35,9 @@ tags:
 **Why You Should Care:** Acclaimed for his imaginative and provocative screenplays, screenwriter Charlie Kaufman has been eerily silent since his directorial debut, “Synecdoche, New York”, in 2008. He returned to the spotlight when a Kickstarter campaign for “Anomalisa” gained traction in late 2012 and was fully funded, marking the Kaufman’s first foray into animated filmmaking. The consistency of his output as a writer has yet to be rivaled in its depth and wit, and audiences will likely see in the return of his sobering existentialism and mind-bending thought experiments, amplified in his latest film by the new possibilities opened by the medium.
 
 
-###Brooklyn
+### Brooklyn
 
-#####(10/27) 6:00pm, Prince Theater
+##### (10/27) 6:00pm, Prince Theater
  
 **Director:**  John Crowley    	
  
@@ -47,9 +47,9 @@ tags:
 
 ![pic1](https://s3.amazonaws.com/moviegoer/uploads/inchoate/PFF/carol.jpg)
 
-###Carol
+### Carol
 
-#####(10/25) 7:15pm, Prince Theater
+##### (10/25) 7:15pm, Prince Theater
 
 **Director:** Todd Haynes
 
@@ -59,9 +59,9 @@ tags:
 
 ![pic2](https://s3.amazonaws.com/moviegoer/uploads/inchoate/PFF/jameswhite.jpg)
 
-###James White
+### James White
 
-#####(10/23) 7:25pm, Ritz East B; (10/26) 2:55pm, Ritz East A
+##### (10/23) 7:25pm, Ritz East B; (10/26) 2:55pm, Ritz East A
  
 **Director:** Josh Mond                      	
  
@@ -70,9 +70,9 @@ tags:
 **Why You Should Care:** First time writer/director Josh Mond (producer of Martha Marcy May Marlene) brings us the compelling story of misanthropic, self-destructive James in what looks to be an excellent character study and showcase for Abbot in the title role. Critics have also heavily commended Cynthia Nixon’s multifaceted performance as James’ concerned, condemning, sick, and loving mother.
  
  
-###Just Jim
+### Just Jim
 
-#####(10/29) 9:30pm, Prince Theater
+##### (10/29) 9:30pm, Prince Theater
  
 **Director:** Craig Roberts    	
  
@@ -83,9 +83,9 @@ tags:
 
 ![pic3](https://s3.amazonaws.com/moviegoer/uploads/inchoate/PFF/thelobster.jpg)
 
-###The Lobster
+### The Lobster
 
-#####(10/25), 4:35pm, Ritz East B
+##### (10/25), 4:35pm, Ritz East B
 
 **Director:** Yorgos Lanthimos
 
@@ -95,9 +95,9 @@ tags:
  
 ![pic4](https://s3.amazonaws.com/moviegoer/uploads/inchoate/PFF/theprogram.jpg)
 
-###The Program
+### The Program
 
-#####(10/24), 2:30pm Ritz East B; (10/27), 7:30pm Ritz East B
+##### (10/24), 2:30pm Ritz East B; (10/27), 7:30pm Ritz East B
 
 **Director:** Stephen Frears
 
@@ -107,9 +107,9 @@ tags:
 
 ![pic6](https://s3.amazonaws.com/moviegoer/uploads/inchoate/FFP/macbeth.jpg)
 
-###Macbeth
+### Macbeth
 
-#####(10/24), 12pm, Prince Theater
+##### (10/24), 12pm, Prince Theater
 
 **Director:** Justin Kurzel
 
@@ -118,9 +118,9 @@ tags:
 **Why You Should Care:** William Shakespeare’s Macbeth has been portrayed on screen over a dozen times, but Justin Kurzel’s adaptation has established itself as the definitive Macbeth film in many minds. After roaring onto the scene with his brutal first feature, Snowtown, Kurzel infuses the same passion and fury into this faithful adaptation of one of Shakespeare’s most well known works. Considering the fact that The Weinstein Company may dump this adaptation stateside in a very limited release, similar to their treatment of The Immigrant last spring, you should not miss your chance to check this out in Philadelphia! 
 
  
-###Sunset Song
+### Sunset Song
 
-#####(10/24) 12:05pm, Ritz East A; (10/27) 12:00pm, Ritz East B
+##### (10/24) 12:05pm, Ritz East A; (10/27) 12:00pm, Ritz East B
  
 **Director:**  Terence Davies
  
@@ -129,9 +129,9 @@ tags:
 **Why You Should Care:** In this first feature adaptation of Lewis Grassic-Gibbon’s novel of the same name, acclaimed director Terence Davis creates a lush but human portrait of northeast Scotland and its people. The film should be both emotionally and aesthetically enrapturing and give attention to a time period and area not overly portrayed in film. 
 
 
-###Victoria
+### Victoria
 
-#####(10/25), 7:15pm, Ritz Bourse; (10/31), 9:40pm, Ritz East B
+##### (10/25), 7:15pm, Ritz Bourse; (10/31), 9:40pm, Ritz East B
 
 **Director:** Sebastian Schipper
 
@@ -141,9 +141,9 @@ tags:
 
 ![pic5](https://s3.amazonaws.com/moviegoer/uploads/inchoate/PFF/worldoftomorrow.jpg)
 
-###World of Tomorrow
+### World of Tomorrow
 
-#####(10/23) 7:10pm, Ritz East A; (11/1) 9:50 pm, Ritz East A
+##### (10/23) 7:10pm, Ritz East A; (11/1) 9:50 pm, Ritz East A
 
 **Director:** Don Hertzfeldt
 
@@ -152,9 +152,9 @@ tags:
 **Why You Should Care:**“World of Tomorrow” won Don Hertzfeldt his second Grand Jury Prize for Short Film at the Sundance Film Festival and has drawn comparisons to Chris Marker’s “La Jetee” in its originality and scope. Known for being an adherent of hand-drawn animation, Hertzfeldt delves into the world of digital animation and summons its resources to tell his latest film. Speculating about the far future and diving deep into the past, “World of Tomorrow” showcases Hertzfeldt’s penchant for mingling cynicism with awe, the paradoxical consequences of the human story’s seeming triviality when framed against the cosmic narrative.
 
 
-###Youth
+### Youth
 
-#####(10/28) 8:30pm, Prince Theater
+##### (10/28) 8:30pm, Prince Theater
 
 **Director:** Paolo Sorrentino
 

@@ -6,14 +6,13 @@ author: Brad Pettigrew
 authorurl: "/writer/BradPettigrew/"
 date: 2015-08-30
 excerpt: "The Coens' 2000 release is a window to the power of myth"
-image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/obwat.jpg"
+image: " https://s3.amazonaws.com/moviegoer/uploads/inchoate/obwat.jpg"
 displayimage: "yes"
 tags:
 - classicmovie
 - movie
 ---
-###*"In the big rock candy mountain..."*
-<br>
+### *"In the big rock candy mountain..."*
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;There's a moment about 40 minutes into O Brother Where Art Thou where our three main characters are gathered around a campfire. They're wanted men, aimless in their wandering, with nowhere to go. The hitchhiker they've picked up, a man who's allegedly sold his soul to the devil, picks at the guitar:
 

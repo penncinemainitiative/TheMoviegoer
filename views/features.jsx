@@ -2,6 +2,7 @@
 
 var React = require('react');
 var Layout = require('./Layout.jsx');
+var Pagination = require('./Pagination.jsx');
 
 var FeatureImage = React.createClass({
   render: function () {
@@ -35,6 +36,7 @@ var Features = React.createClass({
       <Layout {...this.props}>
         <div className="container">
           <div className="title">Features</div>
+          <Pagination {...this.props}/>
           {this.props.features.map(function (feature, i) {
             if (i % 2 !== 0) {
               return (

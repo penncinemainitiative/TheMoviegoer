@@ -3,11 +3,34 @@
 var React = require('react');
 var SideBar = require('./SideBar.jsx');
 
+var Article = React.createClass({
+  render: function () {
+    var movie = this.props;
+    var authorUrl = '/author/profile/' + movie.authorname.replace(/\s+/g, '');
+    var title = {__html: movie.title};
+    return (
+      <div className="event">
+        <a href={movie.url}><img
+          src={movie.image}/></a>
+        <a href={movie.url} className="black" dangerouslySetInnerHTML={title}/>
+        <h4>
+          <small>{movie.pubDate} <a href={authorUrl}>{movie.authorname}</a>
+          </small>
+        </h4>
+      </div>
+    );
+  }
+});
+
 var Popular = React.createClass({
   render: function () {
-    var numPop = parseInt(this.props.numPopular);
+    var numPop = this.props.numPopular;
+    var popularMovies = this.props.popularMovies.slice(0, numPop);
     return (
       <SideBar name="Popular">
+        {popularMovies.map(function (movie) {
+          return <Article {...movie}/>;
+        })}
       </SideBar>
     );
   }

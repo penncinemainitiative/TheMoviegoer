@@ -17,34 +17,63 @@ def execute(query):
     return cur.fetchall()
 
 
-try:
-    execute("DROP TABLE authors")
-except:
-    pass
+def reset_databases():
+    try:
+        execute("DROP TABLE authors")
+    except:
+        pass
 
-try:
-    execute("DROP TABLE articles")
-except:
-    pass
+    try:
+        execute("DROP TABLE articles")
+    except:
+        pass
 
-try:
-    execute("DROP TABLE images")
-except:
-    pass
+    try:
+        execute("DROP TABLE images")
+    except:
+        pass
 
-try:
-    execute("DROP TABLE events")
-except:
-    pass
+    try:
+        execute("DROP TABLE events")
+    except:
+        pass
 
-execute(
-        "CREATE TABLE `authors` (`username` text NOT NULL,`email` text NOT NULL,`name` varchar(100) NOT NULL,`password` varchar(100) NOT NULL,`isEditor` int(11) NOT NULL,`image` text NOT NULL,`bio` text NOT NULL)")
-execute(
-        "CREATE TABLE `events` (`eventId` int(11) NOT NULL AUTO_INCREMENT, `date` date NOT NULL, `location` text, `image` text, `presenter` varchar(100) DEFAULT NULL, `authorUsername` text, `goingCount` int(11) DEFAULT NULL, `fbLink` varchar(100) DEFAULT NULL, `time` time NOT NULL, `title` varchar(100) NOT NULL, PRIMARY KEY (`eventId`))")
-execute(
-        "CREATE TABLE `articles` (`articleId` int(11) NOT NULL AUTO_INCREMENT, `isPublished` int(11) NOT NULL, `pubDate` date DEFAULT NULL, `updateDate` date NOT NULL, `type` text NOT NULL, `title` text NOT NULL, `author` text NOT NULL, `image` text, `excerpt` text NOT NULL, `text` text NOT NULL, PRIMARY KEY (`articleId`))")
-execute(
-        "CREATE TABLE `images` (`image` varchar(200) NOT NULL, `articleId` int(11) DEFAULT NULL)")
+    execute(
+            """CREATE TABLE `authors` (`username` text NOT NULL,
+                                      `email` text NOT NULL,
+                                      `name` varchar(100) NOT NULL,
+                                      `password` varchar(100) NOT NULL,
+                                      `isEditor` int(11) NOT NULL,
+                                      `image` text NOT NULL,
+                                      `bio` text NOT NULL)""")
+    execute(
+            """CREATE TABLE `events` (`eventId` int(11) NOT NULL AUTO_INCREMENT,
+                                      `date` date NOT NULL,
+                                      `location` text,
+                                      `image` text,
+                                      `presenter` varchar(100) DEFAULT NULL,
+                                      `authorUsername` text,
+                                      `goingCount` int(11) DEFAULT NULL,
+                                      `fbLink` varchar(100) DEFAULT NULL,
+                                      `time` time NOT NULL,
+                                      `title` varchar(100) NOT NULL,
+                                      PRIMARY KEY (`eventId`))""")
+    execute(
+            """CREATE TABLE `articles` (`articleId` int(11) NOT NULL AUTO_INCREMENT,
+                                      `isPublished` int(11) NOT NULL,
+                                      `pubDate` date DEFAULT NULL,
+                                      `updateDate` date NOT NULL,
+                                      `type` text NOT NULL,
+                                      `title` text NOT NULL,
+                                      `author` text NOT NULL,
+                                      `image` text,
+                                      `excerpt` text NOT NULL,
+                                      `text` text NOT NULL,
+                                      PRIMARY KEY (`articleId`))""")
+    execute(
+            """CREATE TABLE `images` (`image` varchar(200) NOT NULL,
+                                      `articleId` int(11) DEFAULT NULL)""")
+
 
 OLD_POSTS = 'old_posts/'
 
@@ -143,10 +172,18 @@ def get_authors():
                 bio = get_attr(lines, 'bio').replace('"', "")
                 author = Author(username, name, image, bio)
                 authors.append(author)
-    pci = Author("pci", "PCI", "https://s3.amazonaws.com/moviegoer/uploads/inchoate/writer/M.jpg", "")
-    jsheplock = Author("jsheplock", "James Sheplock", "https://s3.amazonaws.com/moviegoer/uploads/inchoate/writer/M.jpg", "")
-    bfinkel = Author("bfinkel", "Benjamin Finkel", "https://s3.amazonaws.com/moviegoer/uploads/inchoate/writer/M.jpg", "")
-    vkumar = Author("vkumar", "Vaishak Kumar", "https://s3.amazonaws.com/moviegoer/uploads/inchoate/writer/M.jpg", "")
+    pci = Author("pci", "PCI",
+                 "https://s3.amazonaws.com/moviegoer/uploads/inchoate/writer/M.jpg",
+                 "")
+    jsheplock = Author("jsheplock", "James Sheplock",
+                       "https://s3.amazonaws.com/moviegoer/uploads/inchoate/writer/M.jpg",
+                       "")
+    bfinkel = Author("bfinkel", "Benjamin Finkel",
+                     "https://s3.amazonaws.com/moviegoer/uploads/inchoate/writer/M.jpg",
+                     "")
+    vkumar = Author("vkumar", "Vaishak Kumar",
+                    "https://s3.amazonaws.com/moviegoer/uploads/inchoate/writer/M.jpg",
+                    "")
     authors.append(pci)
     authors.append(jsheplock)
     authors.append(bfinkel)
@@ -167,7 +204,7 @@ def get_posts():
             excerpt = get_attr(lines, 'excerpt').replace('"', "")
             type = get_attr(lines, 'tags')
             images = get_attr(lines, 'images')
-            # url = '/' + filename.replace('-', '/').replace('markdown', 'html')
+            images.append(image)
             post = Post(title, author, date, excerpt, image, type, text, images)
             posts.append(post)
     return posts
@@ -196,7 +233,8 @@ def setup_articles():
         post.articleId = articleId
         articleId += 1
         cur.execute(query, (post.isPublished, post.pubDate, post.updateDate,
-                    post.type, post.title, post.author, post.image, post.excerpt, post.text))
+                            post.type, post.title, post.author, post.image,
+                            post.excerpt, post.text))
     db.commit()
 
 
@@ -209,6 +247,7 @@ def setup_images():
 
 
 if __name__ == '__main__':
+    reset_databases()
     setup_authors()
     setup_articles()
     setup_images()

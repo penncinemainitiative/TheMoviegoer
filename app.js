@@ -13,6 +13,8 @@ var bodyParser = require('body-parser');
 var fs = require('fs');
 var async = require('async');
 var secretObj = JSON.parse(fs.readFileSync('json/secret.json', 'utf8'));
+var oldUrls = JSON.parse(fs.readFileSync('old_urls.json', 'utf8'));
+var connection = require('./databases/sql');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jsx');
@@ -31,7 +33,7 @@ app.use(session({
   login: false
 }));
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.locals.login = req.session.login;
   res.locals.name = req.session.name;
   res.locals.username = req.session.username;
@@ -46,8 +48,18 @@ app.use('/author', require('./routes/author'));
 app.use('/article', require('./routes/article'));
 app.use('/events', require('./routes/events'));
 
-app.get('/*', function(req, res) {
-  res.redirect('/');
+app.get('/*', function (req, res) {
+  if (oldUrls[req.path]) {
+    var queryString = 'SELECT articleId FROM articles WHERE title="' + oldUrls[req.path] + '"';
+    connection.query(queryString, function(err, rows) {
+      if (err) {
+        return res.redirect('/');
+      }
+      res.redirect('/article/' + rows[0].articleId);
+    });
+  } else {
+    res.redirect('/');
+  }
 });
 
 var server = app.listen(8080, function () {

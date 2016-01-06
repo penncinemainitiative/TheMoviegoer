@@ -2,6 +2,7 @@
 
 var React = require('react');
 var marked = require('marked');
+var Popular = require('./Popular.jsx');
 
 var View = React.createClass({
   render: function () {
@@ -25,7 +26,9 @@ var View = React.createClass({
             <img src={this.props.image} className="postimg"/>
             <div className="posttxt" dangerouslySetInnerHTML={text}></div>
           </div>
-          <div className="col-lg-3 col-md-4 col-sm-4 col-xs-12"></div>
+          {this.props.popularMovies ? (
+            <Popular popularMovies={this.props.popularMovies} numPopular="3"/>
+          ) : null}
         </div>
       </div>
     );
