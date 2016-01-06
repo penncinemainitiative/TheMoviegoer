@@ -5,7 +5,7 @@ cleantitle: "Podcast: Krampus"
 author: PCI
 date: 2015-12-15
 excerpt: "Brad and Nikhil talk the horror/comedy mash-up, Krampus, on this week's podcast."
-image: "/images/podcast.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/podcast.jpg"
 displayimage: "yes"
 tags: 
 - feature

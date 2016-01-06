@@ -5,8 +5,8 @@ var router = express.Router();
 var async = require('async');
 var dateFormat = require('dateformat');
 var connection = require('../databases/sql');
-var ddb = require('../databases/ddb');
 var uploadToS3 = require('../databases/uploadS3');
+var deleteS3Dir = require('../databases/deleteS3Dir');
 var analytics = require('../databases/analytics');
 
 var authenticate = function (req, res, next) {
@@ -24,40 +24,18 @@ router.get('/', authenticate, function (req, res) {
     type: 'feature',
     title: 'Untitled Article',
     author: req.session.username,
-    url: '/',
+    text: '...',
     image: 'https://www.royalacademy.org.uk/' +
     'assets/placeholder-1e385d52942ef11d42405be4f7d0a30d.jpg'
   };
 
-  var newId, url;
-
-  async.waterfall([
-    function (callback) {
-      var queryString = 'INSERT INTO articles SET ?';
-      connection.query(queryString, insertData, callback);
-    }, function (result, fields, callback) {
-      newId = result.insertId;
-      url = '/article/' + newId;
-      var queryString = 'UPDATE articles SET url=\'' + url +
-        '\' WHERE articleId=' + newId;
-      connection.query(queryString, callback);
-    }, function (result, fields, callback) {
-      var value = {
-        text: '',
-        imgList: [],
-        captionList: [],
-        caption: -1
-      };
-      var newItem = {
-        articleId: newId,
-        value: JSON.stringify(value)
-      };
-      ddb.putItem('articles', newItem, {}, callback);
-    }
-  ], function (err) {
+  var queryString = 'INSERT INTO articles SET ?';
+  connection.query(queryString, insertData, function (err, result) {
     if (err) {
       console.log(err);
     }
+    var newId = result.insertId;
+    var url = '/article/' + newId;
     res.redirect(url);
   });
 });
@@ -71,7 +49,7 @@ router.get('/:id', function (req, res) {
 
   async.waterfall([
     function (callback) {
-      var queryString = 'SELECT excerpt, image, isPublished, pubDate, type, title, author ' +
+      var queryString = 'SELECT excerpt, text, image, isPublished, pubDate, type, title, author ' +
         'FROM articles WHERE articleId=' + articleId;
       connection.query(queryString, callback);
     }, function (rows, fields, callback) {
@@ -83,19 +61,16 @@ router.get('/:id', function (req, res) {
       returnData.title = rows[0].title;
       returnData.date = dateFormat(rows[0].pubDate, "mmmm d, yyyy");
       returnData.type = rows[0].type;
+      returnData.text = rows[0].text;
       var queryString = 'SELECT name FROM authors WHERE username=\'' +
         rows[0].author + '\'';
       connection.query(queryString, callback);
-    }, function (rows, fields, callback) {
-      returnData.author = rows[0].name;
-      ddb.getItem('articles', articleId, null, {}, callback);
     }
-  ], function (err, result) {
+  ], function (err, rows) {
     if (err) {
       console.log(err);
     }
-    var value = JSON.parse(result.value);
-    returnData.text = value.text;
+    returnData.author = rows[0].name;
     res.render('article', returnData);
   });
 });
@@ -107,22 +82,10 @@ router.post('/:id', authenticate, function (req, res) {
   var text = req.body.text;
   var excerpt = req.body.excerpt;
 
-  async.waterfall([
-    function (callback) {
-      var queryString = 'UPDATE articles SET updateDate=NOW(), title=' + connection.escape(title) +
-        ',type=' + connection.escape(type) + ',excerpt=' + connection.escape(excerpt) + ' WHERE articleId=' + articleId;
-      connection.query(queryString, callback);
-    }, function (rows, fields, callback) {
-      ddb.getItem('articles', articleId, null, {}, callback);
-    }, function (result, cap, callback) {
-      var value = JSON.parse(result.value);
-      value.text = text;
-      var newItem = {
-        'value': {value: JSON.stringify(value)}
-      };
-      ddb.updateItem('articles', articleId, null, newItem, {}, callback);
-    }
-  ], function (err) {
+  var queryString = 'UPDATE articles SET updateDate=NOW(), title=' + connection.escape(title) +
+    ',type=' + connection.escape(type) + ',text=' + text + 'excerpt=' + connection.escape(excerpt) + ' WHERE articleId=' + articleId;
+
+  connection.query(queryString, function (err) {
     if (err) {
       console.log(err);
     }
@@ -139,7 +102,7 @@ router.get('/:id/draft', authenticate, function (req, res) {
 
   async.waterfall([
     function (callback) {
-      var queryString = 'SELECT excerpt, image, isPublished, pubDate, type, title, author ' +
+      var queryString = 'SELECT excerpt, text, image, isPublished, pubDate, type, title, author ' +
         'FROM articles WHERE articleId=' + articleId;
       connection.query(queryString, callback);
     }, function (rows, fields, callback) {
@@ -152,22 +115,20 @@ router.get('/:id/draft', authenticate, function (req, res) {
       returnData.date = dateFormat(rows[0].updateDate, "mmmm d, yyyy");
       returnData.isPublished = rows[0].isPublished;
       returnData.type = rows[0].type;
+      returnData.text = rows[0].text;
       var queryString = 'SELECT name FROM authors WHERE username=\'' +
         rows[0].author + '\'';
       connection.query(queryString, callback);
     }, function (rows, fields, callback) {
       returnData.author = rows[0].name;
-      ddb.getItem('articles', articleId, null, {}, callback);
+      var queryString = 'SELECT image FROM images WHERE articleId=' + articleId;
+      connection.query(queryString, callback);
     }
   ], function (err, result) {
     if (err) {
       console.log(err);
     }
-    var value = JSON.parse(result.value);
-    returnData.text = value.text;
-    returnData.imgList = value.imgList;
-    returnData.captionList = value.captionList;
-    returnData.cover = value.cover;
+    returnData.imgList = result;
     res.render('draft', returnData);
   });
 });
@@ -186,6 +147,11 @@ router.get('/:id/delete', authenticate, function (req, res) {
       }
       var queryString = 'DELETE FROM articles WHERE articleId=' + articleId;
       connection.query(queryString, callback);
+    }, function (rows, fields, callback) {
+      var queryString = 'DELETE FROM images WHERE articleId=' + articleId;
+      connection.query(queryString, callback);
+    }, function (rows, fields, callback) {
+      deleteS3Dir(articleId, callback);
     }
   ], function (err) {
     if (err) {
@@ -198,24 +164,10 @@ router.get('/:id/delete', authenticate, function (req, res) {
 router.post('/:id/cover', authenticate, function (req, res) {
   var articleId = parseInt(req.params.id);
   var image = req.body.image;
-  var imageIndex = parseInt(req.body.imageIndex);
 
-  async.waterfall([
-    function (callback) {
-      var queryString = 'UPDATE articles SET updateDate=NOW(), image=' + connection.escape(image) +
-        ' WHERE articleId=' + articleId;
-      connection.query(queryString, callback);
-    }, function (rows, fields, callback) {
-      ddb.getItem('articles', articleId, null, {}, callback);
-    }, function (result, cap, callback) {
-      var value = JSON.parse(result.value);
-      value.cover = imageIndex;
-      var newItem = {
-        'value': {value: JSON.stringify(value)}
-      };
-      ddb.updateItem('articles', articleId, null, newItem, {}, callback);
-    }
-  ], function (err) {
+  var queryString = 'UPDATE articles SET updateDate=NOW(), image=' + connection.escape(image) +
+    ' WHERE articleId=' + articleId;
+  connection.query(queryString, function (err) {
     if (err) {
       console.log(err);
     }
@@ -223,40 +175,21 @@ router.post('/:id/cover', authenticate, function (req, res) {
   });
 });
 
-router.post('/:id/captions', authenticate, function (req, res) {
-  req.session.caption = req.body.caption;
-  res.send({success: true});
-});
-
 router.post('/:id/photos', authenticate, function (req, res) {
-  var flag = false;
   var articleId = parseInt(req.params.id);
-  uploadToS3(req.file, function (image_url) {
-    var caption = req.session.caption;
-
-    async.waterfall([
+  uploadToS3(req.file, articleId, function (image_url) {
+    async.parallel([
       function (callback) {
-        ddb.getItem('articles', articleId, null, {}, callback);
-      }, function (result, cap, callback) {
-        var value = JSON.parse(result.value);
-        value.imgList.push(image_url);
-        value.captionList.push(caption);
-        if (value.caption === -1) {
-          value.caption = 0;
-          flag = true;
-        }
-        var newItem = {
-          'value': {value: JSON.stringify(value)}
-        };
-        ddb.updateItem('articles', articleId, null, newItem, {}, callback);
-      }, function (result, cap, callback) {
-        if (!flag) {
-          return res.redirect('/article/' + articleId);
-        }
         var queryString = 'UPDATE articles SET updateDate=NOW(), ' +
-          'image=\'' + image_url + '\'' +
-          ' WHERE articleId=' + articleId;
+          'image=\'' + image_url + '\' WHERE articleId=' + articleId;
         connection.query(queryString, callback);
+      }, function (callback) {
+        var insertData = {
+          articleId: articleId,
+          image: image_url
+        };
+        var queryString = 'INSERT INTO images SET ?';
+        connection.query(queryString, insertData, callback);
       }
     ], function (err) {
       if (err) {
@@ -282,6 +215,13 @@ router.post('/:id/submit', authenticate, function (req, res) {
 });
 
 router.post('/:id/retract', authenticate, function (req, res) {
+  if (req.session.isEditor !== 1) {
+    return res.send({
+      success: false,
+      msg: 'Only an editor can retract articles!'
+    });
+  }
+
   var articleId = parseInt(req.params.id);
 
   var queryString = 'UPDATE articles SET updateDate=NOW(), ' +

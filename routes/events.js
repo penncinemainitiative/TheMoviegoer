@@ -28,7 +28,7 @@ router.post('/create', authenticate, function (req, res) {
     return res.redirect('/');
   }
   res.locals.inConsole = true;
-  uploadToS3(req.file, function (image_url) {
+  uploadToS3(req.file, 'events', function (image_url) {
     var insertData = {
       image: image_url,
       date: new Date()

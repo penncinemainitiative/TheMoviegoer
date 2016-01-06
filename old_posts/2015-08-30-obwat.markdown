@@ -6,7 +6,7 @@ author: Brad Pettigrew
 authorurl: "/writer/BradPettigrew/"
 date: 2015-08-30
 excerpt: "The Coens' 2000 release is a window to the power of myth"
-image: "/images/obwat.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/obwat.jpg"
 displayimage: "yes"
 tags:
 - classicmovie

@@ -5,7 +5,7 @@ cleantitle: "Podcast: Spectre"
 author: PCI
 date: 2015-11-11
 excerpt: "Brad and Nikhil talk the disappointing 24th entry in the bond franchise, Spectre."
-image: "/images/podcast.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/podcast.jpg"
 displayimage: "yes"
 tags: 
 - feature

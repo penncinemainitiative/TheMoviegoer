@@ -6,7 +6,7 @@ author: Alexander Atienza
 authorurl: "/writer/AlexanderAtienza/"
 date: 2015-09-04
 excerpt: "Alex gives us a briefing on what to expect from Depp's latest"
-image: "/images/FFP/blackmass.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/FFP/blackmass.jpg"
 displayimage: "yes"
 tags: 
 - newmovie

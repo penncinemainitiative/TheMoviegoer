@@ -6,7 +6,7 @@ author: Lucas De Barros Silva
 authorurl: "/writer/LucasSilva/"
 date: 2015-08-30
 excerpt: "Lucas talks about his favorite Bergman film"
-image: "/images/persona/persona2.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/persona/persona2.jpg"
 displayimage: "yes"
 tags: 
 - classicmovie
@@ -22,7 +22,7 @@ tags:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In one of his many collaborations with master cinematographer Sven Nykvist, Bergman created one of his most fantastically shot films of his career. The work of Bergman and Nykvist is an unquestioned thing of beauty in general, but in Persona the role of lighting and production design is even more visible. Instead of going for a spectrum of black, white and its variations, Bergman and Nykvist opt for stark, haunting contrast, drastically lighting up the shots and adding volumes of surrealist drama to the story. Everything is black on white, light on shadow, grey on black-and-white and vice-versa, or maybe upside down, perhaps even sideways. The most remarkable evidence of Persona's revolutionary cinematography is in how Nykvist shoots Ullmann and Anderson's faces are shot, in an array of light and shadows that culminates at the scene when Alma tells a story about Elisabet and her motherly skills, showing half of her face lit and the other drenched in darkness, revealing an upcoming duplicity and asymmetry the film had been warning us about almost forever.
 
-![pic3](/images/persona/persona3.jpg)
+![pic3](https://s3.amazonaws.com/moviegoer/uploads/inchoate/persona/persona3.jpg)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Even with delicate attention and analysis, a film like Persona defies easy explanations; here is a film that actually cares about taking the art of filmmaking seriously and challenging the viewer to look at film art from a different perspective. One could first think of writing about films like Citizen Kane, The Rules of the Game and Seven Samurai to try to understand and figure out what makes these films so great; an unabashedly complex film like Persona would first demand an explanation to solve the meaning of the story itself, and to why it blurs itself in the first place. Chicago Reader anti-Bergman critic Dave Kehr defends that although this might be Bergman's finest film, it has too many "avant-garde clichés". It's not only a controversial film for the topics it addresses - infidelity, promiscuous sexuality, abortion, maternal negligence, psychological sadomasochism - but perhaps because it also drifts entirely away from the exclusive notion of itself as entertainment. Persona dares the viewer to feel an incomplete experience and forces an answer in the form of examination.
 
@@ -37,7 +37,7 @@ tags:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It helps very little that Alma and Elisabet have lead very similar paths in their lives, but in opposite directions: one has managed to avoid her responsibilities as a mother, while the other prevented being one from the very beginning but grieves her decision; one has lead a lifestyle that consists entirely of playing roles and lying and in great fashion, while the other often expresses her admiration towards people who truly believe in a possible meaning behind everything, behind their lives; one has reached, in a way, the success she's always wanted, while the other has been accused by her lover of not being ambitious enough. There's a key scene when Alma confesses that she thought, after seeing one of Elisabet's films, that they looked and seemed very much alike. She never realizes how true this is, and that it was bound to become truer than ever before; not only they share intimate experiences and personal stories with each other, but their personalities start to merge. Thus was born one of the most iconic scenes in film history, when one visits the other's bedroom and they stare at the camera, tangling with each other and revealing scary physical and behavioral resemblances that could go wildly unnoticed until then.
 
-![pic1](/images/persona/persona1.jpg)
+![pic1](https://s3.amazonaws.com/moviegoer/uploads/inchoate/persona/persona1.jpg)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The personality merge, which I still find too complicated to understand for the moment, leads the second half of the film, the first being mostly about one learning to cope with the other before house wars break out. As Elisabet drains Alma's identity out of her and she succumbs to her complementary self, they become one and only. It isn't only a combination of two comparable personalities; it's also one persona engulfing the other. One can note how Elisabet establishes Alma as an intermediary with her husband; how the camera seems to permanently seek a superimposition of both her faces, mostly privileging Elisabet's; how Elisabet's most drastic gestures seem to occur behind the curtains, while Alma openly recreates them. The silent treatment, in the end, can be just as violent and coercive as physical or verbal abuse.
 

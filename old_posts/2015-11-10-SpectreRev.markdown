@@ -6,7 +6,7 @@ author: Ritwik Bhatia
 authorurl: "/writer/RitwikBhatia/"
 date: 2015-11-10
 excerpt: "Spectre, on the basis of its abysmal script, poor pace, and ridiculous characters, nearly ruins Daniel Craig’s otherwise impeccable run as Bond."
-image: "/images/FFP/spectre_alt.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/FFP/spectre_alt.jpg"
 displayimage: "yes"
 tags: 
 - newmovie

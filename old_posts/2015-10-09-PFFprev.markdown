@@ -6,7 +6,7 @@ author: PCI
 authorurl: 
 date: 2015-10-09
 excerpt: "PCI previews the Philadelphia film festival"
-image: "/images/PFF/victoria.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/PFF/victoria.jpg"
 displayimage: "yes"
 tags: 
 - feature
@@ -45,7 +45,7 @@ tags:
  
 **Why You Should Care:** Based on Colm Tóibín’s celebrated novel of the same name and with a screenplay penned by Nick Hornby, Brooklyn has good reason to be a winning film. Saoirse Ronan is one of today’s finest young actresses and her leading performance should ground the film and be complimented by newcomer Emory Cohen’s breakthrough turn.  The two act out a love story between a newly arrived Ellis and blue-collar Italian-American Tony, only for Ellis to be drawn back to Ireland. It is exciting to see a coming-of-age, period love story treated so lavishly, sensitively and appealingly on the big screen.
 
-![pic1](/images/PFF/carol.jpg)
+![pic1](https://s3.amazonaws.com/moviegoer/uploads/inchoate/PFF/carol.jpg)
 
 ###Carol
 
@@ -57,7 +57,7 @@ tags:
 
 **Why You Should Care:** As demonstrated in “Far From Heaven”, Haynes’s fluency in fifties cinematic tropes makes him the perfect filmmaker to adapt a novel by Patricia Highsmith, whose macabre works have been previously adapted by Alfred Hitchcock. Aside from the mini-series Mildred Pierce 2011, Haynes has been absent from the silver screen since his Bob Dylan biopic “I’m Not There”, which earned Cate Blanchett an Academy Award nomination for Best Supporting Actress. Blanchett returns to work with Haynes in what promises to be yet another psychologically complex role, given Haynes’s earlier confrontation with gender, race, and identity.
 
-![pic2](/images/PFF/jameswhite.jpg)
+![pic2](https://s3.amazonaws.com/moviegoer/uploads/inchoate/PFF/jameswhite.jpg)
 
 ###James White
 
@@ -81,7 +81,7 @@ tags:
 **Why You Should Care:** Just Jim promises to be a black comedy coming-of-age story and panacea for all of the rom-com, prom-arched teen films rife in Hollywood.
  Indie-darling Craig Roberts (star of Submarine) makes his directorial debut in Just Jim, crossing genres and bending expectations as Jim goes through the quintessential makeover and gets a glimpse of popularity, and subsequently goes down a rabbit hole of violence and irresponsibility.
 
-![pic3](/images/PFF/thelobster.jpg)
+![pic3](https://s3.amazonaws.com/moviegoer/uploads/inchoate/PFF/thelobster.jpg)
 
 ###The Lobster
 
@@ -93,7 +93,7 @@ tags:
 
 **Why You Should Care:** Yorgos Lanthimos made a name for himself after making the critically-acclaimed Greek drama, Dogtooth, in Premiering at Cannes this year to strong reviews, The Lobster depicts a future in which people must find a mate within 45 days- if they are unsuccessful, they are released into the woods and transformed into an animal. The Lobster boasts an exceptionally intriguing plot-line, and rests heavily on the shoulders of lead actor Colin Farrell, who is enjoying a career resurgence with this film and his strong recent role in HBO’s True Detective. 
  
-![pic4](/images/PFF/theprogram.jpg)
+![pic4](https://s3.amazonaws.com/moviegoer/uploads/inchoate/PFF/theprogram.jpg)
 
 ###The Program
 
@@ -105,7 +105,7 @@ tags:
 
 **Why You Should Care:** Lance Armstrong is a name most Americans are familiar with. At one point, he was the ideal American- someone who thrived off his talent, and faced adversity with courage and determination. His fall from grace after a doping scandal, then, is highly conducive to a cinematic re-telling. Stephen Frears, who last made 2013’s Philomena, returns to the director’s chair to portray a fallen hero. The criminally underrated Ben Foster portrays Armstrong, and recently informed the media that he used performance enhancing drugs in preparation for his role, in order to truly capture the psyche of Armstrong. Talk about commitment to a role. 
 
-![pic6](/images/FFP/macbeth.jpg)
+![pic6](https://s3.amazonaws.com/moviegoer/uploads/inchoate/FFP/macbeth.jpg)
 
 ###Macbeth
 
@@ -139,7 +139,7 @@ tags:
 
 **Why You Should Care:** Last year, critics and audiences raved at Birdman, which was edited to look like a single-take film. On the other hand, this year, Victoria abandons all such digital enhancements, opting for the real deal- a single take, script-less film that drew raves at its premiere earlier this year at the Sundance Film Festival. Through its real time structure, this film seemingly raises the stakes and crafts an exhilarating heist, all revolving around the eponymous Victoria. Victoria surely should rank high on any cinephiles list. 
 
-![pic5](/images/PFF/worldoftomorrow.jpg)
+![pic5](https://s3.amazonaws.com/moviegoer/uploads/inchoate/PFF/worldoftomorrow.jpg)
 
 ###World of Tomorrow
 

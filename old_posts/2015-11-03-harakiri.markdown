@@ -6,7 +6,7 @@ author: Eric Eisner
 authorurl: "/writer/EricEisner/"
 date: 2015-11-03
 excerpt: "Behind the period costumes and dated customs, Harakiri is full of quiet intensity, and its critiques on custom and humanity cut sharply through the elegantly crafted shots."
-image: "/images/harakiri.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/harakiri.jpg"
 displayimage: "yes"
 tags: 
 - movie

@@ -6,7 +6,7 @@ author: PCI
 authorurl: ""
 date: 2015-10-29
 excerpt: "Ritwik, Kevin, and James give a recap of the week's biggest news"
-image: "/images/hardeight.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/hardeight.jpg"
 displayimage: "yes"
 tags: 
 - feature

@@ -6,7 +6,7 @@ author: Nikhil Venkatesa
 authorurl: "/writer/NikhilVenkatesa/"
 date: 2015-08-30
 excerpt: "Nikhil's take on Refn's 2013 film"
-image: "/images/onlygod.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/onlygod.jpg"
 displayimage: "yes"
 tags: 
 - classicmovie

@@ -6,7 +6,7 @@ author: Olatunbosun Osinaike
 authorurl: "/writer/OlaOsinaike/"
 date: 2015-09-15
 excerpt: "When reflecting on Scorsese’s Voyage to Italy, it’s important to consider this question: how do we relate different modes of filmmaking?"
-image: "/images/scor.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/scor.jpg"
 displayimage: "yes"
 tags: 
 - feature

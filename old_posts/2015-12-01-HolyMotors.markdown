@@ -5,7 +5,7 @@ cleantitle: "The Profound Weirdness of Holy Motors"
 author: Ben Finkel
 date: 2015-12-01
 excerpt: "One third of the way through Holy Motors, a tramp clambers up out of a manhole, rampages through a cemetery, bites two fingers off of a photographic assistant’s hand, and abducts a supermodel; that this is not the most surprising sequence of the film speaks to the essential nature of Carax’s picture."
-image: "/images/holymotors.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/holymotors.jpg"
 displayimage: "yes"
 tags: 
 - feature

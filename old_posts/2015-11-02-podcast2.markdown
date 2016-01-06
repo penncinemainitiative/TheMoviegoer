@@ -4,7 +4,7 @@ title: "Podcast 2: Beasts of No Nation"
 author: PCI
 date: 2015-11-02
 excerpt: "Brad and Nikhil discuss Netflix's first feature, *Beasts of No Nation*, on the second ever Moviegoer Podcast."
-image: "/images/podcast.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/podcast.jpg"
 displayimage: "yes"
 tags: 
 - feature

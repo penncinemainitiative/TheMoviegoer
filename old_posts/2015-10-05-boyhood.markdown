@@ -6,7 +6,7 @@ author: Alexander Atienza
 authorurl: "/writer/AlexanderAtienza/"
 date: 2015-10-05
 excerpt: "In the year since it's been out, much attention has been given to Boyhood's idiosyncratic narrative. However, discourse centered on the film’s longitudinal format neglect the other ways in which it is important, such as its uniquely sympathetic portrayal of childhood."
-image: "/images/boyhood/boyhood1.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/boyhood/boyhood1.jpg"
 displayimage: "yes"
 tags: 
 - movie
@@ -24,7 +24,7 @@ tags:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If a style is present, it is hard to pin down, as “Boyhood” refrains from resorting to stream-of-consciousness techniques and documentarian pretenses to produce an air of realism. There are no dream sequences, no breaking the fourth wall, no fancy camerawork, and barely any music. In the opening minutes of the film, explicit mentions of Mason Sr. and Olivia’s divorce are omitted, though the father is noticeably absent. The hidden narratorial hand guiding the audience through swooning music and discursive expressions of emotion is replaced by narrative context, allowing audiences to form their own conclusions about the characters’ internal lives.
 
-![pic1](/images/boyhood/boyhood2.jpg)
+![pic1](https://s3.amazonaws.com/moviegoer/uploads/inchoate/boyhood/boyhood2.jpg)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Detractors frequently cite the film’s twelve-year production as an explanation for its popularity, implying that beyond novelty, the film has few redeeming qualities. However, beyond arguing that audiences’ enthusiasm is misdirected, they rarely specify where the film itself falls short. Detractors’ preoccupation with discrediting the acclaim externally contrasts with that of its advocates, who are often able to point to its performances, script, and direction.
 

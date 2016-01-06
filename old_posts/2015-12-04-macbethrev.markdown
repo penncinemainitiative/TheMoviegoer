@@ -6,7 +6,7 @@ author: James Sheplock
 authorurl: ""
 date: 2015-12-04
 excerpt: "Kurzel’s approach is to infuse the play with brutal violence and beautiful shots of the Scottish region that are impossible to achieve on stage, making this adaptation the most cinematic, but regrettably leaving some aspects of the play behind."
-image: "/images/macbeth.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/macbeth.jpg"
 displayimage: "yes"
 tags: 
 - movie

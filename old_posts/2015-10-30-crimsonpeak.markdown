@@ -6,7 +6,7 @@ author: Lucas De Barros Silva
 authorurl: "/writer/LucasSilva/"
 date: 2015-10-30
 excerpt: "Lucas reviews Guillermo Del Toro’s latest, Crimson Peak." 
-image: "/images/crimsonpeak.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/crimsonpeak.jpg"
 displayimage: "yes"
 tags: 
 - movie

@@ -6,7 +6,7 @@ author: Alexander Atienza
 authorurl: "/writer/AlexanderAtienza/"
 date: 2015-09-08
 excerpt: "Wes Anderson is somewhat of a maverick in today’s filmmaking. If the mark of a successful director is that people are able to identify his or her stylistic patterns, without a necessarily deep knowledge of filmmaking, then Wes Anderson has succeeded astronomically."
-image: "/images/wesAnd/wa1.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/wesAnd/wa1.jpg"
 displayimage: "yes"
 tags: 
 - feature
@@ -17,7 +17,7 @@ tags:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wes Anderson is somewhat of a maverick in today’s filmmaking. If the mark of a successful director is that people are able to identify his or her stylistic patterns, without a necessarily deep knowledge of filmmaking, then Wes Anderson has succeeded astronomically. Because of his dysfunctional families, social outcasts, bright colors, and indie music, Wes Anderson’s name has become synonymous with hipster nostalgia and visions of prepubescent couples dancing to French chansons, establishing him as a central figure in independent cinema. However, these seemingly arbitrary aesthetic choices accomplish much more than being quirky or pretty. Careful consideration given to detailed sets, meticulous shots, and flamboyant dialogue supports an unusual hypothesis: that Wes Anderson’s films do with “academic” or otherwise prestigious genres of storytelling what drag shows do with gender—expose their performative aspects and deconstruct them.
 
-![pic2](/images/wesAnd/wa2.png)
+![pic2](https://s3.amazonaws.com/moviegoer/uploads/inchoate/wesAnd/wa2.png)
 
 ###"O R they?"
 
@@ -25,7 +25,7 @@ tags:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A fascination with prestige might explain Anderson’s use of formal conventions commonly found in other media and other genres of filmmaking, especially those that connote importance, such as the prominence of book covers in *The Royal Tenenbaums* or the disorienting editing and awkward dialogue of his short, *Hotel Chevalier* - the pseudo-cosmopolitanism of his films is a playful, self-conscious jab at the stereotypes of foreign cinema. The songs of *The Life Aquatic* are in Portuguese, and the press conference that opens the film is held in French; the maids at the Grand Budapest also speak French, and the crew of the Darjeeling Limited speak Hindi. If it were not for his ability to do so subtly, one might argue Anderson shoots himself in the foot by distancing himself from high art, since his own films are also frequently highbrow in their intentions (one could argue *The Grand Budapest Hotel* becomes the very kind of storytelling it satirizes). However, those who call his films “pretentious” may not realize that they are in agreement with the filmmaker, that cinema has yet to move beyond the aesthetics associated with importance and prestige - a kind of anxiety of influence.
 
-![pic3](/images/wesAnd/wa4.png)
+![pic3](https://s3.amazonaws.com/moviegoer/uploads/inchoate/wesAnd/wa4.png)
 
 ###The Rebel Prep 
 
@@ -35,7 +35,7 @@ tags:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unlike those of his later films, the palette of *Rushmore* is remarkably subdued, and the thematic material sobering. The film is unique in that it is Anderson’s first to be filmed in a clearly stylized manner. Its predecessor, *Bottle Rocket*, which is shot in a slightly more realist manner, is visually unrecognizable as a work of the director and its successor, *The Royal Tenenbaums*, is arguably the pinnacle of Anderson’s quintessentially baroque visual language. In a way, Max’s infatuation with an older woman mirrors Anderson’s infatuation with older styles of filmmaking. And just as Max attempts to pass as a mature gentleman, Anderson’s films mimic the experimental ventures of his French New Wave predecessors. Long tracking shots, shifting aspect ratios, and slow motion combine to create the cinematic voice of an adolescent. Like Max, Anderson seeks to overturn the establishment by eating at it from the inside out - exploiting its various loopholes and contradictions.
 
-![pic4](/images/wesAnd/wa3.jpg)
+![pic4](https://s3.amazonaws.com/moviegoer/uploads/inchoate/wesAnd/wa3.jpg)
 
 ###Needle in the Hay
 

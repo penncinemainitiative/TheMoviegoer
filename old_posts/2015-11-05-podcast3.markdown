@@ -4,7 +4,7 @@ title: "Podcast 3: Victoria"
 author: PCI
 date: 2015-11-05
 excerpt: "Brad and Nikhil discuss the one shot wonder, Victoria, on this week's Moviegoer Podcast. "
-image: "/images/podcast.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/podcast.jpg"
 displayimage: "yes"
 tags: 
 - feature

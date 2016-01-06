@@ -6,7 +6,7 @@ author: Brad Pettigrew
 authorurl: "/writer/BradPettigrew/"
 date: 2015-12-04
 excerpt: "Youth is many things: a family drama, a buddy comedy, a tour de force in cinematography, a rejection of apathy - but above all it’s an artist’s manifesto."
-image: "/images/youth/youth2.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/youth/youth2.jpg"
 displayimage: "yes"
 tags: 
 - feature
@@ -25,7 +25,7 @@ tags:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It’s no surprise then that *Youth*’s sweetest moments come when we find our characters completely alone: Fred Ballinger (Michael Caine) orchestrates a field of empty cattle, our ex-revolutionary kicks a around a tennis ball with child-like glee, Ballinger’s young masseuse jumps with electricity to the latest dancing game. Even the nightly shows - what ought to be wholly communal experience, passed off by one of the characters as facile schlock - are seen through the tunneled view of individual characters, their reaction shots framed isolated in close-up. These are moments free from that ‘mature’ chastising embodied so well on both sides of the fight between Innaritu’s Riggan and his thin-nosed critic - more the result of jealousy than some innate hierarchy of artistic pursuits, if anything.
 
-![pic1](/images/youth/youth.jpg)
+![pic1](https://s3.amazonaws.com/moviegoer/uploads/inchoate/youth/youth.jpg)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ballinger walks together with his friend, Mick Boyle (Harvey Keitel), down a long worn path in a meadow and remarks that he can no longer remember his family’s faces. Having just fought with his daughter in the moments preceding - with tears, screaming, and rejection - one can’t help but wonder if she too wouldn’t remember him. Or if she did, would it be worth it? 
 

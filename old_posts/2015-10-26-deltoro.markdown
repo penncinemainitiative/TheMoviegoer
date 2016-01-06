@@ -6,7 +6,7 @@ author: Lucas De Barros Silva
 authorurl: "/writer/LucasSilva/"
 date: 2015-10-26
 excerpt: "Guillermo Del Toro’s cinema is a cinema of basic fears and desires reaching back to our primal need for traditional storytelling, yet refraining from the clear-cut opposition of gods and monsters - instead embracing horror, death and fright as essential components of our life." 
-image: "/images/Deltoro/deltoro5.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/Deltoro/deltoro5.jpg"
 displayimage: "yes"
 tags: 
 - feature
@@ -25,7 +25,7 @@ tags:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Del Toro, like most fanboys gone directors, started very young in the craft; at the age of eight he had already started experimenting with the Super 8 camera he got from his father and by 19 he had already completed nine short films. In his early twenties he co-founded the Guadalajara Film Festival, though more significantly he was writing and directing episodes of the cult series *La Hora Marcada*, a critical and commercial success in Mexico that involved no less than Alfonso Cuarón, Emmanuel Lubezki, and Guillermo Navarro, who would become Del Toro’s go-to cinematographer. His prolific involvement with the arts, which ranged from short films using *Planet of the Apes* toys and “serial killer” potatoes to working under the supervision of legendary special effects artist Dick Smith, ensured a broad understanding of all the technical aspects of filmmaking, leading up to his successful and oddly appealing feature debut, *Cronos*, released in 1993.
 
 
-![pic1](/images/Deltoro/deltoro1.jpg)
+![pic1](https://s3.amazonaws.com/moviegoer/uploads/inchoate/Deltoro/deltoro1.jpg)
 
 ###What is a ghost?
 
@@ -35,7 +35,7 @@ tags:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Cronos* was a critical and commercial hit; winning nine Ariel Awards (the Mexican Oscars) and later finding a place at the Criterion Collection, it paved the way for Del Toro to exercise his filmmaking chops. It is no surprise then that a foreign filmmaker who strongly identified with the horror genre, a huge money-maker for commercial studios, would be given a strong budget for a Hollywood production. The contrast between his American and his Mexican/Spanish productions is quite visible. And it’s interesting to think of his work in chronological terms, as Del Toro comes closer and closer to Hollywood.
 
-![pic2](/images/Deltoro/deltoro4.jpg)
+![pic2](https://s3.amazonaws.com/moviegoer/uploads/inchoate/Deltoro/deltoro4.jpg)
 
 ###The Spider or The Fly?
 
@@ -47,7 +47,7 @@ tags:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Del Toro has continued with pictures made both in Hollywood and Spain (he hasn’t returned to Mexico after his father’s kidnapping in 1998); and while his Spanish-language films have fared better in terms of critical acclaim, he refuses to treat his American productions as less personal works. All of Del Toro’s films, even the downright failures, are remarkable in their own way: *The Devil’s Backbone* and *Pan’s Labyrinth*, each a respective tour de force about the destructive impact of fascism and war in Spain, thoroughly subvert the conventions of children stories in order to create darker, more poignant takes on the injustice cast unto them; *Cronos* – where vampirism is induced by a mythological bug that lives inside a sealed metallic device – and *Blade II* – which is as brainless as it is campy–, are both seemingly conventional vampire movies with strong social undertones, though the former is much more satisfying than the latter; *Mimic*, *Hellboy* and *Hellboy II: The Golden Army* are monster movies with a heart, the last two also being the birthplace of an astounding collection of uniquely beautiful creatures rarely found in the days of CGI. Regardless of the quality of his films, Del Toro stands out as a progressive, innovative filmmaker. Moreover, the side of his work reflected in his American productions is what makes every single one of his works (with the exception of *Blade II*, perhaps), marvelously entertaining. When the complications of his work are taken as imperfections in the work of a genre geek seeking nothing other than making his dreams come true, one can see what makes them such singular events in commercial filmmaking. 
 
-![pic3](/images/Deltoro/deltoro6.jpg)
+![pic3](https://s3.amazonaws.com/moviegoer/uploads/inchoate/Deltoro/deltoro6.jpg)
 
 ###A tragedy condemned to repeat itself time and again
 

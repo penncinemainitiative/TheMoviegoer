@@ -3,9 +3,9 @@
 var fs = require('fs');
 var awsObj = JSON.parse(fs.readFileSync('json/aws.json', 'utf8'));
 
-var uploadToS3 = function (file, callback) {
+var uploadToS3 = function (file, folder, callback) {
   var uuid = require('node-uuid');
-  var file_suffix = uuid.v1();
+  var file_suffix = folder + '/' + uuid.v1();
   var s3 = require('s3');
   var client = s3.createClient({
     maxAsyncS3: 20,     // this is the default

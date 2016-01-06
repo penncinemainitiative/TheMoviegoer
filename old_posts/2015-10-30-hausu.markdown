@@ -6,7 +6,7 @@ author: James Sheplock
 authorurl: ""
 date: 2015-10-30
 excerpt: "Throughout the month of October PCI members will be sharing some of their favorite horror films. James talks about why Hausu isn't just one of the most unique horror films ever made, it's one of the most unique films ever made, period."
-image: "/images/hausu.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/hausu.jpg"
 displayimage: "yes"
 tags: 
 - movie

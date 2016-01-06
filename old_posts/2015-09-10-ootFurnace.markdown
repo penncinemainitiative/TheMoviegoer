@@ -6,7 +6,7 @@ author: Nikhil Venkatesa
 authorurl: "/writer/NikhilVenkatesa/"
 date: 2015-09-10
 excerpt: "Out of the Furnace sank without a trace from American theaters in 2013, a fate it doesn’t deserve considering the richness of its characters."
-image: "/images/ootf1.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/ootf1.jpg"
 displayimage: "yes"
 tags: 
 - classicmovie

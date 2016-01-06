@@ -6,7 +6,7 @@ author: Eric Eisner
 authorurl: "/writer/EricEisner/"
 date: 2015-12-03
 excerpt: "The reviews of Hayao Miyazaki’s The Wind Rises missed the point of what is quite possibly one of the best films ever made, animated or otherwise."
-image: "/images/windrises.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/windrises.jpg"
 displayimage: "yes"
 tags:
 - feature
@@ -19,7 +19,7 @@ tags:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tatsuo Hori wrote The Wind Has Risen between 1936 and 1938. Hori, like many of his characters, was afflicted with tuberculosis throughout his life. *The Wind Has Risen* is very short, with fewer than 40 pages. The writing is both elegantly lyrical and suffused with a delicate melancholy. The book begins with a sudden breeze overturning a painting and easel. The male narrator retrieves it for his fiancée, Setsuko. He and Setsuko go to a sanatorium, and he stays by her side as she slowly dies of tuberculosis. The book ends, just over a year after Setsuko’s death, with the line, “Leftover gusts of wind are blowing a few leaves around, making a weak rustling noise at my feet.” There are so many similarities between The Wind Has Risen and The Wind Rises, differences are all the more striking. In Miyazaki’s film, Jiro retrieves Naoko’s wind-blown painting, Naoko goes to a sanatorium, and she dies of tuberculosis. In Hori’s book, the narrator goes to the sanatorium to be with Setsuko, while in Miyazaki’s film, Naoko leaves the sanatorium to be with Jiro. And, in *The Wind Rises*, Naoko leaves the home where she and Jiro live so no one will witness her death. When she dies, Jiro is at the test flight of his Mitsubishi A5M. A gust of wind causes him to realize Naoko has died. 
 
-![pic1](/images/windrises2.jpg)
+![pic1](https://s3.amazonaws.com/moviegoer/uploads/inchoate/windrises2.jpg)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;While The Wind Has Risen is a meditation on love and death, The Wind Rises is a reflection on the costs of art. Jiro’s airplanes are used to aid a war he does not support and his obsession with making them prevents him from being with his wife when she is dying. “Airplanes are beautiful, cursed dreams, waiting for the sky to swallow them up,” Giovanni Caproni, an Italian airplane designer, tells Jiro in a dream. Miyazaki’s provocative argument is that art is intrinsically worthwhile, and that art should be made even if harms both society and the author. “Which would you choose: a world with pyramids or a world without?” Caproni asks Jiro rhetorically.
 

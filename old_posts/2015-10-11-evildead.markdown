@@ -6,7 +6,7 @@ author: Brad Pettigrew
 authorurl: "/writer/BradPettigrew/"
 date: 2015-10-11
 excerpt: "Throughout the month of October PCI members will be sharing some of their favorite horror films. Brad explains why Evil Dead is so captivating."
-image: "/images/evildead.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/evildead.jpg"
 displayimage: "yes"
 tags: 
 - movie

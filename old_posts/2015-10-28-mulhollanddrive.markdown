@@ -6,7 +6,7 @@ author: Rahel Tekeste
 authorurl: "/writer/RahelTekeste/"
 date: 2015-10-28
 excerpt: "David Lynch’s 2001 *Mulholland Drive*, employing many of the same elements as his other works, such as composer, Angelo Badalamenti, the ambiance, and the surrealist tone, is one of Lynch’s more critically acclaimed films. PCI member Rahel Tekeste explains why it's one of her favorite movies"
-image: "/images/mulhollanddrive.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/mulhollanddrive.jpg"
 displayimage: "yes"
 tags: 
 - movie

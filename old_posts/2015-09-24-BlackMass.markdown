@@ -6,7 +6,7 @@ author: Ritwik Bhatia
 authorurl: "/writer/RitwikBhatia/"
 date: 2015-09-24
 excerpt: "In film, Boston has served as an ideal location for gritty mob sagas and morality tales. And, in Scott Cooper’s menacing Black Mass, Boston symbolizes the only tie to humanity that notorious criminal Whitey Bulger possesses. "
-image: "/images/bmart.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/bmart.jpg"
 displayimage: "yes"
 tags: 
 - newmovie
@@ -22,7 +22,7 @@ tags:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This is precisely where the script, written by Mark Mallouk and Jez Butterworth, pounces on the opportunity to add flavor to a familiar biopic structure. Rather than tackling this saga as strictly procedural on the side of law enforcement or Whitey’s Winter Hill gang, the film makes it a point to highlight the relationship between Whitey and Connolly, both self-proclaimed ’Southies’, a relationship that is much more than a professional or a business relationship. It runs deep into the past, from the streets of Southside to their luxurious houses and properties all across the United States. 
 
-![pic1](/images/bmart2.jpg)
+![pic1](https://s3.amazonaws.com/moviegoer/uploads/inchoate/bmart2.jpg)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The term ‘Southie’ as an identity is used innumerably in the film, referring to someone brought up on the streets of south Boston. It is befitting, then, for the film to center just as much on Bulger as his Southie pals, who create a moral stronghold. Joel Edgerton, an underrated gem of an actor, is chameleon-like in his role as John Connolly, the FBI agent who persuades Bulger to join forces in the first place. Rounding out this trio is Benedict Cumberbatch as Bulger’s brother and state senator, who reinforces this theme of familial loyalty by balking at any notion to divulge information on his brother’s operations. 
 
@@ -32,7 +32,7 @@ tags:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cinematographer Masanobu Takayanagi, who also collaborated with Cooper on the lackluster yet stylistic Out of The Furnace, highlights the hilly streets, foggy bars, and sheer emptiness of Boston. His works offers a unique parallel to the events of the film, as Bulger is allowed to continue his operations as Connolly and the FBI turn a blind eye. Featuring numerous tracking shots and wide-pans of the local streets and Charles river, the cinematography is haunting and bleak. Cooper’s use of framing is exquisite, particularly in a scene in which Bulger brutally kills someone close to a Flemmi, a member of his gang. After his victim is dead, Bulger tells Flemmi to “Clean up your mess”, and the camera beautifully captures the angst on Flemmi’s face, an angst that simply never goes away.
 
-![pic2](/images/bm3.jpg)
+![pic2](https://s3.amazonaws.com/moviegoer/uploads/inchoate/bm3.jpg)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Much like Jack Nicholson’s character in the Boston-set crime classic *The Departed*, loosely based on Bulger himself, Bulger did not want to be a product of his environment, but wanted his environment to be a product of him. Certainly, Bulger learned how to live in the manner he does as a child in the streets, but as an adult, played an equally important role in the further desolation of the landscape. One can imagine that he was taught similar lessons about violence and punishment and in a twisted cycle, serves to further perpetuate that. It is not shocking, then, that the streets of Boston in the 70s are portrayed eerily similarly in films such as *Black Mass* as well as in films set in modern-day Boston.
 

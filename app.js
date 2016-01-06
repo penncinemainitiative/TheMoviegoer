@@ -46,6 +46,10 @@ app.use('/author', require('./routes/author'));
 app.use('/article', require('./routes/article'));
 app.use('/events', require('./routes/events'));
 
+app.get('/*', function(req, res) {
+  res.redirect('/');
+});
+
 var server = app.listen(8080, function () {
   var port = server.address().port;
   console.log('Example app listening at http://localhost:%s', port);

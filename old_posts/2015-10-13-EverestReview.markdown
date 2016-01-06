@@ -6,7 +6,7 @@ author: Adelaide Powell
 authorurl: "/writer/AdelaidePowell/"
 date: 2015-10-13
 excerpt: "Though the film has some structural issues and lacked genuine heart, Everest is still a compelling account of the 1996 Everest Disaster, and took me on an exciting journey that was as close to the real thing as I’ll probably ever get."
-image: "/images/everest.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/everest.jpg"
 displayimage: "yes"
 tags: 
 - movie

@@ -33,19 +33,12 @@ $(document).ready(function () {
   $('button#modalImgUpload').click(function () {
     $('#issueModal').hide();
     var input = $('#fileInput');
-    var caption = $('#captionInput');
-    if (input[0].files.length === 0 || caption.val() === '') {
-      $('#issueModal').show();
-      $('#issueModal').empty();
-      $('#issueModal').append('Please select image and enter caption to <b>Upload</b>!');
+    if (input[0].files.length === 0) {
+      $('#issueModal').show().empty().append('Please select an image to <b>upload</b>!');
       return;
     }
-    // add caption to form and submit!
-    $.post('/article/' + articleId + '/captions', {caption: caption.val()}, function (data) {
-      if (data.success) {
-        $('#photoForm').submit();
-      }
-    });
+
+    $('#photoForm').submit();
   });
 
   // Preview Button
@@ -64,9 +57,7 @@ $(document).ready(function () {
     }
 
     if (text === '' || heading === '') {
-      $('#issue').show();
-      $('#issue').empty();
-      $('#issue').append('Please enter a title and text for the article before you <b>Preview</b>!');
+      $('#issue').show().empty().append('Please enter a title and text for the article before you <b>Preview</b>!');
       return;
     }
 
@@ -119,9 +110,7 @@ $(document).ready(function () {
         $('#closeModalBtn').trigger('click');
       }, 1000);
 
-      $('#issue').show();
-      $('#issue').empty();
-      $('#issue').append('Please enter a title and text for the article before you <b>Save</b>!');
+      $('#issue').show().empty().append('Please enter a title and text for the article before you <b>Save</b>!');
       return;
     }
 

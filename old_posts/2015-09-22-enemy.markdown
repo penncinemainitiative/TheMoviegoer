@@ -6,7 +6,7 @@ author: Nikhil Venkatesa
 authorurl: "/writer/NikhilVenkatesa/"
 date: 2015-09-22
 excerpt: "Every frame of Denis Villeneuve’s low-key existential masterpiece Enemy feels fraught with meaning. In a world already filled with patterns of repetition that limit individual expression, what if you met someone who looked exactly like you?"
-image: "/images/enemy/enemy.png"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/enemy/enemy.png"
 displayimage: "yes"
 tags: 
 - feature
@@ -19,7 +19,7 @@ tags:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enemy’s depth also comes from an aesthetic place; fewer recent films are as clever and directed with such precision. Take one of the pivotal scenes of the film for instance, when Adam (Jake Gyllenhaal) and Anthony (Jake Gyllenhaal) meet face to face for the first time, in a dingy motel room of all places. Adam is lit better than Anthony, even though Adam stands with his back against the window and Anthony faces it as he walks through the door. Even when Adam leaves through the same way Anthony came in, he’s still lit better than Anthony. 
 
-![pic1](/images/enemy/enemy1.png)
+![pic1](https://s3.amazonaws.com/moviegoer/uploads/inchoate/enemy/enemy1.png)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;When both of them are against the curtain in the room facing each other, we only see Adam in close-up, never Anthony, because we’ve been following Adam for the most part. And Villeneuve cuts the scene short by having Adam run out of the meeting, denying us the satisfaction of seeing Gyllenhaal and Gyllenhaal act together ad infinitum. Good things come in small doses. 
 
@@ -27,7 +27,7 @@ tags:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The film finds Villeneuve at the height of his powers. In his earlier films, like *August 32nd on Earth* and *Polytechnique*, he demonstrated a strong directorial hand, but was undermined by weak writing, sometimes of his own doing. From *Incendies* on, along with *Prisoners*, *Enemy* and his short film *Next Floor*, Villeneuve has been able to fuse together his distinct visual style, one that echoes of Kubrick, Fincher, and Refn, with strong writing and complex characters. That style includes a lingering camera that intently observes but does not violate, a sense of underlying dread, and a world, always built more out of shadow than light, that reflects character above all else. Those three elements arrive at a disturbing confluence in Enemy; while watching it, a friend of mine wondered why she felt so uneasy by watching the more mundane events that take place on screen. To borrow from the title of a similarly unsettling recent film, it gets under the skin. 
 
-![pic2](/images/enemy/enemy2.png)
+![pic2](https://s3.amazonaws.com/moviegoer/uploads/inchoate/enemy/enemy2.png)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It helps that the images in the film are beautifully photographed. The world gets filtered through Villeneuve and Nicolas Bolduc, the director of photography, into a diseased metropolis. It feels like an outward manifestation of Adam’s state of malaise and guilt, or perhaps it reflects the moral pollution that is a part of Anthony’s mind. Both are equally true, just like in the world of Edwin Schrodinger. Instead of cats, we have spiders. 
 

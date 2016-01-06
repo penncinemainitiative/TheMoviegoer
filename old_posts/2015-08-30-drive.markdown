@@ -6,7 +6,7 @@ author: Brad Pettigrew
 authorurl: "/writer/BradPettigrew/"
 date: 2015-08-30
 excerpt: "An exploration of duality in Drive, both visual and thematic."
-image: "/images/Drive/drive1.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/Drive/drive1.jpg"
 displayimage: "yes"
 tags: 
 - feature
@@ -22,7 +22,7 @@ tags:
 	
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It's a real shame that, for most viewers, myself included, the first viewing will be tainted by false expectations. Most will come into the film under the pretense of an action film, expecting straightforward plots and rugged car chases, only to find themselves bored at the beginning and confused at the end, when all the gentle laid pieces begin to connect. While you were busy looking for Chekov's Howitzer, the characters have gone on talking, living, and moved through without you. Based on your expectations, you're either tuned to the subtle character interactions and visual storytelling or you're anticipating an action movie that never comes. Moreover, this trend of duality runs far deeper than just the genre of Drive. What I'm implying is not just that one's preconceptions effect how the viewer perceives Drive, but what they see in it.
 
-![pic7](/images/Drive/drive7.jpg)
+![pic7](https://s3.amazonaws.com/moviegoer/uploads/inchoate/Drive/drive7.jpg)
 
 ###Do you understand?
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Refn is pumping a ton of visual story telling into the film that some of us just aren't seeing because we're expecting, nigh waiting, for a movie that just isn't there. For example, early in the first act, which feels slow to some, there's a shot of Gosling as he packs his groceries. In one long shot we see Gosling walk up to his car, stare over at something, and set his groceries down, still looking over. The camera pans over to Mulligan's broken-down car, holds for a moment, and then we immediately cut to the three of them in the elevator. It's just two uneventful shots, but in this Refn tells a whole story. Something happens (a break down), our character contemplates doing something, and then he does it - cut to the next scene, move on, keep telling the story. And in a way, this little event is a microcosm of the whole movie. The driver's this kind of wooden façade who just drives, just fixes cars - whenever we see him in the first half, he's always working on an engine, like those machines are his best friend. But here, in this moment, he's given the chance to do something more, to help. In that cut back to the apartment, we're seeing a break in the driver's life. He does help that single mother - and it's fitting that it's a broken engine that catalyzes the change to begin with. Indeed, in the events that follow, this one movement, this take that seemed to linger too long on Gosling's blank expression, proves to be the moment where the rest of the film, the ensuing bloodshed, pours out of. The driver could just as well have kept driving, entering people's lives for no more than five minutes, cutting strictly at the starts and ends, but here he changes - the story becomes about the driver's choice to intervene.
@@ -37,7 +37,7 @@ tags:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;That said, I don't think this theme runs much more than skin deep - not in the traditional sense. It's not so much the extra dimension as it is the missing detail, the extra characterization, the impetus of plot, which fleshes out initially straightforward seeming action. Aside from the driver, none of the other characters really have an arc or role outside putting on theatrics for Gosling's journey (whose character barely even talks). Stemming partially from the film's succinct running time and tendency to spend more on long shots than long conversations, the characters fall into rote archetypes. Mulligan plays the damsel in distress. Brooks is the dangerously close to reality hollywood has-been. Perlman is borderline stereotype as the New York Jew, rattling off about his obnoxious, cheek-pinching grandmother. Hendricks is written off as eye candy. The characters are decidedly one note and cast well within each actor's traditional range. All this reeks of style over substance - the kind of thing that a prepubescent kid sitting in the basement would paste together from dad's noir on Betamax collection. It's all perfectly archetypal, which is the point.
 
-![pic6](/images/Drive/drive6.jpeg)
+![pic6](https://s3.amazonaws.com/moviegoer/uploads/inchoate/Drive/drive6.jpeg)
 
 ###A Real Hero
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Brought up at the final confrontational dinner, Brooks reminds the Driver of the scorpion and the frog - a mythic fable, summarized as follows:

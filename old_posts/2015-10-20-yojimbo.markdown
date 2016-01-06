@@ -6,7 +6,7 @@ author: Eric Eisner
 authorurl: "/writer/EricEisner/"
 date: 2015-10-20
 excerpt: "PCI member Eric Eisner previews next week's screening of Yojimbo"
-image: "/images/yojimbo.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/yojimbo.jpg"
 displayimage: "yes"
 tags: 
 - feature

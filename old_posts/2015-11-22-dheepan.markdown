@@ -6,7 +6,7 @@ author: Lucas De Barros Silva
 authorurl: "/writer/LucasSilva/"
 date: 2015-11-22
 excerpt: "In a year when our thoughts on immigration laws and protocols are being dramatically reconsidered and redefined, it is rewarding and moving to watch a film like Jacques Audiard's Dheepan, in which we find the immense love and understanding for refugees that we need now more than ever."
-image: "/images/dheepan.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/dheepan.jpg"
 displayimage: "yes"
 tags: 
 - movie

@@ -6,7 +6,7 @@ author: Vaishak Kumar
 authorurl: ""
 date: 2015-10-27
 excerpt: "From beginning to end, every second of Paul Thomas Anderson’s latest offering Junun is spectacular. The trouble came after that; for someone who loves to talk about the movies that I’ve watched, it seems almost impossible to describe Junun without selling the movie short."
-image: "/images/junun.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/junun.jpg"
 displayimage: "yes"
 tags: 
 - movie

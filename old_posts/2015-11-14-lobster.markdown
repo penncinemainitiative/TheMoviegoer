@@ -6,7 +6,7 @@ author: Eric Eisner
 authorurl: "/writer/EricEisner/"
 date: 2015-11-14
 excerpt: "Remarkably ambitious, The Lobster constantly defies expectation. But not all of these risks quite land. At their worst, these quirks, critiques, and demands on the audience result in a film that is completely impenetrable."
-image: "/images/lobster.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/lobster.jpg"
 displayimage: "yes"
 tags: 
 - movie

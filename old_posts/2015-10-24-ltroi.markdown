@@ -6,7 +6,7 @@ author: Rahel Tekeste
 authorurl: "/writer/RahelTekeste/"
 date: 2015-10-24
 excerpt: "Throughout the month of October PCI members will be sharing some of their favorite horror films. Rahel explains Let the Right One In's unique portrayal of vampires."
-image: "/images/ltroi.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/ltroi.jpg"
 displayimage: "yes"
 tags: 
 - movie

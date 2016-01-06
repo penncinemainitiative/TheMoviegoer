@@ -5,7 +5,7 @@ cleantitle: "Podcast: Creed"
 author: PCI
 date: 2015-12-07
 excerpt: "Brad and Nikhil talk the knockout hit, Creed."
-image: "/images/podcast.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/podcast.jpg"
 displayimage: "yes"
 tags: 
 - feature

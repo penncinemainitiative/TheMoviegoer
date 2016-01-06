@@ -6,7 +6,7 @@ author: Olatunbosun Osinaike
 authorurl: "/writer/OlaOsinaike/"
 date: 2015-09-21
 excerpt: "A recap of what was covered at our Raging Bull screening this past Thursday"
-image: "/images/rbrecap.png"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/rbrecap.png"
 displayimage: "yes"
 tags: 
 - feature

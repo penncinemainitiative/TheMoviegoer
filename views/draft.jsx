@@ -32,8 +32,7 @@ var ActionButtons = React.createClass({
 
 var Article = React.createClass({
   render: function () {
-    var captionList = this.props.captionList;
-    var cover = this.props.cover;
+    var cover = this.props.image;
     return (
       <Layout {...this.props}>
         <div id="draft" className="container">
@@ -63,12 +62,12 @@ var Article = React.createClass({
             <div className="col-lg-3 col-md-4 col-sm-6">
               <p>Images</p>
               {this.props.imgList.map(function (image, i) {
-                var imgString = '<img src="' + image + '" class="newImage" alt="' + captionList[i] + '"/>';
+                var imgString = '<img src="' + image + '" class="newImage" alt="Picture"/>';
                 var numImg = i + ';' + image;
                 return (
                   <div className="newImageDiv">
                     <img src={image} className="newImage"
-                         alt={captionList[i]}/>
+                         alt="Picture"/>
                     <div className="input-group">
                       <Input type="text" value={imgString}
                              onClick="this.select();"/>

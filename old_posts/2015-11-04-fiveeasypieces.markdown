@@ -6,7 +6,7 @@ author: James Sheplock
 authorurl: ""
 date: 2015-11-04
 excerpt: "Five Easy Pieces, directed by Bob Rafelson, is essentially a 100-minute character study of a man unable to express his true character."
-image: "/images/fiveeasypieces.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/fiveeasypieces.jpg"
 displayimage: "yes"
 tags: 
 - movie

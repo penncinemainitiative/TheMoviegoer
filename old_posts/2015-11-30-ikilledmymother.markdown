@@ -6,7 +6,7 @@ author: Rahel Tekeste
 authorurl: "/writer/RahelTekeste/"
 date: 2015-11-30
 excerpt: "Few films can accurately portray the complexities of parent-child relationships with subtly and self-awareness. However, this 2009 debut film by Canadian director Xavier Dolan provides a fresh and uncomfortably accurate representation of his own relationship with his mother as a teenager."
-image: "/images/ikilledmymother.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/ikilledmymother.jpg"
 displayimage: "yes"
 tags: 
 - movie

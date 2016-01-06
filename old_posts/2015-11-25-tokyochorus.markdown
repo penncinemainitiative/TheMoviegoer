@@ -6,7 +6,7 @@ author: James Sheplock
 authorurl: ""
 date: 2015-11-25
 excerpt: "Ozu's 22nd film, Tokyo Chorus, is a clear link between his earlier films and those of his later career which would cement him as one of the greatest directors of all time."
-image: "/images/tokyochorus.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/tokyochorus.jpg"
 imagewidth: 720
 imageheight: 405
 displayimage: "yes"

@@ -11,6 +11,7 @@ var movieList = function (movieType, call) {
 
   var getInfo = function (item, callback) {
     item.pubDate = dateFormat(item.pubDate, "mmmm d, yyyy");
+    item.url = '/article/' + item.articleId;
 
     var queryString = 'SELECT name FROM authors WHERE username='
       + connection.escape(item.author);
@@ -21,7 +22,7 @@ var movieList = function (movieType, call) {
     });
   };
 
-  var queryString = 'SELECT articleId, isPublished, url, pubDate, title, ' +
+  var queryString = 'SELECT articleId, isPublished, pubDate, title, ' +
     'author, image FROM articles WHERE isPublished=2 AND (' + movieType +
     ') ORDER BY pubDate DESC, articleId DESC';
 

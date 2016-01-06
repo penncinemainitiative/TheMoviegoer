@@ -6,7 +6,7 @@ author: Alexander Atienza
 authorurl: "/writer/AlexanderAtienza/"
 date: 2015-08-31
 excerpt: "Alex gives his take on the recent DFW biopic"
-image: "/images/tour.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/tour.jpg"
 displayimage: "yes"
 tags: 
 - newmovie

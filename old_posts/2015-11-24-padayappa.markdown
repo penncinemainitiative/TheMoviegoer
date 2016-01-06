@@ -6,7 +6,7 @@ author: Nikhil Venkatesa
 authorurl: "/writer/NikhilVenkatesa/"
 date: 2015-11-24
 excerpt: "K.S Ravikumar’s Padayappa is a modern classic of Tamil cinema; viewing it is a family tradition unto itself. Perhaps that is one way of understanding Padayappa’s enduring success."
-image: "/images/padayappa.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/padayappa.jpg"
 displayimage: "yes"
 tags: 
 - feature

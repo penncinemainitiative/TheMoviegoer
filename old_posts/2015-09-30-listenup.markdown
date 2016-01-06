@@ -6,7 +6,7 @@ author: David Lakata
 authorurl: "/writer/DavidLakata/"
 date: 2015-09-30
 excerpt: "With a narcissistic protagonist who consistently ruins his relationships and friendships, Alex Ross Perry's *Listen Up Philip* seems somewhat cruel; just one thing saves the film from Philip's perpetual narcissism: it's hilarious."
-image: "/images/listenup.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/listenup.jpg"
 displayimage: "yes"
 tags: 
 - classicmovie

@@ -6,7 +6,7 @@ author: Ritwik Bhatia
 authorurl: "/writer/RitwikBhatia/"
 date: 2015-10-16
 excerpt: "El Orfanato is a gothic masterpiece, an expertly crafted Spanish fantasy, and a surreal haunted house film. "
-image: "/images/elorfanato.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/elorfanato.jpg"
 displayimage: "yes"
 tags: 
 - movie

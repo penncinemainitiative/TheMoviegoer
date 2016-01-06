@@ -17,7 +17,10 @@ var Index = React.createClass({
           <div className="container">
             <Row>
               <div className="col-lg-9 col-md-8 col-sm-8 col-xs-12">
-                <img src={this.props.nextEvent.image}/>
+                {this.props.nextEvent ? (
+                  <img src={this.props.nextEvent.image}/>
+                ) : <div>No upcoming events!</div>
+                }
               </div>
             </Row>
           </div>

@@ -5,7 +5,7 @@ author: PCI
 authorurl: "/writer/PCI/"
 date: 2015-08-30
 excerpt: "While by no means comprehensive, these are some of the upcoming films on our radar and why you should be looking out for them too."
-image: "/images/FFP/hatefuleight.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/FFP/hatefuleight.jpg"
 displayimage: "no"
 tags: 
 - popular
@@ -13,7 +13,7 @@ tags:
 ---
 #September
 
-![pic2](/images/FFP/everest.jpg)
+![pic2](https://s3.amazonaws.com/moviegoer/uploads/inchoate/FFP/everest.jpg)
 
 ###Everest (9/18)
 **Director:** Baltasar Kormakur
@@ -23,7 +23,7 @@ tags:
 
 **Why You Should Care:** While he has been pretty successful in his native Swedish cinema, Kormakur has been pretty hit or miss with his English-language features. Part of the blame for that can be directed towards the scripts he has directed. Everest, on the other hand, has been written by William Nicholson and Simon Beaufoy, both Academy Award-nominated writers with a strong track record of successful films. There's also the ensemble of A-list stars like Clarke and Knightley and character actors like Kelly and Hawkes to this adventure the emotional weight it deserves.
 
-![pic3](/images/FFP/blackmass.jpg)
+![pic3](https://s3.amazonaws.com/moviegoer/uploads/inchoate/FFP/blackmass.jpg)
 
 ###Black Mass (9/18)
 **Director:** Scott Cooper
@@ -35,7 +35,7 @@ tags:
 
 '**Side-note:** The Bulger story also served as inspiration for the Showtime series Brotherhood, and Whitey Bulger inspired Jack Nicholson's character in The Departed.
 
-![pic4](/images/FFP/Sicario.jpg)
+![pic4](https://s3.amazonaws.com/moviegoer/uploads/inchoate/FFP/Sicario.jpg)
 
 ###Sicario (9/18 Limited, 9/25 Wide)
 **Director:** Denis Villeneuve
@@ -77,7 +77,7 @@ tags:
 
 **Why you should care:** It stars Julianne Moore, one of the most talented actresses of our generation, and Ellen Page, who has another chance to explore the talent we saw in Juno. It's a passion project Page has been working on for years, and it has the support of Philadelphia screenwriter Ron Nyswaner and director Peter Sollett.
 
-![pic5](/images/FFP/themartian.jpg)
+![pic5](https://s3.amazonaws.com/moviegoer/uploads/inchoate/FFP/themartian.jpg)
 
 ###The Martian (10/2)
 **Director:** Ridley Scott
@@ -96,7 +96,7 @@ tags:
 
 **Why you should care:** The only weird thing about this project is how similar it feels to David Fincher's The Social Network, also written by Aaron Sorkin and also based on a computer genius' biography (curiously, Fincher was brought to direct Steve Jobs but left the project after a few disputes). Other than that, it has the thrilling trailer, the overall promising and talented cast and the talented director to be one of the films of the year, either as Oscar bait or as a genuine human story thriller. Most expectations come from what could be yet another of Michael Fassbender's brilliant performances.
 
-![pic6](/images/FFP/crimsonpeak_alt.jpg)
+![pic6](https://s3.amazonaws.com/moviegoer/uploads/inchoate/FFP/crimsonpeak_alt.jpg)
 
 ###Crimson Peak (10/16)
 **Director:** Guillermo Del Toro
@@ -146,7 +146,7 @@ tags:
 
 #November
 
-![pic7](/images/FFP/spectre_alt.jpg)
+![pic7](https://s3.amazonaws.com/moviegoer/uploads/inchoate/FFP/spectre_alt.jpg)
 
 ###Spectre (11/6)
 **Director:** Sam Mendes
@@ -183,7 +183,7 @@ tags:
 
 **Why you should care:** There have been five Rocky films since the first once in 1976; is it necessary to have another one? Each one has attempted to put a spin on the 'boxing film' template, yet none have achieved the status of a classic as did the original. Hopefully Ryan Coogler, whose debut feature, Fruitvale Station, received glowing reviews at Sundance, can inject some life into this aging franchise.
 
-![pic7](/images/FFP/nightbefore.jpg)
+![pic7](https://s3.amazonaws.com/moviegoer/uploads/inchoate/FFP/nightbefore.jpg)
 
 ###The Night Before (11/25)
 **Director:** Jonathan Levine
@@ -193,7 +193,7 @@ Cast: Joseph Gordon-Levitt, Seth Rogen, Anthony Mackie
 
 Why you should care: The reunion of three friends provides the setup of what appears to be a standard seasonal comedy. The film's screenwriter Evan Goldberg himself reunites with actor Seth Rogen, who collaborated with Goldberg on screwballs such as Superbad and Pineapple Express. If you were entertained by either of those films, there is a solid chance you will be entertained by this one.
 
-![pic8](/images/FFP/gooddino.jpg)
+![pic8](https://s3.amazonaws.com/moviegoer/uploads/inchoate/FFP/gooddino.jpg)
 
 ###The Good Dinosaur (11/25)
 **Director:** Peter Sohn
@@ -213,7 +213,7 @@ which could have world-changing consequences.
 
 **Why you should care:** While technically a 2016 release, you may yet catch Midnight Special before the year's end depending on how overseas success effects the release schedule. With only three feature films, Nichols has already established his voice as an independent filmmaker. He describes Midnight Special as a "sci-fi chase film" in the line of John Carpenter's Starman, but the director's penchant for unconventional dramas and characteristic realism will likely deliver something much more intense than a nostalgic homage to 1980s adventure films, which J.J. Abrams attempted when writing Super 8. There seems to be a revival of the "gifted children" genre now that individuals who grew up watching those films have come of age, which provides a refreshing alternative to the CGI spectacles that are released every year.
 
-![pic9](/images/FFP/danishgirl.jpg)
+![pic9](https://s3.amazonaws.com/moviegoer/uploads/inchoate/FFP/danishgirl.jpg)
 
 ###The Danish Girl (11/27)
 **Director:** Tom Hooper
@@ -235,7 +235,7 @@ which could have world-changing consequences.
 
 **Why you should care:** Notwithstanding a few missteps, Ron Howard has had one of the most remarkable careers in Hollywood, pulling off the impossible by remaining artistically productive, whether in front of or behind the camera, for almost his entire life. It's no surprise then that his latest effort makes this list. Coming off the heels of Rush, a historical feature time based around the golden age of Formula One racing, Howard has proven a knack for the adapting nonfiction to the screen. The former was noted for its uncanny actor resemblances to their historical counterparts and frame accurate depictions of the actual races, all while remaining wildly entertaining. With his new project again taking on the task bringing history to the screen, it's certainly one to keep on your radar.
 
-![pic10](/images/FFP/starwars_alt.jpg)
+![pic10](https://s3.amazonaws.com/moviegoer/uploads/inchoate/FFP/starwars_alt.jpg)
 
 ###Star Wars Episode VII: The Force Awakens (12/18)
 **Director:** JJ Abrams
@@ -253,7 +253,7 @@ which could have world-changing consequences.
 
 **Why you should care:** Hot of the heels of last year's best picture winner, Birdman, Inarritu looks poised to compete again. But the real story here is that of cinematographer, Emmanuel Lubezki, who after being shunned by the academy for so many years finally pulled off back-to-back wins with Gravity and Birdman. If the trailer is any indication, he looks ready to pull off the hat trick. Production stories tell of a special camera rig he built just for filming a purportedly breathtaking horseback combat scene (part of which is included near the end of the trailer). Indeed, after being stuck in development hell for the better part of a decade and facing on set tensions to rival Apocalypse Now (stories of the ungodly conditions continue to leak out) it seems the wait may have been worth it after all.
 
-![pic11](/images/FFP/hatefuleight.jpg)
+![pic11](https://s3.amazonaws.com/moviegoer/uploads/inchoate/FFP/hatefuleight.jpg)
 
 ###The Hateful Eight (12/25)
 **Director:** Quentin Tarantino 
@@ -263,7 +263,7 @@ which could have world-changing consequences.
 
 **Why you should care:** If you liked Django Unchained, you'll probably enjoy the Hateful Eight. Tarantino, like many great filmmakers, is a voracious consumer of film, of which Westerns are his absolute favorite. What some call repeated plagiarism others call good film literacy; Tarantino's is evident among his filmography, with numerous references both conscious and unconscious scattered throughout his works, which resemble pastiche constructions of nearly a century of celluloid. The Hateful Eight again sees Tarantino returning to his self-admittedly indulgent genre, this time with a bigger cast, a bigger film print (glorius 70mm) and an original soundtrack from the legend himself, Ennio Morricone, whose Ecstasy of Gold is undoubtedly familiar to anyone with a passing knowledge of Westerns. The Hateful Eight looks to be another solid entry from the master of homage.
 
-![pic12](/images/FFP/macbeth.jpg)
+![pic12](https://s3.amazonaws.com/moviegoer/uploads/inchoate/FFP/macbeth.jpg)
 
 ###Macbeth (12/25)
 **Director:** Justin Kurzell

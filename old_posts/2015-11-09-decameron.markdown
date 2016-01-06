@@ -6,7 +6,7 @@ author: Olatunbosun Osinaike
 authorurl: "/writer/OlaOsinaike/"
 date: 2015-11-09
 excerpt: "Pasolini’s film demarcates an era defined more by desperation than by freedom. As a result of this, the film is an exploration of an ethical wasteland, in which many if not all the characters represent some kind of immorality."
-image: "/images/decameron.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/decameron.jpg"
 displayimage: "yes"
 tags: 
 - movie

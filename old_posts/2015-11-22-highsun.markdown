@@ -6,7 +6,7 @@ author: David Lakata
 authorurl: "/writer/DavidLakata/"
 date: 2015-11-22
 excerpt: "Despite its occasional moments of levity, the three romances of The High Sun depict the uneasy ethnic tensions that still permeate Balkan life more than twenty years after the collapse of Yugoslavia."
-image: "/images/highsun.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/highsun.jpg"
 displayimage: "yes"
 tags: 
 - newmovie

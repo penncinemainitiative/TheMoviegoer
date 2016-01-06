@@ -22,10 +22,6 @@ var EventModal = React.createClass({
                   src="https://www.royalacademy.org.uk/assets/placeholder-1e385d52942ef11d42405be4f7d0a30d.jpg"
                   id="profileImg"/>
               </div>
-              <br/>
-              <input type="text" className="form-control" id="captionInput"
-                     placeholder="Image Caption"/>
-              <br/>
               <form role="form" action={uploadUrl}
                     method="post" encType="multipart/form-data"
                     onError="window.location='/author/profile'" id="photoForm">

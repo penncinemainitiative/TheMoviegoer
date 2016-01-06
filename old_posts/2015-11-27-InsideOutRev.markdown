@@ -6,7 +6,7 @@ author: Brad Pettigrew
 authorurl: "/writer/BradPettigrew/"
 date: 2015-11-27
 excerpt: "Inside Out is one of Pixar’s funniest films and it’s one of the year’s most inventive, but it falls short of that esteemed pantheon of Pixar classics."
-image: "/images/insideout.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/insideout.jpg"
 displayimage: "yes"
 tags: 
 - movie

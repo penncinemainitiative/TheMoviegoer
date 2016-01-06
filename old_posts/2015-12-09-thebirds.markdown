@@ -6,7 +6,7 @@ author: Olatunbosun Osinaike
 authorurl: "/writer/OlaOsinaike/"
 date: 2015-12-09
 excerpt: "The film isn’t simply about an apocalypse — it’s about animalistic crowning and worship across species: the birds in the film worship Melanie, and the tension that arises due to the birds’ inability to control their urges leads to the utmost consequences."
-image: "/images/thebirds.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/thebirds.jpg"
 displayimage: "yes"
 tags: 
 - movie

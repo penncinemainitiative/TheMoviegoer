@@ -6,7 +6,7 @@ author: Rahel Tekeste
 authorurl: "/writer/RahelTekeste/"
 date: 2015-12-08
 excerpt: "The act of falling in love is a concept that has been heavily explored in many types of media for centuries; however, Xavier Dolan’s 2010 film explores this aspect in a more realistic and cynical way."
-image: "/images/heartbeats.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/heartbeats.jpg"
 displayimage: "yes"
 tags: 
 - movie

@@ -6,7 +6,7 @@ author: Ritwik Bhatia
 authorurl: "/writer/RitwikBhatia/"
 date: 2015-11-26
 excerpt: "With The Night Before, Seth Rogen and JGL provide a satisfactory holiday film, which is held afloat by the tremendous chemistry between these real-life friends."
-image: "/images/nightbef.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/nightbef.jpg"
 displayimage: "yes"
 tags: 
 - newmovie

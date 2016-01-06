@@ -12,6 +12,7 @@ var authorMovies = function (username, call) {
 
   var getInfo = function (item, callback) {
     item.pubDate = dateFormat(item.pubDate, "mmmm d, yyyy");
+    item.url = '/article/' + item.articleId;
 
     var queryString = 'SELECT name FROM authors WHERE username='
       + connection.escape(item.author);
@@ -22,7 +23,7 @@ var authorMovies = function (username, call) {
     });
   };
 
-  var queryString = 'SELECT articleId, isPublished, url, pubDate, title, ' +
+  var queryString = 'SELECT articleId, isPublished, pubDate, title, ' +
     'author, image FROM articles WHERE isPublished=2 AND author=\'' +
     username + '\' ORDER BY pubDate DESC, articleId DESC';
 
@@ -103,7 +104,7 @@ router.post('/profile/description', authenticate, function (req, res) {
 });
 
 router.post('/profile/picture', authenticate, function (req, res) {
-  uploadToS3(req.file, function (image_url) {
+  uploadToS3(req.file, req.session.username, function (image_url) {
     var query = 'UPDATE authors SET image=\'' + image_url + '\' WHERE '
       + 'username=\'' + req.session.username + '\'';
 

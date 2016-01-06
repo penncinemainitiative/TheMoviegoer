@@ -4,7 +4,7 @@ title: "Around the Block 11/15"
 author: PCI
 date: 2015-11-15
 excerpt: "What's going on this week in film around Philly"
-image: "/images/aroundtheblock.jpg"
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/aroundtheblock.jpg"
 displayimage: "yes"
 tags:
 - feature
