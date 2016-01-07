@@ -3,27 +3,46 @@
 var React = require('react');
 var Layout = require('./Layout');
 var EventModal = require('./EventModal');
+var Button = require('react-bootstrap').Button;
+var Glyphicon = require('react-bootstrap').Glyphicon;
+
+var Event = React.createClass({
+  render: function () {
+    var event = this.props;
+    return (
+      <div className="row">
+        {event.isEditor ?
+          <div>
+            <Button className="deleteEvent" data-articleid={event.eventId}>
+              <Glyphicon glyph="edit"/> Delete event
+            </Button>
+            <Button className="editEvent" data-articleid={event.eventId}
+                    data-toggle="modal"
+                    data-target=".event-modal">
+              <Glyphicon glyph="edit"/> Edit event
+            </Button>
+          </div> : null}
+        <a target="_blank" href={event.fbLink}><img src={event.image}/></a>
+      </div>
+    );
+  }
+});
 
 var Events = React.createClass({
   render: function () {
+    var isEditor = this.props.isEditor;
     return (
       <Layout {...this.props}>
         <div id="events" className="container">
           <div className="title">Events</div>
-          {this.props.isEditor === 1 ? (
-            <button type="submit" className="btn btn-default btn-sm"
-                    id="eventBtn"
-                    data-toggle="modal" data-target=".event-modal">
-              <span className="glyphicon glyphicon-edit" aria-hidden="true"> </span>
-              Create event
-            </button>
+          {isEditor === 1 ? (
+            <Button id="createEvent" data-toggle="modal"
+                    data-target=".event-modal">
+              <Glyphicon glyph="edit"/> Create event</Button>
           ) : null}
           {this.props.events.map(function (event) {
-            return (
-              <div className="row">
-                <img src={event.image}/>
-              </div>
-            );
+            event.isEditor = isEditor;
+            return <Event {...event}/>;
           })}
         </div>
         <EventModal/>

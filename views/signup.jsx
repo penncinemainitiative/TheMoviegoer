@@ -3,6 +3,8 @@
 var React = require('react');
 var Layout = require('./Layout');
 var Input = require('react-bootstrap').Input;
+var Button = require('react-bootstrap').Button;
+var Alert = require('react-bootstrap').Alert;
 
 var Signup = React.createClass({
   render: function () {
@@ -10,16 +12,16 @@ var Signup = React.createClass({
       <Layout {...this.props}>
         <div id="console" className="container">
           <div className="title">Become an author!</div>
-          <Input type="email" id="inputEmail" placeholder="Email"/>
-          <Input type="text" id="inputName" placeholder="Name"/>
-          <Input type="text" id="inputUser" placeholder="Username"/>
-          <Input type="password" id="inputPassword" placeholder="Password"/>
-          <Input type="password" id="inputPasswordConfirm"
-                 placeholder="Confirm password"/>
-          <Button type="submit" id="signupBtn">Sign up</Button>
-          <div id="issue" className="alert alert-danger" role="alert"
-               align="center"
-               hidden></div>
+          <form id="signupForm">
+            <Input type="email" name="email" placeholder="Email"/>
+            <Input type="text" name="name" placeholder="Name"/>
+            <Input type="text" name="username" placeholder="Username"/>
+            <Input type="password" name="password" placeholder="Password"/>
+            <Input type="password" name="passwordConfirm"
+                   placeholder="Confirm password"/>
+            <Button type="submit">Sign up</Button>
+          </form>
+          <Alert bsStyle="danger"/>
         </div>
       </Layout>
     );

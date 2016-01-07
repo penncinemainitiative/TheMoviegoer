@@ -44,17 +44,17 @@ router.get('/', function (req, res) {
       var movieType = "type=\'feature\'";
       movieList(movieType, callback);
     }, function (callback) {
-      var queryString = 'SELECT image FROM events';
+      var queryString = 'SELECT eventId, date, description, location, image, ' +
+        'fbLink, time, title, film FROM events ORDER BY date DESC';
       connection.query(queryString, callback);
     }, function (callback) {
       getPopularMovies(callback);
     }], function (err, results) {
-    var events = results[2][0];
     var returnData = {
       title: 'The Moviegoer',
       movies: results[0],
       features: results[1],
-      nextEvent: events[0],
+      upcomingEvents: results[2][0],
       popularMovies: results[3]
     };
     res.render('index', returnData);

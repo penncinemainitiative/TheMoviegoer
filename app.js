@@ -22,7 +22,7 @@ app.engine('js', require('express-react-views').createEngine(engineOptions));
 
 app.use(multer({dest: './uploads/', includeEmptyFields: true}).single('photo'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(__dirname + '/static'));
+app.use(express.static(path.join(__dirname, 'static')));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
@@ -39,6 +39,7 @@ app.use(function (req, res, next) {
   res.locals.username = req.session.username;
   res.locals.isEditor = req.session.isEditor;
   res.locals.inConsole = false;
+  console.log(req.method + ' ' + req.path);
   next();
 });
 

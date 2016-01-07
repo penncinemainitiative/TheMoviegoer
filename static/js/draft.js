@@ -12,79 +12,6 @@ $(document).ready(function () {
     $('#newmovieRadio').prop('checked', true);
   }
 
-  // Modal Things
-  $('#photoForm').hide();
-  $('#profileImg').click(function () {
-    $('#fileInput').trigger('click');
-  });
-  $('#fileInput').change(function () {
-    var input = $('#fileInput');
-    if (input[0].files[0]) {
-      var reader = new FileReader();
-
-      reader.onload = function (e) {
-        $('#profileImg').attr('src', e.target.result);
-      };
-
-      reader.readAsDataURL(input[0].files[0]);
-    }
-    //$('#photoForm').submit(); 
-  });
-  $('button#modalImgUpload').click(function () {
-    $('#issueModal').hide();
-    var input = $('#fileInput');
-    if (input[0].files.length === 0) {
-      $('#issueModal').show().empty().append('Please select an image to <b>upload</b>!');
-      return;
-    }
-
-    $('#photoForm').submit();
-  });
-
-  // Preview Button
-  $('button#prevBtn').click(function () {
-    $('#issue').hide();
-    var text = $('#textInput').val();
-    var heading = $('#headInput').val();
-    var typeVal = $('input[name=typeInput]:checked').val();
-    var type;
-    if (typeVal === 'feature') {
-      type = "Feature";
-    } else if (typeVal === 'oldmovie') {
-      type = "Old Movie";
-    } else if (typeVal === 'newmovie') {
-      type = "New Movie";
-    }
-
-    if (text === '' || heading === '') {
-      $('#issue').show().empty().append('Please enter a title and text for the article before you <b>Preview</b>!');
-      return;
-    }
-
-    $('#previewView').show();
-    $('#editView').hide();
-    $('#prevBtn').hide();
-    $('#editBtn').show();
-    $('#saveBtn').hide();
-
-    $('.posttxt').empty().html(marked(text));
-    $('#headPrev').empty();
-    $('#headPrev').append(heading);
-    $('#typePrev').empty();
-    $('#typePrev').append(type);
-
-    var postData = {
-      title: heading,
-      type: typeVal,
-      text: text
-    };
-    $.post('/article/' + articleId, postData, function (data) {
-      if (data.success) {
-        showSave();
-      }
-    });
-  });
-
   // Edit Button
   $('button#editBtn').click(function () {
     $('#issue').hide();
@@ -95,37 +22,6 @@ $(document).ready(function () {
     $('#saveBtn').show();
   });
 
-  //Images
-  var img = [];
-  var caption = [];
-
-  $("button#imgUploadBtn").click(function () {
-    $('#issue').hide();
-    var text = $('#textInput').val();
-    var heading = $('#headInput').val();
-    var typeVal = $('input[name=typeInput]:checked').val();
-
-    if (text === '' || heading === '') {
-      setTimeout(function () {
-        $('#closeModalBtn').trigger('click');
-      }, 1000);
-
-      $('#issue').show().empty().append('Please enter a title and text for the article before you <b>Save</b>!');
-      return;
-    }
-
-    var postData = {
-      title: heading,
-      type: typeVal,
-      text: text
-    };
-    $.post('/article/' + articleId, postData, function (data) {
-      if (data.success) {
-        showSave();
-      }
-    });
-  });
-
   var showSave = function () {
     $('#saveAlert').show();
     setTimeout(function () {
@@ -133,7 +29,35 @@ $(document).ready(function () {
     }, 3000);
   };
 
-  $('button#saveBtn').click(function () {
+  var retract = function() {
+    $('#issue').hide();
+
+    $.post('/article/' + articleId + '/retract', function (data) {
+      if (data.success) {
+        window.location = '/';
+      }
+    });
+  };
+
+  var coverPhoto = function(e) {
+    var currentbtn = $(e.target).closest('button');
+    if (currentbtn.hasClass('btn-primary')) {
+      return;
+    }
+
+    var postData = {
+      image: currentbtn.val()
+    };
+
+    $.post('/article/' + articleId + '/cover', postData, function (data) {
+      if (data.success) {
+        $('.starBtn').removeClass('btn-primary');
+        currentbtn.addClass('btn-primary');
+      }
+    });
+  };
+
+  var save = function(e, callback) {
     $('#issue').hide();
     var text = $('#textInput').val();
     var heading = $('#headInput').val();
@@ -141,7 +65,7 @@ $(document).ready(function () {
     var typeVal = $('input[name=typeInput]:checked').val();
 
     if (text === '' || heading === '') {
-      $('#issue').show().empty().append('Please enter a title and text for the article before you <b>Save</b>!');
+      $('#issue').show().empty().append('Please enter text and a title for the article before you <b>save</b>!');
       return;
     }
 
@@ -155,100 +79,75 @@ $(document).ready(function () {
     $.post('/article/' + articleId, postData, function (data) {
       if (data.success) {
         showSave();
+        if (callback) {
+          callback();
+        }
       }
     });
-  });
+  };
 
-  $('button#submBtn').click(function () {
-    $('#issue').hide();
+  var publish = function(e) {
     var text = $('#textInput').val();
     var heading = $('#headInput').val();
+    var excerpt = $('#excerptInput').val();
     var typeVal = $('input[name=typeInput]:checked').val();
-
-    if (text === '' || heading === '') {
-      $('#issue').show();
-      $('#issue').empty();
-      $('#issue').append('Please enter a title and text for the article before you <b>Submit</b>!');
-      return;
-    }
-
     var postData = {
       title: heading,
       type: typeVal,
-      text: text
+      text: text,
+      excerpt: excerpt
     };
-    $.post('/article/' + articleId, postData, function (data) {
-      if (data.success) {
-        showSave();
-        $.post('/article/' + articleId + '/submit', postData, function (data1) {
-          if (data1.success) {
-            window.location = '/console/home';
-          }
-        });
-      }
+    save(e, function() {
+      $.post('/article/' + articleId + '/publish', postData, function (data) {
+        if (data.success) {
+          window.location = '/';
+        }
+      });
     });
-  });
+  };
 
-  $('button#publBtn').click(function () {
-    $('#issue').hide();
+  var submit = function(e) {
     var text = $('#textInput').val();
     var heading = $('#headInput').val();
+    var excerpt = $('#excerptInput').val();
     var typeVal = $('input[name=typeInput]:checked').val();
-
-    if (text === '' || heading === '') {
-      $('#issue').show();
-      $('#issue').empty();
-      $('#issue').append('Please enter a title and text for the article before you <b>Publish</b>!');
-      return;
-    }
-
     var postData = {
       title: heading,
       type: typeVal,
-      text: text
+      text: text,
+      excerpt: excerpt
     };
-    $.post('/article/' + articleId, postData, function (data) {
-      if (data.success) {
-        showSave();
-        $.post('/article/' + articleId + '/publish', postData, function (data1) {
-          if (data1.success) {
-            window.location = '/';
-          }
-        });
-      }
+    save(e, function() {
+      $.post('/article/' + articleId + '/submit', postData, function (data) {
+        if (data.success) {
+          window.location = '/console/home';
+        }
+      });
     });
-  });
+  };
 
-  $('button#retractBtn').click(function () {
-    $('#issue').hide();
+  var preview = function(e) {
+    save(e, function() {
+      var text = $('#textInput').val();
+      var heading = $('#headInput').val();
 
-    $.post('/article/' + articleId + '/retract', function (data) {
-      if (data.success) {
-        window.location = '/';
-      }
+      $('#previewView').show();
+      $('#editView').hide();
+      $('#prevBtn').hide();
+      $('#editBtn').show();
+      $('#saveBtn').hide();
+
+      $('.posttxt').empty().html(marked(text));
+      $('#headPrev').empty();
+      $('#headPrev').append(heading);
     });
-  });
+  };
 
-  $('button.starBtn').click(function (e) {
-
-    var currentbtn = $(e.target).closest('button');
-    if (currentbtn.hasClass('btn-primary')) {
-      return;
-    }
-
-    var coverString = currentbtn.val().split(';');
-    var cover = parseInt(coverString[0]);
-    var image = coverString[1];
-    var postData = {
-      image: image,
-      imageIndex: cover
-    };
-    $.post('/article/' + articleId + '/cover', postData, function (data) {
-      if (data.success) {
-        $('.starBtn').removeClass('btn-primary');
-        currentbtn.addClass('btn-primary');
-      }
-    });
-  });
+  $('button#prevBtn').click(preview);
+  $('button#submBtn').click(submit);
+  $('button.starBtn').click(coverPhoto);
+  $('button#retractBtn').click(retract);
+  $('button#saveBtn').click(save);
+  $('button#publBtn').click(publish);
 
 });

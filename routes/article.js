@@ -6,7 +6,6 @@ var async = require('async');
 var dateFormat = require('dateformat');
 var connection = require('../databases/sql');
 var uploadToS3 = require('../databases/uploadS3');
-var deleteS3Dir = require('../databases/deleteS3Dir');
 var getPopularMovies = require('../databases/analytics');
 
 var authenticate = function (req, res, next) {
@@ -153,8 +152,6 @@ router.get('/:id/delete', authenticate, function (req, res) {
     }, function (rows, fields, callback) {
       var queryString = 'DELETE FROM images WHERE articleId=' + articleId;
       connection.query(queryString, callback);
-    }, function (rows, fields, callback) {
-      deleteS3Dir(articleId, callback);
     }
   ], function (err) {
     if (err) {

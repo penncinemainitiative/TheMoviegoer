@@ -1,6 +1,9 @@
 'use strict';
 
 var React = require('react');
+var Input = require('react-bootstrap').Input;
+var Alert = require('react-bootstrap').Alert;
+var Button = require('react-bootstrap').Button;
 
 var EventModal = React.createClass({
   render: function () {
@@ -13,18 +16,23 @@ var EventModal = React.createClass({
               <button id="closeModalBtn" type="button" className="close"
                       data-dismiss="modal" aria-label="Close"><span
                 aria-hidden="true">&times;</span></button>
-              <h4 className="modal-title" id="myModalLabel">New Event</h4>
+              <h4 className="modal-title">Event</h4>
             </div>
             <div className="modal-body">
-              <div id="text" className="alert alert-danger" role="alert"
-                   align="center" hidden></div>
-              <form role="form" action="/events/create" method="post"
-                    encType="multipart/form-data"
-                    onerror="window.location='/events'" id="eventForm">
-                <input type="file" id="fileInput" name="photo"/>
-                <input className="btn btn-default" type="submit" value="Submit"
-                       id="submitPhotoBtn"/>
+              <form method="post" action="/events/create"
+                    encType="multipart/form-data" id="eventForm">
+                <Input type="text" name="title" placeholder="Title"/>
+                <Input type="text" name="film" placeholder="Film"/>
+                <Input type="text" name="fbLink" placeholder="Facebook link"/>
+                <Input type="text" name="location" placeholder="Location"/>
+                <Input type="text" name="description"
+                       placeholder="Description"/>
+                <Input type="time" name="time" placeholder="Time"/>
+                <Input type="date" name="date" placeholder="Date"/>
+                Photo: <Input type="file" id="photo" name="photo"/>
+                <Button type="submit">Submit</Button>
               </form>
+              <Alert bsStyle="danger"/>
             </div>
           </div>
         </div>

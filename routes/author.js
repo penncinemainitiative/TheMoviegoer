@@ -148,27 +148,19 @@ router.post('/create', function (req, res) {
     return res.redirect('/console');
   }
 
-  var username = req.body.username;
-  var email = req.body.email;
-  var name = req.body.name;
-  var password = req.body.password;
-  var isEditor = -1;
-  var image = 'https://www.royalacademy.org.uk/assets/placeholder-1e385d52942ef11d42405be4f7d0a30d.jpg';
-  var bio = '...';
+  var insertData = {
+    username: req.body.username,
+    email: req.body.email,
+    name: req.body.name,
+    password: req.body.password,
+    isEditor: -1,
+    image: 'https://www.royalacademy.org.uk/assets/placeholder-1e385d52942ef11d42405be4f7d0a30d.jpg',
+    bio: '...'
+  };
 
-  var queryString = 'INSERT INTO authors (username,email,name,password,isEditor,image,bio) VALUES (' +
-    connection.escape(username) + ',' +
-    connection.escape(email) + ',' +
-    connection.escape(name) + ',' +
-    connection.escape(password) + ',' +
-    isEditor + ',' +
-    connection.escape(image) + ',' +
-    connection.escape(bio) + ')';
-
-  connection.query(queryString, function (err) {
+  connection.query('INSERT INTO authors SET ?', insertData, function (err) {
     if (err) {
-      console.log(err);
-      res.send({success: false, msg: err});
+      res.send({success: false, msg: 'Try again with a different username!'});
     } else {
       res.send({
         success: true,
@@ -183,6 +175,21 @@ router.get('/approve/:username', authenticate, function (req, res) {
     return res.redirect('/console/home');
   }
   var queryString = 'UPDATE authors SET isEditor=0 WHERE username=' +
+    connection.escape(req.params.username);
+
+  connection.query(queryString, function (err) {
+    if (err) {
+      console.log(err);
+    }
+    res.redirect('/console/home');
+  });
+});
+
+router.get('/reject/:username', authenticate, function (req, res) {
+  if (req.session.isEditor !== 1) {
+    return res.redirect('/console/home');
+  }
+  var queryString = 'DELETE FROM authors WHERE username=' +
     connection.escape(req.params.username);
 
   connection.query(queryString, function (err) {

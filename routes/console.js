@@ -114,17 +114,26 @@ router.get('/home', authenticate, function (req, res) {
     function (callback) {
       authorMovies(req, callback);
     }, function (callback) {
-      var query = 'SELECT name, username FROM authors WHERE isEditor=-1';
-      connection.query(query, callback);
+      if (req.session.isEditor === 1) {
+        var query = 'SELECT name, username FROM authors WHERE isEditor=-1';
+        connection.query(query, callback);
+      } else {
+        callback();
+      }
     }
   ], function (err, results) {
     if (err) {
       console.log(err);
     }
+    var pendingAuthors;
+    if (req.session.isEditor === 1){
+      pendingAuthors = results[1][0];
+    }
+    console.log(pendingAuthors);
     var returnData = {
       title: 'Home',
       articleList: results[0],
-      pendingAuthors: results[1][0]
+      pendingAuthors: pendingAuthors
     };
     res.render('home', returnData);
   });

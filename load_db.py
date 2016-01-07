@@ -40,22 +40,22 @@ def reset_databases():
         pass
 
     execute(
-            """CREATE TABLE `authors` (`username` text NOT NULL,
+            """CREATE TABLE `authors` (`username` varchar(30) NOT NULL,
                                       `email` text NOT NULL,
                                       `name` varchar(100) NOT NULL,
                                       `password` varchar(100) NOT NULL,
                                       `isEditor` int(11) NOT NULL,
                                       `image` text NOT NULL,
-                                      `bio` text NOT NULL)""")
+                                      `bio` text NOT NULL,
+                                      PRIMARY KEY (`username`))""")
     execute(
             """CREATE TABLE `events` (`eventId` int(11) NOT NULL AUTO_INCREMENT,
                                       `date` date NOT NULL,
+                                      `description` text,
                                       `location` text,
                                       `image` text,
-                                      `presenter` varchar(100) DEFAULT NULL,
-                                      `authorUsername` text,
-                                      `goingCount` int(11) DEFAULT NULL,
-                                      `fbLink` varchar(100) DEFAULT NULL,
+                                      `film` text,
+                                      `fbLink` varchar(100) NOT NULL,
                                       `time` time NOT NULL,
                                       `title` varchar(100) NOT NULL,
                                       PRIMARY KEY (`eventId`))""")
@@ -77,6 +77,8 @@ def reset_databases():
 
 
 OLD_POSTS = 'old_posts/'
+OLD_AUTHORS = 'old_authors/'
+OLD_EVENTS = 'old_events/'
 
 usernames = {
     "Brad Pettigrew": "bpettigrew",
@@ -118,6 +120,18 @@ class Author(object):
         self.password = "password"
         self.image = image
         self.bio = bio
+
+
+class Event(object):
+    def __init__(self, date, description, location, image, fbLink, time, title, film):
+        self.date = date
+        self.description = description
+        self.location = location
+        self.image = image
+        self.fbLink = fbLink
+        self.time = time
+        self.title = title
+        self.film = film
 
 
 def get_tags(lines):
@@ -163,7 +177,7 @@ def get_attr(lines, attr):
 
 def get_authors():
     authors = []
-    for dirname, dirnames, filenames in os.walk('old_authors'):
+    for dirname, dirnames, filenames in os.walk(OLD_AUTHORS):
         for filename in filenames:
             with codecs.open(os.path.join(dirname, filename), 'r', encoding='UTF-8') as f:
                 lines = f.readlines()[1:]
@@ -210,6 +224,23 @@ def get_posts():
             posts.append(post)
     return posts
 
+def get_events():
+    events = []
+    for filename in listdir(OLD_EVENTS):
+        with codecs.open(OLD_EVENTS + filename, 'r', encoding='UTF-8') as f:
+            lines = f.readlines()[1:]
+            title = get_attr(lines, 'title').replace('"', "")
+            time = "16:00:00"
+            date = get_attr(lines, 'date').replace('"', "")
+            image = get_attr(lines, 'image').replace('"', "")
+            location = get_attr(lines, 'location').replace('"', "")
+            description = get_attr(lines, 'excerpt').replace('"', "")
+            film = get_attr(lines, 'film').replace('"', "")
+            fbLink = "https://www.facebook.com/events/461373730713782/"
+            event = Event(date, description, location, image, fbLink, time, title, film)
+            events.append(event)
+    return events
+
 
 posts = get_posts()
 
@@ -238,6 +269,14 @@ def setup_articles():
                             post.excerpt, post.text))
     db.commit()
 
+def setup_events():
+    events = get_events()
+    for event in events:
+        query = "INSERT INTO events (date, description, location, image, fbLink, time, title, film) " \
+                "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+        cur.execute(query, (event.date, event.description, event.location, event.image, event.fbLink, event.time, event.title, event.film))
+    db.commit()
+
 
 def setup_images():
     for post in posts:
@@ -252,3 +291,4 @@ if __name__ == '__main__':
     setup_authors()
     setup_articles()
     setup_images()
+    setup_events()

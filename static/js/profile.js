@@ -1,11 +1,15 @@
 $( document ).ready(function() {
 
-  $('#photoForm').hide();
   $('#updateProfile').hide();
 
   var initName;
   var initEmail;
   var initBio;
+
+  // Modal Things
+  $('#profileImg').click(function () {
+    $('#fileInput').trigger('click');
+  });
 
   $('button#editBtn').click(function () {
     $('#editBtn').hide();
@@ -101,7 +105,7 @@ $( document ).ready(function() {
   };
 
   var submitPhoto = function () {
-    $('#photoForm').submit();
+    $('form').submit();
   };
 
   $('#pwcBtn').click(changePassword);

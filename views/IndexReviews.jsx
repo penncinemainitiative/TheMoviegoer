@@ -4,6 +4,7 @@ var React = require('react');
 var SideBar = require('./SideBar');
 var Popular = require('./Popular');
 var TopStory = require('./TopStory');
+var UpcomingEvents = require('./UpcomingEvents');
 
 var IndexReviews = React.createClass({
   render: function () {
@@ -31,7 +32,7 @@ var IndexReviews = React.createClass({
             <span>Reviews</span></h2></div>
           <div className="container">
             <div className="row">
-              <SideBar name="Upcoming Events"/>
+              <UpcomingEvents events={this.props.upcomingEvents}/>
               <div className="col-lg-9 col-md-8 col-sm-8 col-xs-12">
                 <TopStory {...this.props.movies[0]}/>
                 <TopStory {...this.props.movies[1]}/>

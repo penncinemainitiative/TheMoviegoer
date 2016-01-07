@@ -6,9 +6,11 @@ var ArticleList = require('./ArticleList');
 
 var AuthorRequest = React.createClass({
   render: function () {
-    var url = '/author/approve/' + this.props.username;
+    var approveUrl = '/author/approve/' + this.props.username;
+    var rejectUrl = '/author/reject/' + this.props.username;
     return (
-      <p>{this.props.name} <a href={url}>Approve</a></p>
+      <p>{this.props.name} <a href={approveUrl}>Approve</a> <a href={rejectUrl}>Reject</a>
+      </p>
     );
   }
 });
@@ -24,7 +26,7 @@ var Home = React.createClass({
           { showAccountRequests ? (
             <div>
               <h5>Pending Account Requests</h5>
-              {this.pendingAuthors.map(function (author) {
+              {this.props.pendingAuthors.map(function (author) {
                 return <AuthorRequest {...author}/>;
               })}
             </div>

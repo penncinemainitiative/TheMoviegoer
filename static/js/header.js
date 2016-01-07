@@ -16,10 +16,11 @@ $( document ).ready(function() {
   var search = $('#search');
 
   search.select2({
-    minimumInputLength: 2,
     placeholder: 'Search articles',
     escapeMarkup: function (m) {return m;},
     ajax: {
+      cache: true,
+      delay: 250,
       type: 'POST',
       url: '/search',
       processResults: function (data) {

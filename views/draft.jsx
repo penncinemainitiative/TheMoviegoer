@@ -3,7 +3,6 @@
 var React = require('react');
 var Layout = require('./Layout');
 var View = require('./View');
-var ImageModal = require('./ImageModal');
 var Input = require('react-bootstrap').Input;
 var Row = require('react-bootstrap').Row;
 var Button = require('react-bootstrap').Button;
@@ -27,6 +26,19 @@ var ActionButtons = React.createClass({
         ) : null}
       </div>
     );
+  }
+});
+
+var PhotoForm = React.createClass({
+  render: function () {
+    var uploadUrl = '/article/' + this.props.articleId + '/photos';
+    var onError = "window.location='/article/" + this.props.articleId + "'";
+    return (
+      <form role="form" action={uploadUrl}
+            method="post" encType="multipart/form-data"
+            onError={onError} id="photoForm">
+        <input type="file" id="fileInput" name="photo"/>
+      </form>);
   }
 });
 
@@ -74,11 +86,11 @@ var Article = React.createClass({
                         {cover === image.image ? (
                           <Button className="btn-primary starBtn"
                                   value={image.image}>
-                            <Glyphicon glyph="star"/>
+                            <Glyphicon glyph="star"/> Cover
                           </Button>
                         ) :
                           <Button className="starBtn" value={image.image}>
-                            <Glyphicon glyph="star"/>
+                            <Glyphicon glyph="star"/> Cover
                           </Button>
                         }
                       </span>
@@ -86,12 +98,7 @@ var Article = React.createClass({
                   </div>
                 );
               })}
-              <button type="button" className="btn btn-default"
-                      data-toggle="modal" data-target=".img-upload-modal"
-                      id="imgUploadBtn">
-                <span className="glyphicon glyphicon-upload"
-                      aria-hidden="true"> </span>
-              </button>
+              <PhotoForm {...this.props}/>
             </div>
           </Row>
           <View {...this.props}/>
@@ -107,7 +114,6 @@ var Article = React.createClass({
                hidden></div>
           <ActionButtons {...this.props}/>
         </div>
-        <ImageModal{...this.props}/>
       </Layout>
     );
   }

@@ -1,41 +1,50 @@
 $( document ).ready(function() {
 
-  var login = function () {
-    var un = $('#inputEmail').val();
-    var pw = $('#inputPassword').val();
+  var message = function(msg) {
+    $('.alert').show().text(msg);
+  };
 
-    if (un === '' || pw === '') {
-      return $('#issue').show().empty().append('Missing data!');
+  var login = function (e) {
+    e.preventDefault();
+    var username = $('input[name=username]').val();
+    var password = $('input[name=password]').val();
+
+    if (username === '') {
+      return message('Empty username!');
+    }
+
+    if (password === '') {
+      return message('Empty password!');
     }
 
     var loginData = {
-      username: un,
-      password: pw
+      username: username,
+      password: password
     };
 
     $.post('/console/login', loginData, function (data) {
       if (!data.success) {
-        $('#issue').show().empty().append(data.msg);
+        message(data.msg);
       } else {
         window.location = '/console/home';
       }
     });
   };
 
-  var signup = function () {
-    var username = $('#inputUser').val();
-    var name = $('#inputName').val();
-    var email = $('#inputEmail').val();
-    var pw = $('#inputPassword').val();
-    var pwConfirm = $('#inputPasswordConfirm').val();
+  var signup = function (e) {
+    e.preventDefault();
+    var username = $('input[name=username]').val();
+    var name = $('input[name=name]').val();
+    var email = $('input[name=email]').val();
+    var pw = $('input[name=password]').val();
+    var pwConfirm = $('input[name=passwordConfirm]').val();
 
     if (username === '' || email === '' || pw === '' || pwConfirm === '' || name === '') {
-      return $('#issue').show().empty().append('Missing data!');
+      return message('Fill out all the fields!');
     }
 
     if (pw !== pwConfirm) {
-      $('#issue').show().empty().append('Passwords do not match!');
-      return;
+      return message("Passwords don't match!");
     }
 
     var signupData = {
@@ -46,16 +55,16 @@ $( document ).ready(function() {
     };
 
     $.post('/author/create', signupData, function (data) {
-      var issue = $('#issue');
+      var issue = $('.alert');
       if (data.success) {
         issue.removeClass("alert-danger").addClass("alert-success");
       } else {
         issue.removeClass("alert-success").addClass("alert-danger");
       }
-      issue.show().empty().append(data.msg);
+      message(data.msg);
     });
   };
 
-  $('button#loginBtn').click(login);
-  $('button#signupBtn').click(signup);
+  $('#loginForm').submit(login);
+  $('#signupForm').submit(signup);
 });

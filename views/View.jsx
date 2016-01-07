@@ -27,7 +27,7 @@ var View = React.createClass({
             <div className="posttxt" dangerouslySetInnerHTML={text}></div>
           </div>
           {this.props.popularMovies ? (
-            <Popular popularMovies={this.props.popularMovies} numPopular="3"/>
+            <Popular popularMovies={this.props.popularMovies} numPopular="5"/>
           ) : null}
         </div>
       </div>
