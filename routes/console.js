@@ -7,8 +7,6 @@ var dateFormat = require('dateformat');
 var connection = require('../databases/sql');
 
 var authorMovies = function (req, call) {
-  var newRows = [];
-
   var getInfo = function (item, callback) {
     item.updateDate = dateFormat(item.updateDate, "mmmm d, yyyy");
     item.url = '/article/' + item.articleId;
@@ -17,8 +15,7 @@ var authorMovies = function (req, call) {
       + connection.escape(item.author);
     connection.query(queryString, function (err, rows) {
       item.authorname = rows[0].name;
-      newRows.push(item);
-      callback();
+      callback(err, item);
     });
   };
 
@@ -38,10 +35,10 @@ var authorMovies = function (req, call) {
     function (callback) {
       connection.query(queryString, callback);
     }, function (rows, fields, callback) {
-      async.eachSeries(rows, getInfo, callback);
+      async.map(rows, getInfo, callback);
     }
-  ], function () {
-    call(null, newRows);
+  ], function (err, result) {
+    call(err, result);
   });
 };
 

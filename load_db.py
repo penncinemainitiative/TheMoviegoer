@@ -1,5 +1,5 @@
 from os import listdir
-import MySQLdb, json, os
+import MySQLdb, json, os, codecs
 
 with open('json/mysqldb.json') as data_file:
     data = json.load(data_file)
@@ -8,7 +8,8 @@ db = MySQLdb.connect(host=data['host'],
                      user=data['user'],
                      port=int(data['port']),
                      passwd=data['password'],
-                     db="TESTMOVIE")
+                     db="TESTMOVIE",
+                     charset='utf8')
 cur = db.cursor()
 
 
@@ -64,7 +65,7 @@ def reset_databases():
                                       `pubDate` date DEFAULT NULL,
                                       `updateDate` date NOT NULL,
                                       `type` text NOT NULL,
-                                      `title` text NOT NULL,
+                                      `title` text NOT NULL COLLATE UTF8_GENERAL_CI,
                                       `author` text NOT NULL,
                                       `image` text,
                                       `excerpt` text NOT NULL,
@@ -164,7 +165,7 @@ def get_authors():
     authors = []
     for dirname, dirnames, filenames in os.walk('old_authors'):
         for filename in filenames:
-            with open(os.path.join(dirname, filename)) as f:
+            with codecs.open(os.path.join(dirname, filename), 'r', encoding='UTF-8') as f:
                 lines = f.readlines()[1:]
                 name = get_attr(lines, 'author').replace('"', "")
                 username = usernames[name]
@@ -194,7 +195,7 @@ def get_authors():
 def get_posts():
     posts = []
     for filename in listdir(OLD_POSTS):
-        with open(OLD_POSTS + filename, 'r') as f:
+        with codecs.open(OLD_POSTS + filename, 'r', encoding='UTF-8') as f:
             lines = f.readlines()[1:]
             title = get_attr(lines, 'title').replace('"', "")
             author = get_attr(lines, 'author').replace('"', "")

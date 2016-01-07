@@ -16,6 +16,8 @@ var authClient = new JWT(
   ['https://www.googleapis.com/auth/analytics.readonly']
 );
 
+var cache = {};
+
 var getFromGoogle = function (callback) {
   authClient.authorize(function (err) {
     if (err) {
@@ -40,8 +42,6 @@ var getFromGoogle = function (callback) {
 };
 
 var getPopularMovies = function(call) {
-  var newRows = [];
-
   var getInfo = function (item, callback) {
     var url = item[1];
     var queryString;
@@ -63,21 +63,27 @@ var getPopularMovies = function(call) {
         + connection.escape(movie.author);
       connection.query(queryString, function (err, rows) {
         movie.authorname = rows[0].name;
-        newRows.push(movie);
-        callback();
+        callback(err, movie);
       });
     });
   };
 
-  async.waterfall([
-    function (callback) {
-      getFromGoogle(callback);
-    }, function (result, callback) {
-      async.eachSeries(result, getInfo, callback);
-    }
-  ], function () {
-    call(null, newRows);
-  });
+  var today = new Date();
+  today = today.getDate() + '/' + today.getMonth() + 1 + '/' + today.getFullYear();
+  if (cache[today]) {
+    call(null, cache[today]);
+  } else {
+    async.waterfall([
+      function (callback) {
+        getFromGoogle(callback);
+      }, function (result, callback) {
+        async.map(result, getInfo, callback);
+      }
+    ], function (err, result) {
+      cache[today] = result;
+      call(err, result);
+    });
+  }
 };
 
 module.exports = getPopularMovies;

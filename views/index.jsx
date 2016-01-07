@@ -19,7 +19,7 @@ var Index = React.createClass({
               <div className="col-lg-9 col-md-8 col-sm-8 col-xs-12">
                 {this.props.nextEvent ? (
                   <img src={this.props.nextEvent.image}/>
-                ) : <div>No upcoming events!</div>
+                ) : <h4>No upcoming events!</h4>
                 }
               </div>
             </Row>

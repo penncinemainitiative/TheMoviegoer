@@ -9,7 +9,7 @@ var Article = React.createClass({
     var authorUrl = '/author/profile/' + movie.authorname.replace(/\s+/g, '');
     var title = {__html: movie.title};
     return (
-      <div className="event">
+      <div className="event col-lg-12 col-md-12 col-sm-12 col-xs-4">
         <a href={movie.url}><img
           src={movie.image}/></a>
         <a href={movie.url} className="black" dangerouslySetInnerHTML={title}/>

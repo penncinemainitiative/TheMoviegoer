@@ -8,8 +8,6 @@ var connection = require('../databases/sql');
 var getPopularMovies = require('../databases/analytics');
 
 var movieList = function (movieType, call) {
-  var newRows = [];
-
   var getInfo = function (item, callback) {
     item.pubDate = dateFormat(item.pubDate, "mmmm d, yyyy");
     item.url = '/article/' + item.articleId;
@@ -18,12 +16,11 @@ var movieList = function (movieType, call) {
       + connection.escape(item.author);
     connection.query(queryString, function (err, rows) {
       item.authorname = rows[0].name;
-      newRows.push(item);
-      callback();
+      callback(err, item);
     });
   };
 
-  var queryString = 'SELECT articleId, isPublished, pubDate, title, ' +
+  var queryString = 'SELECT excerpt, articleId, isPublished, pubDate, title, ' +
     'author, image FROM articles WHERE isPublished=2 AND (' + movieType +
     ') ORDER BY pubDate DESC, articleId DESC';
 
@@ -31,10 +28,10 @@ var movieList = function (movieType, call) {
     function (callback) {
       connection.query(queryString, callback);
     }, function (rows, fields, callback) {
-      async.eachSeries(rows, getInfo, callback);
+      async.map(rows, getInfo, callback);
     }
-  ], function () {
-    call(null, newRows);
+  ], function (err, results) {
+    call(err, results);
   });
 };
 

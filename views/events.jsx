@@ -9,7 +9,7 @@ var Events = React.createClass({
     return (
       <Layout {...this.props}>
         <div id="events" className="container">
-          <div className="title">Features</div>
+          <div className="title">Events</div>
           {this.props.isEditor === 1 ? (
             <button type="submit" className="btn btn-default btn-sm"
                     id="eventBtn"

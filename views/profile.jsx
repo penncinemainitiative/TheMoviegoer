@@ -66,9 +66,9 @@ var BioImage = React.createClass({
           <p id="profileBio">{this.props.bio}</p>
           {this.props.inConsole ? (
             <div>
-              <Input type="text" id="inputName" value={this.props.name}/>
-              <Input type="text" id="inputEmail" value={this.props.email}/>
-              <Input type="textarea" rows="4" id="inputBio">{this.props.bio}</Input>
+              <Input type="text" id="inputName" placeholder="Name" value={this.props.name}/>
+              <Input type="text" id="inputEmail" placeholder="Email" value={this.props.email}/>
+              <Input type="textarea" placeholder="Bio" rows="6" id="inputBio">{this.props.bio}</Input>
             </div>
           ) : null}
         </div>

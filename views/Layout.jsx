@@ -18,6 +18,8 @@ var Layout = React.createClass({
           src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script
           src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>
         <link rel="shortcut icon" href="/images/favicon.png"/>
         <link rel="stylesheet" type="text/css" href="/css/style.min.css"/>
       </head>

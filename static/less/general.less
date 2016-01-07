@@ -1,8 +1,9 @@
 @gold: #c29d52;
 @white: #f5f2ed;
 @black: #2B292B;
-@footer-height: 200px;
-@bottom-padding: @footer-height + 50px;
+@header-height: 60px;
+@footer-height: 250px;
+@bottom-padding: @footer-height;
 
 @font-face {
   font-family: gotham;
@@ -24,7 +25,7 @@ img {
 }
 
 #content {
-  padding-top: 75px;
+  padding-top: @header-height;
 }
 
 .title {
