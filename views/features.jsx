@@ -1,8 +1,8 @@
 'use strict';
 
 var React = require('react');
-var Layout = require('./Layout.jsx');
-var Pagination = require('./Pagination.jsx');
+var Layout = require('./Layout');
+var Pagination = require('./Pagination');
 
 var FeatureImage = React.createClass({
   render: function () {

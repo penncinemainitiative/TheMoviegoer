@@ -1,8 +1,8 @@
 'use strict';
 
 var React = require('react');
-var Layout = require('./Layout.jsx');
-var ArticleList = require('./ArticleList.jsx');
+var Layout = require('./Layout');
+var ArticleList = require('./ArticleList');
 
 var AuthorRequest = React.createClass({
   render: function () {

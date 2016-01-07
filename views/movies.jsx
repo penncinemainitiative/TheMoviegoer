@@ -1,10 +1,10 @@
 'use strict';
 
 var React = require('react');
-var Layout = require('./Layout.jsx');
-var SideBar = require('./SideBar.jsx');
-var TopStory = require('./TopStory.jsx');
-var Pagination = require('./Pagination.jsx');
+var Layout = require('./Layout');
+var SideBar = require('./SideBar');
+var TopStory = require('./TopStory');
+var Pagination = require('./Pagination');
 
 var Movies = React.createClass({
   render: function () {

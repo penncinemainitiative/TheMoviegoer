@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react');
-var SideBar = require('./SideBar.jsx');
+var SideBar = require('./SideBar');
 
 var Article = React.createClass({
   render: function () {

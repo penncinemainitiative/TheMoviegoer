@@ -1,9 +1,9 @@
 'use strict';
 
 var React = require('react');
-var SideBar = require('./SideBar.jsx');
-var Popular = require('./Popular.jsx');
-var TopStory = require('./TopStory.jsx');
+var SideBar = require('./SideBar');
+var Popular = require('./Popular');
+var TopStory = require('./TopStory');
 
 var IndexReviews = React.createClass({
   render: function () {

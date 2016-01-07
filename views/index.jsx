@@ -1,8 +1,8 @@
 'use strict';
 
 var React = require('react');
-var Layout = require('./Layout.jsx');
-var IndexReviews = require('./IndexReviews.jsx');
+var Layout = require('./Layout');
+var IndexReviews = require('./IndexReviews');
 var Row = require('react-bootstrap').Row;
 
 var Index = React.createClass({

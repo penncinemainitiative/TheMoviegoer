@@ -1,8 +1,8 @@
 'use strict';
 
 var React = require('react');
-var Layout = require('./Layout.jsx');
-var View = require('./View.jsx');
+var Layout = require('./Layout');
+var View = require('./View');
 
 var Article = React.createClass({
   render: function () {

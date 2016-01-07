@@ -8,7 +8,7 @@ db = MySQLdb.connect(host=data['host'],
                      user=data['user'],
                      port=int(data['port']),
                      passwd=data['password'],
-                     db="TESTMOVIE",
+                     db=data['database'],
                      charset='utf8')
 cur = db.cursor()
 

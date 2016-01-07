@@ -1,9 +1,9 @@
 'use strict';
 
 var React = require('react');
-var Layout = require('./Layout.jsx');
-var TopStory = require('./TopStory.jsx');
-var PWModal = require('./PWModal.jsx');
+var Layout = require('./Layout');
+var TopStory = require('./TopStory');
+var PWModal = require('./PWModal');
 var Row = require('react-bootstrap').Row;
 var Input = require('react-bootstrap').Input;
 var Button = require('react-bootstrap').Button;

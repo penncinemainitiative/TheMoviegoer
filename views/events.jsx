@@ -1,8 +1,8 @@
 'use strict';
 
 var React = require('react');
-var Layout = require('./Layout.jsx');
-var EventModal = require('./EventModal.jsx');
+var Layout = require('./Layout');
+var EventModal = require('./EventModal');
 
 var Events = React.createClass({
   render: function () {

@@ -2,7 +2,7 @@
 
 var React = require('react');
 var marked = require('marked');
-var Popular = require('./Popular.jsx');
+var Popular = require('./Popular');
 
 var View = React.createClass({
   render: function () {

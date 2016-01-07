@@ -1,8 +1,8 @@
 'use strict';
 
 var React = require('react');
-var Header = require('./Header.jsx');
-var Footer = require('./Footer.jsx');
+var Header = require('./Header');
+var Footer = require('./Footer');
 
 var Layout = React.createClass({
   render: function () {

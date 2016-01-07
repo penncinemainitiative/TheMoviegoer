@@ -5,7 +5,6 @@ var app = express();
 
 var http = require('http');
 var path = require('path');
-var engine = require('ejs-locals');
 var session = require('express-session');
 var multer = require('multer');
 var s3 = require('multer-s3');
@@ -16,9 +15,10 @@ var secretObj = JSON.parse(fs.readFileSync('json/secret.json', 'utf8'));
 var oldUrls = JSON.parse(fs.readFileSync('old_urls.json', 'utf8'));
 var connection = require('./databases/sql');
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jsx');
-app.engine('jsx', require('express-react-views').createEngine());
+var engineOptions = { transformViews: false };
+app.set('views', path.join(__dirname, 'public/views'));
+app.set('view engine', 'js');
+app.engine('js', require('express-react-views').createEngine(engineOptions));
 
 app.use(multer({dest: './uploads/', includeEmptyFields: true}).single('photo'));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -47,6 +47,7 @@ app.use('/console', require('./routes/console'));
 app.use('/author', require('./routes/author'));
 app.use('/article', require('./routes/article'));
 app.use('/events', require('./routes/events'));
+app.use('/search', require('./routes/search'));
 
 app.get('/*', function (req, res) {
   if (oldUrls[req.path]) {

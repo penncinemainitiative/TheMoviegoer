@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react');
-var Layout = require('./Layout.jsx');
+var Layout = require('./Layout');
 var Input = require('react-bootstrap').Input;
 var Button = require('react-bootstrap').Button;
 
