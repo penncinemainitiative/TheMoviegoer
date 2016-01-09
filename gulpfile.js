@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var less = require('gulp-less');
 var watch = require('gulp-watch');
 var concat = require('gulp-concat');
-var minifyCSS = require('gulp-minify-css');
+var cssnano = require('gulp-cssnano');
 var uglify = require('gulp-uglify');
 var runSequence = require('run-sequence');
 var babel = require('gulp-babel');
@@ -10,15 +10,17 @@ var babel = require('gulp-babel');
 gulp.task('less', function() {
   gulp.src('static/less/general.less')
     .pipe(less())
-    .pipe(minifyCSS())
+    .pipe(cssnano())
     .pipe(concat('style.min.css'))
     .pipe(gulp.dest('public/css'));
 });
 
 gulp.task('js', function() {
-  gulp.src('static/js/*.js')
+  gulp.src(['static/js/*.js', '!static/js/fbSDK.js'])
     .pipe(concat('page.js'))
     .pipe(uglify())
+    .pipe(gulp.dest('public/js'));
+  gulp.src('static/js/fbSDK.js')
     .pipe(gulp.dest('public/js'));
 });
 

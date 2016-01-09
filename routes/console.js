@@ -5,6 +5,7 @@ var router = express.Router();
 var async = require('async');
 var dateFormat = require('dateformat');
 var connection = require('../databases/sql');
+var bcrypt = require('bcrypt');
 
 var authorMovies = function (req, call) {
   var getInfo = function (item, callback) {
@@ -72,7 +73,7 @@ router.get('/signup', function (req, res) {
 
 router.post('/login', function (req, res) {
   var user = req.body.username;
-  var pw = req.body.password;
+  var password = req.body.password;
 
   var query = 'SELECT username, password, name, isEditor FROM authors ' +
     'WHERE username=' + connection.escape(user);
@@ -84,19 +85,23 @@ router.post('/login', function (req, res) {
 
     if (rows.length === 0) {
       res.send({success: false, msg: 'Username not found!'});
-    } else if (rows[0].password !== pw) {
-      res.send({success: false, msg: 'Incorrect password!'});
     } else if (rows[0].isEditor === -1) {
       res.send({
         success: false,
         msg: 'Your account has not been approved yet!'
       });
     } else {
-      req.session.login = true;
-      req.session.username = user;
-      req.session.name = rows[0].name;
-      req.session.isEditor = rows[0].isEditor;
-      res.send({success: true, msg: 'Welcome!'});
+      bcrypt.compare(password, rows[0].password, function (err, correct) {
+        if (correct) {
+          req.session.login = true;
+          req.session.username = user;
+          req.session.name = rows[0].name;
+          req.session.isEditor = rows[0].isEditor;
+          res.send({success: true, msg: 'Welcome!'});
+        } else {
+          res.send({success: false, msg: 'Incorrect password!'});
+        }
+      });
     }
   });
 });
@@ -126,7 +131,7 @@ router.get('/home', authenticate, function (req, res) {
       console.log(err);
     }
     var pendingAuthors;
-    if (req.session.isEditor === 1){
+    if (req.session.isEditor === 1) {
       pendingAuthors = results[1][0];
     }
     console.log(pendingAuthors);

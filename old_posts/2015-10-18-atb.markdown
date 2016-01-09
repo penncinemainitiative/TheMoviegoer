@@ -9,7 +9,7 @@ displayimage: "yes"
 tags: 
 - feature
 ---
-##Around Campus
+## Around Campus
 
 #### **PCI Weekly Screening**
 We at Penn Cinema Initiative and The Moviegoer are organizing an outing to one of the most-buzzed films at the festival: Room. Lenny Abrahamson’s Room is the story of Jack and his mother, Ma, who have been held in captivity by a kidnapper for seven years. After they execute an escape from their confines, Jack has to contend with something even more exciting and terrifying: the outside world. Room most recently won the People’s Choice Award at the 2015 Toronto International Film Festival, and we are extremely happy to give our members the opportunity to catch the film at the festival! Room will be screening on **Friday, October 23rd at 7:15pm**. We will keep you updated on how to attend the screening with us!

@@ -82,7 +82,7 @@ router.get('/features/:page', function(req, res) {
   ], function (err, results) {
     var features = results;
     var totalPages = Math.ceil(features.length / perPage);
-    if (page >= totalPages) {
+    if (page > totalPages) {
       res.redirect('/features');
     }
     var startSlice = (page - 1) * perPage;
@@ -117,7 +117,7 @@ router.get('/movies/:page', function (req, res) {
     var newPages = Math.ceil(newReleases.length / perPage);
     var oldPages = Math.ceil(oldReleases.length / perPage);
     var totalPages = Math.max(newPages, oldPages);
-    if (page <= 0 || page >= totalPages) {
+    if (page <= 0 || page > totalPages) {
       res.redirect('/movies');
     }
     var startSlice = (page - 1) * perPage;

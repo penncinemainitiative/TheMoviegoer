@@ -6,6 +6,7 @@ var async = require('async');
 var dateFormat = require('dateformat');
 var connection = require('../databases/sql');
 var uploadToS3 = require('../databases/uploadS3');
+var bcrypt = require('bcrypt');
 
 var authorMovies = function (username, call) {
   var getInfo = function (item, callback) {
@@ -125,12 +126,19 @@ router.post('/password', authenticate, function (req, res) {
         connection.escape(req.session.username);
       connection.query(queryString, callback);
     }, function (rows, fields, callback) {
-      if (oldPassword !== rows[0].password) {
-        return res.send({success: false, msg: "Passwords do not match!"});
-      }
-      var queryString = 'UPDATE authors SET password=' + connection.escape(newPassword) +
-        ' WHERE username=' + connection.escape(req.session.username);
-      connection.query(queryString, callback);
+      bcrypt.compare(oldPassword, rows[0].password, function (err, correct) {
+        if (correct) {
+          bcrypt.genSalt(10, function (err, salt) {
+            bcrypt.hash(newPassword, salt, function (err, hash) {
+              var queryString = 'UPDATE authors SET password=' + connection.escape(hash) +
+                ' WHERE username=' + connection.escape(req.session.username);
+              connection.query(queryString, callback);
+            });
+          });
+        } else {
+          return res.send({success: false, msg: "Incorrect old password!"});
+        }
+      });
     }
   ], function (err) {
     if (err) {
@@ -152,21 +160,28 @@ router.post('/create', function (req, res) {
     username: req.body.username,
     email: req.body.email,
     name: req.body.name,
-    password: req.body.password,
     isEditor: -1,
     image: 'https://www.royalacademy.org.uk/assets/placeholder-1e385d52942ef11d42405be4f7d0a30d.jpg',
     bio: '...'
   };
 
-  connection.query('INSERT INTO authors SET ?', insertData, function (err) {
-    if (err) {
-      res.send({success: false, msg: 'Try again with a different username!'});
-    } else {
-      res.send({
-        success: true,
-        msg: 'Account has been created and is awaiting approval!'
+  bcrypt.genSalt(10, function (err, salt) {
+    bcrypt.hash(req.body.password, salt, function (err, hash) {
+      insertData.password = hash;
+      connection.query('INSERT INTO authors SET ?', insertData, function (err) {
+        if (err) {
+          res.send({
+            success: false,
+            msg: 'Try again with a different username!'
+          });
+        } else {
+          res.send({
+            success: true,
+            msg: 'Account has been created and is awaiting approval!'
+          });
+        }
       });
-    }
+    });
   });
 });
 

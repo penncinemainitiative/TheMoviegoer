@@ -117,13 +117,14 @@ class Author(object):
         self.username = username
         self.email = ""
         self.name = name
-        self.password = "password"
+        self.password = "$2a$10$r3B91yhkolKXlZ28/ELAEObLb10LudXbv/P8Rka8LIomxwDdCa8Q."
         self.image = image
         self.bio = bio
 
 
 class Event(object):
-    def __init__(self, date, description, location, image, fbLink, time, title, film):
+    def __init__(self, date, description, location, image, fbLink, time, title,
+                 film):
         self.date = date
         self.description = description
         self.location = location
@@ -179,7 +180,8 @@ def get_authors():
     authors = []
     for dirname, dirnames, filenames in os.walk(OLD_AUTHORS):
         for filename in filenames:
-            with codecs.open(os.path.join(dirname, filename), 'r', encoding='UTF-8') as f:
+            with codecs.open(os.path.join(dirname, filename), 'r',
+                             encoding='UTF-8') as f:
                 lines = f.readlines()[1:]
                 name = get_attr(lines, 'author').replace('"', "")
                 username = usernames[name]
@@ -224,6 +226,7 @@ def get_posts():
             posts.append(post)
     return posts
 
+
 def get_events():
     events = []
     for filename in listdir(OLD_EVENTS):
@@ -237,7 +240,8 @@ def get_events():
             description = get_attr(lines, 'excerpt').replace('"', "")
             film = get_attr(lines, 'film').replace('"', "")
             fbLink = "https://www.facebook.com/events/461373730713782/"
-            event = Event(date, description, location, image, fbLink, time, title, film)
+            event = Event(date, description, location, image, fbLink, time,
+                          title, film)
             events.append(event)
     return events
 
@@ -251,7 +255,7 @@ def setup_authors():
         query = "INSERT INTO authors (username, email, name, password, isEditor, image, bio) " \
                 "VALUES (%s, %s, %s, %s, %s, %s, %s)"
         cur.execute(query, (
-            author.username, "", author.name, "password", 0, author.image,
+            author.username, "", author.name, author.password, 0, author.image,
             author.bio))
     cur.execute("UPDATE authors SET isEditor=1 WHERE username='bpettigrew'")
     db.commit()
@@ -269,12 +273,15 @@ def setup_articles():
                             post.excerpt, post.text))
     db.commit()
 
+
 def setup_events():
     events = get_events()
     for event in events:
         query = "INSERT INTO events (date, description, location, image, fbLink, time, title, film) " \
                 "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-        cur.execute(query, (event.date, event.description, event.location, event.image, event.fbLink, event.time, event.title, event.film))
+        cur.execute(query, (
+            event.date, event.description, event.location, event.image,
+            event.fbLink, event.time, event.title, event.film))
     db.commit()
 
 

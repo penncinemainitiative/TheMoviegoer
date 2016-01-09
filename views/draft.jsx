@@ -73,7 +73,7 @@ var Article = React.createClass({
             </div>
             <div className="col-lg-3 col-md-4 col-sm-6">
               <p>Images</p>
-              {this.props.imgList.map(function (image, i) {
+              {this.props.imgList.map(function (image) {
                 var imgString = '<img src="' + image.image + '" class="newImage" alt="Picture"/>';
                 return (
                   <div className="newImageDiv">

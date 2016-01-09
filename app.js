@@ -1,9 +1,11 @@
 'use strict';
 
 var express = require('express');
+var helmet = require('helmet');
 var app = express();
 
 var http = require('http');
+var compression = require('compression');
 var path = require('path');
 var session = require('express-session');
 var multer = require('multer');
@@ -15,16 +17,18 @@ var secretObj = JSON.parse(fs.readFileSync('json/secret.json', 'utf8'));
 var oldUrls = JSON.parse(fs.readFileSync('old_urls.json', 'utf8'));
 var connection = require('./databases/sql');
 
+app.use(compression());
+app.use(helmet());
+
+app.use(multer({dest: './uploads/', includeEmptyFields: true}).single('photo'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
 var engineOptions = { transformViews: false };
 app.set('views', path.join(__dirname, 'public/views'));
 app.set('view engine', 'js');
 app.engine('js', require('express-react-views').createEngine(engineOptions));
-
-app.use(multer({dest: './uploads/', includeEmptyFields: true}).single('photo'));
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'static')));
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
 
 app.use(session({
   secret: secretObj.secret,
@@ -39,7 +43,7 @@ app.use(function (req, res, next) {
   res.locals.username = req.session.username;
   res.locals.isEditor = req.session.isEditor;
   res.locals.inConsole = false;
-  console.log(req.method + ' ' + req.path);
+  console.log(req.method + ' ' + req.path + ' ' + new Date());
   next();
 });
 

@@ -17,7 +17,7 @@ var PageNumber = React.createClass({
 var Pagination = React.createClass({
   render: function () {
     var pageNumbers = [];
-    for (var i = 1; i < this.props.totalPages; i++) {
+    for (var i = 1; i <= this.props.totalPages; i++) {
       pageNumbers.push({
         page: i,
         selected: i === this.props.page,
