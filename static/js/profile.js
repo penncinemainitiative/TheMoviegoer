@@ -48,7 +48,7 @@ $( document ).ready(function() {
         bio: bio,
         email: email
       };
-      $.post('/author/profile/description', editData);
+      $.post('/writer/profile/description', editData);
     }
 
     $('#editBtn').show();
@@ -91,7 +91,7 @@ $( document ).ready(function() {
       newpassword: newPassword
     };
 
-    $.post('/author/password', postData, function (data) {
+    $.post('/writer/password', postData, function (data) {
       if (!data.success) {
         return issueModal.show().empty().append(data.msg);
       } else {

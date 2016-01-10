@@ -54,7 +54,7 @@ $( document ).ready(function() {
       email: email
     };
 
-    $.post('/author/create', signupData, function (data) {
+    $.post('/writer/create', signupData, function (data) {
       var issue = $('.alert');
       if (data.success) {
         issue.removeClass("alert-danger").addClass("alert-success");

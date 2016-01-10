@@ -7,7 +7,7 @@ var Input = require('react-bootstrap').Input;
 var HeaderItem = React.createClass({
   render: function () {
     return (
-      <div className='headerItem col-lg-1 col-md-1 col-sm-1 hidden-xs'>
+      <div className='headerItem col-lg-1 col-md-1 col-sm-1 col-xs-2'>
         <h5><a href={this.props.url}>{this.props.name}</a></h5>
       </div>
     );
@@ -17,7 +17,7 @@ var HeaderItem = React.createClass({
 var SearchBar = React.createClass({
   render: function () {
     return (
-      <div className='searchBar col-lg-3 col-md-3 col-sm-3 col-xs-8 col-lg-offset-0 col-md-offset-0 col-sm-offset-0 col-xs-offset-1'>
+      <div className='searchBar col-lg-3 col-md-3 col-sm-3 col-xs-8 col-lg-offset-0 col-md-offset-0 col-sm-offset-0'>
         <Input type="select" placeholder="Search" id="search"/>
       </div>
     );
@@ -30,7 +30,7 @@ var Header = React.createClass({
     if (this.props.inConsole) {
       items = [
         {name: 'Home', url: '/console/home'},
-        {name: 'Profile', url: '/author/profile'},
+        {name: 'Profile', url: '/writer/profile'},
         {name: 'Events', url: '/events'},
         {name: 'New Article', url: '/article'}
       ];
@@ -46,7 +46,7 @@ var Header = React.createClass({
       <div id="header">
         <Row>
           <div
-            className="logo col-lg-1 col-md-2 col-sm-2 col-xs-2 col-lg-offset-2 col-md-offset-1 col-sm-offset-1">
+            className="logo col-lg-1 col-md-2 col-sm-2 col-xs-3 col-lg-offset-2 col-md-offset-1 col-sm-offset-1">
             <a href="/" id="headerTitle"><img src="/images/logo.png"
                                               alt="The Moviegoer"/></a>
           </div>

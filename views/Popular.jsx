@@ -6,7 +6,7 @@ var SideBar = require('./SideBar');
 var Article = React.createClass({
   render: function () {
     var movie = this.props;
-    var authorUrl = '/author/profile/' + movie.authorname.replace(/\s+/g, '');
+    var authorUrl = '/writer/' + movie.authorname.replace(/\s+/g, '');
     var title = {__html: movie.title};
     return (
       <div className="event col-lg-12 col-md-12 col-sm-12 col-xs-4">

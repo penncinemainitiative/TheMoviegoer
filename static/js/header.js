@@ -4,7 +4,7 @@ $( document ).ready(function() {
 
   if (path === '/console/home' || path.indexOf('features') !== -1) {
     $(headerItems[0]).addClass('active');
-  } else if (path === '/author/profile' || path.indexOf('movies') !== -1) {
+  } else if (path === '/writer/profile' || path.indexOf('movies') !== -1) {
     $(headerItems[1]).addClass('active');
   } else if (path === '/events') {
     $(headerItems[2]).addClass('active');

@@ -136,6 +136,6 @@ $(document).ready(function () {
     });
   };
 
-  $('#fileInput').change(submitPhoto);
+  $('#photoInput').change(submitPhoto);
 
 });

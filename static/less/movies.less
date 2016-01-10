@@ -1,31 +1,33 @@
 .upcomingBar {
-    color: @gold;
-    text-align: center;
-    background-color: @black;
-    font-family: gotham;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    margin-bottom: 20px;
+  color: @gold;
+  text-align: center;
+  background-color: @black;
+  font-family: gotham;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-bottom: 20px;
 }
 
 .top-story {
-    .black {
-        color: @black;
-    }
-    a {
-        color: @white;
-    }
-    small {
-        color: @gold;
-        margin-right: 10px;
-    }
-    img {
-        width: 100%;
-    }
+  .black {
+    color: @black;
+  }
+  a {
+    color: @white;
+  }
+  small {
+    color: @gold;
+    margin-right: 10px;
+  }
+  img {
+    width: 100%;
+  }
 }
 
-#movies {
+@media (min-width: 34em) {
+  #movies {
     .top-story {
-        min-height: 450px;
+      min-height: 400px;
     }
+  }
 }

@@ -49,12 +49,12 @@ var BioImage = React.createClass({
   render: function () {
     return (
       <Row>
-        <div className="col-lg-4 col-sm-4 col-xs-5">
+        <div className="col-lg-4 col-sm-4 col-xs-12">
           <div className="profileImg">
             {this.props.inConsole ? (<p>Click on the image to update</p>) : null }
             <img src={this.props.image} id="profileImg"/>
             {this.props.inConsole ? (
-              <form role="form" action="/author/profile/picture" method="post"
+              <form role="form" action="/writer/profile/picture" method="post"
                     id="photoForm" encType="multipart/form-data">
                 <Input type="file" id="fileInput" name="photo"/>
                 <Input type="submit" value="Submit" id="submitPhotoBtn"/>
@@ -62,7 +62,7 @@ var BioImage = React.createClass({
             ) : null}
           </div>
         </div>
-        <div className="col-lg-8 col-sm-8 col-xs-7">
+        <div className="col-lg-8 col-sm-8 col-xs-12">
           <p id="profileBio">{this.props.bio}</p>
           {this.props.inConsole ? (
             <div>

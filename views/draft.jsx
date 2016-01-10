@@ -7,6 +7,7 @@ var Input = require('react-bootstrap').Input;
 var Row = require('react-bootstrap').Row;
 var Button = require('react-bootstrap').Button;
 var Glyphicon = require('react-bootstrap').Glyphicon;
+var SideBar = require('./SideBar');
 
 var ActionButtons = React.createClass({
   render: function () {
@@ -68,8 +69,7 @@ var Article = React.createClass({
                      label="Use Markdown for style"
                      id="textInput" value={this.props.text}/>
             </div>
-            <div className="col-lg-3 col-md-4 col-sm-6">
-              <p>Images</p>
+            <SideBar name="Images">
               {this.props.imgList.map(function (image) {
                 var imgString = '<img src="' + image.image + '" class="newImage" alt="Picture"/>';
                 return (
@@ -96,7 +96,7 @@ var Article = React.createClass({
                 );
               })}
               <PhotoForm {...this.props}/>
-            </div>
+            </SideBar>
           </Row>
           <View {...this.props}/>
           <div className="alert alert-success alert-dismissible" role="alert"

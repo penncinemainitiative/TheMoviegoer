@@ -11,7 +11,6 @@ var bcrypt = require('bcrypt');
 var authorMovies = function (username, call) {
   var getInfo = function (item, callback) {
     item.pubDate = dateFormat(item.pubDate, "mmmm d, yyyy");
-    item.url = '/article/' + item.articleId;
 
     var queryString = 'SELECT name FROM authors WHERE username='
       + connection.escape(item.author);
@@ -21,7 +20,7 @@ var authorMovies = function (username, call) {
     });
   };
 
-  var queryString = 'SELECT articleId, isPublished, pubDate, title, ' +
+  var queryString = 'SELECT url, articleId, isPublished, pubDate, title, ' +
     'author, image FROM articles WHERE isPublished=2 AND author=\'' +
     username + '\' ORDER BY pubDate DESC, articleId DESC';
 
@@ -53,6 +52,9 @@ var profile = function (req, res, query) {
     function (callback) {
       connection.query(query, callback);
     }, function (rows, fields, callback) {
+      if (rows.length === 0) {
+        return res.redirect('/');
+      }
       var username = rows[0].username;
       returnData.title = rows[0].name;
       returnData.email = rows[0].email;
@@ -72,10 +74,11 @@ router.get('/profile', authenticate, function (req, res) {
   profile(req, res, query);
 });
 
-router.get('/profile/:author', function (req, res) {
+router.get('/:author', function (req, res) {
+  var author = req.params.author.split('.html')[0];
   var query = 'SELECT username, email, name, bio, image FROM authors WHERE ' +
     'REPLACE(name, " ", "") = REPLACE(' +
-    connection.escape(req.params.author) + ', " ", "")';
+    connection.escape(author) + ', " ", "")';
   profile(req, res, query);
 });
 
@@ -110,7 +113,7 @@ router.post('/profile/picture', authenticate, function (req, res) {
       if (err) {
         res.send({success: false});
       } else {
-        res.redirect('/author/profile');
+        res.redirect('/writer/profile');
       }
     });
   });

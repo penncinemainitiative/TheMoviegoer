@@ -6,7 +6,7 @@ var Popular = require('./Popular');
 
 var View = React.createClass({
   render: function () {
-    var authorUrl = '/author/profile/' + this.props.author.replace(/\s+/g, '');
+    var authorUrl = '/writer/' + this.props.author.replace(/\s+/g, '');
     var draftUrl = '/article/' + this.props.articleId + '/draft';
     var text = {__html: marked(this.props.text)};
     var title = {__html: this.props.title};

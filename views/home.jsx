@@ -6,8 +6,8 @@ var ArticleList = require('./ArticleList');
 
 var AuthorRequest = React.createClass({
   render: function () {
-    var approveUrl = '/author/approve/' + this.props.username;
-    var rejectUrl = '/author/reject/' + this.props.username;
+    var approveUrl = '/writer/approve/' + this.props.username;
+    var rejectUrl = '/writer/reject/' + this.props.username;
     return (
       <p>{this.props.name} <a href={approveUrl}>Approve</a> <a href={rejectUrl}>Reject</a>
       </p>

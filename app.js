@@ -47,10 +47,14 @@ app.use(function (req, res, next) {
 
 app.use('/', require('./routes/index'));
 app.use('/console', require('./routes/console'));
-app.use('/author', require('./routes/author'));
+app.use('/writer', require('./routes/writer'));
 app.use('/article', require('./routes/article'));
 app.use('/events', require('./routes/events'));
 app.use('/search', require('./routes/search'));
+
+app.get('*', function (req, res) {
+  res.redirect('/');
+});
 
 var server = app.listen(8080, function () {
   var port = server.address().port;
