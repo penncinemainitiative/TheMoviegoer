@@ -6,7 +6,7 @@
   padding-bottom: 5px;
   position: fixed;
   width: 100%;
-  z-index: 100;
+  z-index: 1000;
   font-family: gotham;
   text-align: center;
 
@@ -15,18 +15,27 @@
   }
 
   .logo {
-    height: 42px;
-  }
-
-  .headerItem {
-    color: inherit;
-    text-decoration: none;
-    &:hover {
-      color: @white;
+    padding-left: 30px;
+    img {
+      height: 42px;
     }
   }
 
   .active {
     color: @white;
   }
+}
+
+.headerItem {
+  a {
+    color: inherit;
+    text-decoration: none;
+    &:hover {
+      color: @white;
+    }
+  }
+}
+
+.searchBar {
+  padding-left: 30px;
 }

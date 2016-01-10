@@ -6,7 +6,7 @@ var async = require('async');
 var dateFormat = require('dateformat');
 var connection = require('../databases/sql');
 var uploadToS3 = require('../databases/uploadS3');
-var getPopularMovies = require('../databases/analytics');
+var getSlug = require('speakingurl');
 
 var authenticate = function (req, res, next) {
   if (!req.session.login) {
@@ -14,6 +14,45 @@ var authenticate = function (req, res, next) {
   }
   res.locals.inConsole = true;
   next();
+};
+
+var requireAuthor = function (req, res, next) {
+  var articleId = parseInt(req.params.id);
+  var queryString = 'SELECT author FROM articles WHERE articleId=' + articleId;
+  connection.query(queryString, function (err, rows) {
+    if (err) {
+      console.log(err);
+    }
+    if (rows[0].author !== req.session.username) {
+      return res.redirect('/home');
+    }
+    next();
+  });
+};
+
+var requireEditor = function (req, res, next) {
+  if (req.session.isEditor !== 1) {
+    return res.send({
+      success: false,
+      msg: 'Only the editor can do that!'
+    });
+  } else {
+    next();
+  }
+};
+
+var authorOrEditor = function (req, res, next) {
+  var articleId = parseInt(req.params.id);
+  var queryString = 'SELECT author FROM articles WHERE articleId=' + articleId;
+  connection.query(queryString, function (err, rows) {
+    if (err) {
+      console.log(err);
+    }
+    if (rows[0].author !== req.session.username && req.session.isEditor !== 1) {
+      return res.redirect('/home');
+    }
+    next();
+  });
 };
 
 router.get('/', authenticate, function (req, res) {
@@ -34,7 +73,7 @@ router.get('/', authenticate, function (req, res) {
       console.log(err);
     }
     var newId = result.insertId;
-    var url = '/article/' + newId;
+    var url = '/article/' + newId + '/draft';
     res.redirect(url);
   });
 });
@@ -42,42 +81,20 @@ router.get('/', authenticate, function (req, res) {
 router.get('/:id', function (req, res) {
   var articleId = parseInt(req.params.id);
 
-  var returnData = {
-    articleId: articleId
-  };
-
-  async.waterfall([
-    function (callback) {
-      var queryString = 'SELECT excerpt, text, image, isPublished, pubDate, type, title, author ' +
-        'FROM articles WHERE articleId=' + articleId;
-      connection.query(queryString, callback);
-    }, function (rows, fields, callback) {
-      if (rows[0].isPublished === 0 || rows[0].isPublished === 1) {
-        return res.redirect('/article/' + req.params.id + '/draft');
-      }
-      returnData.excerpt = rows[0].excerpt;
-      returnData.image = rows[0].image;
-      returnData.title = rows[0].title;
-      returnData.date = dateFormat(rows[0].pubDate, "mmmm d, yyyy");
-      returnData.type = rows[0].type;
-      returnData.text = rows[0].text;
-      var queryString = 'SELECT name FROM authors WHERE username=\'' +
-        rows[0].author + '\'';
-      connection.query(queryString, callback);
-    }
-  ], function (err, rows) {
+  var queryString = 'SELECT url, isPublished FROM articles WHERE articleId=' + articleId;
+  connection.query(queryString, function (err, result) {
     if (err) {
       console.log(err);
+      res.redirect('/');
+    } else if (result.isPublished === 2) {
+      res.redirect(result.url);
+    } else {
+      res.redirect('/article/' + articleId + '/draft');
     }
-    returnData.author = rows[0].name;
-    getPopularMovies(function (err, popular) {
-      returnData.popularMovies = popular;
-      res.render('article', returnData);
-    });
   });
 });
 
-router.post('/:id', authenticate, function (req, res) {
+router.post('/:id', authenticate, authorOrEditor, function (req, res) {
   var articleId = parseInt(req.params.id);
   var title = req.body.title;
   var type = req.body.type;
@@ -85,7 +102,8 @@ router.post('/:id', authenticate, function (req, res) {
   var excerpt = req.body.excerpt;
 
   var queryString = 'UPDATE articles SET updateDate=NOW(), title=' + connection.escape(title) +
-    ',type=' + connection.escape(type) + ',text=' + connection.escape(text) + ',excerpt=' + connection.escape(excerpt) + ' WHERE articleId=' + articleId;
+    ',type=' + connection.escape(type) + ',text=' + connection.escape(text) +
+    ',excerpt=' + connection.escape(excerpt) + ' WHERE articleId=' + articleId;
 
   connection.query(queryString, function (err) {
     if (err) {
@@ -95,7 +113,7 @@ router.post('/:id', authenticate, function (req, res) {
   });
 });
 
-router.get('/:id/draft', authenticate, function (req, res) {
+router.get('/:id/draft', authenticate, authorOrEditor, function (req, res) {
   var articleId = parseInt(req.params.id);
 
   var returnData = {
@@ -108,9 +126,6 @@ router.get('/:id/draft', authenticate, function (req, res) {
         'FROM articles WHERE articleId=' + articleId;
       connection.query(queryString, callback);
     }, function (rows, fields, callback) {
-      if (rows[0].isPublished === 2 && req.session.isEditor !== 1) {
-        return res.redirect('/article/' + req.params.id);
-      }
       returnData.excerpt = rows[0].excerpt;
       returnData.image = rows[0].image;
       returnData.title = rows[0].title;
@@ -135,21 +150,14 @@ router.get('/:id/draft', authenticate, function (req, res) {
   });
 });
 
-router.get('/:id/delete', authenticate, function (req, res) {
+router.get('/:id/delete', authenticate, requireAuthor, function (req, res) {
   var articleId = parseInt(req.params.id);
 
-  async.waterfall([
+  async.parallel([
     function (callback) {
-      var queryString = 'SELECT author FROM articles WHERE articleId=' + articleId;
-      connection.query(queryString, callback);
-    }, function (rows, fields, callback) {
-      if (rows[0].author !== req.session.username && req.session.isEditor !== 1) {
-        res.redirect('/home');
-        return;
-      }
       var queryString = 'DELETE FROM articles WHERE articleId=' + articleId;
       connection.query(queryString, callback);
-    }, function (rows, fields, callback) {
+    }, function (callback) {
       var queryString = 'DELETE FROM images WHERE articleId=' + articleId;
       connection.query(queryString, callback);
     }
@@ -161,7 +169,7 @@ router.get('/:id/delete', authenticate, function (req, res) {
   });
 });
 
-router.post('/:id/cover', authenticate, function (req, res) {
+router.post('/:id/cover', authenticate, authorOrEditor, function (req, res) {
   var articleId = parseInt(req.params.id);
   var image = req.body.image;
 
@@ -175,7 +183,7 @@ router.post('/:id/cover', authenticate, function (req, res) {
   });
 });
 
-router.post('/:id/photos', authenticate, function (req, res) {
+router.post('/:id/photos', authenticate, authorOrEditor, function (req, res) {
   var articleId = parseInt(req.params.id);
   uploadToS3(req.file, articleId, function (image_url) {
     async.parallel([
@@ -195,17 +203,15 @@ router.post('/:id/photos', authenticate, function (req, res) {
       if (err) {
         console.log(err);
       }
-      res.redirect('/article/' + articleId);
+      res.redirect('/article/' + articleId + '/draft');
     });
   });
 });
 
-router.post('/:id/submit', authenticate, function (req, res) {
+router.post('/:id/submit', authenticate, requireAuthor, function (req, res) {
   var articleId = parseInt(req.params.id);
-
   var queryString = 'UPDATE articles SET updateDate=NOW(), ' +
     'isPublished=1 WHERE articleId=' + articleId;
-
   connection.query(queryString, function (err) {
     if (err) {
       console.log(err);
@@ -214,19 +220,10 @@ router.post('/:id/submit', authenticate, function (req, res) {
   });
 });
 
-router.post('/:id/retract', authenticate, function (req, res) {
-  if (req.session.isEditor !== 1) {
-    return res.send({
-      success: false,
-      msg: 'Only an editor can retract articles!'
-    });
-  }
-
+router.post('/:id/retract', authenticate, requireEditor, function (req, res) {
   var articleId = parseInt(req.params.id);
-
-  var queryString = 'UPDATE articles SET updateDate=NOW(), ' +
-    'isPublished=0 WHERE articleId=' + articleId;
-
+  var queryString = 'UPDATE articles SET updateDate=NOW(), isPublished=0 ' +
+    'WHERE articleId=' + articleId;
   connection.query(queryString, function (err) {
     if (err) {
       console.log(err);
@@ -235,20 +232,22 @@ router.post('/:id/retract', authenticate, function (req, res) {
   });
 });
 
-router.post('/:id/publish', authenticate, function (req, res) {
-  if (req.session.isEditor !== 1) {
-    return res.send({
-      success: false,
-      msg: 'Only an editor can publish articles!'
-    });
-  }
-
+router.post('/:id/publish', authenticate, requireEditor, function (req, res) {
   var articleId = parseInt(req.params.id);
 
-  var queryString = 'UPDATE articles SET pubDate=NOW(), updateDate=NOW(), ' +
-    'isPublished=2 WHERE articleId=' + articleId;
-
-  connection.query(queryString, function (err) {
+  async.waterfall([
+    function (callback) {
+      var queryString = 'SELECT title FROM articles WHERE articleId=' + articleId;
+      connection.query(queryString, callback);
+    }, function (rows, fields, callback) {
+      var today = new Date();
+      var url = '/' + today.getFullYear() + '/' + today.getMonth() + 1 + '/'
+        + today.getDate() + '/' + getSlug(rows[0].title) + ".html";
+      var queryString = 'UPDATE articles SET pubDate=NOW(), url=' + connection.escape(url)
+        + ', updateDate=NOW(), isPublished=2 WHERE articleId=' + articleId;
+      connection.query(queryString, callback);
+    }
+  ], function (err) {
     if (err) {
       console.log(err);
     }

@@ -10,20 +10,17 @@ var Glyphicon = require('react-bootstrap').Glyphicon;
 
 var ActionButtons = React.createClass({
   render: function () {
+    var showSubmit = this.props.isPublished === 0;
+    var showPublish = this.props.isEditor === 1 && this.props.isPublished !== 2;
+    var showRetract = this.props.isEditor === 1 && this.props.isPublished === 2;
     return (
       <div>
         <Button id="editBtn">Edit</Button>
         <Button id="saveBtn">Save</Button>
         <Button id="prevBtn">Preview</Button>
-        {this.props.isPublished === 0 ? (
-          <Button id="submBtn">Submit</Button>
-        ) : null}
-        {this.props.isEditor === 1 ? (
-          <span>
-            <Button id="publBtn">Publish</Button>
-            <Button id="retractBtn">Retract</Button>
-          </span>
-        ) : null}
+        {showSubmit ? <Button id="submBtn">Submit</Button> : null }
+        {showPublish ? <Button id="publBtn">Publish</Button> : null }
+        {showRetract ? <Button id="retractBtn">Retract</Button> : null }
       </div>
     );
   }
@@ -37,7 +34,7 @@ var PhotoForm = React.createClass({
       <form role="form" action={uploadUrl}
             method="post" encType="multipart/form-data"
             onError={onError} id="photoForm">
-        <input type="file" id="fileInput" name="photo"/>
+        <input type="file" id="photoInput" name="photo"/>
       </form>);
   }
 });
@@ -51,7 +48,7 @@ var Article = React.createClass({
           <div className="title">Editing</div>
           <Row id="editView">
             <div className="col-lg-9 col-md-8 col-sm-6">
-              <Input type="text" id="headInput"
+              <Input type="text" id="titleInput"
                      label="Title (use HTML tags like <i></i> or <b></b> for style)"
                      placeholder="Article Title" value={this.props.title}/>
               <Input type="text" id="excerptInput"

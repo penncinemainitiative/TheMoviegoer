@@ -13,7 +13,7 @@ var Event = React.createClass({
     movie.date.setHours(hours, mins);
     var date = dateFormat(movie.date, "dddd, mmmm dS, yyyy • h:MM TT");
     return (
-      <div className="event col-lg-12 col-md-12 col-sm-12 col-xs-4">
+      <div className="event col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <a target="_blank" href={movie.fbLink}><img
           src={movie.image}/></a>
         <h5 href={movie.url} dangerouslySetInnerHTML={title}/>

@@ -40,37 +40,38 @@ $(document).ready(function () {
   };
 
   var coverPhoto = function(e) {
-    var currentbtn = $(e.target).closest('button');
-    if (currentbtn.hasClass('btn-primary')) {
-      return;
-    }
-
-    var postData = {
-      image: currentbtn.val()
-    };
-
-    $.post('/article/' + articleId + '/cover', postData, function (data) {
-      if (data.success) {
-        $('.starBtn').removeClass('btn-primary');
-        currentbtn.addClass('btn-primary');
+    save(e, function() {
+      var currentbtn = $(e.target).closest('button');
+      if (currentbtn.hasClass('btn-primary')) {
+        return;
       }
+
+      var postData = {
+        image: currentbtn.val()
+      };
+
+      $.post('/article/' + articleId + '/cover', postData, function (data) {
+        if (data.success) {
+          location.reload();
+        }
+      });
     });
   };
 
   var save = function(e, callback) {
     $('#issue').hide();
     var text = $('#textInput').val();
-    var heading = $('#headInput').val();
+    var title = $('#titleInput').val();
     var excerpt = $('#excerptInput').val();
     var typeVal = $('input[name=typeInput]:checked').val();
 
-    if (text === '' || heading === '') {
+    if (text === '' || title === '') {
       $('#issue').show().empty().append('Please enter text and a title for the article before you <b>save</b>!');
       return;
     }
 
     var postData = {
-      title: heading,
+      title: title,
       type: typeVal,
       text: text,
       excerpt: excerpt
@@ -80,24 +81,14 @@ $(document).ready(function () {
       if (data.success) {
         showSave();
         if (callback) {
-          callback();
+          callback(postData);
         }
       }
     });
   };
 
   var publish = function(e) {
-    var text = $('#textInput').val();
-    var heading = $('#headInput').val();
-    var excerpt = $('#excerptInput').val();
-    var typeVal = $('input[name=typeInput]:checked').val();
-    var postData = {
-      title: heading,
-      type: typeVal,
-      text: text,
-      excerpt: excerpt
-    };
-    save(e, function() {
+    save(e, function(postData) {
       $.post('/article/' + articleId + '/publish', postData, function (data) {
         if (data.success) {
           window.location = '/';
@@ -107,17 +98,7 @@ $(document).ready(function () {
   };
 
   var submit = function(e) {
-    var text = $('#textInput').val();
-    var heading = $('#headInput').val();
-    var excerpt = $('#excerptInput').val();
-    var typeVal = $('input[name=typeInput]:checked').val();
-    var postData = {
-      title: heading,
-      type: typeVal,
-      text: text,
-      excerpt: excerpt
-    };
-    save(e, function() {
+    save(e, function(postData) {
       $.post('/article/' + articleId + '/submit', postData, function (data) {
         if (data.success) {
           window.location = '/console/home';
@@ -127,9 +108,9 @@ $(document).ready(function () {
   };
 
   var preview = function(e) {
-    save(e, function() {
-      var text = $('#textInput').val();
-      var heading = $('#headInput').val();
+    save(e, function(postData) {
+      var text = postData.text;
+      var title = postData.title;
 
       $('#previewView').show();
       $('#editView').hide();
@@ -138,8 +119,7 @@ $(document).ready(function () {
       $('#saveBtn').hide();
 
       $('.posttxt').empty().html(marked(text));
-      $('#headPrev').empty();
-      $('#headPrev').append(heading);
+      $('.post-title').empty().append(title);
     });
   };
 
@@ -149,5 +129,13 @@ $(document).ready(function () {
   $('button#retractBtn').click(retract);
   $('button#saveBtn').click(save);
   $('button#publBtn').click(publish);
+
+  var submitPhoto = function (e) {
+    save(e, function() {
+      $('form').submit();
+    });
+  };
+
+  $('#fileInput').change(submitPhoto);
 
 });

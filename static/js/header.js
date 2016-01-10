@@ -26,7 +26,7 @@ $( document ).ready(function() {
       processResults: function (data) {
         return {
           results: $.map(data, function(obj) {
-            return { id: '/article/' + obj.articleId, text: obj.title };
+            return { id: obj.url, text: obj.title };
           })
         };
       }

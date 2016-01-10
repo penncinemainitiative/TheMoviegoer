@@ -13,7 +13,7 @@
       border-bottom: 1px solid @black;
       border-top: 1px solid @black;
       top: 0;
-      width: 150px;
+      width: 45px;
     }
     &:before {
       right: 100%;
@@ -30,6 +30,7 @@
   padding-top: 20px;
   span {
     &:before, &:after {
+      width: 100px;
       border-bottom: 1px solid @white;
       border-top: 1px solid @white;
     }
@@ -37,6 +38,7 @@
 }
 
 #screening-banner {
+  width: 100%;
   min-height: 150px;
   padding-bottom: 30px;
   h3, h4 {
@@ -55,4 +57,14 @@
   width: 100%;
   background-color: #6A6A6A;
   color: @white;
+}
+
+@media (min-width: 34em) {
+  .fancy {
+    span {
+      &:before, &:after {
+        width: 150px;
+      }
+    }
+  }
 }

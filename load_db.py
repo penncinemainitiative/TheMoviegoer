@@ -41,20 +41,20 @@ def reset_databases():
 
     execute(
             """CREATE TABLE `authors` (`username` varchar(30) NOT NULL,
-                                      `email` text NOT NULL,
+                                      `email` VARCHAR(255) NOT NULL,
                                       `name` varchar(100) NOT NULL,
                                       `password` varchar(100) NOT NULL,
                                       `isEditor` int(11) NOT NULL,
-                                      `image` text NOT NULL,
+                                      `image` VARCHAR(255) NOT NULL,
                                       `bio` text NOT NULL,
                                       PRIMARY KEY (`username`))""")
     execute(
             """CREATE TABLE `events` (`eventId` int(11) NOT NULL AUTO_INCREMENT,
                                       `date` date NOT NULL,
                                       `description` text,
-                                      `location` text,
-                                      `image` text,
-                                      `film` text,
+                                      `location` VARCHAR(255),
+                                      `image` VARCHAR(255),
+                                      `film` VARCHAR(255),
                                       `fbLink` varchar(100) NOT NULL,
                                       `time` time NOT NULL,
                                       `title` varchar(100) NOT NULL,
@@ -64,12 +64,13 @@ def reset_databases():
                                       `isPublished` int(11) NOT NULL,
                                       `pubDate` date DEFAULT NULL,
                                       `updateDate` date NOT NULL,
-                                      `type` text NOT NULL,
-                                      `title` text NOT NULL COLLATE UTF8_GENERAL_CI,
-                                      `author` text NOT NULL,
-                                      `image` text,
+                                      `type` VARCHAR(255) NOT NULL,
+                                      `title` VARCHAR(255) NOT NULL COLLATE UTF8_GENERAL_CI,
+                                      `author` VARCHAR(255) NOT NULL,
+                                      `image` VARCHAR(255),
                                       `excerpt` text NOT NULL,
                                       `text` text NOT NULL,
+                                      `url` VARCHAR(255) NOT NULL,
                                       PRIMARY KEY (`articleId`))""")
     execute(
             """CREATE TABLE `images` (`image` varchar(200) NOT NULL,
@@ -99,7 +100,7 @@ usernames = {
 
 
 class Post(object):
-    def __init__(self, title, author, date, excerpt, image, type, text, images):
+    def __init__(self, title, author, date, excerpt, image, type, text, images, url):
         self.isPublished = 2
         self.pubDate = date
         self.updateDate = date
@@ -110,6 +111,7 @@ class Post(object):
         self.excerpt = excerpt
         self.text = text
         self.images = images
+        self.url = url
 
 
 class Author(object):
@@ -222,7 +224,8 @@ def get_posts():
             type = get_attr(lines, 'tags')
             images = get_attr(lines, 'images')
             images.append(image)
-            post = Post(title, author, date, excerpt, image, type, text, images)
+            url = "/" + filename.replace("markdown", "html").replace("-", "/")
+            post = Post(title, author, date, excerpt, image, type, text, images, url)
             posts.append(post)
     return posts
 
@@ -264,13 +267,13 @@ def setup_authors():
 def setup_articles():
     articleId = 1
     for post in posts:
-        query = "INSERT INTO articles (isPublished, pubDate, updateDate, type, title, author, image, excerpt, text) " \
-                "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        query = "INSERT INTO articles (isPublished, pubDate, updateDate, type, title, author, image, excerpt, text, url) " \
+                "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
         post.articleId = articleId
         articleId += 1
         cur.execute(query, (post.isPublished, post.pubDate, post.updateDate,
                             post.type, post.title, post.author, post.image,
-                            post.excerpt, post.text))
+                            post.excerpt, post.text, post.url))
     db.commit()
 
 

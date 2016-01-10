@@ -10,7 +10,7 @@ var bcrypt = require('bcrypt');
 var authorMovies = function (req, call) {
   var getInfo = function (item, callback) {
     item.updateDate = dateFormat(item.updateDate, "mmmm d, yyyy");
-    item.url = '/article/' + item.articleId;
+    item.url = '/article/' + item.articleId + '/draft';
 
     var queryString = 'SELECT name FROM authors WHERE username='
       + connection.escape(item.author);
@@ -20,7 +20,7 @@ var authorMovies = function (req, call) {
     });
   };
 
-  var queryString = 'SELECT articleId, isPublished, updateDate, ' +
+  var queryString = 'SELECT url, articleId, isPublished, updateDate, ' +
     'title, author, image FROM articles WHERE isPublished!=2';
 
   if (req.session.isEditor === 0) {

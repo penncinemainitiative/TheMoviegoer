@@ -28,7 +28,7 @@ var Layout = React.createClass({
 
         <meta property="fb:app_id" content="132619720416789"/>
         <meta property="fb:admins" content="brad.pettigrew"/>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
       </head>
       <body>
       <script src="/js/fbSDK.js"></script>

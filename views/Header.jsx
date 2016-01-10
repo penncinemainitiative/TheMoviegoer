@@ -7,9 +7,8 @@ var Input = require('react-bootstrap').Input;
 var HeaderItem = React.createClass({
   render: function () {
     return (
-      <div className='col-lg-1 col-md-1 col-sm-1 col-xs-1'>
-        <h5><a href={this.props.url}
-               className="headerItem">{this.props.name}</a></h5>
+      <div className='headerItem col-lg-1 col-md-1 col-sm-1 hidden-xs'>
+        <h5><a href={this.props.url}>{this.props.name}</a></h5>
       </div>
     );
   }
@@ -18,7 +17,7 @@ var HeaderItem = React.createClass({
 var SearchBar = React.createClass({
   render: function () {
     return (
-      <div className='col-lg-3 col-md-3 col-sm-3 col-xs-3'>
+      <div className='searchBar col-lg-3 col-md-3 col-sm-3 col-xs-8 col-lg-offset-0 col-md-offset-0 col-sm-offset-0 col-xs-offset-1'>
         <Input type="select" placeholder="Search" id="search"/>
       </div>
     );
@@ -47,10 +46,9 @@ var Header = React.createClass({
       <div id="header">
         <Row>
           <div
-            className="col-lg-1 col-md-2 col-sm-2 col-xs-2 col-lg-offset-2 col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
+            className="logo col-lg-1 col-md-2 col-sm-2 col-xs-2 col-lg-offset-2 col-md-offset-1 col-sm-offset-1">
             <a href="/" id="headerTitle"><img src="/images/logo.png"
-                                              alt="The Moviegoer"
-                                              className="logo"/></a>
+                                              alt="The Moviegoer"/></a>
           </div>
           <HeaderItem {...items[0]}/>
           <HeaderItem {...items[1]}/>

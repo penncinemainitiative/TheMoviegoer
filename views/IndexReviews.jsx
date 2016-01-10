@@ -13,7 +13,7 @@ var IndexReviews = React.createClass({
     this.props.movies[1]['size'] = 'half';
     this.props.movies[2]['size'] = 'half';
     return (
-      <div className="wrapper">
+      <div>
         <div id="feature-content">
           <div className="container">
             <div className="row">

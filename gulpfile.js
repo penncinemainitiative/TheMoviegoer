@@ -10,7 +10,9 @@ var babel = require('gulp-babel');
 gulp.task('less', function() {
   gulp.src('static/less/general.less')
     .pipe(less())
-    .pipe(cssnano())
+    .pipe(cssnano({
+      zindex: false
+    }))
     .pipe(concat('style.min.css'))
     .pipe(gulp.dest('public/css'));
 });

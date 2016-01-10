@@ -14,8 +14,6 @@ var bodyParser = require('body-parser');
 var fs = require('fs');
 var async = require('async');
 var secretObj = JSON.parse(fs.readFileSync('json/secret.json', 'utf8'));
-var oldUrls = JSON.parse(fs.readFileSync('old_urls.json', 'utf8'));
-var connection = require('./databases/sql');
 
 app.use(compression());
 app.use(helmet());
@@ -53,20 +51,6 @@ app.use('/author', require('./routes/author'));
 app.use('/article', require('./routes/article'));
 app.use('/events', require('./routes/events'));
 app.use('/search', require('./routes/search'));
-
-app.get('/*', function (req, res) {
-  if (oldUrls[req.path]) {
-    var queryString = 'SELECT articleId FROM articles WHERE title="' + oldUrls[req.path] + '"';
-    connection.query(queryString, function(err, rows) {
-      if (err) {
-        return res.redirect('/');
-      }
-      res.redirect('/article/' + rows[0].articleId);
-    });
-  } else {
-    res.redirect('/');
-  }
-});
 
 var server = app.listen(8080, function () {
   var port = server.address().port;

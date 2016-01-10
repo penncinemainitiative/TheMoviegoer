@@ -3,7 +3,6 @@ var apiKey = JSON.parse(fs.readFileSync('json/google.json', 'utf8'));
 var connection = require('../databases/sql');
 var async = require('async');
 var dateFormat = require('dateformat');
-var oldUrls = JSON.parse(fs.readFileSync('old_urls.json', 'utf8'));
 
 var googleapis = require('googleapis'),
   JWT = googleapis.auth.JWT,
@@ -44,20 +43,14 @@ var getFromGoogle = function (callback) {
 var getPopularMovies = function(call) {
   var getInfo = function (item, callback) {
     var url = item[1];
-    var queryString;
+    var queryString = 'SELECT pubDate, url, image, author, title FROM articles WHERE url=' + connection.escape(url);
     var movie = {};
-    if (oldUrls[url]) {
-      queryString = 'SELECT pubDate, image, author, title, articleId FROM articles WHERE title="' + oldUrls[url] + '"';
-    } else {
-      var articleId = parseInt(url.split('article/')[1]);
-      queryString = 'SELECT pubDate, image, author, title FROM articles WHERE articleId=' + articleId;
-    }
     connection.query(queryString, function(err, rows) {
       movie.image = rows[0].image;
       movie.title = rows[0].title;
       movie.author = rows[0].author;
       movie.pubDate = dateFormat(rows[0].pubDate, "mmmm d, yyyy");
-      movie.url = '/article/' + rows[0].articleId;
+      movie.url = rows[0].url;
 
       queryString = 'SELECT name FROM authors WHERE username='
         + connection.escape(movie.author);
