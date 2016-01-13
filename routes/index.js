@@ -36,11 +36,9 @@ var movieList = function (movieType, call) {
 
 router.get('/:year/:month/:day/:slug', function (req, res) {
   var returnData = {};
-  console.log('here!!');
-
   async.waterfall([
     function (callback) {
-      var queryString = 'SELECT articleId, excerpt, text, image, isPublished, pubDate, type, title, author ' +
+      var queryString = 'SELECT url, articleId, excerpt, text, image, isPublished, pubDate, type, title, author ' +
         'FROM articles WHERE url=' + connection.escape(req.url);
       connection.query(queryString, callback);
     }, function (rows, fields, callback) {
@@ -57,6 +55,7 @@ router.get('/:year/:month/:day/:slug', function (req, res) {
         returnData.date = dateFormat(rows[0].pubDate, "mmmm d, yyyy");
         returnData.type = rows[0].type;
         returnData.text = rows[0].text;
+        returnData.url = 'http://pennmoviegoer.com' + rows[0].url;
         var queryString = 'SELECT name FROM authors WHERE username=\'' +
           rows[0].author + '\'';
         connection.query(queryString, callback);

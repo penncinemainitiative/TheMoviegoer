@@ -6,10 +6,16 @@ var Footer = require('./Footer');
 
 var Layout = React.createClass({
   render: function () {
+    var cleanTitle = this.props.title.replace(/(<([^>]+)>)/ig, "");
+    var excerpt = "The Moviegoer is a student-run blog dedicated to film appreciation - " +
+      "posting film analyses, reviews, previews, and all things related. " +
+      "It is run by the Penn Cinema Initiative.";
+    var image = "https://s3.amazonaws.com/moviegoer/uploads/inchoate/fbog.jpg";
+    var url = "http://pennmoviegoer.com";
     return (
       <html>
       <head>
-        <title>{this.props.title.replace(/(<([^>]+)>)/ig, "")}</title>
+        <title>{cleanTitle}</title>
         <link rel="stylesheet"
               href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
         <link rel="stylesheet"
@@ -26,6 +32,12 @@ var Layout = React.createClass({
         <link rel="shortcut icon" href="/images/favicon.png"/>
         <link rel="stylesheet" type="text/css" href="/css/style.min.css"/>
 
+        <meta property="og:title" content={cleanTitle}/>
+        <meta property="og:site_name" content="Penn Moviegoer"/>
+        <meta property="og:url" content={this.props.url ? this.props.url : url}/>
+        <meta property="og:image" content={this.props.image ? this.props.image : image}/>
+        <meta property="og:type" content="article"/>
+        <meta property="og:description" content={this.props.excerpt ? this.props.excerpt : excerpt}/>
         <meta property="fb:app_id" content="132619720416789"/>
         <meta property="fb:admins" content="brad.pettigrew"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>

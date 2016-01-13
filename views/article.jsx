@@ -9,7 +9,10 @@ var Article = React.createClass({
     return (
       <Layout {...this.props}>
         <div className="container article">
-          <View {...this.props}/>
+          <View {...this.props}>
+            <div className="fb-comments" data-href={this.props.url}
+                 data-width="100%" data-numposts="5"></div>
+          </View>
         </div>
       </Layout>
     );
