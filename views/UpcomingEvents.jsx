@@ -15,6 +15,7 @@ var Event = React.createClass({
     return (
       <div className="event col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <a target="_blank" href={movie.fbLink}><img
+          alt="Upcoming event"
           src={movie.image}/></a>
         <h5 href={movie.url} dangerouslySetInnerHTML={title}/>
         <h4><small>{date} • {movie.location}</small></h4>

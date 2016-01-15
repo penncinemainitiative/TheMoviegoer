@@ -2,7 +2,6 @@
 
 var React = require('react');
 var Row = require('react-bootstrap').Row;
-var Input = require('react-bootstrap').Input;
 
 var HeaderItem = React.createClass({
   render: function () {
@@ -18,7 +17,7 @@ var SearchBar = React.createClass({
   render: function () {
     return (
       <div className='searchBar col-lg-3 col-md-3 col-sm-3 col-xs-8 col-lg-offset-0 col-md-offset-0 col-sm-offset-0'>
-        <Input type="select" placeholder="Search" id="search"/>
+        <select id="search" className="form-control"/>
       </div>
     );
   }

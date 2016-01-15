@@ -25,7 +25,7 @@ var Index = React.createClass({
               {this.props.upcomingEvents ? (
                 <div>
                   <div className="col-lg-8 col-md-8 col-sm-6 col-xs-12">
-                    <a target="_blank" href={nextScreening.fbLink}><img src={nextScreening.image}/></a>
+                    <a target="_blank" href={nextScreening.fbLink}><img alt="Next screening" src={nextScreening.image}/></a>
                   </div>
                   <div className="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <h4>Meet the Penn Cinema Initiative at our next screening

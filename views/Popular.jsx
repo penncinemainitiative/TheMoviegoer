@@ -11,6 +11,7 @@ var Article = React.createClass({
     return (
       <div className="event col-lg-12 col-md-12 col-sm-12 col-xs-4">
         <a href={movie.url}><img
+          alt="Popular article"
           src={movie.image}/></a>
         <a href={movie.url} className="black" dangerouslySetInnerHTML={title}/>
         <h4>

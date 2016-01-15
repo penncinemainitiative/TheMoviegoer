@@ -123,19 +123,22 @@ $(document).ready(function () {
     });
   };
 
-  $('button#prevBtn').click(preview);
-  $('button#submBtn').click(submit);
-  $('button.starBtn').click(coverPhoto);
-  $('button#retractBtn').click(retract);
-  $('button#saveBtn').click(save);
-  $('button#publBtn').click(publish);
-
   var submitPhoto = function (e) {
     save(e, function() {
       $('form').submit();
     });
   };
 
+  $('button#prevBtn').click(preview);
+  $('button#submBtn').click(submit);
+  $('button.starBtn').click(coverPhoto);
+  $('button#retractBtn').click(retract);
+  $('button#saveBtn').click(save);
+  $('button#publBtn').click(publish);
   $('#photoInput').change(submitPhoto);
+
+  if (path.indexOf('draft') > -1) {
+    window.addEventListener('beforeunload', save);
+  }
 
 });
