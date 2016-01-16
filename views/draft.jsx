@@ -8,6 +8,7 @@ var Row = require('react-bootstrap').Row;
 var Button = require('react-bootstrap').Button;
 var Glyphicon = require('react-bootstrap').Glyphicon;
 var SideBar = require('./SideBar');
+var dateFormat = require('dateformat');
 
 var ActionButtons = React.createClass({
   render: function () {
@@ -40,9 +41,83 @@ var PhotoForm = React.createClass({
   }
 });
 
-var Article = React.createClass({
+var DraftForm = React.createClass({
+  render: function () {
+    var uploadUrl = '/article/' + this.props.articleId + '/draft';
+    var onError = "window.location='/article/" + this.props.articleId + "'";
+    return (
+      <form role="form" action={uploadUrl}
+            method="post" encType="multipart/form-data"
+            onError={onError} id="draftForm">
+        <input type="file" id="draftInput" name="photo"/>
+      </form>);
+  }
+});
+
+var Drafts = React.createClass({
+  render: function () {
+    return (
+      <SideBar name="Drafts" size="full">
+        {this.props.drafts ? this.props.drafts.map(function (draft) {
+          var date = dateFormat(draft.date, "m/dd/yy • h:MM TT");
+          return (
+            <p><a href={draft.url}>Uploaded by {draft.uploader}</a><br/>{date}</p>
+          );
+        }) : null}
+        <DraftForm {...this.props}/>
+      </SideBar>
+    )
+  }
+});
+
+var Uploads = React.createClass({
+  render: function () {
+    return (
+      <SideBar>
+        <Images {...this.props}/>
+        <Drafts {...this.props}/>
+      </SideBar>
+    )
+  }
+});
+
+var Images = React.createClass({
   render: function () {
     var cover = this.props.image;
+    return (
+      <SideBar name="Images" size="full">
+        {this.props.imgList.map(function (image) {
+          var imgString = '<img src="' + image.image + '" class="newImage" alt="Picture"/>';
+          return (
+            <div className="newImageDiv">
+              <img src={image.image} className="newImage"
+                   alt="Picture"/>
+              <div className="input-group">
+                <Input type="text" value={imgString}
+                       onClick="this.select();"/>
+                      <span className="input-group-btn">
+                        {cover === image.image ? (
+                          <Button className="btn-primary starBtn"
+                                  value={image.image}>
+                            <Glyphicon glyph="star"/> Cover
+                          </Button>
+                        ) :
+                          <Button className="starBtn" value={image.image}>
+                            <Glyphicon glyph="star"/> Cover
+                          </Button>
+                        }
+                      </span>
+              </div>
+            </div>
+          );
+        })}
+        <PhotoForm {...this.props}/>
+      </SideBar>);
+  }
+});
+
+var Article = React.createClass({
+  render: function () {
     return (
       <Layout {...this.props}>
         <div id="draft" className="container">
@@ -69,34 +144,7 @@ var Article = React.createClass({
                      label="Use Markdown for style"
                      id="textInput" value={this.props.text}/>
             </div>
-            <SideBar name="Images">
-              {this.props.imgList.map(function (image) {
-                var imgString = '<img src="' + image.image + '" class="newImage" alt="Picture"/>';
-                return (
-                  <div className="newImageDiv">
-                    <img src={image.image} className="newImage"
-                         alt="Picture"/>
-                    <div className="input-group">
-                      <Input type="text" value={imgString}
-                             onClick="this.select();"/>
-                      <span className="input-group-btn">
-                        {cover === image.image ? (
-                          <Button className="btn-primary starBtn"
-                                  value={image.image}>
-                            <Glyphicon glyph="star"/> Cover
-                          </Button>
-                        ) :
-                          <Button className="starBtn" value={image.image}>
-                            <Glyphicon glyph="star"/> Cover
-                          </Button>
-                        }
-                      </span>
-                    </div>
-                  </div>
-                );
-              })}
-              <PhotoForm {...this.props}/>
-            </SideBar>
+            <Uploads {...this.props}/>
           </Row>
           <View {...this.props}/>
           <div className="alert alert-success alert-dismissible" role="alert"

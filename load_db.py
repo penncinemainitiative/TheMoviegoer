@@ -39,6 +39,11 @@ def reset_databases():
     except:
         pass
 
+    try:
+        execute("DROP TABLE drafts")
+    except:
+        pass
+
     execute(
             """CREATE TABLE `authors` (`username` varchar(30) NOT NULL,
                                       `email` VARCHAR(255) NOT NULL,
@@ -73,8 +78,16 @@ def reset_databases():
                                       `url` VARCHAR(255) NOT NULL,
                                       PRIMARY KEY (`articleId`))""")
     execute(
-            """CREATE TABLE `images` (`image` varchar(200) NOT NULL,
+            """CREATE TABLE `images` (`image` varchar(255) NOT NULL,
                                       `articleId` int(11) DEFAULT NULL)""")
+
+    execute(
+            """CREATE TABLE `drafts` (`draftId` int(11) NOT NULL AUTO_INCREMENT,
+                                      `date` datetime NOT NULL,
+                                      `uploader` varchar(255) NOT NULL,
+                                      `url` varchar(255) NOT NULL,
+                                      `articleId` int(11) DEFAULT NULL,
+                                      PRIMARY KEY (`draftId`))""")
 
 
 OLD_POSTS = 'old_posts/'
@@ -100,7 +113,8 @@ usernames = {
 
 
 class Post(object):
-    def __init__(self, title, author, date, excerpt, image, type, text, images, url):
+    def __init__(self, title, author, date, excerpt, image, type, text, images,
+                 url):
         self.isPublished = 2
         self.pubDate = date
         self.updateDate = date
@@ -225,7 +239,8 @@ def get_posts():
             images = get_attr(lines, 'images')
             images.append(image)
             url = "/" + filename.replace("markdown", "html").replace("-", "/")
-            post = Post(title, author, date, excerpt, image, type, text, images, url)
+            post = Post(title, author, date, excerpt, image, type, text, images,
+                        url)
             posts.append(post)
     return posts
 

@@ -125,7 +125,13 @@ $(document).ready(function () {
 
   var submitPhoto = function (e) {
     save(e, function() {
-      $('form').submit();
+      $('#photoForm').submit();
+    });
+  };
+
+  var submitDraft = function(e) {
+    save(e, function() {
+      $('#draftForm').submit();
     });
   };
 
@@ -136,6 +142,7 @@ $(document).ready(function () {
   $('button#saveBtn').click(save);
   $('button#publBtn').click(publish);
   $('#photoInput').change(submitPhoto);
+  $('#draftInput').change(submitDraft);
 
   if (path.indexOf('draft') > -1) {
     window.addEventListener('beforeunload', save);

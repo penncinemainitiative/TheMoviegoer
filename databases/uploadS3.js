@@ -27,8 +27,10 @@ var uploadToS3 = function (file, folder, callback) {
     file_ext = ".jpg";
   } else if (file.mimetype === 'image/png') {
     file_ext = ".png";
-  } else {
-    res.send({success: false, msg: 'Please upload only .png or .jpg images!'});
+  } else if (file.mimetype === 'application/msword') {
+    file_ext = ".doc";
+  } else if (file.mimetype === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+    file_ext = ".docx";
   }
 
   var params = {

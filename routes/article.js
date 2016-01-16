@@ -7,6 +7,7 @@ var dateFormat = require('dateformat');
 var connection = require('../databases/sql');
 var uploadToS3 = require('../databases/uploadS3');
 var getSlug = require('speakingurl');
+var textract = require('textract');
 
 var authenticate = function (req, res, next) {
   if (!req.session.login) {
@@ -22,6 +23,9 @@ var requireAuthor = function (req, res, next) {
   connection.query(queryString, function (err, rows) {
     if (err) {
       console.log(err);
+    }
+    if (rows.length === 0) {
+      return res.redirect('/console/home');
     }
     if (rows[0].author !== req.session.username) {
       return res.redirect('/home');
@@ -47,6 +51,9 @@ var authorOrEditor = function (req, res, next) {
   connection.query(queryString, function (err, rows) {
     if (err) {
       console.log(err);
+    }
+    if (rows.length === 0) {
+      return res.redirect('/console/home');
     }
     if (rows[0].author !== req.session.username && req.session.isEditor !== 1) {
       return res.redirect('/home');
@@ -96,20 +103,46 @@ router.get('/:id', function (req, res) {
 
 router.post('/:id', authenticate, authorOrEditor, function (req, res) {
   var articleId = parseInt(req.params.id);
-  var title = req.body.title;
-  var type = req.body.type;
-  var text = req.body.text;
-  var excerpt = req.body.excerpt;
+  var updateData = [req.body.title, req.body.type, req.body.text, req.body.excerpt, articleId];
 
-  var queryString = 'UPDATE articles SET updateDate=NOW(), title=' + connection.escape(title) +
-    ',type=' + connection.escape(type) + ',text=' + connection.escape(text) +
-    ',excerpt=' + connection.escape(excerpt) + ' WHERE articleId=' + articleId;
+  var queryString = 'UPDATE articles SET updateDate=NOW(), title=?, type=?, ' +
+    'text=?, excerpt=? WHERE articleId=?';
 
-  connection.query(queryString, function (err) {
+  connection.query(queryString, updateData, function (err) {
     if (err) {
       console.log(err);
     }
     res.send({success: true});
+  });
+});
+
+router.post('/:id/draft', authenticate, authorOrEditor, function (req, res) {
+  var articleId = parseInt(req.params.id);
+  uploadToS3(req.file, articleId + '/drafts', function (draft_url) {
+    async.parallel([
+      function (callback) {
+        var insertData = {
+          articleId: articleId,
+          url: draft_url,
+          uploader: req.session.name,
+          date: new Date()
+        };
+        var queryString = 'INSERT INTO drafts SET ?';
+        connection.query(queryString, insertData, callback);
+      }, function (callback) {
+        var config = {preserveLineBreaks: true};
+        textract.fromUrl(draft_url, config, function (err, text) {
+          var updateData = [text, articleId];
+          var queryString = 'UPDATE articles SET updateDate=NOW(), text=? WHERE articleId=?';
+          connection.query(queryString, updateData, callback);
+        });
+      }
+    ], function (err) {
+      if (err) {
+        console.log(err);
+      }
+      res.redirect('/article/' + articleId + '/draft');
+    });
   });
 });
 
@@ -140,12 +173,16 @@ router.get('/:id/draft', authenticate, authorOrEditor, function (req, res) {
       returnData.author = rows[0].name;
       var queryString = 'SELECT image FROM images WHERE articleId=' + articleId;
       connection.query(queryString, callback);
+    }, function (rows, fields, callback) {
+      returnData.imgList = rows;
+      var queryString = 'SELECT url, uploader, date FROM drafts WHERE articleId=' + articleId + ' ORDER BY draftId ASC';
+      connection.query(queryString, callback);
     }
   ], function (err, result) {
     if (err) {
       console.log(err);
     }
-    returnData.imgList = result;
+    returnData.drafts = result;
     res.render('draft', returnData);
   });
 });
