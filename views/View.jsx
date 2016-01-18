@@ -15,8 +15,8 @@ var View = React.createClass({
         <header className="post-header">
           <h2 className="post-title" dangerouslySetInnerHTML={title}></h2>
           <p className="post-meta">{this.props.date} &bull; <a
-            href={authorUrl}>{this.props.author}</a>
-            {this.props.isEditor === 1 ? (
+            className="black" href={authorUrl}>{this.props.author}</a>
+            {this.props.isEditor === 2 ? (
               <span> &bull; <a href={draftUrl}>Edit Article</a></span>
             ) : null}
           </p>

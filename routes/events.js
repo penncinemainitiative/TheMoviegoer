@@ -6,7 +6,7 @@ var uploadToS3 = require('../databases/uploadS3');
 var connection = require('../databases/sql');
 
 var authenticate = function (req, res, next) {
-  if (req.session.isEditor !== 1) {
+  if (req.session.isEditor !== 2) {
     return res.redirect('/console');
   }
   res.locals.inConsole = req.session.login;
@@ -66,7 +66,7 @@ router.post('/:eventId', authenticate, function (req, res) {
 });
 
 router.get('/:eventId', authenticate, function (req, res) {
-  if (req.session.isEditor !== 1) {
+  if (req.session.isEditor !== 2) {
     return res.redirect('/console/home');
   }
   var eventId = parseInt(req.params.eventId);
@@ -81,7 +81,7 @@ router.get('/:eventId', authenticate, function (req, res) {
 });
 
 router.get('/delete/:eventId', authenticate, function (req, res) {
-  if (req.session.isEditor !== 1) {
+  if (req.session.isEditor !== 2) {
     return res.redirect('/console/home');
   }
   var eventId = parseInt(req.params.eventId);

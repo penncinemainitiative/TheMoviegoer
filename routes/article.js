@@ -35,7 +35,7 @@ var requireAuthor = function (req, res, next) {
 };
 
 var requireEditor = function (req, res, next) {
-  if (req.session.isEditor !== 1) {
+  if (req.session.isEditor !== 2) {
     return res.send({
       success: false,
       msg: 'Only the editor can do that!'
@@ -55,7 +55,7 @@ var authorOrEditor = function (req, res, next) {
     if (rows.length === 0) {
       return res.redirect('/console/home');
     }
-    if (rows[0].author !== req.session.username && req.session.isEditor !== 1) {
+    if (rows[0].author !== req.session.username && req.session.isEditor !== 2) {
       return res.redirect('/home');
     }
     next();
@@ -64,7 +64,7 @@ var authorOrEditor = function (req, res, next) {
 
 router.get('/', authenticate, function (req, res) {
   var insertData = {
-    isPublished: 0,
+    isPublished: -1,
     updateDate: new Date(),
     type: 'feature',
     title: 'Untitled Article',
@@ -259,7 +259,7 @@ router.post('/:id/submit', authenticate, requireAuthor, function (req, res) {
 
 router.post('/:id/retract', authenticate, requireEditor, function (req, res) {
   var articleId = parseInt(req.params.id);
-  var queryString = 'UPDATE articles SET updateDate=NOW(), isPublished=0 ' +
+  var queryString = 'UPDATE articles SET updateDate=NOW(), isPublished=-1 ' +
     'WHERE articleId=' + articleId;
   connection.query(queryString, function (err) {
     if (err) {

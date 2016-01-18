@@ -189,7 +189,7 @@ router.post('/create', function (req, res) {
 });
 
 router.get('/approve/:username', authenticate, function (req, res) {
-  if (req.session.isEditor !== 1) {
+  if (req.session.isEditor !== 2) {
     return res.redirect('/console/home');
   }
   var queryString = 'UPDATE authors SET isEditor=0 WHERE username=' +
@@ -204,7 +204,7 @@ router.get('/approve/:username', authenticate, function (req, res) {
 });
 
 router.get('/reject/:username', authenticate, function (req, res) {
-  if (req.session.isEditor !== 1) {
+  if (req.session.isEditor !== 2) {
     return res.redirect('/console/home');
   }
   var queryString = 'DELETE FROM authors WHERE username=' +

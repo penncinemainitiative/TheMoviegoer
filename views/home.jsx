@@ -17,7 +17,7 @@ var AuthorRequest = React.createClass({
 
 var Home = React.createClass({
   render: function () {
-    var showAccountRequests = this.props.isEditor === 1 && this.props.pendingAuthors.length > 0;
+    var showAccountRequests = this.props.isEditor === 2 && this.props.pendingAuthors.length > 0;
     return (
       <Layout {...this.props}>
         <div id="home" className="container">

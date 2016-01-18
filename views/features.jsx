@@ -18,11 +18,12 @@ var FeatureImage = React.createClass({
 var FeatureText = React.createClass({
   render: function () {
     var title = {__html: this.props.title};
+    var authorUrl = '/writer/' + this.props.authorname.replace(/\s+/g, '');
     return (
       <div className={this.props.textClasses}>
         <h3><a href={this.props.url} dangerouslySetInnerHTML={title}></a></h3>
         <h4>
-          <small>{this.props.pubDate}</small> {this.props.authorname}
+          <small>{this.props.pubDate}</small> <a href={authorUrl}>{this.props.authorname}</a>
         </h4>
         <p>{this.props.excerpt}</p>
       </div>

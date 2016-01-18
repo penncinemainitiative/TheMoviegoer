@@ -11,7 +11,7 @@ var Event = React.createClass({
     var event = this.props;
     return (
       <div className="row">
-        {event.isEditor ?
+        {event.isEditor === 2 ?
           <div>
             <Button className="deleteEvent" data-articleid={event.eventId}>
               <Glyphicon glyph="edit"/> Delete event

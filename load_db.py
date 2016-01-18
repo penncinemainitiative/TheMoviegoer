@@ -275,7 +275,7 @@ def setup_authors():
         cur.execute(query, (
             author.username, "", author.name, author.password, 0, author.image,
             author.bio))
-    cur.execute("UPDATE authors SET isEditor=1 WHERE username='bpettigrew'")
+    cur.execute("UPDATE authors SET isEditor=2 WHERE username='bpettigrew'")
     db.commit()
 
 

@@ -14,6 +14,7 @@ var TopStory = React.createClass({
       classes = 'col-sm-12';
     }
     var title = {__html: this.props.title};
+    var authorUrl = '/writer/' + this.props.authorname.replace(/\s+/g, '');
     return (
       <div className="top-story">
         <div className={classes}>
@@ -27,7 +28,7 @@ var TopStory = React.createClass({
               </h3>
               <h4>
                 <small>{this.props.pubDate}</small>
-                {this.props.authorname}</h4>
+                <a className="black" href={authorUrl}>{this.props.authorname}</a></h4>
             </div>
           </div>
         </div>

@@ -25,9 +25,6 @@ var authorMovies = function (req, call) {
 
   if (req.session.isEditor === 0) {
     queryString = queryString + ' AND author=\'' + req.session.username + '\'';
-  } else if (req.session.isEditor === 1) {
-    queryString = queryString + ' AND (author=\'' + req.session.username + '\'' +
-      'OR isPublished=1)';
   }
 
   queryString = queryString + ' ORDER BY updateDate DESC, articleId DESC';
@@ -119,7 +116,7 @@ router.get('/home', authenticate, function (req, res) {
     function (callback) {
       authorMovies(req, callback);
     }, function (callback) {
-      if (req.session.isEditor === 1) {
+      if (req.session.isEditor === 2) {
         var query = 'SELECT name, username FROM authors WHERE isEditor=-1';
         connection.query(query, callback);
       } else {
@@ -131,7 +128,7 @@ router.get('/home', authenticate, function (req, res) {
       console.log(err);
     }
     var pendingAuthors;
-    if (req.session.isEditor === 1) {
+    if (req.session.isEditor === 2) {
       pendingAuthors = results[1][0];
     }
     console.log(pendingAuthors);
