@@ -11,23 +11,24 @@ var authorMovies = function (req, call) {
   var getInfo = function (item, callback) {
     item.updateDate = dateFormat(item.updateDate, "mmmm d, yyyy");
     item.url = '/article/' + item.articleId + '/draft';
-
-    var queryString = 'SELECT name FROM authors WHERE username='
-      + connection.escape(item.author);
-    connection.query(queryString, function (err, rows) {
-      item.authorname = rows[0].name;
-      callback(err, item);
-    });
+    callback(null, item);
   };
 
-  var queryString = 'SELECT url, articleId, isPublished, updateDate, ' +
-    'title, author, image FROM articles WHERE isPublished!=2';
+  var queryString = 'SELECT articles.author, editors.name AS assignedEditor, authors.name AS authorname,' +
+    'articles.url, articles.articleId, articles.isPublished, articles.updateDate,' +
+    'articles.title, articles.author, articles.image FROM articles ' +
+    'INNER JOIN authors AS authors ON authors.username = articles.author ' +
+    'INNER JOIN authors AS editors ON authors.assignedEditor = editors.username ' +
+    'WHERE articles.isPublished != 2';
 
   if (req.session.isEditor === 0) {
-    queryString = queryString + ' AND author=\'' + req.session.username + '\'';
+    queryString = queryString + ' AND articles.author=\'' + req.session.username + '\'';
+  } else if (req.session.isEditor === 1) {
+    queryString = queryString + ' AND (articles.author=\'' + req.session.username + '\' OR ' +
+      'authors.assignedEditor =\'' + req.session.username + '\')';
   }
 
-  queryString = queryString + ' ORDER BY updateDate DESC, articleId DESC';
+  queryString = queryString + ' ORDER BY articles.updateDate DESC, articles.articleId DESC';
 
   async.waterfall([
     function (callback) {
@@ -72,10 +73,9 @@ router.post('/login', function (req, res) {
   var user = req.body.username;
   var password = req.body.password;
 
-  var query = 'SELECT username, password, name, isEditor FROM authors ' +
-    'WHERE username=' + connection.escape(user);
+  var query = 'SELECT username, password, name, isEditor FROM authors WHERE username=?';
 
-  connection.query(query, function (err, rows) {
+  connection.query(query, [user], function (err, rows) {
     if (err) {
       throw err;
     }
@@ -117,7 +117,18 @@ router.get('/home', authenticate, function (req, res) {
       authorMovies(req, callback);
     }, function (callback) {
       if (req.session.isEditor === 2) {
-        var query = 'SELECT name, username FROM authors WHERE isEditor=-1';
+        var query = 'SELECT authors.name, authors.username, authors.isEditor,' +
+          'editors.name AS assignedEditor FROM authors ' +
+          'INNER JOIN authors AS editors ON authors.assignedEditor = editors.username';
+        connection.query(query, callback);
+      } else {
+        callback();
+      }
+    }, function (callback) {
+      if (req.session.isEditor === 2) {
+        var query = 'SELECT authors.name, authors.username, authors.isEditor FROM authors ' +
+          'INNER JOIN authors AS editors ON authors.assignedEditor = editors.username ' +
+          'WHERE authors.isEditor > 0';
         connection.query(query, callback);
       } else {
         callback();
@@ -127,15 +138,13 @@ router.get('/home', authenticate, function (req, res) {
     if (err) {
       console.log(err);
     }
-    var pendingAuthors;
-    if (req.session.isEditor === 2) {
-      pendingAuthors = results[1][0];
-    }
-    console.log(pendingAuthors);
+    var authors = req.session.isEditor === 2 ? results[1][0] : null;
+    var editors = req.session.isEditor === 2 ? results[2][0] : null;
     var returnData = {
       title: 'Home',
       articleList: results[0],
-      pendingAuthors: pendingAuthors
+      authors: authors,
+      editors: editors
     };
     res.render('home', returnData);
   });

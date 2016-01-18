@@ -4,7 +4,8 @@ var React = require('react');
 var Table = require('react-bootstrap').Table;
 
 var ArticleTable = React.createClass({
-  render: function() {
+  render: function () {
+    var currentAuthor = this.props.username;
     return (
       <Table responsive striped bordered condensed hover>
         <thead>
@@ -31,10 +32,11 @@ var ArticleTable = React.createClass({
           return <tr>
             <td><a href={article.url}>{article.title}</a></td>
             <td>{article.updateDate}</td>
-            <td>Brad Pettigrew</td>
+            <td>{article.assignedEditor}</td>
             <td>{article.authorname}</td>
             <td>{status}</td>
-            <td><a href={deleteUrl}>Delete</a></td>
+            <td>{currentAuthor === article.author ?
+              <a href={deleteUrl}>Delete</a> : null}</td>
           </tr>;
         })}
         </tbody>

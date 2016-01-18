@@ -10,18 +10,14 @@ var getPopularMovies = require('../databases/analytics');
 var movieList = function (movieType, call) {
   var getInfo = function (item, callback) {
     item.pubDate = dateFormat(item.pubDate, "mmmm d, yyyy");
-
-    var queryString = 'SELECT name FROM authors WHERE username='
-      + connection.escape(item.author);
-    connection.query(queryString, function (err, rows) {
-      item.authorname = rows[0].name;
-      callback(err, item);
-    });
+    callback(null, item);
   };
 
-  var queryString = 'SELECT url, excerpt, articleId, isPublished, pubDate, title, ' +
-    'author, image FROM articles WHERE isPublished=2 AND (' + movieType +
-    ') ORDER BY pubDate DESC, articleId DESC';
+  var queryString = 'SELECT articles.author, authors.name AS authorname, articles.url,' +
+    'articles.excerpt, articles.articleId, articles.isPublished, articles.updateDate,' +
+    'articles.pubDate, articles.title, articles.image FROM articles ' +
+    'INNER JOIN authors ON authors.username = articles.author WHERE articles.isPublished = 2 ' +
+    'AND (' + movieType + ') ORDER BY articles.pubDate DESC , articles.articleId DESC';
 
   async.waterfall([
     function (callback) {
@@ -35,12 +31,14 @@ var movieList = function (movieType, call) {
 };
 
 router.get('/:year/:month/:day/:slug', function (req, res) {
-  var returnData = {};
+  var returnData;
   async.waterfall([
     function (callback) {
-      var queryString = 'SELECT url, articleId, excerpt, text, image, isPublished, pubDate, type, title, author ' +
-        'FROM articles WHERE url=' + connection.escape(req.url);
-      connection.query(queryString, callback);
+      var queryString = 'SELECT articles.url, authors.name as author,' +
+        'articles.articleId, articles.excerpt, articles.text, articles.image,' +
+        'articles.isPublished, articles.pubDate, articles.type, articles.title ' +
+        'FROM articles INNER JOIN authors ON authors.username = articles.author WHERE url = ?';
+      connection.query(queryString, [req.url], callback);
     }, function (rows, fields, callback) {
       if (rows.length === 0) {
         return res.redirect('/');
@@ -48,24 +46,16 @@ router.get('/:year/:month/:day/:slug', function (req, res) {
         if (rows[0].isPublished === 0 || rows[0].isPublished === 1) {
           return res.redirect('/article/' + req.params.id + '/draft');
         }
-        returnData.excerpt = rows[0].excerpt;
-        returnData.articleId = rows[0].articleId;
-        returnData.image = rows[0].image;
-        returnData.title = rows[0].title;
+        returnData = rows[0];
         returnData.date = dateFormat(rows[0].pubDate, "mmmm d, yyyy");
-        returnData.type = rows[0].type;
-        returnData.text = rows[0].text;
         returnData.url = 'http://pennmoviegoer.com' + rows[0].url;
-        var queryString = 'SELECT name FROM authors WHERE username=\'' +
-          rows[0].author + '\'';
-        connection.query(queryString, callback);
+        callback();
       }
     }
-  ], function (err, rows) {
+  ], function (err) {
     if (err) {
       console.log(err);
     }
-    returnData.author = rows[0].name;
     getPopularMovies(function (err, popular) {
       returnData.popularMovies = popular;
       res.render('article', returnData);
@@ -140,7 +130,6 @@ router.get('/movies', function (req, res) {
 });
 
 router.get('/movies/:page', function (req, res) {
-  console.log(req.url);
   var page = parseInt(req.params.page);
   var perPage = 4;
   async.parallel([
@@ -160,7 +149,6 @@ router.get('/movies/:page', function (req, res) {
       res.redirect('/movies/1');
     }
     var startSlice = (page - 1) * perPage;
-
     var returnData = {
       title: 'Movies',
       newReleases: newReleases.slice(startSlice, startSlice + perPage),

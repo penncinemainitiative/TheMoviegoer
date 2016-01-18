@@ -24,17 +24,14 @@ var requireAuthor = function (req, res, next) {
     if (err) {
       console.log(err);
     }
-    if (rows.length === 0) {
-      return res.redirect('/console/home');
-    }
-    if (rows[0].author !== req.session.username) {
+    if (rows.length === 0 || rows[0].author !== req.session.username) {
       return res.redirect('/home');
     }
     next();
   });
 };
 
-var requireEditor = function (req, res, next) {
+var requireHeadEditor = function (req, res, next) {
   if (req.session.isEditor !== 2) {
     return res.send({
       success: false,
@@ -47,7 +44,9 @@ var requireEditor = function (req, res, next) {
 
 var authorOrEditor = function (req, res, next) {
   var articleId = parseInt(req.params.id);
-  var queryString = 'SELECT author FROM articles WHERE articleId=' + articleId;
+  var queryString = 'SELECT articles.author, editors.username AS assignedEditor ' +
+    'FROM articles INNER JOIN authors AS authors ON authors.username = articles.author ' +
+    'INNER JOIN authors AS editors ON authors.assignedEditor = editors.username WHERE articleId=' + articleId;
   connection.query(queryString, function (err, rows) {
     if (err) {
       console.log(err);
@@ -55,7 +54,7 @@ var authorOrEditor = function (req, res, next) {
     if (rows.length === 0) {
       return res.redirect('/console/home');
     }
-    if (rows[0].author !== req.session.username && req.session.isEditor !== 2) {
+    if (rows[0].author !== req.session.username && rows[0].assignedEditor !== req.session.username && req.session.isEditor !== 2) {
       return res.redirect('/home');
     }
     next();
@@ -197,6 +196,9 @@ router.get('/:id/delete', authenticate, requireAuthor, function (req, res) {
     }, function (callback) {
       var queryString = 'DELETE FROM images WHERE articleId=' + articleId;
       connection.query(queryString, callback);
+    }, function (callback) {
+      var queryString = 'DELETE FROM drafts WHERE articleId=' + articleId;
+      connection.query(queryString, callback);
     }
   ], function (err) {
     if (err) {
@@ -248,6 +250,18 @@ router.post('/:id/photos', authenticate, authorOrEditor, function (req, res) {
 router.post('/:id/submit', authenticate, requireAuthor, function (req, res) {
   var articleId = parseInt(req.params.id);
   var queryString = 'UPDATE articles SET updateDate=NOW(), ' +
+    'isPublished=0 WHERE articleId=' + articleId;
+  connection.query(queryString, function (err) {
+    if (err) {
+      console.log(err);
+    }
+    res.send({success: true});
+  });
+});
+
+router.post('/:id/finalReview', authenticate, authorOrEditor, function (req, res) {
+  var articleId = parseInt(req.params.id);
+  var queryString = 'UPDATE articles SET updateDate=NOW(), ' +
     'isPublished=1 WHERE articleId=' + articleId;
   connection.query(queryString, function (err) {
     if (err) {
@@ -257,7 +271,7 @@ router.post('/:id/submit', authenticate, requireAuthor, function (req, res) {
   });
 });
 
-router.post('/:id/retract', authenticate, requireEditor, function (req, res) {
+router.post('/:id/retract', authenticate, requireHeadEditor, function (req, res) {
   var articleId = parseInt(req.params.id);
   var queryString = 'UPDATE articles SET updateDate=NOW(), isPublished=-1 ' +
     'WHERE articleId=' + articleId;
@@ -269,7 +283,7 @@ router.post('/:id/retract', authenticate, requireEditor, function (req, res) {
   });
 });
 
-router.post('/:id/publish', authenticate, requireEditor, function (req, res) {
+router.post('/:id/publish', authenticate, requireHeadEditor, function (req, res) {
   var articleId = parseInt(req.params.id);
 
   async.waterfall([

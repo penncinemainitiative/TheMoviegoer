@@ -45,11 +45,12 @@ def reset_databases():
         pass
 
     execute(
-            """CREATE TABLE `authors` (`username` varchar(30) NOT NULL,
+            """CREATE TABLE `authors` (`username` varchar(255) NOT NULL,
                                       `email` VARCHAR(255) NOT NULL,
-                                      `name` varchar(100) NOT NULL,
-                                      `password` varchar(100) NOT NULL,
+                                      `name` varchar(255) NOT NULL,
+                                      `password` varchar(255) NOT NULL,
                                       `isEditor` int(11) NOT NULL,
+                                      `assignedEditor` VARCHAR(255) NOT NULL,
                                       `image` VARCHAR(255) NOT NULL,
                                       `bio` text NOT NULL,
                                       PRIMARY KEY (`username`))""")
@@ -60,9 +61,9 @@ def reset_databases():
                                       `location` VARCHAR(255),
                                       `image` VARCHAR(255),
                                       `film` VARCHAR(255),
-                                      `fbLink` varchar(100) NOT NULL,
+                                      `fbLink` VARCHAR (255) NOT NULL,
                                       `time` time NOT NULL,
-                                      `title` varchar(100) NOT NULL,
+                                      `title` VARCHAR (255) NOT NULL,
                                       PRIMARY KEY (`eventId`))""")
     execute(
             """CREATE TABLE `articles` (`articleId` int(11) NOT NULL AUTO_INCREMENT,
@@ -78,14 +79,14 @@ def reset_databases():
                                       `url` VARCHAR(255) NOT NULL,
                                       PRIMARY KEY (`articleId`))""")
     execute(
-            """CREATE TABLE `images` (`image` varchar(255) NOT NULL,
+            """CREATE TABLE `images` (`image` VARCHAR(255) NOT NULL,
                                       `articleId` int(11) DEFAULT NULL)""")
 
     execute(
             """CREATE TABLE `drafts` (`draftId` int(11) NOT NULL AUTO_INCREMENT,
                                       `date` datetime NOT NULL,
-                                      `uploader` varchar(255) NOT NULL,
-                                      `url` varchar(255) NOT NULL,
+                                      `uploader` VARCHAR(255) NOT NULL,
+                                      `url` VARCHAR(255) NOT NULL,
                                       `articleId` int(11) DEFAULT NULL,
                                       PRIMARY KEY (`draftId`))""")
 
@@ -270,11 +271,11 @@ posts = get_posts()
 def setup_authors():
     authors = get_authors()
     for author in authors:
-        query = "INSERT INTO authors (username, email, name, password, isEditor, image, bio) " \
-                "VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        query = "INSERT INTO authors (username, email, name, password, isEditor, image, bio, assignedEditor) " \
+                "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
         cur.execute(query, (
             author.username, "", author.name, author.password, 0, author.image,
-            author.bio))
+            author.bio, "bpettigrew"))
     cur.execute("UPDATE authors SET isEditor=2 WHERE username='bpettigrew'")
     db.commit()
 

@@ -26,7 +26,12 @@ $( document ).ready(function() {
       processResults: function (data) {
         return {
           results: $.map(data, function(obj) {
-            return { id: obj.url, text: obj.title };
+            if ('title' in obj) {
+              return { id: obj.url, text: obj.title };
+            } else {
+              var url = '/writer/' + obj.name.replace(/\s+/g, '');
+              return { id: url, text: '<b>Author</b>: ' + obj.name };
+            }
           })
         };
       }

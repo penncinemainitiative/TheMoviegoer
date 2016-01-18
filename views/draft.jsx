@@ -12,7 +12,8 @@ var dateFormat = require('dateformat');
 
 var ActionButtons = React.createClass({
   render: function () {
-    var showSubmit = this.props.isPublished === -1;
+    var showSubmit = this.props.isEditor === 0 && this.props.isPublished === -1;
+    var showFinalReview = this.props.isEditor === 1 && this.props.isPublished === 0;
     var showPublish = this.props.isEditor === 2 && this.props.isPublished !== 2;
     var showRetract = this.props.isEditor === 2 && this.props.isPublished === 2;
     return (
@@ -21,6 +22,7 @@ var ActionButtons = React.createClass({
         <Button id="saveBtn">Save</Button>
         <Button id="prevBtn">Preview</Button>
         {showSubmit ? <Button id="submBtn">Submit</Button> : null }
+        {showFinalReview ? <Button id="finalReviewBtn">Final review</Button> : null }
         {showPublish ? <Button id="publBtn">Publish</Button> : null }
         {showRetract ? <Button id="retractBtn">Retract</Button> : null }
       </div>

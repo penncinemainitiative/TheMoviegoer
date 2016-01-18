@@ -168,21 +168,26 @@ router.post('/create', function (req, res) {
     bio: '...'
   };
 
-  bcrypt.genSalt(10, function (err, salt) {
-    bcrypt.hash(req.body.password, salt, function (err, hash) {
-      insertData.password = hash;
-      connection.query('INSERT INTO authors SET ?', insertData, function (err) {
-        if (err) {
-          res.send({
-            success: false,
-            msg: 'Try again with a different username!'
-          });
-        } else {
-          res.send({
-            success: true,
-            msg: 'Account has been created and is awaiting approval!'
-          });
-        }
+  var queryString = 'SELECT username FROM authors WHERE isEditor=2';
+
+  connection.query(queryString, function (err, rows) {
+    insertData.assignedEditor = rows[0].username;
+    bcrypt.genSalt(10, function (err, salt) {
+      bcrypt.hash(req.body.password, salt, function (err, hash) {
+        insertData.password = hash;
+        connection.query('INSERT INTO authors SET ?', insertData, function (err) {
+          if (err) {
+            res.send({
+              success: false,
+              msg: 'Try again with a different username!'
+            });
+          } else {
+            res.send({
+              success: true,
+              msg: 'Account has been created and is awaiting approval!'
+            });
+          }
+        });
       });
     });
   });
@@ -192,10 +197,8 @@ router.get('/approve/:username', authenticate, function (req, res) {
   if (req.session.isEditor !== 2) {
     return res.redirect('/console/home');
   }
-  var queryString = 'UPDATE authors SET isEditor=0 WHERE username=' +
-    connection.escape(req.params.username);
-
-  connection.query(queryString, function (err) {
+  var queryString = 'UPDATE authors SET isEditor=0 WHERE username=?';
+  connection.query(queryString, [req.params.username], function (err) {
     if (err) {
       console.log(err);
     }
@@ -207,14 +210,59 @@ router.get('/reject/:username', authenticate, function (req, res) {
   if (req.session.isEditor !== 2) {
     return res.redirect('/console/home');
   }
-  var queryString = 'DELETE FROM authors WHERE username=' +
-    connection.escape(req.params.username);
-
-  connection.query(queryString, function (err) {
+  var queryString = 'DELETE FROM authors WHERE username=?';
+  connection.query(queryString, [req.params.username], function (err) {
     if (err) {
       console.log(err);
     }
     res.redirect('/console/home');
+  });
+});
+
+router.get('/promote/:username', authenticate, function (req, res) {
+  if (req.session.isEditor !== 2) {
+    return res.redirect('/console/home');
+  }
+  var queryString = 'UPDATE authors SET isEditor=isEditor+1 WHERE username=?';
+  connection.query(queryString, [req.params.username], function (err) {
+    if (err) {
+      console.log(err);
+    }
+    res.redirect('/console/home');
+  });
+});
+
+router.get('/demote/:username', authenticate, function (req, res) {
+  if (req.session.isEditor !== 2) {
+    return res.redirect('/console/home');
+  }
+  async.parallel([function (callback) {
+    var queryString = 'UPDATE authors SET isEditor=isEditor-1 WHERE username=?';
+    connection.query(queryString, [req.params.username], callback);
+  }, function (callback) {
+    var queryString = 'SELECT username FROM authors WHERE isEditor=2';
+    connection.query(queryString, function (err, rows) {
+      var queryString = 'UPDATE authors SET assignedEditor=? WHERE assignedEditor=?';
+      connection.query(queryString, [rows[0].username, req.params.username], callback);
+    });
+  }], function (err) {
+    if (err) {
+      console.log(err);
+    }
+    res.redirect('/console/home');
+  });
+});
+
+router.post('/:username/editor', authenticate, function (req, res) {
+  if (req.session.isEditor !== 2) {
+    return res.redirect('/console/home');
+  }
+  var queryString = 'UPDATE authors SET assignedEditor=? WHERE username=?';
+  connection.query(queryString, [req.body.editor, req.params.username], function (err) {
+    if (err) {
+      console.log(err);
+    }
+    res.send({success: true});
   });
 });
 

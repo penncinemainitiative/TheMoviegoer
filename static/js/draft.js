@@ -97,6 +97,16 @@ $(document).ready(function () {
     });
   };
 
+  var finalReview = function(e) {
+    save(e, function(postData) {
+      $.post('/article/' + articleId + '/finalReview', postData, function (data) {
+        if (data.success) {
+          window.location = '/console/home';
+        }
+      });
+    });
+  };
+
   var submit = function(e) {
     save(e, function(postData) {
       $.post('/article/' + articleId + '/submit', postData, function (data) {
@@ -137,6 +147,7 @@ $(document).ready(function () {
 
   $('button#prevBtn').click(preview);
   $('button#submBtn').click(submit);
+  $('button#finalReviewBtn').click(finalReview);
   $('button.starBtn').click(coverPhoto);
   $('button#retractBtn').click(retract);
   $('button#saveBtn').click(save);
