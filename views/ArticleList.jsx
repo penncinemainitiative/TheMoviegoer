@@ -29,11 +29,17 @@ var ArticleTable = React.createClass({
           } else if (article.isPublished === 1) {
             status = "Submitted for final review";
           }
-          return <tr>
+          return <tr data-articleid={article.articleId}>
             <td><a href={article.url}>{article.title}</a></td>
             <td>{article.updateDate}</td>
-            <td>{article.assignedEditor}</td>
-            <td>{article.authorname}</td>
+            <td>{article.assignedEditor} (<a
+              data-username={article.editorUsername}
+              className="notify"
+              href="#">Notify</a>)
+            </td>
+            <td>{article.authorname} (<a data-username={article.author}
+                                         className="notify" href="#">Notify</a>)
+            </td>
             <td>{status}</td>
             <td>{currentAuthor === article.author ?
               <a href={deleteUrl}>Delete</a> : null}</td>

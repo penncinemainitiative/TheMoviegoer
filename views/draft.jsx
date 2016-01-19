@@ -38,7 +38,7 @@ var PhotoForm = React.createClass({
       <form role="form" action={uploadUrl}
             method="post" encType="multipart/form-data"
             onError={onError} id="photoForm">
-        <input type="file" id="photoInput" name="photo"/>
+        <input type="file" id="photoInput" name="photo" accept=".jpg,.jpeg,.png"/>
       </form>);
   }
 });
@@ -51,7 +51,7 @@ var DraftForm = React.createClass({
       <form role="form" action={uploadUrl}
             method="post" encType="multipart/form-data"
             onError={onError} id="draftForm">
-        <input type="file" id="draftInput" name="photo"/>
+        <input type="file" id="draftInput" name="photo" accept=".doc,.docx" />
       </form>);
   }
 });

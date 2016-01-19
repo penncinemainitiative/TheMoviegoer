@@ -39,6 +39,7 @@
     "multer-s3": "^1.4.1",
     "mysql": "^2.10.0",
     "node-uuid": ">= 1.4.1",
+    "nodemailer": "^2.0.0",
     "react": "^0.14.5",
     "react-addons-create-fragment": "^0.14.5",
     "react-bootstrap": "^0.28.1",

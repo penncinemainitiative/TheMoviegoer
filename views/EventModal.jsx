@@ -29,7 +29,7 @@ var EventModal = React.createClass({
                        placeholder="Description"/>
                 <Input type="time" name="time" placeholder="Time"/>
                 <Input type="date" name="date" placeholder="Date"/>
-                Photo: <Input type="file" id="photo" name="photo"/>
+                Photo: <Input type="file" id="photo" name="photo" accept=".jpg,.jpeg,.png"/>
                 <Button type="submit">Submit</Button>
               </form>
               <Alert bsStyle="danger"/>

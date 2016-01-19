@@ -8,6 +8,16 @@ var connection = require('../databases/sql');
 var uploadToS3 = require('../databases/uploadS3');
 var getSlug = require('speakingurl');
 var textract = require('textract');
+var nodemailer = require('nodemailer');
+var fs = require('fs');
+var googleObject = JSON.parse(fs.readFileSync('./json/google.json', 'utf8'));
+var transporter = nodemailer.createTransport(googleObject.SMTP_CONFIG);
+
+var mailOptions = {
+  from: googleObject.FROM_EMAIL,
+  subject: 'An article needs your attention on Penn Moviegoer!',
+  html: 'View the article <a href="url">here</a>!'
+};
 
 var authenticate = function (req, res, next) {
   if (!req.session.login) {
@@ -205,6 +215,29 @@ router.get('/:id/delete', authenticate, requireAuthor, function (req, res) {
       console.log(err);
     }
     res.redirect('/console/home');
+  });
+});
+
+router.post('/:id/notify', authenticate, authorOrEditor, function (req, res) {
+  var articleId = parseInt(req.body.articleId);
+  var username = req.body.username;
+
+  var queryString = 'SELECT email FROM authors WHERE username=?';
+  connection.query(queryString, [username], function (err, rows) {
+    if (err || rows.length === 0) {
+      console.log(err);
+      return res.send({success: false});
+    }
+    mailOptions.html = mailOptions.html.replace('url', 'http://localhost:8080/article/' + articleId + '/draft');
+    mailOptions.to = rows[0].email;
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        res.send({success: false});
+        return console.log(error);
+      }
+      console.log('Message sent: ' + info.response);
+      res.send({success: true});
+    });
   });
 });
 

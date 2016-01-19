@@ -16,7 +16,7 @@ var authorMovies = function (req, call) {
 
   var queryString = 'SELECT articles.author, editors.name AS assignedEditor, authors.name AS authorname,' +
     'articles.url, articles.articleId, articles.isPublished, articles.updateDate,' +
-    'articles.title, articles.author, articles.image FROM articles ' +
+    'articles.title, articles.image, editors.username AS editorUsername FROM articles ' +
     'INNER JOIN authors AS authors ON authors.username = articles.author ' +
     'INNER JOIN authors AS editors ON authors.assignedEditor = editors.username ' +
     'WHERE articles.isPublished != 2';
