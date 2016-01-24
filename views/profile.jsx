@@ -79,6 +79,20 @@ var BioImage = React.createClass({
   }
 });
 
+var AuthorMovies = React.createClass({
+  render: function () {
+    var rows = [];
+    var articles = this.props.moviesList.map(function (article) {
+      article['size'] = 'third';
+      return <TopStory {...article}/>;
+    });
+    for (var i = 0; i < Math.ceil(this.props.moviesList.length / 3); i++) {
+      rows.push(<Row>{articles.slice(i * 3, i * 3 + 3)}</Row>);
+    }
+    return (<div>{rows}</div>);
+  }
+});
+
 var Profile = React.createClass({
   render: function () {
     return (
@@ -93,15 +107,10 @@ var Profile = React.createClass({
               <EditButtons/>
             ) : null}
           </div>
-          <div className="row" id="bioImage">
+          <Row id="bioImage">
             <BioImage {...this.props}/>
-          </div>
-          <div className="row">
-            {this.props.moviesList.map(function (article) {
-              article['size'] = 'third';
-              return <TopStory {...article}/>;
-            })}
-          </div>
+          </Row>
+          <AuthorMovies {...this.props}/>
         </div>
         <PWModal/>
       </Layout>

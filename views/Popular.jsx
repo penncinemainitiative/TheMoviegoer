@@ -30,7 +30,7 @@ var Popular = React.createClass({
     return (
       <SideBar name="Popular">
         {popularMovies ? popularMovies.map(function (movie) {
-          if (Object.keys(movie).length !== 0) {
+          if (movie && Object.keys(movie).length !== 0) {
             return <Article {...movie}/>;
           }
         }): null}

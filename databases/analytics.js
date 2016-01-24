@@ -70,7 +70,9 @@ var getPopularMovies = function (call) {
         async.map(result, getInfo, callback);
       }
     ], function (err, result) {
-      cache[today] = result;
+      cache[today] = result.filter(function(movie) {
+        return movie !== null;
+      });
       call(err, cache[today]);
     });
   }
