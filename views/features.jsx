@@ -8,7 +8,8 @@ var FeatureImage = React.createClass({
   render: function () {
     return (
       <div className={this.props.imageClasses}>
-        <a href={this.props.url}><img src={this.props.image} alt=""
+        <a href={this.props.url}><img className="largeImg"
+                                      src={this.props.image} alt=""
                                       style={{width: '100%'}}/></a>
       </div>
     );

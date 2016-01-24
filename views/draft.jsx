@@ -17,12 +17,13 @@ var ActionButtons = React.createClass({
     var showPublish = this.props.isEditor === 2 && this.props.isPublished !== 2;
     var showRetract = this.props.isEditor === 2 && this.props.isPublished === 2;
     return (
-      <div>
+      <div id="editButtons">
         <Button id="editBtn">Edit</Button>
         <Button id="saveBtn">Save</Button>
         <Button id="prevBtn">Preview</Button>
         {showSubmit ? <Button id="submBtn">Submit</Button> : null }
-        {showFinalReview ? <Button id="finalReviewBtn">Final review</Button> : null }
+        {showFinalReview ?
+          <Button id="finalReviewBtn">Final review</Button> : null }
         {showPublish ? <Button id="publBtn">Publish</Button> : null }
         {showRetract ? <Button id="retractBtn">Retract</Button> : null }
       </div>
@@ -38,7 +39,8 @@ var PhotoForm = React.createClass({
       <form role="form" action={uploadUrl}
             method="post" encType="multipart/form-data"
             onError={onError} id="photoForm">
-        <input type="file" id="photoInput" name="photo" accept=".jpg,.jpeg,.png"/>
+        <input type="file" id="photoInput" name="photo"
+               accept=".jpg,.jpeg,.png"/>
       </form>);
   }
 });
@@ -51,7 +53,7 @@ var DraftForm = React.createClass({
       <form role="form" action={uploadUrl}
             method="post" encType="multipart/form-data"
             onError={onError} id="draftForm">
-        <input type="file" id="draftInput" name="photo" accept=".doc,.docx" />
+        <input type="file" id="draftInput" name="photo" accept=".doc,.docx"/>
       </form>);
   }
 });
@@ -63,7 +65,8 @@ var Drafts = React.createClass({
         {this.props.drafts ? this.props.drafts.map(function (draft) {
           var date = dateFormat(draft.date, "m/dd/yy • h:MM TT");
           return (
-            <p><a href={draft.url}>Uploaded by {draft.uploader}</a><br/>{date}</p>
+            <p><a href={draft.url}>Uploaded by {draft.uploader}</a><br/>{date}
+            </p>
           );
         }) : null}
         <DraftForm {...this.props}/>
@@ -88,8 +91,8 @@ var Images = React.createClass({
     var cover = this.props.image;
     return (
       <SideBar name="Images" size="full">
-        {this.props.imgList.map(function (image) {
-          var imgString = '<img src="' + image.image + '" class="newImage" alt="Picture"/>';
+        {this.props.imgList.map(function (image, i) {
+          var imgString = '![Picture ' + i + 1 + '](' + image.image + ')';
           return (
             <div className="newImageDiv">
               <img src={image.image} className="newImage"
@@ -123,7 +126,19 @@ var Article = React.createClass({
     return (
       <Layout {...this.props}>
         <div id="draft" className="container">
-          <div className="title">Editing</div>
+          <div className="title">Editing
+            <ActionButtons {...this.props}/>
+          </div>
+          <div className="alert alert-success alert-dismissible" role="alert"
+               id="saveAlert" hidden>
+            <button type="button" className="close" data-dismiss="alert"
+                    aria-label="Close"><span aria-hidden="true">&times;</span>
+            </button>
+            The article has been <strong>saved</strong>!
+          </div>
+          <div id="issue" className="alert alert-danger" role="alert"
+               align="center"
+               hidden></div>
           <Row id="editView">
             <div className="col-lg-9 col-md-8 col-sm-6">
               <Input type="text" id="titleInput"
@@ -143,23 +158,12 @@ var Article = React.createClass({
                      label="Old Release Movie"
                      value="oldmovie"/>
               <Input type="textarea" rows="14" placeholder="Article Text..."
-                     label="Use Markdown for style"
+                     label="Text (use Markdown for style)"
                      id="textInput" value={this.props.text}/>
             </div>
             <Uploads {...this.props}/>
           </Row>
           <View {...this.props}/>
-          <div className="alert alert-success alert-dismissible" role="alert"
-               id="saveAlert" hidden>
-            <button type="button" className="close" data-dismiss="alert"
-                    aria-label="Close"><span aria-hidden="true">&times;</span>
-            </button>
-            The article has been <strong>saved</strong>!
-          </div>
-          <div id="issue" className="alert alert-danger" role="alert"
-               align="center"
-               hidden></div>
-          <ActionButtons {...this.props}/>
         </div>
       </Layout>
     );

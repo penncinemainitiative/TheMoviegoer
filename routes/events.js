@@ -9,12 +9,11 @@ var authenticate = function (req, res, next) {
   if (req.session.isEditor !== 2) {
     return res.redirect('/console');
   }
-  res.locals.inConsole = req.session.login;
   next();
 };
 
 router.get('/', function (req, res) {
-  var queryString = 'SELECT eventId, image, date, fbLink FROM events ORDER BY date DESC';
+  var queryString = 'SELECT eventId, image, date, fbLink FROM events ORDER BY date ASC';
   connection.query(queryString, function (err, rows) {
     res.render('events', {
       title: 'Events',

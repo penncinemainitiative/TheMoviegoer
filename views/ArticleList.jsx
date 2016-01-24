@@ -42,7 +42,7 @@ var ArticleTable = React.createClass({
             </td>
             <td>{status}</td>
             <td>{currentAuthor === article.author ?
-              <a href={deleteUrl}>Delete</a> : null}</td>
+              <a className="deleteArticle" href={deleteUrl}>Delete</a> : null}</td>
           </tr>;
         })}
         </tbody>

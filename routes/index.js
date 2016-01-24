@@ -73,7 +73,7 @@ router.get('/', function (req, res) {
       movieList(movieType, callback);
     }, function (callback) {
       var queryString = 'SELECT eventId, date, description, location, image, ' +
-        'fbLink, time, title, film FROM events ORDER BY date DESC';
+        'fbLink, time, title, film FROM events ORDER BY date ASC';
       connection.query(queryString, callback);
     }, function (callback) {
       getPopularMovies(callback);

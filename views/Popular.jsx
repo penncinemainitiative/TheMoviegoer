@@ -29,9 +29,11 @@ var Popular = React.createClass({
     var popularMovies = this.props.popularMovies.slice(0, numPop);
     return (
       <SideBar name="Popular">
-        {popularMovies.map(function (movie) {
-          return <Article {...movie}/>;
-        })}
+        {popularMovies ? popularMovies.map(function (movie) {
+          if (Object.keys(movie).length !== 0) {
+            return <Article {...movie}/>;
+          }
+        }): null}
       </SideBar>
     );
   }

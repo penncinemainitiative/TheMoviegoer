@@ -23,7 +23,7 @@ var View = React.createClass({
         </header>
         <div className="row">
           <div className="col-lg-9 col-md-8 col-sm-8 col-xs-12">
-            <img src={this.props.image} className="postimg"/>
+            <img src={this.props.image} className="largeImg postimg"/>
             <div className="posttxt" dangerouslySetInnerHTML={text}></div>
             {this.props.children}
           </div>

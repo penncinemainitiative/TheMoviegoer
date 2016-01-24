@@ -252,7 +252,7 @@ def get_events():
         with codecs.open(OLD_EVENTS + filename, 'r', encoding='UTF-8') as f:
             lines = f.readlines()[1:]
             title = get_attr(lines, 'title').replace('"', "")
-            time = "16:00:00"
+            time = "21:00:00"
             date = get_attr(lines, 'date').replace('"', "")
             image = get_attr(lines, 'image').replace('"', "")
             location = get_attr(lines, 'location').replace('"', "")

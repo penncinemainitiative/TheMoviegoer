@@ -35,7 +35,7 @@ var Events = React.createClass({
       <Layout {...this.props}>
         <div id="events" className="container">
           <div className="title">Events</div>
-          {isEditor === 1 ? (
+          {isEditor === 2 ? (
             <Button id="createEvent" data-toggle="modal"
                     data-target=".event-modal">
               <Glyphicon glyph="edit"/> Create event</Button>

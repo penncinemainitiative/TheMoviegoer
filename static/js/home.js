@@ -24,4 +24,12 @@ $(document).ready(function () {
       }
     });
   });
+
+  $('.deleteArticle').click(function (e) {
+    var del = window.confirm('Are you sure you want to delete this article?');
+    if (!del) {
+      e.preventDefault();
+    }
+  });
+
 });

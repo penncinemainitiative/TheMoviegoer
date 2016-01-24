@@ -26,10 +26,10 @@ $(document).ready(function () {
     $('#saveAlert').show();
     setTimeout(function () {
       $('#saveAlert').fadeOut();
-    }, 3000);
+    }, 1000);
   };
 
-  var retract = function() {
+  var retract = function () {
     $('#issue').hide();
 
     $.post('/article/' + articleId + '/retract', function (data) {
@@ -39,8 +39,8 @@ $(document).ready(function () {
     });
   };
 
-  var coverPhoto = function(e) {
-    save(e, function() {
+  var coverPhoto = function (e) {
+    save(e, function () {
       var currentbtn = $(e.target).closest('button');
       if (currentbtn.hasClass('btn-primary')) {
         return;
@@ -58,22 +58,17 @@ $(document).ready(function () {
     });
   };
 
-  var save = function(e, callback) {
+  var save = function (e, callback) {
     $('#issue').hide();
     var text = $('#textInput').val();
     var title = $('#titleInput').val();
     var excerpt = $('#excerptInput').val();
     var typeVal = $('input[name=typeInput]:checked').val();
 
-    if (text === '' || title === '') {
-      $('#issue').show().empty().append('Please enter text and a title for the article before you <b>save</b>!');
-      return;
-    }
-
     var postData = {
       title: title,
       type: typeVal,
-      text: text,
+      text: text.replace(/(<([^>]+)>)/ig, ""),
       excerpt: excerpt
     };
 
@@ -87,8 +82,8 @@ $(document).ready(function () {
     });
   };
 
-  var publish = function(e) {
-    save(e, function(postData) {
+  var publish = function (e) {
+    save(e, function (postData) {
       $.post('/article/' + articleId + '/publish', postData, function (data) {
         if (data.success) {
           window.location = '/';
@@ -97,8 +92,8 @@ $(document).ready(function () {
     });
   };
 
-  var finalReview = function(e) {
-    save(e, function(postData) {
+  var finalReview = function (e) {
+    save(e, function (postData) {
       $.post('/article/' + articleId + '/finalReview', postData, function (data) {
         if (data.success) {
           window.location = '/console/home';
@@ -107,8 +102,8 @@ $(document).ready(function () {
     });
   };
 
-  var submit = function(e) {
-    save(e, function(postData) {
+  var submit = function (e) {
+    save(e, function (postData) {
       $.post('/article/' + articleId + '/submit', postData, function (data) {
         if (data.success) {
           window.location = '/console/home';
@@ -117,8 +112,8 @@ $(document).ready(function () {
     });
   };
 
-  var preview = function(e) {
-    save(e, function(postData) {
+  var preview = function (e) {
+    save(e, function (postData) {
       var text = postData.text;
       var title = postData.title;
 
@@ -134,15 +129,19 @@ $(document).ready(function () {
   };
 
   var submitPhoto = function (e) {
-    save(e, function() {
+    save(e, function () {
       $('#photoForm').submit();
     });
   };
 
-  var submitDraft = function(e) {
-    save(e, function() {
+  var submitDraft = function (e) {
+    save(e, function () {
       $('#draftForm').submit();
     });
+  };
+
+  var beforeunload = function (e) {
+    save(e);
   };
 
   $('button#prevBtn').click(preview);
@@ -154,9 +153,8 @@ $(document).ready(function () {
   $('button#publBtn').click(publish);
   $('#photoInput').change(submitPhoto);
   $('#draftInput').change(submitDraft);
-
   if (path.indexOf('draft') > -1) {
-    window.addEventListener('beforeunload', save);
+    window.addEventListener('beforeunload', beforeunload);
   }
 
 });

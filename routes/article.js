@@ -54,7 +54,7 @@ var requireHeadEditor = function (req, res, next) {
 
 var authorOrEditor = function (req, res, next) {
   var articleId = parseInt(req.params.id);
-  var queryString = 'SELECT articles.author, editors.username AS assignedEditor ' +
+  var queryString = 'SELECT articles.author,  editors.username AS assignedEditor ' +
     'FROM articles INNER JOIN authors AS authors ON authors.username = articles.author ' +
     'INNER JOIN authors AS editors ON authors.assignedEditor = editors.username WHERE articleId=' + articleId;
   connection.query(queryString, function (err, rows) {
@@ -65,7 +65,7 @@ var authorOrEditor = function (req, res, next) {
       return res.redirect('/console/home');
     }
     if (rows[0].author !== req.session.username && rows[0].assignedEditor !== req.session.username && req.session.isEditor !== 2) {
-      return res.redirect('/home');
+      return res.redirect('/console/home');
     }
     next();
   });
@@ -112,7 +112,8 @@ router.get('/:id', function (req, res) {
 
 router.post('/:id', authenticate, authorOrEditor, function (req, res) {
   var articleId = parseInt(req.params.id);
-  var updateData = [req.body.title, req.body.type, req.body.text, req.body.excerpt, articleId];
+  var text = req.body.text.replace(/(<([^>]+)>)/ig, "");
+  var updateData = [req.body.title, req.body.type, text, req.body.excerpt, articleId];
 
   var queryString = 'UPDATE articles SET updateDate=NOW(), title=?, type=?, ' +
     'text=?, excerpt=? WHERE articleId=?';
@@ -168,6 +169,9 @@ router.get('/:id/draft', authenticate, authorOrEditor, function (req, res) {
         'FROM articles WHERE articleId=' + articleId;
       connection.query(queryString, callback);
     }, function (rows, fields, callback) {
+      if (rows.length === 0) {
+        return res.redirect('/console/home');
+      }
       returnData.excerpt = rows[0].excerpt;
       returnData.image = rows[0].image;
       returnData.title = rows[0].title;

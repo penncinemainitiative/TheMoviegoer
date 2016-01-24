@@ -8,6 +8,8 @@ var UpcomingEvents = require('./UpcomingEvents');
 
 var IndexReviews = React.createClass({
   render: function () {
+    this.props.movies[0]['classes'] = 'largeImg';
+    this.props.features[0]['classes'] = 'largeImg';
     this.props.features[1]['size'] = 'half';
     this.props.features[2]['size'] = 'half';
     this.props.movies[1]['size'] = 'half';

@@ -1,0 +1,18 @@
+---
+layout: post
+title: "Hail Caesar!"
+cleantitle: "Hail Caesar!"
+film: "Hail Caesar!"
+author: PCI
+date: 2016-02-11
+day: "Thursday"
+dd: "11"
+mm: "February"
+excerpt: ""
+image: "https://s3.amazonaws.com/moviegoer/uploads/inchoate/eventsS16/hailaesar.jpg"
+location: "Harrison M20"
+time: TBD
+tags: 
+- event
+- upcomingevent
+---

@@ -30,7 +30,6 @@ var Header = React.createClass({
       items = [
         {name: 'Home', url: '/console/home'},
         {name: 'Profile', url: '/writer/profile'},
-        {name: 'Events', url: '/events'},
         {name: 'New Article', url: '/article'}
       ];
     } else {
@@ -49,10 +48,9 @@ var Header = React.createClass({
             <a href="/" id="headerTitle"><img src="/images/logo.png"
                                               alt="The Moviegoer"/></a>
           </div>
-          <HeaderItem {...items[0]}/>
-          <HeaderItem {...items[1]}/>
-          <HeaderItem {...items[2]}/>
-          <HeaderItem {...items[3]}/>
+          {items.map(function (item) {
+            return <HeaderItem {...item}/>;
+          })}
           <SearchBar/>
         </Row>
       </div>

@@ -7,7 +7,7 @@ $( document ).ready(function() {
   var initBio;
 
   // Modal Things
-  $('#profileImg').click(function () {
+  $('#profilePicBtn').click(function () {
     $('#fileInput').trigger('click');
   });
 
@@ -16,6 +16,7 @@ $( document ).ready(function() {
     $('#pwBtn').hide();
     $('#profileName').hide();
     $('#profileBio').hide();
+    $('#profilePicBtn').hide();
     $('#inputName').show();
     $('#inputEmail').show();
     $('#inputBio').show();
@@ -55,6 +56,7 @@ $( document ).ready(function() {
     $('#pwBtn').show();
     $('#profileName').show();
     $('#profileBio').show();
+    $('#profilePicBtn').show();
     $('#issue').hide();
     $('#inputName').hide();
     $('#inputEmail').hide();
