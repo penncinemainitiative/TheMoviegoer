@@ -24,7 +24,12 @@ var Footer = React.createClass({
                 We seek to build a film community on-campus and online through
                 collaboration as well as other PCI-sponsored initiatives. If you
                 would like to work with us, please find out more under the <a
-                  href="/about">about</a> tab.</p>
+                  href="/about">about</a> tab. Penn Cinema Initiative is
+                generously sponsored by the <a target="_blank"
+                                    href="http://cinemastudies.sas.upenn.edu/">
+                  University of Pennsylvania Cinema Studies Department</a> and <a
+                  target="_blank" href="http://harrison.house.upenn.edu/">
+                  Harrison College House</a></p>
             </div>
           </Row>
           <a

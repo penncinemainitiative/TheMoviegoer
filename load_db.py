@@ -206,22 +206,11 @@ def get_authors():
                 bio = get_attr(lines, 'bio').replace('"', "")
                 author = Author(username, name, image, bio)
                 authors.append(author)
-    pci = Author("pci", "PCI",
-                 "https://s3.amazonaws.com/moviegoer/uploads/inchoate/writer/M.jpg",
-                 "")
-    jsheplock = Author("jsheplock", "James Sheplock",
-                       "https://s3.amazonaws.com/moviegoer/uploads/inchoate/writer/M.jpg",
-                       "")
-    bfinkel = Author("bfinkel", "Benjamin Finkel",
-                     "https://s3.amazonaws.com/moviegoer/uploads/inchoate/writer/M.jpg",
-                     "")
-    vkumar = Author("vkumar", "Vaishak Kumar",
-                    "https://s3.amazonaws.com/moviegoer/uploads/inchoate/writer/M.jpg",
-                    "")
-    authors.append(pci)
-    authors.append(jsheplock)
-    authors.append(bfinkel)
-    authors.append(vkumar)
+    default_image = "https://s3.amazonaws.com/moviegoer/uploads/inchoate/writer/M.jpg"
+    authors.append(Author("pci", "PCI", default_image, ""))
+    authors.append(Author("jsheplock", "James Sheplock", default_image, ""))
+    authors.append(Author("bfinkel", "Benjamin Finkel", default_image, ""))
+    authors.append(Author("vkumar", "Vaishak Kumar", default_image, ""))
     return authors
 
 
@@ -258,7 +247,7 @@ def get_events():
             location = get_attr(lines, 'location').replace('"', "")
             description = get_attr(lines, 'excerpt').replace('"', "")
             film = get_attr(lines, 'film').replace('"', "")
-            fbLink = "https://www.facebook.com/events/461373730713782/"
+            fbLink = "/events"
             event = Event(date, description, location, image, fbLink, time,
                           title, film)
             events.append(event)
