@@ -107,7 +107,6 @@ usernames = {
     "Ritwik Bhatia": "rbhatia",
     "PCI": "pci",
     "Lucas De Barros Silva": "lsilva",
-    "Olatunbosun Osinaike": "oosinaike",
     "Eric Eisner": "eeisner",
     "Adelaide Powell": "apowell"
 }
