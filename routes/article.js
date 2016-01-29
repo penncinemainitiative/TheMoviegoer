@@ -114,11 +114,20 @@ router.post('/:id', authenticate, authorOrEditor, function (req, res) {
   var articleId = parseInt(req.params.id);
   var text = req.body.text.replace(/(<([^>]+)>)/ig, "");
   var updateData = [req.body.title, req.body.type, text, req.body.excerpt, articleId];
-
   var queryString = 'UPDATE articles SET updateDate=NOW(), title=?, type=?, ' +
     'text=?, excerpt=? WHERE articleId=?';
-
   connection.query(queryString, updateData, function (err) {
+    if (err) {
+      console.log(err);
+    }
+    res.send({success: true});
+  });
+});
+
+router.post('/:id/author', authenticate, requireHeadEditor, function (req, res) {
+  var articleId = parseInt(req.params.id);
+  var queryString = 'UPDATE articles SET updateDate=NOW(), author=? WHERE articleId=?';
+  connection.query(queryString, [req.body.author, articleId], function (err) {
     if (err) {
       console.log(err);
     }

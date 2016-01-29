@@ -29,7 +29,7 @@ var Footer = React.createClass({
                                     href="http://cinemastudies.sas.upenn.edu/">
                   University of Pennsylvania Cinema Studies Department</a> and <a
                   target="_blank" href="http://harrison.house.upenn.edu/">
-                  Harrison College House</a></p>
+                  Harrison College House</a>.</p>
             </div>
           </Row>
           <a

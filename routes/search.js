@@ -14,4 +14,11 @@ router.post('/', function (req, res) {
   });
 });
 
+router.post('/authors', function (req, res) {
+  var search = ['%' + req.body.q + '%'];
+  connection.query('SELECT username, name FROM authors WHERE name LIKE ?', search, function (err, authors) {
+    res.send(authors);
+  });
+});
+
 module.exports = router;

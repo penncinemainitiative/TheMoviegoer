@@ -153,8 +153,33 @@ $(document).ready(function () {
   $('button#publBtn').click(publish);
   $('#photoInput').change(submitPhoto);
   $('#draftInput').change(submitDraft);
+
   if (path.indexOf('draft') > -1) {
     window.addEventListener('beforeunload', beforeunload);
   }
+
+  var authorSearch = $('#authorInput');
+
+  authorSearch.select2({
+    placeholder: 'Search authors',
+    escapeMarkup: function (m) {return m;},
+    ajax: {
+      cache: true,
+      delay: 250,
+      type: 'POST',
+      url: '/search/authors',
+      processResults: function (data) {
+        return {
+          results: $.map(data, function(obj) {
+            return { id: obj.username, text: obj.name };
+          })
+        };
+      }
+    }
+  });
+
+  authorSearch.on('select2:select', function() {
+    $.post('/article/' + articleId + '/author', {author : authorSearch.val()});
+  });
 
 });

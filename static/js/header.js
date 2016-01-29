@@ -40,5 +40,5 @@ $( document ).ready(function() {
 
   search.on('select2:select', function(event) {
     window.location = $(event.target).val();
-  })
+  });
 });

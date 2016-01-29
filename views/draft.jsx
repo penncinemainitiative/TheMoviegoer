@@ -147,6 +147,14 @@ var Article = React.createClass({
               <Input type="text" id="excerptInput"
                      label="Excerpt"
                      placeholder="Excerpt" value={this.props.excerpt}/>
+              {this.props.isEditor === 2 ?
+                <span>
+                  <label htmlFor="authorInput">Author</label>
+                  <select id="authorInput" className="form-control">
+                    <option
+                      value={this.props.author}>{this.props.author}</option>
+                  </select>
+                </span> : null}
               <div id="typeRadioVal" hidden>{this.props.type}</div>
               <Input type="radio" name="typeInput" id="featureRadio"
                      label="Feature Article"
