@@ -18,11 +18,11 @@ gulp.task('less', function() {
 });
 
 gulp.task('js', function() {
-  gulp.src(['static/js/*.js', '!static/js/fbSDK.js'])
+  gulp.src(['static/js/*.js', '!static/js/fbSDK.js', '!static/js/ga.js'])
     .pipe(concat('page.js'))
     .pipe(uglify())
     .pipe(gulp.dest('public/js'));
-  gulp.src('static/js/fbSDK.js')
+  gulp.src(['static/js/fbSDK.js', 'static/js/ga.js'])
     .pipe(gulp.dest('public/js'));
 });
 

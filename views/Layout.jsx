@@ -43,7 +43,7 @@ var Layout = React.createClass({
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
       </head>
       <body>
-      <script src="/js/fbSDK.js"></script>
+      <script type="text/javascript" src="/js/fbSDK.js"></script>
       <div id="notFooter">
         <Header {...this.props}/>
         <div id="content">
@@ -51,6 +51,7 @@ var Layout = React.createClass({
         </div>
       </div>
       <Footer {...this.props}/>
+      <script type="text/javascript" src="/js/ga.js"></script>
       <script type="text/javascript" src="/js/page.js"></script>
       </body>
       </html>
