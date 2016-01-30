@@ -29,22 +29,25 @@ var ArticleTable = React.createClass({
           } else if (article.isPublished === 1) {
             status = "Submitted for final review";
           }
+          var authorEmail = "mailto:" + article.authorEmail;
+          var editorEmail = "mailto:" + article.editorEmail;
           return <tr data-articleid={article.articleId}>
             <td><a href={article.url}>{article.title}</a></td>
             <td>{article.updateDate}</td>
-            <td>{article.assignedEditor} (<a
-              data-username={article.editorUsername}
-              className="notify"
-              href="#">Notify</a>) (<a data-email={article.editorEmail}
-                  className="emailAuthor" href="#">Email</a>)
+            <td>{article.assignedEditor} ({article.editorEmail ?
+              <a href={editorEmail}>{article.editorEmail}</a> :
+              <span>No email provided</span>
+            })
             </td>
-            <td>{article.authorname} (<a data-username={article.author}
-                                         className="notify" href="#">Notify</a>) (<a data-email={article.authorEmail}
-                                                                                     className="emailAuthor" href="#">Email</a>)
+            <td>{article.authorname} ({article.authorEmail ?
+              <a href={authorEmail}>{article.authorEmail}</a> :
+              <span>No email provided</span>
+            })
             </td>
             <td>{status}</td>
             <td>{currentAuthor === article.author ?
-              <a className="deleteArticle" href={deleteUrl}>Delete</a> : null}</td>
+              <a className="deleteArticle"
+                 href={deleteUrl}>Delete</a> : null}</td>
           </tr>;
         })}
         </tbody>

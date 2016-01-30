@@ -37,6 +37,7 @@ var Footer = React.createClass({
             src="/images/facebook-logo.png" alt="Facebook"/></a>
           <div>
             &copy; Penn Cinema Initiative <br/>
+            Webmaster: dlakata (at) seas (dot) upenn (dot) edu<br/>
             {this.props.inConsole ? (
               <FooterItem url="/" text="Go to The Moviegoer"/>
             ) :
