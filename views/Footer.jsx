@@ -35,17 +35,17 @@ var Footer = React.createClass({
           <a
             href="http://www.facebook.com/pages/Penn-Cinema-Initiative/1536055873314021"><img
             src="/images/facebook-logo.png" alt="Facebook"/></a>
-        </div>
-        <div>
-          &copy; Penn Cinema Initiative <br/>
-          {this.props.inConsole ? (
-            <FooterItem url="/" text="Go to The Moviegoer"/>
-          ) :
-            <FooterItem url="/console" text="Go to Author Console"/>
-          }
-          {this.props.login ? (
-            <FooterItem url="/console/logout" text="Logout"/>
-          ) : null }
+          <div>
+            &copy; Penn Cinema Initiative <br/>
+            {this.props.inConsole ? (
+              <FooterItem url="/" text="Go to The Moviegoer"/>
+            ) :
+              <FooterItem url="/console" text="Go to Author Console"/>
+            }
+            {this.props.login ? (
+              <FooterItem url="/console/logout" text="Logout"/>
+            ) : null }
+          </div>
         </div>
       </div>
     );
