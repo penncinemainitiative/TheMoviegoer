@@ -8,7 +8,7 @@ var runSequence = require('run-sequence');
 var babel = require('gulp-babel');
 
 gulp.task('less', function() {
-  gulp.src('static/less/general.less')
+  gulp.src(['static/less/general.less', 'static/less/*.css'])
     .pipe(less())
     .pipe(cssnano({
       zindex: false
@@ -18,11 +18,11 @@ gulp.task('less', function() {
 });
 
 gulp.task('js', function() {
-  gulp.src(['static/js/*.js', '!static/js/fbSDK.js', '!static/js/ga.js'])
+  gulp.src(['static/js/*.js'])
     .pipe(concat('page.js'))
     .pipe(uglify())
     .pipe(gulp.dest('public/js'));
-  gulp.src(['static/js/fbSDK.js', 'static/js/ga.js'])
+  gulp.src(['static/js/raw/*.js'])
     .pipe(gulp.dest('public/js'));
 });
 

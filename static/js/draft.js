@@ -60,7 +60,7 @@ $(document).ready(function () {
 
   var save = function (e, callback) {
     $('#issue').hide();
-    var text = $('#textInput').val();
+    var text = $('textarea').val();
     var title = $('#titleInput').val();
     var excerpt = $('#excerptInput').val();
     var typeVal = $('input[name=typeInput]:checked').val();
@@ -156,6 +156,7 @@ $(document).ready(function () {
 
   if (path.indexOf('draft') > -1) {
     window.addEventListener('beforeunload', beforeunload);
+    $("textarea#textInput").pagedownBootstrap();
   }
 
   var authorSearch = $('#authorInput');

@@ -29,6 +29,15 @@ var Layout = React.createClass({
           rel="stylesheet"/>
         <script
           src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>
+        {typeof this.props.imgList !== 'undefined' ?
+          <script type="text/javascript" src="/js/jquery.pagedown-bootstrap.combined.min.js"></script>
+          : null}
+        {typeof this.props.imgList !== 'undefined' ?
+          <link href="/css/jquery.pagedown-bootstrap.css" rel="stylesheet"/>
+          : null}
+        {typeof this.props.imgList !== 'undefined' ?
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+          : null}
         <link rel="shortcut icon" href="/images/favicon.png"/>
         <link rel="stylesheet" type="text/css" href="/css/style.min.css"/>
 
