@@ -25,6 +25,16 @@ $(document).ready(function () {
     });
   });
 
+
+  $('.emailAuthor').click(function () {
+    var _this = $(this);
+    var articleId = _this.closest('tr').data('articleid');
+    var email = _this.data('email');
+    var emailTo = "mailto:" + email + "?subject=An article needs your attention on Penn Moviegoer&body=";
+    emailTo += "http://pennmoviegoer.com/article/" + articleId + "/draft";
+    window.location = emailTo;
+  });
+
   $('.deleteArticle').click(function (e) {
     var del = window.confirm('Are you sure you want to delete this article?');
     if (!del) {

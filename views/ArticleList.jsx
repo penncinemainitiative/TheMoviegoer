@@ -35,10 +35,12 @@ var ArticleTable = React.createClass({
             <td>{article.assignedEditor} (<a
               data-username={article.editorUsername}
               className="notify"
-              href="#">Notify</a>)
+              href="#">Notify</a>) (<a data-email={article.editorEmail}
+                  className="emailAuthor" href="#">Email</a>)
             </td>
             <td>{article.authorname} (<a data-username={article.author}
-                                         className="notify" href="#">Notify</a>)
+                                         className="notify" href="#">Notify</a>) (<a data-email={article.authorEmail}
+                                                                                     className="emailAuthor" href="#">Email</a>)
             </td>
             <td>{status}</td>
             <td>{currentAuthor === article.author ?
