@@ -241,7 +241,7 @@ router.post('/:id/notify', authenticate, authorOrEditor, function (req, res) {
       console.log(err);
       return res.send({success: false});
     }
-    mailOptions.html = mailOptions.html.replace('url', 'http://localhost:8080/article/' + articleId + '/draft');
+    mailOptions.html = mailOptions.html.replace('url', 'http://pennmoviegoer.com/article/' + articleId + '/draft');
     mailOptions.to = rows[0].email;
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
