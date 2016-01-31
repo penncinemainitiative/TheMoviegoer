@@ -253,17 +253,4 @@ router.get('/demote/:username', authenticate, function (req, res) {
   });
 });
 
-router.post('/:username/editor', authenticate, function (req, res) {
-  if (req.session.isEditor !== 2) {
-    return res.redirect('/console/home');
-  }
-  var queryString = 'UPDATE authors SET assignedEditor=? WHERE username=?';
-  connection.query(queryString, [req.body.editor, req.params.username], function (err) {
-    if (err) {
-      console.log(err);
-    }
-    res.send({success: true});
-  });
-});
-
 module.exports = router;

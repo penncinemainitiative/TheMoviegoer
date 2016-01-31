@@ -74,6 +74,7 @@ def reset_databases():
                                       `title` VARCHAR(255) NOT NULL COLLATE UTF8_GENERAL_CI,
                                       `author` VARCHAR(255) NOT NULL,
                                       `image` VARCHAR(255),
+                                      `assignedEditor` VARCHAR(255) NOT NULL,
                                       `excerpt` text NOT NULL,
                                       `text` text NOT NULL,
                                       `url` VARCHAR(255) NOT NULL,
@@ -271,13 +272,13 @@ def setup_authors():
 def setup_articles():
     articleId = 1
     for post in posts:
-        query = "INSERT INTO articles (isPublished, pubDate, updateDate, type, title, author, image, excerpt, text, url) " \
-                "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        query = "INSERT INTO articles (isPublished, pubDate, updateDate, type, title, author, image, excerpt, text, url, assignedEditor) " \
+                "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
         post.articleId = articleId
         articleId += 1
         cur.execute(query, (post.isPublished, post.pubDate, post.updateDate,
                             post.type, post.title, post.author, post.image,
-                            post.excerpt, post.text, post.url))
+                            post.excerpt, post.text, post.url, "bpettigrew"))
     db.commit()
 
 

@@ -12,7 +12,7 @@ var dateFormat = require('dateformat');
 
 var ActionButtons = React.createClass({
   render: function () {
-    var showSubmit = this.props.isEditor === 0 && this.props.isPublished === -1;
+    var showSubmit = this.props.isEditor !== 2 && this.props.isPublished === -1;
     var showFinalReview = this.props.isEditor === 1 && this.props.isPublished === 0;
     var showPublish = this.props.isEditor === 2 && this.props.isPublished !== 2;
     var showRetract = this.props.isEditor === 2 && this.props.isPublished === 2;

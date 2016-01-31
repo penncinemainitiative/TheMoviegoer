@@ -54,9 +54,7 @@ var requireHeadEditor = function (req, res, next) {
 
 var authorOrEditor = function (req, res, next) {
   var articleId = parseInt(req.params.id);
-  var queryString = 'SELECT articles.author,  editors.username AS assignedEditor ' +
-    'FROM articles INNER JOIN authors AS authors ON authors.username = articles.author ' +
-    'INNER JOIN authors AS editors ON authors.assignedEditor = editors.username WHERE articleId=' + articleId;
+  var queryString = 'SELECT articles.author, articles.assignedEditor FROM articles WHERE articleId=' + articleId;
   connection.query(queryString, function (err, rows) {
     if (err) {
       console.log(err);
@@ -82,15 +80,17 @@ router.get('/', authenticate, function (req, res) {
     image: 'https://www.royalacademy.org.uk/' +
     'assets/placeholder-1e385d52942ef11d42405be4f7d0a30d.jpg'
   };
-
-  var queryString = 'INSERT INTO articles SET ?';
-  connection.query(queryString, insertData, function (err, result) {
-    if (err) {
-      console.log(err);
-    }
-    var newId = result.insertId;
-    var url = '/article/' + newId + '/draft';
-    res.redirect(url);
+  connection.query('SELECT username FROM authors WHERE isEditor=2', function (err, result) {
+    insertData.assignedEditor = result[0].username;
+    var queryString = 'INSERT INTO articles SET ?';
+    connection.query(queryString, insertData, function (err, result) {
+      if (err) {
+        console.log(err);
+      }
+      var newId = result.insertId;
+      var url = '/article/' + newId + '/draft';
+      res.redirect(url);
+    });
   });
 });
 
@@ -345,6 +345,20 @@ router.post('/:id/publish', authenticate, requireHeadEditor, function (req, res)
       connection.query(queryString, callback);
     }
   ], function (err) {
+    if (err) {
+      console.log(err);
+    }
+    res.send({success: true});
+  });
+});
+
+
+router.post('/:id/editor', authenticate, function (req, res) {
+  if (req.session.isEditor !== 2) {
+    return res.redirect('/console/home');
+  }
+  var queryString = 'UPDATE articles SET assignedEditor=? WHERE articleId=?';
+  connection.query(queryString, [req.body.editor, parseInt(req.params.id)], function (err) {
     if (err) {
       console.log(err);
     }

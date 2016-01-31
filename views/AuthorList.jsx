@@ -2,18 +2,16 @@
 
 var React = require('react');
 var Table = require('react-bootstrap').Table;
-var Input = require('react-bootstrap').Input;
 
 var ArticleTable = React.createClass({
   render: function () {
-    var editors = this.props.editors;
     return (
       <Table responsive striped bordered condensed hover>
         <thead>
         <tr>
           <th>Author</th>
+          <th>Email</th>
           <th>Role</th>
-          <th>Assigned Editor</th>
         </tr>
         </thead>
         <tbody>
@@ -33,22 +31,12 @@ var ArticleTable = React.createClass({
               return "Editor-in-chief";
             }
           };
-          var assignedEditor = function() {
-            if (author.isEditor === 2) {
-              return "N/A";
-            }
-            return editors.map(function(editor) {
-              if (author.assignedEditor === editor.name) {
-                return <Input checked type="radio" name={author.username} label={editor.name} value={editor.username}/>;
-              } else if (author.name !== editor.name) {
-                return <Input type="radio" name={author.username} label={editor.name} value={editor.username}/>;
-              }
-            });
-          };
-          return <tr>
+          var highlight = author.isEditor === -1 ? "alert-danger" : null;
+          var authorEmail = "mailto:" + author.email;
+          return <tr className={highlight}>
             <td>{author.name}</td>
+            <td><a href={authorEmail}>{author.email}</a></td>
             <td>{status()}</td>
-            <td className="assignedEditor">{assignedEditor()}</td>
           </tr>;
         })}
         </tbody>

@@ -18,17 +18,17 @@ var authorMovies = function (req, call) {
     'articles.url, articles.articleId, articles.isPublished, articles.updateDate, authors.email AS authorEmail, ' +
     'articles.title, articles.image, editors.email AS editorEmail, editors.username AS editorUsername FROM articles ' +
     'INNER JOIN authors AS authors ON authors.username = articles.author ' +
-    'INNER JOIN authors AS editors ON authors.assignedEditor = editors.username ' +
-    'WHERE articles.isPublished != 2';
+    'INNER JOIN authors AS editors ON articles.assignedEditor = editors.username ' +
+    'WHERE articles.isPublished < 2';
 
   if (req.session.isEditor === 0) {
-    queryString = queryString + ' AND articles.author=\'' + req.session.username + '\'';
+    queryString += ' AND articles.author=\'' + req.session.username + '\'';
   } else if (req.session.isEditor === 1) {
-    queryString = queryString + ' AND (articles.author=\'' + req.session.username + '\' OR ' +
-      'authors.assignedEditor =\'' + req.session.username + '\')';
+    queryString += ' AND (articles.author=\'' + req.session.username + '\' OR ' +
+      '(articles.assignedEditor =\'' + req.session.username + '\' AND articles.isPublished>-1))';
   }
 
-  queryString = queryString + ' ORDER BY articles.updateDate DESC, articles.articleId DESC';
+  queryString += ' ORDER BY articles.updateDate DESC, articles.articleId DESC';
 
   async.waterfall([
     function (callback) {
@@ -117,7 +117,7 @@ router.get('/home', authenticate, function (req, res) {
       authorMovies(req, callback);
     }, function (callback) {
       if (req.session.isEditor === 2) {
-        var query = 'SELECT authors.name, authors.username, authors.isEditor,' +
+        var query = 'SELECT authors.name, authors.email, authors.username, authors.isEditor,' +
           'editors.name AS assignedEditor FROM authors ' +
           'INNER JOIN authors AS editors ON authors.assignedEditor = editors.username';
         connection.query(query, callback);

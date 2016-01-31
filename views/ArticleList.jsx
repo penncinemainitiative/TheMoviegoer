@@ -5,6 +5,7 @@ var Table = require('react-bootstrap').Table;
 
 var ArticleTable = React.createClass({
   render: function () {
+    var isHeadEditor = this.props.isEditor === 2;
     var currentAuthor = this.props.username;
     return (
       <Table responsive striped bordered condensed hover>
@@ -34,10 +35,21 @@ var ArticleTable = React.createClass({
           return <tr data-articleid={article.articleId}>
             <td><a href={article.url}>{article.title}</a></td>
             <td>{article.updateDate}</td>
-            <td>{article.assignedEditor} ({article.editorEmail ?
-              <a href={editorEmail}>{article.editorEmail}</a> :
-              <span>No email provided</span>
-            })
+            <td>
+              {isHeadEditor ?
+                <div className="editorSelection">
+                  <select data-articleid={article.articleId}
+                          className="form-control chooseEditor">
+                    <option
+                      value={article.assignedEditor}>{article.assignedEditor}</option>
+                  </select>
+                </div> :
+                <span>{article.assignedEditor} ({article.editorEmail ?
+                  <a href={editorEmail}>{article.editorEmail}</a> :
+                  <span>No email provided</span>
+                })
+                </span>
+              }
             </td>
             <td>{article.authorname} ({article.authorEmail ?
               <a href={authorEmail}>{article.authorEmail}</a> :

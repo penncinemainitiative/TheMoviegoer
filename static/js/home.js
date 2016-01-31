@@ -15,4 +15,29 @@ $(document).ready(function () {
     }
   });
 
+  var chooseEditor = $('.chooseEditor');
+
+  chooseEditor.select2({
+    placeholder: 'Search editors',
+    width: 'off',
+    escapeMarkup: function (m) {return m;},
+    ajax: {
+      cache: true,
+      delay: 250,
+      type: 'POST',
+      url: '/search/editors',
+      processResults: function (data) {
+        return {
+          results: $.map(data, function(obj) {
+            return { id: obj.username, text: obj.name };
+          })
+        };
+      }
+    }
+  });
+
+  chooseEditor.on('select2:select', function() {
+    $.post('/article/' + $(this).data('articleid') + '/editor', {editor : $(this).val()});
+  });
+
 });

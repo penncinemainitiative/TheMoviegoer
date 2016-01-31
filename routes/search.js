@@ -21,4 +21,11 @@ router.post('/authors', function (req, res) {
   });
 });
 
+router.post('/editors', function (req, res) {
+  var search = ['%' + req.body.q + '%'];
+  connection.query('SELECT username, name FROM authors WHERE name LIKE ? AND isEditor > 0', search, function (err, authors) {
+    res.send(authors);
+  });
+});
+
 module.exports = router;
