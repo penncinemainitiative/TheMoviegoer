@@ -29,12 +29,12 @@ var authenticate = function (req, res, next) {
 
 var requireAuthor = function (req, res, next) {
   var articleId = parseInt(req.params.id);
-  var queryString = 'SELECT author FROM articles WHERE articleId=' + articleId;
+  var queryString = 'SELECT author, isPublished FROM articles WHERE articleId=' + articleId;
   connection.query(queryString, function (err, rows) {
     if (err) {
       console.log(err);
     }
-    if (rows.length === 0 || rows[0].author !== req.session.username) {
+    if (rows.length === 0 || rows[0].author !== req.session.username || rows[0].isPublished === 2) {
       return res.redirect('/home');
     }
     next();
@@ -54,7 +54,7 @@ var requireHeadEditor = function (req, res, next) {
 
 var authorOrEditor = function (req, res, next) {
   var articleId = parseInt(req.params.id);
-  var queryString = 'SELECT articles.author, articles.assignedEditor FROM articles WHERE articleId=' + articleId;
+  var queryString = 'SELECT author, assignedEditor, isPublished FROM articles WHERE articleId=' + articleId;
   connection.query(queryString, function (err, rows) {
     if (err) {
       console.log(err);
@@ -63,6 +63,9 @@ var authorOrEditor = function (req, res, next) {
       return res.redirect('/console/home');
     }
     if (rows[0].author !== req.session.username && rows[0].assignedEditor !== req.session.username && req.session.isEditor !== 2) {
+      return res.redirect('/console/home');
+    }
+    if (rows[0].isPublished === 2 && req.session.isEditor !== 2) {
       return res.redirect('/console/home');
     }
     next();

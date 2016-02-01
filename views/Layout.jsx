@@ -60,6 +60,7 @@ var Layout = React.createClass({
         </div>
       </div>
       <Footer {...this.props}/>
+      {!this.props.inConsole ? <script type="text/javascript" src="/js/ga.js"></script> : null }
       <script type="text/javascript" src="/js/page.js"></script>
       </body>
       </html>
