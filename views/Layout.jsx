@@ -6,7 +6,7 @@ var Footer = require('./Footer');
 
 var Layout = React.createClass({
   render: function () {
-    var cleanTitle = this.props.title.replace(/(<([^>]+)>)/ig, "");
+    var cleanTitle = this.props.title ? this.props.title.replace(/(<([^>]+)>)/ig, "") : "Penn Moviegoer";
     var excerpt = "The Moviegoer is a student-run blog dedicated to film appreciation - " +
       "posting film analyses, reviews, previews, and all things related. " +
       "It is run by the Penn Cinema Initiative.";
@@ -49,6 +49,7 @@ var Layout = React.createClass({
         <meta property="og:description" content={this.props.excerpt ? this.props.excerpt : excerpt}/>
         <meta property="fb:app_id" content="132619720416789"/>
         <meta property="fb:admins" content="brad.pettigrew"/>
+        <meta property="description" content={this.props.excerpt ? this.props.excerpt : excerpt}/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
       </head>
       <body>

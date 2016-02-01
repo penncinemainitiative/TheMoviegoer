@@ -8,8 +8,7 @@ var Button = require('react-bootstrap').Button;
 var EventModal = React.createClass({
   render: function () {
     return (
-      <div className="modal fade event-modal" tabIndex="-1" role="dialog"
-           aria-labelledby="myLargeModalLabel" align="center">
+      <div className="modal fade event-modal" tabIndex="-1" role="dialog" align="center">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
@@ -27,8 +26,8 @@ var EventModal = React.createClass({
                 <Input type="text" name="location" placeholder="Location"/>
                 <Input type="text" name="description"
                        placeholder="Description"/>
-                <Input type="time" name="time" placeholder="Time"/>
-                <Input type="date" name="date" placeholder="Date"/>
+                <Input type="time" name="time"/>
+                <Input type="date" name="date"/>
                 Photo: <Input type="file" id="photo" name="photo" accept=".jpg,.jpeg,.png"/>
                 <Button type="submit">Submit</Button>
               </form>

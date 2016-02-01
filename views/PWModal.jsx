@@ -5,8 +5,7 @@ var React = require('react');
 var EventModal = React.createClass({
   render: function () {
     return (
-      <div className="modal fade pw-change-modal" tabIndex="-1" role="dialog"
-           aria-labelledby="myLargeModalLabel" align="center">
+      <div className="modal fade pw-change-modal" tabIndex="-1" role="dialog" align="center">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">

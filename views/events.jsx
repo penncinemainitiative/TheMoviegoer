@@ -22,7 +22,7 @@ var Event = React.createClass({
               <Glyphicon glyph="edit"/> Edit event
             </Button>
           </div> : null}
-        <a target="_blank" href={event.fbLink}><img src={event.image}/></a>
+        <a target="_blank" href={event.fbLink}><img alt={event.title} src={event.image}/></a>
       </div>
     );
   }
@@ -45,7 +45,7 @@ var Events = React.createClass({
             return <Event {...event}/>;
           })}
         </div>
-        <EventModal/>
+        {isEditor === 2 ? <EventModal/> : null}
       </Layout>
     );
   }

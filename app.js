@@ -35,6 +35,14 @@ app.use(session({
   login: false
 }));
 
+app.get('/*', function(req, res, next) {
+  if (req.headers && req.headers.host.match(/^www/) !== null ) {
+    res.redirect('http://' + req.headers.host.replace(/^www\./, '') + req.url);
+  } else {
+    next();
+  }
+});
+
 app.use(function (req, res, next) {
   res.locals.login = req.session.login;
   res.locals.name = req.session.name;
@@ -53,7 +61,8 @@ app.use('/events', require('./routes/events'));
 app.use('/search', require('./routes/search'));
 
 app.get('*', function (req, res) {
-  res.redirect('/');
+  res.status(404);
+  res.render('404');
 });
 
 var server = app.listen(8080, function () {

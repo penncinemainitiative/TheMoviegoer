@@ -50,7 +50,7 @@ var BioImage = React.createClass({
       <Row>
         <div className="col-lg-4 col-sm-4 col-xs-12">
           <div className="profileImg">
-            <img src={this.props.image} id="profileImg"/>
+            <img alt="Profile image" src={this.props.image} id="profileImg"/>
             {this.props.inConsole ? (
               <form role="form" action="/writer/profile/picture" method="post"
                     id="photoForm" encType="multipart/form-data">
@@ -112,7 +112,7 @@ var Profile = React.createClass({
           </Row>
           <AuthorMovies {...this.props}/>
         </div>
-        <PWModal/>
+        {this.props.inConsole ? <PWModal/> : null}
       </Layout>
     );
   }
