@@ -211,6 +211,7 @@ def get_authors():
     authors.append(Author("jsheplock", "James Sheplock", default_image, ""))
     authors.append(Author("bfinkel", "Benjamin Finkel", default_image, ""))
     authors.append(Author("vkumar", "Vaishak Kumar", default_image, ""))
+    authors.append(Author("admin", "Admin", default_image, ""))
     return authors
 
 
@@ -266,6 +267,7 @@ def setup_authors():
             author.username, "", author.name, author.password, 0, author.image,
             author.bio, "bpettigrew"))
     cur.execute("UPDATE authors SET isEditor=2 WHERE username='bpettigrew'")
+    cur.execute("UPDATE authors SET isEditor=2 WHERE username='admin'")
     db.commit()
 
 

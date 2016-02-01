@@ -80,7 +80,7 @@ router.get('/', authenticate, function (req, res) {
     image: 'https://www.royalacademy.org.uk/' +
     'assets/placeholder-1e385d52942ef11d42405be4f7d0a30d.jpg'
   };
-  connection.query('SELECT username FROM authors WHERE isEditor=2', function (err, result) {
+  connection.query('SELECT username FROM authors WHERE isEditor=2 ORDER BY username DESC', function (err, result) {
     insertData.assignedEditor = result[0].username;
     var queryString = 'INSERT INTO articles SET ?';
     connection.query(queryString, insertData, function (err, result) {

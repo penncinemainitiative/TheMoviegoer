@@ -92,7 +92,8 @@ var Images = React.createClass({
     return (
       <SideBar name="Images" size="full">
         {this.props.imgList.map(function (image, i) {
-          var imgString = '![Picture ' + i + 1 + '](' + image.image + ')';
+          var picNumber = i + 1;
+          var imgString = '![Picture ' + picNumber + '](' + image.image + ')';
           return (
             <div className="newImageDiv">
               <img src={image.image} className="newImage"
