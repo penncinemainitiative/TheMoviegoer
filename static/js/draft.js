@@ -3,6 +3,7 @@ $(document).ready(function () {
   var path = window.location.pathname;
   var pathArr = path.split('/');
   var articleId = parseInt(pathArr[2]);
+  var initialValues;
 
   // Check correct type radio on load
   var typeRadioVal = $('#typeRadioVal').html();
@@ -11,6 +12,20 @@ $(document).ready(function () {
   } else if (typeRadioVal === 'newmovie') {
     $('#newmovieRadio').prop('checked', true);
   }
+
+  var getValues = function() {
+    var text = $('textarea').val();
+    var title = $('#titleInput').val();
+    var excerpt = $('#excerptInput').val();
+    var typeVal = $('input[name=typeInput]:checked').val();
+
+    return {
+      title: title,
+      type: typeVal,
+      text: text.replace(/(<([^>]+)>)/ig, ""),
+      excerpt: excerpt
+    };
+  };
 
   // Edit Button
   $('button#editBtn').click(function () {
@@ -60,18 +75,7 @@ $(document).ready(function () {
 
   var save = function (e, callback) {
     $('#issue').hide();
-    var text = $('textarea').val();
-    var title = $('#titleInput').val();
-    var excerpt = $('#excerptInput').val();
-    var typeVal = $('input[name=typeInput]:checked').val();
-
-    var postData = {
-      title: title,
-      type: typeVal,
-      text: text.replace(/(<([^>]+)>)/ig, ""),
-      excerpt: excerpt
-    };
-
+    var postData = getValues();
     $.post('/article/' + articleId, postData, function (data) {
       if (data.success) {
         showSave();
@@ -141,7 +145,9 @@ $(document).ready(function () {
   };
 
   var beforeunload = function (e) {
-    save(e);
+    if (JSON.stringify(initialValues) !== JSON.stringify(getValues())) {
+      save(e);
+    }
   };
 
   $('button#prevBtn').click(preview);
@@ -156,6 +162,7 @@ $(document).ready(function () {
 
   if (path.indexOf('draft') > -1) {
     window.addEventListener('beforeunload', beforeunload);
+    initialValues = getValues();
     $("textarea#textInput").pagedownBootstrap();
   }
 
@@ -163,7 +170,9 @@ $(document).ready(function () {
 
   authorSearch.select2({
     placeholder: 'Search authors',
-    escapeMarkup: function (m) {return m;},
+    escapeMarkup: function (m) {
+      return m;
+    },
     ajax: {
       cache: true,
       delay: 250,
@@ -171,16 +180,16 @@ $(document).ready(function () {
       url: '/search/authors',
       processResults: function (data) {
         return {
-          results: $.map(data, function(obj) {
-            return { id: obj.username, text: obj.name };
+          results: $.map(data, function (obj) {
+            return {id: obj.username, text: obj.name};
           })
         };
       }
     }
   });
 
-  authorSearch.on('select2:select', function() {
-    $.post('/article/' + articleId + '/author', {author : authorSearch.val()});
+  authorSearch.on('select2:select', function () {
+    $.post('/article/' + articleId + '/author', {author: authorSearch.val()});
   });
 
 });

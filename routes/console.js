@@ -73,7 +73,7 @@ router.post('/login', function (req, res) {
   var user = req.body.username;
   var password = req.body.password;
 
-  var query = 'SELECT username, password, name, isEditor FROM authors WHERE username=?';
+  var query = 'SELECT username, password, name, isEditor FROM authors WHERE BINARY username=?';
 
   connection.query(query, [user], function (err, rows) {
     if (err) {

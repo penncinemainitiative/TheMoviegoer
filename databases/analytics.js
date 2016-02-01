@@ -28,8 +28,8 @@ var getFromGoogle = function (callback) {
       'ids': apiKey.GA_PAGE_ID,
       'dimensions': 'ga:pageTitle,ga:pagePath',
       'metrics': 'ga:pageviews',
-      'start-date': '7daysAgo',
-      'end-date': 'yesterday',
+      'start-date': '14daysAgo',
+      'end-date': '7daysAgo',
       'sort': '-ga:pageviews',
       'max-results': 10,
       'filters': 'ga:pagePath=~/*[.]html$'
