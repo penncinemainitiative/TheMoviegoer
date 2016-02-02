@@ -22,7 +22,7 @@ $(document).ready(function () {
     return {
       title: title,
       type: typeVal,
-      text: text.replace(/(<([^>]+)>)/ig, ""),
+      text: text.replace(/<script.*?>.*?<\/script>/igm, ""),
       excerpt: excerpt
     };
   };

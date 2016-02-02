@@ -115,7 +115,7 @@ router.get('/:id', function (req, res) {
 
 router.post('/:id', authenticate, authorOrEditor, function (req, res) {
   var articleId = parseInt(req.params.id);
-  var text = req.body.text.replace(/(<([^>]+)>)/ig, "");
+  var text = req.body.text.replace(/<script.*?>.*?<\/script>/igm, "");
   var updateData = [req.body.title, req.body.type, text, req.body.excerpt, articleId];
   var queryString = 'UPDATE articles SET updateDate=NOW(), title=?, type=?, ' +
     'text=?, excerpt=? WHERE articleId=?';
