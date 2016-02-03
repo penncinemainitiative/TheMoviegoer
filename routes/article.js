@@ -342,7 +342,7 @@ router.post('/:id/publish', authenticate, requireHeadEditor, function (req, res)
     }, function (rows, fields, callback) {
       var today = new Date();
       var url = '/' + today.getFullYear() + '/' + today.getMonth() + 1 + '/'
-        + today.getDate() + '/' + getSlug(rows[0].title) + ".html";
+        + today.getDate() + '/' + getSlug(rows[0].title.replace(/(<([^>]+)>)/ig, "")) + ".html";
       var queryString = 'UPDATE articles SET pubDate=NOW(), url=' + connection.escape(url)
         + ', updateDate=NOW(), isPublished=2 WHERE articleId=' + articleId;
       connection.query(queryString, callback);
