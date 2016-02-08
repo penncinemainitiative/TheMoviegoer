@@ -240,9 +240,9 @@ router.get('/demote/:username', authenticate, function (req, res) {
     var queryString = 'UPDATE authors SET isEditor=isEditor-1 WHERE username=?';
     connection.query(queryString, [req.params.username], callback);
   }, function (callback) {
-    var queryString = 'SELECT username FROM authors WHERE isEditor=2';
+    var queryString = 'SELECT username FROM authors WHERE isEditor=2 ORDER BY username DESC';
     connection.query(queryString, function (err, rows) {
-      var queryString = 'UPDATE authors SET assignedEditor=? WHERE assignedEditor=?';
+      var queryString = 'UPDATE articles SET assignedEditor=? WHERE assignedEditor=?';
       connection.query(queryString, [rows[0].username, req.params.username], callback);
     });
   }], function (err) {

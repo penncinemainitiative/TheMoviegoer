@@ -49,7 +49,7 @@ app.use(function (req, res, next) {
   res.locals.username = req.session.username;
   res.locals.isEditor = req.session.isEditor;
   res.locals.inConsole = false;
-  console.log(req.method + ' ' + req.path + ' ' + new Date() + ' ' + req.session.username);
+  console.log(req.method + '\t' + new Date() + ' ' + req.session.username + ' ' + req.path);
   next();
 });
 

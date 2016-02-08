@@ -32,8 +32,9 @@ var ArticleTable = React.createClass({
           }
           var authorEmail = "mailto:" + article.authorEmail;
           var editorEmail = "mailto:" + article.editorEmail;
+          var title = {__html: article.title};
           return <tr data-articleid={article.articleId}>
-            <td><a href={article.url}>{article.title}</a></td>
+            <td><a href={article.url} dangerouslySetInnerHTML={title}></a></td>
             <td>{article.updateDate}</td>
             <td>
               {isHeadEditor ?
