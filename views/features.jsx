@@ -24,7 +24,8 @@ var FeatureText = React.createClass({
       <div className={this.props.textClasses}>
         <h3><a href={this.props.url} dangerouslySetInnerHTML={title}></a></h3>
         <h4>
-          <small>{this.props.pubDate}</small> <a href={authorUrl}>{this.props.authorname}</a>
+          <small>{this.props.pubDate}</small>
+          <a href={authorUrl}>{this.props.authorname}</a>
         </h4>
         <p>{this.props.excerpt}</p>
       </div>

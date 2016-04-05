@@ -22,7 +22,7 @@ var TopStory = React.createClass({
             <a href={this.props.url}>
               <img src={this.props.image} className={this.props.classes} alt="Article image" style={{width: '100%'}}/>
             </a>
-            <div className="col-sm-offset-1 col-sm-10 spacebelow">
+            <div className="topStoryTitle spacebelow">
               <h3><a href={this.props.url}
                      className="black" dangerouslySetInnerHTML={title}></a>
               </h3>

@@ -13,11 +13,14 @@ var Article = React.createClass({
         <a href={movie.url}><img
           alt="Popular article"
           src={movie.image}/></a>
-        <a href={movie.url} className="black" dangerouslySetInnerHTML={title}/>
-        <h4>
-          <small>{movie.pubDate} <a href={authorUrl}>{movie.authorname}</a>
-          </small>
-        </h4>
+        <div className="popularTitle">
+          <a href={movie.url} className="black"
+             dangerouslySetInnerHTML={title}/>
+          <h4>
+            <small>{movie.pubDate} <a href={authorUrl}>{movie.authorname}</a>
+            </small>
+          </h4>
+        </div>
       </div>
     );
   }
@@ -33,7 +36,7 @@ var Popular = React.createClass({
           if (movie && Object.keys(movie).length !== 0) {
             return <Article {...movie}/>;
           }
-        }): null}
+        }) : null}
       </SideBar>
     );
   }
