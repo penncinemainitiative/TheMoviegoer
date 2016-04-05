@@ -40,7 +40,6 @@ var Features = React.createClass({
       <Layout {...this.props}>
         <div className="container">
           <div className="title">Features</div>
-          <Pagination {...this.props}/>
           {this.props.features.map(function (feature, i) {
             if (i % 2 === 0) {
               feature.imageClasses = imageClasses + ' col-lg-push-4';
@@ -58,6 +57,7 @@ var Features = React.createClass({
               </div>
             );
           })}
+          <Pagination {...this.props}/>
         </div>
       </Layout>
     );
