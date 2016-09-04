@@ -11,7 +11,7 @@ var Movies = React.createClass({
     return (
       <Layout {...this.props}>
         <div id="movie-content" className="container">
-          <div className="title white"></div>
+          <div className="title white">Movies</div>
           <Pagination {...this.props}/>
           <div id="movies" className="container">
             <div className="row">
