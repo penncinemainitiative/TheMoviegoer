@@ -9,7 +9,6 @@ $( document ).ready(function() {
   } else if (path === '/events') {
     $(headerItems[2]).addClass('active');
   } else if (path.indexOf('draft') !== -1 || path === '/about') {
-    console.log(path);
     $(headerItems[3]).addClass('active');
   }
 

@@ -8,7 +8,7 @@ var View = React.createClass({
   render: function () {
     var authorUrl = '/writer/' + this.props.author.replace(/\s+/g, '');
     var draftUrl = '/article/' + this.props.articleId + '/draft';
-    var text = {__html: marked(this.props.text)};
+    var text = {__html: marked(this.props.text.replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"))};
     var title = {__html: this.props.title};
     return (
       <div id="previewView">

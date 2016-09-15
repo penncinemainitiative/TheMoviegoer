@@ -5,6 +5,11 @@ $(document).ready(function () {
   var articleId = parseInt(pathArr[2]);
   var initialValues;
 
+  var textareas = document.getElementsByTagName('textarea');
+  if (window.tabOverride !== undefined) {
+    tabOverride.set(textareas);
+  }
+
   // Check correct type radio on load
   var typeRadioVal = $('#typeRadioVal').html();
   if (typeRadioVal === 'oldmovie') {
@@ -127,7 +132,7 @@ $(document).ready(function () {
       $('#editBtn').show();
       $('#saveBtn').hide();
 
-      $('.posttxt').empty().html(marked(text));
+      $('.posttxt').empty().html(marked(text.replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")));
       $('.post-title').empty().append(title);
     });
   };
