@@ -61,7 +61,7 @@ var Layout = React.createClass({
         </div>
       </div>
       <Footer {...this.props}/>
-      {!this.props.inConsole ? <script type="text/javascript" src="/js/ga.js"></script> : null }
+      {!this.props.inConsole && process.env.NODE_ENV === 'PRODUCTION' ? <script type="text/javascript" src="/js/ga.js"></script> : null }
       {this.props.inConsole ? <script type="text/javascript" src="/js/taboverride.min.js"></script> : null }
       <script type="text/javascript" src="/js/page.js"></script>
       </body>
