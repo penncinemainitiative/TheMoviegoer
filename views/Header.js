@@ -1,30 +1,28 @@
-'use strict';
+import React, { Component } from 'react';
+import Row from 'react-bootstrap/lib/Row';
 
-var React = require('react');
-var Row = require('react-bootstrap').Row;
-
-var HeaderItem = React.createClass({
-  render: function () {
+class HeaderItem extends Component {
+  render() {
     return (
       <div className='headerItem col-lg-1 col-md-1 col-sm-1 col-xs-2'>
         <h5><a href={this.props.url}>{this.props.name}</a></h5>
       </div>
     );
   }
-});
+}
 
-var SearchBar = React.createClass({
-  render: function () {
+class SearchBar extends Component {
+  render() {
     return (
       <div className='searchBar col-lg-3 col-md-3 col-sm-3 col-xs-8 col-lg-offset-0 col-md-offset-0 col-sm-offset-0'>
         <select id="search" className="form-control"/>
       </div>
     );
   }
-});
+}
 
-var Header = React.createClass({
-  render: function () {
+export default class Header extends Component {
+  render() {
     var items;
     if (this.props.inConsole) {
       items = [
@@ -56,6 +54,4 @@ var Header = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = Header;
+}

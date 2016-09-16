@@ -27,7 +27,7 @@ gulp.task('js', function() {
 });
 
 gulp.task('jsx', function() {
-  gulp.src('views/*.jsx')
+  gulp.src('views/*')
     .pipe(babel({
       presets: ['es2015', 'react']
     }))
@@ -44,7 +44,7 @@ gulp.task('static', function() {
 gulp.task('watch', function() {
   gulp.watch('static/less/*.less', ['less']);
   gulp.watch('static/js/*.js', ['js']);
-  gulp.watch('views/*.jsx', ['jsx']);
+  gulp.watch('views/*', ['jsx']);
 });
 
 gulp.task('default', function(callback) {

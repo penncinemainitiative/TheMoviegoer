@@ -1,16 +1,14 @@
-'use strict';
+import React, { Component } from 'react';
+import Layout from './Layout';
+import TopStory from './TopStory';
+import PWModal from './PWModal';
+import Row from 'react-bootstrap/lib/Row';
+import Input from 'react-bootstrap/lib/Input';
+import Button from 'react-bootstrap/lib/Button';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
-var React = require('react');
-var Layout = require('./Layout');
-var TopStory = require('./TopStory');
-var PWModal = require('./PWModal');
-var Row = require('react-bootstrap').Row;
-var Input = require('react-bootstrap').Input;
-var Button = require('react-bootstrap').Button;
-var Glyphicon = require('react-bootstrap').Glyphicon;
-
-var EditButtons = React.createClass({
-  render: function () {
+class EditButtons extends Component {
+  render() {
     return (
       <div>
         <Button type="submit" id="editBtn"><Glyphicon glyph="edit"/>
@@ -24,10 +22,10 @@ var EditButtons = React.createClass({
       </div>
     );
   }
-});
+}
 
-var Alert = React.createClass({
-  render: function () {
+class Alert extends Component {
+  render() {
     return (
       <div>
         <div className="alert alert-success alert-dismissible"
@@ -42,10 +40,10 @@ var Alert = React.createClass({
       </div>
     );
   }
-});
+}
 
-var BioImage = React.createClass({
-  render: function () {
+class BioImage extends Component {
+  render() {
     return (
       <Row>
         <div className="col-lg-4 col-sm-4 col-xs-12">
@@ -77,10 +75,10 @@ var BioImage = React.createClass({
       </Row>
     );
   }
-});
+}
 
-var AuthorMovies = React.createClass({
-  render: function () {
+class AuthorMovies extends Component {
+  render() {
     var rows = [];
     var articles = this.props.moviesList.map(function (article) {
       article['size'] = 'third';
@@ -91,10 +89,10 @@ var AuthorMovies = React.createClass({
     }
     return (<div>{rows}</div>);
   }
-});
+}
 
-var Profile = React.createClass({
-  render: function () {
+export default class Profile extends Component {
+  render() {
     return (
       <Layout {...this.props}>
         <div id="profile" className="container">
@@ -116,6 +114,4 @@ var Profile = React.createClass({
       </Layout>
     );
   }
-});
-
-module.exports = Profile;
+}

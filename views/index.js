@@ -1,13 +1,11 @@
-'use strict';
+import React, { Component } from 'react';
+import Layout from './Layout';
+import IndexReviews from './IndexReviews';
+import dateFormat from 'dateformat';
+import Row from 'react-bootstrap/lib/Row';
 
-var React = require('react');
-var Layout = require('./Layout');
-var IndexReviews = require('./IndexReviews');
-var dateFormat = require('dateformat');
-var Row = require('react-bootstrap').Row;
-
-var Index = React.createClass({
-  render: function () {
+export default class Index extends Component {
+  render() {
     var nextScreening = this.props.upcomingEvents[0];
     var hours = nextScreening.time.split(':')[0];
     var mins = nextScreening.time.split(':')[1];
@@ -47,6 +45,4 @@ var Index = React.createClass({
       </Layout>
     );
   }
-});
-
-module.exports = Index;
+}

@@ -1,9 +1,7 @@
-'use strict';
+import React, { Component } from 'react';
 
-var React = require('react');
-
-var SideBar = React.createClass({
-  render: function () {
+export default class SideBar extends Component {
+  render() {
     var classes;
     if (this.props.size === 'full') {
       classes = 'col-lg-12 col-md-12 col-sm-12 col-xs-12';
@@ -23,6 +21,4 @@ var SideBar = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = SideBar;
+}

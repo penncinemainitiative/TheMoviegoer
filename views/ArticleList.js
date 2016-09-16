@@ -1,10 +1,8 @@
-'use strict';
+import React, { Component } from 'react';
+import Table from 'react-bootstrap/lib/Table';
 
-var React = require('react');
-var Table = require('react-bootstrap').Table;
-
-var ArticleTable = React.createClass({
-  render: function () {
+class ArticleTable extends Component {
+  render() {
     var isHeadEditor = this.props.isEditor === 2;
     var currentAuthor = this.props.username;
     return (
@@ -67,10 +65,10 @@ var ArticleTable = React.createClass({
       </Table>
     );
   }
-});
+}
 
-var ArticleList = React.createClass({
-  render: function () {
+export default class ArticleList extends Component {
+  render() {
     return (
       <div>
         <h3>Articles in Progress</h3>
@@ -78,6 +76,4 @@ var ArticleList = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = ArticleList;
+}

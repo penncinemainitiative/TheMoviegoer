@@ -1,11 +1,9 @@
-'use strict';
+import React, { Component } from 'react';
+import Layout from './Layout';
+import Row from 'react-bootstrap/lib/Row';
 
-var React = require('react');
-var Layout = require('./Layout');
-var Row = require('react-bootstrap').Row;
-
-var About = React.createClass({
-  render: function () {
+export default class About extends Component {
+  render() {
     return (
       <Layout {...this.props}>
         <div id="about" className="container">
@@ -35,7 +33,7 @@ var About = React.createClass({
                 Club President Nikhil Venkatesa (vnikhil at sas dot upenn).</p>
 
               <p>Penn Cinema Initiative is generously sponsored by the <a target="_blank" href="http://cinemastudies.sas.upenn.edu/">
-                  University of Pennsylvania Cinema Studies Department</a> and <a target="_blank" href="http://harrison.house.upenn.edu/">
+                University of Pennsylvania Cinema Studies Department</a> and <a target="_blank" href="http://harrison.house.upenn.edu/">
                 Harrison College House</a>.</p>
             </div>
             <img src="https://scontent-cdg2-1.xx.fbcdn.net/hphotos-xfa1/t31.0-8/s960x960/1890590_1536326326620309_6231478269899912810_o.jpg"/>
@@ -44,6 +42,4 @@ var About = React.createClass({
       </Layout>
     );
   }
-});
-
-module.exports = About;
+}

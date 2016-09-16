@@ -1,18 +1,16 @@
-'use strict';
+import React, { Component } from 'react';
+import Row from 'react-bootstrap/lib/Row';
 
-var React = require('react');
-var Row = require('react-bootstrap').Row;
-
-var FooterItem = React.createClass({
-  render: function () {
+class FooterItem extends Component {
+  render() {
     return (
       <a className="footerItem" href={this.props.url}>{this.props.text}</a>
     );
   }
-});
+}
 
-var Footer = React.createClass({
-  render: function () {
+export default class Footer extends Component {
+  render() {
     return (
       <div id="footer">
         <div className="container">
@@ -51,6 +49,4 @@ var Footer = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = Footer;
+}

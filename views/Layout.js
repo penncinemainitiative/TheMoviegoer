@@ -1,11 +1,9 @@
-'use strict';
+import React, { Component } from 'react';
+import Header from './Header';
+import Footer from './Footer';
 
-var React = require('react');
-var Header = require('./Header');
-var Footer = require('./Footer');
-
-var Layout = React.createClass({
-  render: function () {
+export default class Layout extends Component {
+  render() {
     var cleanTitle = this.props.title ? this.props.title.replace(/(<([^>]+)>)/ig, "") : "Penn Moviegoer";
     var excerpt = "The Moviegoer is a student-run blog dedicated to film appreciation - " +
       "posting film analyses, reviews, previews, and all things related. " +
@@ -68,6 +66,4 @@ var Layout = React.createClass({
       </html>
     );
   }
-});
-
-module.exports = Layout;
+}

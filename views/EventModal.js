@@ -1,12 +1,10 @@
-'use strict';
+import React, { Component } from 'react';
+import Input from 'react-bootstrap/lib/Input';
+import Alert from 'react-bootstrap/lib/Alert';
+import Button from 'react-bootstrap/lib/Button';
 
-var React = require('react');
-var Input = require('react-bootstrap').Input;
-var Alert = require('react-bootstrap').Alert;
-var Button = require('react-bootstrap').Button;
-
-var EventModal = React.createClass({
-  render: function () {
+export default class EventModal extends Component {
+  render() {
     return (
       <div className="modal fade event-modal" tabIndex="-1" role="dialog" align="center">
         <div className="modal-dialog">
@@ -38,6 +36,4 @@ var EventModal = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = EventModal;
+}

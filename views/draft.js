@@ -1,17 +1,15 @@
-'use strict';
+import React, { Component } from 'react';
+import Layout from './Layout';
+import View from './View';
+import Input from 'react-bootstrap/lib/Input';
+import Row from 'react-bootstrap/lib/Row';
+import Button from 'react-bootstrap/lib/Button';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
+import SideBar from './SideBar';
+import dateFormat from 'dateformat';
 
-var React = require('react');
-var Layout = require('./Layout');
-var View = require('./View');
-var Input = require('react-bootstrap').Input;
-var Row = require('react-bootstrap').Row;
-var Button = require('react-bootstrap').Button;
-var Glyphicon = require('react-bootstrap').Glyphicon;
-var SideBar = require('./SideBar');
-var dateFormat = require('dateformat');
-
-var ActionButtons = React.createClass({
-  render: function () {
+class ActionButtons extends Component {
+  render() {
     var showSubmit = this.props.isEditor !== 2 && this.props.isPublished === -1;
     var showFinalReview = this.props.isEditor === 1 && this.props.isPublished === 0;
     var showPublish = this.props.isEditor === 2 && this.props.isPublished !== 2;
@@ -29,10 +27,10 @@ var ActionButtons = React.createClass({
       </div>
     );
   }
-});
+}
 
-var PhotoForm = React.createClass({
-  render: function () {
+class PhotoForm extends Component {
+  render() {
     var uploadUrl = '/article/' + this.props.articleId + '/photos';
     var onError = "window.location='/article/" + this.props.articleId + "'";
     return (
@@ -43,10 +41,10 @@ var PhotoForm = React.createClass({
                accept=".jpg,.jpeg,.png"/>
       </form>);
   }
-});
+}
 
-var DraftForm = React.createClass({
-  render: function () {
+class DraftForm extends Component {
+  render() {
     var uploadUrl = '/article/' + this.props.articleId + '/draft';
     var onError = "window.location='/article/" + this.props.articleId + "'";
     return (
@@ -56,10 +54,10 @@ var DraftForm = React.createClass({
         <input type="file" id="draftInput" name="photo" accept=".doc,.docx"/>
       </form>);
   }
-});
+}
 
-var Drafts = React.createClass({
-  render: function () {
+class Drafts extends Component {
+  render() {
     return (
       <SideBar name="Drafts" size="full">
         {this.props.drafts ? this.props.drafts.map(function (draft) {
@@ -73,10 +71,10 @@ var Drafts = React.createClass({
       </SideBar>
     )
   }
-});
+}
 
-var Uploads = React.createClass({
-  render: function () {
+class Uploads extends Component {
+  render() {
     return (
       <SideBar>
         <Images {...this.props}/>
@@ -84,10 +82,10 @@ var Uploads = React.createClass({
       </SideBar>
     )
   }
-});
+}
 
-var Images = React.createClass({
-  render: function () {
+class Images extends Component {
+  render() {
     var cover = this.props.image;
     return (
       <SideBar name="Images" size="full">
@@ -120,10 +118,10 @@ var Images = React.createClass({
         <PhotoForm {...this.props}/>
       </SideBar>);
   }
-});
+}
 
-var Article = React.createClass({
-  render: function () {
+export default class Article extends Component {
+  render() {
     return (
       <Layout {...this.props}>
         <div id="draft" className="container">
@@ -177,6 +175,4 @@ var Article = React.createClass({
       </Layout>
     );
   }
-});
-
-module.exports = Article;
+}

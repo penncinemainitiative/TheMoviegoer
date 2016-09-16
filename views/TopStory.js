@@ -1,10 +1,8 @@
-'use strict';
+import React, { Component } from 'react';
+import SideBar from './SideBar';
 
-var React = require('react');
-var SideBar = require('./SideBar');
-
-var TopStory = React.createClass({
-  render: function () {
+export default class TopStory extends Component {
+  render() {
     var classes;
     if (this.props.size === 'half') {
       classes = 'col-sm-6';
@@ -35,6 +33,4 @@ var TopStory = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = TopStory;
+}

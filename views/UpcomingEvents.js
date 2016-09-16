@@ -1,11 +1,9 @@
-'use strict';
+import React, { Component } from 'react';
+import SideBar from './SideBar';
+import dateFormat from 'dateformat';
 
-var React = require('react');
-var SideBar = require('./SideBar');
-var dateFormat = require('dateformat');
-
-var Event = React.createClass({
-  render: function () {
+class Event extends Component {
+  render() {
     var movie = this.props;
     var title = {__html: movie.title};
     var hours = movie.time.split(':')[0];
@@ -22,10 +20,10 @@ var Event = React.createClass({
       </div>
     );
   }
-});
+}
 
-var Popular = React.createClass({
-  render: function () {
+export default class UpcomingEvents extends Component {
+  render() {
     var events = this.props.events.slice(0,3);
     return (
       <SideBar name="Upcoming Events">
@@ -35,6 +33,4 @@ var Popular = React.createClass({
       </SideBar>
     );
   }
-});
-
-module.exports = Popular;
+}

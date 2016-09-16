@@ -1,11 +1,9 @@
-'use strict';
+import React, { Component } from 'react';
+import marked from 'marked';
+import Popular from './Popular';
 
-var React = require('react');
-var marked = require('marked');
-var Popular = require('./Popular');
-
-var View = React.createClass({
-  render: function () {
+export default class View extends Component {
+  render() {
     var authorUrl = '/writer/' + this.props.author.replace(/\s+/g, '');
     var draftUrl = '/article/' + this.props.articleId + '/draft';
     var text = {__html: marked(this.props.text.replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"))};
@@ -36,6 +34,4 @@ var View = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = View;
+}

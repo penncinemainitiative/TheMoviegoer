@@ -1,13 +1,11 @@
-'use strict';
+import React, { Component } from 'react';
+import Layout from './Layout';
+import EventModal from './EventModal';
+import Button from 'react-bootstrap/lib/Button';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
-var React = require('react');
-var Layout = require('./Layout');
-var EventModal = require('./EventModal');
-var Button = require('react-bootstrap').Button;
-var Glyphicon = require('react-bootstrap').Glyphicon;
-
-var Event = React.createClass({
-  render: function () {
+class Event extends Component {
+  render() {
     var event = this.props;
     return (
       <div className="row">
@@ -26,10 +24,10 @@ var Event = React.createClass({
       </div>
     );
   }
-});
+}
 
-var Events = React.createClass({
-  render: function () {
+export default class Events extends Component {
+  render() {
     var isEditor = this.props.isEditor;
     return (
       <Layout {...this.props}>
@@ -49,6 +47,4 @@ var Events = React.createClass({
       </Layout>
     );
   }
-});
-
-module.exports = Events;
+}

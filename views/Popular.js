@@ -1,10 +1,8 @@
-'use strict';
+import React, { Component } from 'react';
+import SideBar from './SideBar';
 
-var React = require('react');
-var SideBar = require('./SideBar');
-
-var Article = React.createClass({
-  render: function () {
+class Article extends Component {
+  render() {
     var movie = this.props;
     var authorUrl = '/writer/' + movie.authorname.replace(/\s+/g, '');
     var title = {__html: movie.title};
@@ -24,10 +22,10 @@ var Article = React.createClass({
       </div>
     );
   }
-});
+}
 
-var Popular = React.createClass({
-  render: function () {
+export default class Popular extends Component {
+  render() {
     var numPop = this.props.numPopular;
     var popularMovies = this.props.popularMovies.slice(0, numPop);
     return (
@@ -40,6 +38,4 @@ var Popular = React.createClass({
       </SideBar>
     );
   }
-});
-
-module.exports = Popular;
+}

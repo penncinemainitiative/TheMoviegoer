@@ -1,13 +1,11 @@
-'use strict';
+import React, { Component } from 'react';
+import Layout from './Layout';
+import SideBar from './SideBar';
+import TopStory from './TopStory';
+import Pagination from './Pagination';
 
-var React = require('react');
-var Layout = require('./Layout');
-var SideBar = require('./SideBar');
-var TopStory = require('./TopStory');
-var Pagination = require('./Pagination');
-
-var Movies = React.createClass({
-  render: function () {
+export default class Movies extends Component {
+  render() {
     return (
       <Layout {...this.props}>
         <div id="movie-content" className="container">
@@ -31,6 +29,4 @@ var Movies = React.createClass({
       </Layout>
     );
   }
-});
-
-module.exports = Movies;
+}

@@ -1,11 +1,9 @@
-'use strict';
+import React, { Component } from 'react';
+import Layout from './Layout';
+import Pagination from './Pagination';
 
-var React = require('react');
-var Layout = require('./Layout');
-var Pagination = require('./Pagination');
-
-var FeatureImage = React.createClass({
-  render: function () {
+class FeatureImage extends Component {
+  render() {
     return (
       <div className={this.props.imageClasses}>
         <a href={this.props.url}><img className="largeImg"
@@ -14,10 +12,10 @@ var FeatureImage = React.createClass({
       </div>
     );
   }
-});
+}
 
-var FeatureText = React.createClass({
-  render: function () {
+class FeatureText extends Component {
+  render() {
     var title = {__html: this.props.title};
     var authorUrl = '/writer/' + this.props.authorname.replace(/\s+/g, '');
     return (
@@ -31,10 +29,10 @@ var FeatureText = React.createClass({
       </div>
     );
   }
-});
+}
 
-var Features = React.createClass({
-  render: function () {
+export default class Features extends Component {
+  render() {
     var imageClasses = 'col-lg-8 col-md-8 col-sm-8 col-xs-12';
     var textClasses = 'col-lg-4 col-md-4 col-sm-4 col-xs-12';
     return (
@@ -63,6 +61,4 @@ var Features = React.createClass({
       </Layout>
     );
   }
-});
-
-module.exports = Features;
+}

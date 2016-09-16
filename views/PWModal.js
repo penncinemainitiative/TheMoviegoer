@@ -1,9 +1,7 @@
-'use strict';
+import React, { Component } from 'react';
 
-var React = require('react');
-
-var EventModal = React.createClass({
-  render: function () {
+export default class EventModal extends Component {
+  render() {
     return (
       <div className="modal fade pw-change-modal" tabIndex="-1" role="dialog" align="center">
         <div className="modal-dialog">
@@ -39,6 +37,4 @@ var EventModal = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = EventModal;
+}

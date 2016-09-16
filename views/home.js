@@ -1,12 +1,10 @@
-'use strict';
+import React, { Component } from 'react';
+import Layout from './Layout';
+import ArticleList from './ArticleList';
+import AuthorList from './AuthorList';
 
-var React = require('react');
-var Layout = require('./Layout');
-var ArticleList = require('./ArticleList');
-var AuthorList = require('./AuthorList');
-
-var Home = React.createClass({
-  render: function () {
+export default class Home extends Component {
+  render() {
     return (
       <Layout {...this.props}>
         <div id="home" className="container">
@@ -18,6 +16,4 @@ var Home = React.createClass({
       </Layout>
     );
   }
-});
-
-module.exports = Home;
+}

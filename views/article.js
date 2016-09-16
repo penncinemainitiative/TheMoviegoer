@@ -1,11 +1,9 @@
-'use strict';
+import React, { Component } from 'react';
+import Layout from './Layout';
+import View from './View';
 
-var React = require('react');
-var Layout = require('./Layout');
-var View = require('./View');
-
-var Article = React.createClass({
-  render: function () {
+export default class Article extends Component {
+  render() {
     return (
       <Layout {...this.props}>
         <div className="container article">
@@ -17,6 +15,4 @@ var Article = React.createClass({
       </Layout>
     );
   }
-});
-
-module.exports = Article;
+}

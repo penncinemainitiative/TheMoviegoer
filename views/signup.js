@@ -1,13 +1,11 @@
-'use strict';
+import React, { Component } from 'react';
+import Layout from './Layout';
+import Input from 'react-bootstrap/lib/Input';
+import Button from 'react-bootstrap/lib/Button';
+import Alert from 'react-bootstrap/lib/Alert';
 
-var React = require('react');
-var Layout = require('./Layout');
-var Input = require('react-bootstrap').Input;
-var Button = require('react-bootstrap').Button;
-var Alert = require('react-bootstrap').Alert;
-
-var Signup = React.createClass({
-  render: function () {
+export default class Signup extends Component {
+  render() {
     return (
       <Layout {...this.props}>
         <div id="console" className="container">
@@ -26,6 +24,4 @@ var Signup = React.createClass({
       </Layout>
     );
   }
-});
-
-module.exports = Signup;
+}

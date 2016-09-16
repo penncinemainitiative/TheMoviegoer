@@ -1,21 +1,19 @@
-'use strict';
+import React, { Component } from 'react';
+import Button from 'react-bootstrap/lib/Button';
+import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
 
-var React = require('react');
-var Button = require('react-bootstrap').Button;
-var ButtonGroup = require('react-bootstrap').ButtonGroup;
-
-var PageNumber = React.createClass({
-  render: function () {
+class PageNumber extends Component {
+  render() {
     var url = this.props.baseUrl + this.props.page;
     var selected = this.props.selected;
     return (
       <Button href={url} active={selected}>{this.props.page}</Button>
     );
   }
-});
+}
 
-var Pagination = React.createClass({
-  render: function () {
+export default class Pagination extends Component {
+  render() {
     var pageNumbers = [];
     for (var i = 1; i <= this.props.totalPages; i++) {
       pageNumbers.push({
@@ -36,6 +34,4 @@ var Pagination = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = Pagination;
+}

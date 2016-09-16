@@ -1,10 +1,8 @@
-'use strict';
+import React, { Component } from 'react';
+import Table from 'react-bootstrap/lib/Table';
 
-var React = require('react');
-var Table = require('react-bootstrap').Table;
-
-var ArticleTable = React.createClass({
-  render: function () {
+class ArticleTable extends Component {
+  render() {
     return (
       <Table responsive striped bordered condensed hover>
         <thead>
@@ -43,10 +41,10 @@ var ArticleTable = React.createClass({
       </Table>
     );
   }
-});
+}
 
-var AuthorList = React.createClass({
-  render: function () {
+export default class AuthorList extends Component {
+  render() {
     return (
       <div>
         <h3>Authors</h3>
@@ -54,6 +52,4 @@ var AuthorList = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = AuthorList;
+}

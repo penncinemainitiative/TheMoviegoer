@@ -1,13 +1,11 @@
-'use strict';
+import React, { Component } from 'react';
+import SideBar from './SideBar';
+import Popular from './Popular';
+import TopStory from './TopStory';
+import UpcomingEvents from './UpcomingEvents';
 
-var React = require('react');
-var SideBar = require('./SideBar');
-var Popular = require('./Popular');
-var TopStory = require('./TopStory');
-var UpcomingEvents = require('./UpcomingEvents');
-
-var IndexReviews = React.createClass({
-  render: function () {
+export default class IndexReviews extends Component {
+  render() {
     this.props.movies[0]['classes'] = 'largeImg';
     this.props.features[0]['classes'] = 'largeImg';
     this.props.features[1]['size'] = 'half';
@@ -46,6 +44,4 @@ var IndexReviews = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = IndexReviews;
+}
