@@ -13,7 +13,7 @@ export default class Index extends Component {
     var date = dateFormat(nextScreening.date, "dddd, mmmm dS, yyyy • h:MM TT");
     return (
       <Layout {...this.props}>
-        <div className="title">The Moviegoer</div>
+        <div className="title"></div>
         <IndexReviews {...this.props}/>
         <div id="screening-banner">
           <div id="pcisub"><h2 className="fancy"><span>Next Screening</span>
