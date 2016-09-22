@@ -50,9 +50,9 @@ def reset_databases():
                                       `name` varchar(255) NOT NULL,
                                       `password` varchar(255) NOT NULL,
                                       `isEditor` int(11) NOT NULL,
-                                      `assignedEditor` VARCHAR(255) NOT NULL,
-                                      `image` VARCHAR(255) NOT NULL,
-                                      `bio` text NOT NULL,
+                                      `assignedEditor` VARCHAR(255) NOT NULL DEFAULT "",
+                                      `image` VARCHAR(255) NULL,
+                                      `bio` text NULL,
                                       PRIMARY KEY (`username`))""")
     execute(
             """CREATE TABLE `events` (`eventId` int(11) NOT NULL AUTO_INCREMENT,
@@ -75,9 +75,9 @@ def reset_databases():
                                       `author` VARCHAR(255) NOT NULL,
                                       `image` VARCHAR(255),
                                       `assignedEditor` VARCHAR(255) NOT NULL,
-                                      `excerpt` text NOT NULL,
-                                      `text` text NOT NULL,
-                                      `url` VARCHAR(255) NOT NULL,
+                                      `excerpt` text NULL,
+                                      `text` text NULL,
+                                      `url` VARCHAR(255) NOT NULL DEFAULT "",
                                       PRIMARY KEY (`articleId`))""")
     execute(
             """CREATE TABLE `images` (`image` VARCHAR(255) NOT NULL,
