@@ -1,6 +1,11 @@
 from os import listdir
 import MySQLdb, json, os, codecs
 
+if os.environ['NODE_ENV'] != 'DEV':
+    print "!!! Only run this in a dev environment, never production !!!"
+    print "!!! To make this a dev environment, set the NODE_ENV environment variable to DEV !!!"
+    exit()
+
 with open('json/mysqldb.json') as data_file:
     data = json.load(data_file)
 
