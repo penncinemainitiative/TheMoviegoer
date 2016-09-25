@@ -32,9 +32,8 @@ export default class About extends Component {
                 presenting a film or working with the club in general, please contact
                 Club President Nikhil Venkatesa (vnikhil at sas dot upenn).</p>
 
-              <p>Penn Cinema Initiative is generously sponsored by the <a target="_blank" href="http://cinemastudies.sas.upenn.edu/">
-                University of Pennsylvania Cinema Studies Department</a> and <a target="_blank" href="http://harrison.house.upenn.edu/">
-                Harrison College House</a>.</p>
+              <p><i>The Moviegoer</i> is generously sponsored by the <a target="_blank" href="http://www.writing.upenn.edu/~wh/">
+                Kelly Writers House</a>.</p>
             </div>
             <img src="https://scontent-cdg2-1.xx.fbcdn.net/hphotos-xfa1/t31.0-8/s960x960/1890590_1536326326620309_6231478269899912810_o.jpg"/>
           </Row>
