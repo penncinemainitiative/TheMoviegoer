@@ -10,7 +10,6 @@ export default class Movies extends Component {
       <Layout {...this.props}>
         <div id="movie-content" className="container">
           <div className="title white">Movies</div>
-          <Pagination {...this.props}/>
           <div id="movies" className="container">
             <div className="row">
               <SideBar name="New Releases" size="half">
@@ -25,6 +24,7 @@ export default class Movies extends Component {
               </SideBar>
             </div>
           </div>
+          <Pagination {...this.props}/>
         </div>
       </Layout>
     );

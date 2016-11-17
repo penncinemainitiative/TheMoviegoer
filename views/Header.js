@@ -34,7 +34,6 @@ export default class Header extends Component {
       items = [
         {name: 'Features', url: '/features'},
         {name: 'Movies', url: '/movies'},
-        {name: 'Events', url: '/events'},
         {name: 'About', url: '/about'}
       ];
     }

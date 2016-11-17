@@ -19,15 +19,12 @@ export default class Footer extends Component {
               <p>The Moviegoer is a student-run blog dedicated to film
                 appreciation - posting film analyses, reviews, previews, and all
                 things related.
-                We seek to build a film community on-campus and online through
-                collaboration as well as other PCI-sponsored initiatives. If you
+                If you
                 would like to work with us, please find out more under the <a
-                  href="/about">about</a> tab. Penn Cinema Initiative is
+                  href="/about">about</a> tab. The Moviegoer is
                 generously sponsored by the <a target="_blank"
-                                    href="http://cinemastudies.sas.upenn.edu/">
-                  University of Pennsylvania Cinema Studies Department</a> and <a
-                  target="_blank" href="http://harrison.house.upenn.edu/">
-                  Harrison College House</a>.</p>
+                                    href="http://www.writing.upenn.edu/wh/">
+                  The Kelly Writers House</a> at the University of Pennsylvania.</p>
             </div>
           </Row>
           <a

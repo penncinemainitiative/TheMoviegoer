@@ -32,7 +32,11 @@ export default class IndexReviews extends Component {
             <span>Reviews</span></h2></div>
           <div className="container">
             <div className="row">
-              <UpcomingEvents events={this.props.upcomingEvents}/>
+              <SideBar name="Recent">
+                <TopStory {...this.props.features[3]}/>
+                <TopStory {...this.props.features[4]}/>
+                <TopStory {...this.props.features[5]}/>
+              </SideBar>
               <div className="col-lg-9 col-md-8 col-sm-8 col-xs-12">
                 <TopStory {...this.props.movies[0]}/>
                 <TopStory {...this.props.movies[1]}/>
