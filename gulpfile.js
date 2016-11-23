@@ -1,52 +1,43 @@
 var gulp = require('gulp');
-var less = require('gulp-less');
-var watch = require('gulp-watch');
-var concat = require('gulp-concat');
-var cssnano = require('gulp-cssnano');
-var uglify = require('gulp-uglify');
-var runSequence = require('run-sequence');
 var babel = require('gulp-babel');
+var webpack = require('webpack-stream');
+var path = require('path');
 
-gulp.task('less', function() {
-  gulp.src(['static/less/general.less', 'static/less/*.css'])
-    .pipe(less())
-    .pipe(cssnano({
-      zindex: false
+var paths = {
+  src: 'src/**/*.js',
+  client: 'src/client/**/*.js',
+  server: 'src/server/**/*.js'
+};
+
+gulp.task('client', function() {
+  return gulp.src('./src/client/client.js')
+    .pipe(webpack({
+      entry: './src/client/client.js',
+      output: {
+        path: path.join(__dirname, 'public/assets'),
+        filename: 'bundle.js'
+      },
+      devtool: 'inline-source-map',
+      module: {
+        loaders: [{
+          test: /\.jsx?$/,
+          include: path.join(__dirname, 'src'),
+          loader: 'babel'
+        }]
+      }
     }))
-    .pipe(concat('style.min.css'))
-    .pipe(gulp.dest('public/css'));
+    .pipe(gulp.dest('public'));
 });
 
-gulp.task('js', function() {
-  gulp.src(['static/js/*.js'])
-    .pipe(concat('page.js'))
-    .pipe(uglify())
-    .pipe(gulp.dest('public/js'));
-  gulp.src(['static/js/raw/*.js'])
-    .pipe(gulp.dest('public/js'));
-});
-
-gulp.task('jsx', function() {
-  gulp.src('views/*')
-    .pipe(babel({
-      presets: ['es2015', 'react']
-    }))
-    .pipe(gulp.dest('public/views'));
-});
-
-gulp.task('static', function() {
-  gulp.src('static/fonts/*')
-    .pipe(gulp.dest('public/fonts'));
-  gulp.src('static/images/*')
-    .pipe(gulp.dest('public/images'));
+gulp.task('server', function() {
+  return gulp.src(paths.src)
+    .pipe(babel())
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('watch', function() {
-  gulp.watch('static/less/*.less', ['less']);
-  gulp.watch('static/js/*.js', ['js']);
-  gulp.watch('views/*', ['jsx']);
+  gulp.watch(paths.server, ['server']);
+  gulp.watch(paths.client, ['client']);
 });
 
-gulp.task('default', function(callback) {
-  runSequence('static', 'less', 'js', 'jsx', callback);
-});
+gulp.task('default', ['client', 'server', 'watch']);
