@@ -36,8 +36,7 @@ gulp.task('server', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(paths.server, ['server']);
-  gulp.watch(paths.client, ['client']);
+  gulp.watch(paths.src, ['client', 'server']);
 });
 
 gulp.task('default', ['client', 'server', 'watch']);
