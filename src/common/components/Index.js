@@ -1,10 +1,11 @@
 import React from 'react'
-import { resolve } from 'react-resolver'
+import { asyncConnect } from 'redux-connect'
 import { getRecentArticles } from '../api/index'
 
-@resolve('articles', function(props) {
-  return getRecentArticles();
-})
+@asyncConnect([{
+  key: 'articles',
+  promise: ({ params, helpers }) => getRecentArticles()
+}])
 export default class Index extends React.Component {
   constructor(props) {
     super(props);

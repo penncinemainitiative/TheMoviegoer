@@ -1,10 +1,12 @@
 import express from 'express'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
-import { match, RouterContext } from 'react-router'
-import routes from '../common/routes'
+import { match, RoutingContext } from 'react-router'
+import { Provider } from 'react-redux'
+import { createStore, combineReducers } from 'redux'
 import indexRoutes from './routes/index'
-import { Resolver } from 'react-resolver'
+import getRoutes from '../common/routes'
+import { ReduxAsyncConnect, loadOnServer, reducer as reduxAsyncConnect } from 'redux-connect'
 
 const app = express();
 
@@ -14,32 +16,35 @@ app.set('view engine', 'ejs');
 app.use('/article', indexRoutes);
 
 app.use((req, res, next) => {
-  match({ routes, location: req.url },
+  const store = createStore(combineReducers({ reduxAsyncConnect }));
+
+  match({ routes: getRoutes(), location: req.url },
           (error, redirectLocation, renderProps) => {
-    Resolver
-      .resolve(() => <RouterContext {...renderProps} />)
-      .then(({ Resolved, data }) => {
-        res.send(`
+    loadOnServer({ ...renderProps, store }).then(() => {
+      const appHTML = renderToString(
+        <Provider store={store} key="provider">
+          <ReduxAsyncConnect {...renderProps} />
+        </Provider>
+      );
+      res.send(`
           <!DOCTYPE html>
           <html>
             <body>
-              <div id="mount">${renderToString(<Resolved />)}</div>
-      
-              <script>window.__REACT_RESOLVER_PAYLOAD__ = ${JSON.stringify(data)}</script>
+              <div id="mount">${appHTML}</div>
+              <script>window.__data = ${JSON.stringify(store.getState())}</script>
               <script src="/public/bundle.js" async defer></script>
             </body>
           </html>
         `)
-      })
-      .catch((error) => {
-        console.log(error);
-        if (error.response) {
-          res.status(error.response.status).send(error.response.statusText);
-        } else {
-          res.status(500).send('Internal server error');
-        }
-      })
-    ;
+    })
+    .catch((error) => {
+      console.log(error);
+      if (error.response) {
+        res.status(error.response.status).send(error.response.statusText);
+      } else {
+        res.status(500).send('Internal server error');
+      }
+    });
   })
 });
 

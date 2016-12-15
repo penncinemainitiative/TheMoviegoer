@@ -1,5 +1,5 @@
 import React from 'react'
-import { Router, Route, IndexRoute, Link, browserHistory } from 'react-router'
+import { Route, IndexRoute, Link } from 'react-router'
 import Index from './components/Index'
 
 class App extends React.Component {
@@ -44,13 +44,13 @@ const requireAuth = function(nextState, replace) {
   }
 };
 
-module.exports = (
-  <Router history={browserHistory}>
+export default () => {
+  return (
     <Route path="/" component={App}>
       <IndexRoute component={Index} />
       <Route path="about" component={About} />
       <Route path="inbox" component={Inbox} />
       <Route path="console" component={Console} onEnter={requireAuth} />
     </Route>
-  </Router>
-);
+  );
+}
