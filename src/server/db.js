@@ -1,25 +1,15 @@
-import fs from 'fs'
-import Sequelize from 'sequelize'
-import articles from './models/articles'
-import authors from './models/authors'
-import drafts from './models/drafts'
-import images from './models/images'
+import fs from "fs"
+import mysql from "mysql"
+import Connection from "mysql/lib/Connection"
+import Pool from "mysql/lib/Pool"
+import Promise from "bluebird"
 
-const mysqlConfig = JSON.parse(fs.readFileSync('json/mysqldb.json', 'utf8'));
+Promise.promisifyAll([
+  Connection,
+  Pool
+]);
 
-const sequelize = new Sequelize(mysqlConfig.database, mysqlConfig.user, mysqlConfig.password, {
-  host: mysqlConfig.host,
-  dialect: 'mysql',
-  pool: {
-    max: 10,
-    min: 0,
-    idle: 10000
-  }
-});
+const config = JSON.parse(fs.readFileSync('json/mysqldb.json', 'utf8'));
+const db = mysql.createPool(config);
 
-const Article = articles(sequelize, Sequelize.DataTypes);
-const Author = authors(sequelize, Sequelize.DataTypes);
-const Draft = drafts(sequelize, Sequelize.DataTypes);
-const Image = images(sequelize, Sequelize.DataTypes);
-
-export { Article, Author, Draft, Image };
+export {db};

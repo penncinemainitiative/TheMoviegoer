@@ -1,10 +1,10 @@
-import React from 'react'
-import { asyncConnect } from 'redux-connect'
-import { getRecentArticles } from '../api/index'
+import React from "react"
+import {asyncConnect} from "redux-connect"
+import {getRecentArticles} from "../api/index"
 
 @asyncConnect([{
   key: 'articles',
-  promise: ({ params, helpers }) => getRecentArticles()
+  promise: ({params, helpers}) => getRecentArticles()
 }])
 export default class Index extends React.Component {
   constructor(props) {
@@ -12,7 +12,7 @@ export default class Index extends React.Component {
   }
 
   render() {
-    const { articles } = this.props;
+    const {articles} = this.props;
     return (<div>Index: {JSON.stringify(articles)}</div>)
   }
 }
