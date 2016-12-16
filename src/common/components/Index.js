@@ -1,6 +1,7 @@
 import React from "react"
 import {asyncConnect} from "redux-connect"
 import {getRecentArticles} from "../api/index"
+import Helmet from "react-helmet"
 
 @asyncConnect([{
   key: 'articles',
@@ -13,6 +14,11 @@ export default class Index extends React.Component {
 
   render() {
     const {articles} = this.props;
-    return (<div>Index: {JSON.stringify(articles)}</div>)
+    return (
+      <div>
+        <Helmet title="The Moviegoer"/>
+        Index: {JSON.stringify(articles)}
+      </div>
+    )
   }
 }

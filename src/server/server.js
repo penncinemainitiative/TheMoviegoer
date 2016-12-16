@@ -6,6 +6,7 @@ import {Provider} from "react-redux"
 import {createStore, combineReducers} from "redux"
 import getRoutes from "../common/routes"
 import apiRoutes from "./api"
+import Helmet from "react-helmet"
 import {
   ReduxAsyncConnect,
   loadOnServer,
@@ -30,9 +31,19 @@ app.use((req, res, next) => {
             <ReduxAsyncConnect {...renderProps} />
           </Provider>
         );
+        const head = Helmet.rewind();
         res.send(`
           <!DOCTYPE html>
-          <html>
+          <html ${head.htmlAttributes.toString()}>
+            <head>
+                ${head.title.toString()}
+                ${head.meta.toString()}
+                ${head.link.toString()}
+            <link rel="stylesheet"
+                  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+            <link rel="stylesheet"
+                  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"/>
+            </head>
             <body>
               <div id="mount">${appHTML}</div>
               <script>window.__data = ${JSON.stringify(store.getState())}</script>

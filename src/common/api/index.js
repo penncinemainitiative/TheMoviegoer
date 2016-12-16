@@ -13,8 +13,5 @@ export const getRecentArticles = () => {
 export const getArticle = (year, month, day, slug) => {
   return http
     .get(`/api/${year}/${month}/${day}/${slug}`)
-    .then(({data}) => {
-      console.log(data);
-      return data
-    });
+    .then(({data}) => data);
 };
