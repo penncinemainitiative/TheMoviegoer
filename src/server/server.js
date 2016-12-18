@@ -7,6 +7,10 @@ import {createStore, combineReducers} from "redux"
 import getRoutes from "../common/routes"
 import apiRoutes from "./api"
 import Helmet from "react-helmet"
+import bodyParser from 'body-parser'
+import helmet from 'helmet'
+import compression from 'compression'
+import cookieParser from 'cookie-parser'
 import {
   ReduxAsyncConnect,
   loadOnServer,
@@ -14,6 +18,12 @@ import {
 } from "redux-connect"
 
 const app = express();
+
+app.use(compression());
+app.use(helmet());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.use(cookieParser());
 
 app.use('/public', express.static('public'));
 app.set('view engine', 'ejs');
