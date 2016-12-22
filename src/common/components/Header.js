@@ -15,29 +15,36 @@ class HeaderItem extends React.Component {
 export default class Header extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {mounted: false};
-  }
-
-  componentDidMount() {
-    this.setState({mounted: true});
+    this.state = {active: 0};
   }
 
   render() {
+    const style = {
+      backgroundColor: '#2b292b',
+      color: '#c29d52',
+      minHeight: '4em',
+      width: '100%'
+    };
+    const logoStyle = {
+      height: '42px',
+      marginTop: '15px',
+      marginBottom: '12px'
+    };
     const items = [
-      {name: 'The Moviegoer', url: '/'},
       {name: 'Login', url: '/login'},
       {name: 'Console', url: '/console'},
       {name: 'Writers', url: '/writers'},
       {name: 'About', url: '/about'}
     ];
     return (
-      <div id="header">
-        <Row>
-          {items.map(function (item) {
-            return <HeaderItem {...item} key={item.name}/>;
-          })}
-        </Row>
-      </div>
+      <Row style={style}>
+        <Link to="/" className="col-lg-1 col-md-2 col-sm-2 col-xs-3 col-lg-offset-2 col-md-offset-1 col-sm-offset-1">
+          <img src="/public/images/logo.png" style={logoStyle}
+                          alt="The Moviegoer"/></Link>
+        {items.map(function (item) {
+          return <HeaderItem {...item} key={item.name}/>;
+        })}
+      </Row>
     );
   }
 }
