@@ -1,21 +1,19 @@
 import express from "express"
 import React from "react"
 import {renderToString} from "react-dom/server"
-import {match, RoutingContext} from "react-router"
+import match from "react-router/lib/match"
 import {Provider} from "react-redux"
-import {createStore, combineReducers} from "redux"
+import {ReduxAsyncConnect, loadOnServer} from "redux-connect"
+import Helmet from "react-helmet"
+import bodyParser from "body-parser"
+import helmet from "helmet"
+import compression from "compression"
+import cookieParser from "cookie-parser"
 import getRoutes from "../common/routes"
 import apiRoutes from "./api"
-import Helmet from "react-helmet"
-import bodyParser from 'body-parser'
-import helmet from 'helmet'
-import compression from 'compression'
-import cookieParser from 'cookie-parser'
-import {
-  ReduxAsyncConnect,
-  loadOnServer,
-  reducer as reduxAsyncConnect
-} from "redux-connect"
+import {createStore} from "../common/createStore"
+import {loginWithToken} from "../common/actions/auth"
+import path from "path"
 
 const app = express();
 
@@ -26,55 +24,47 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use('/public', express.static('public'));
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use('/api', apiRoutes);
 
-app.use((req, res, next) => {
-  const store = createStore(combineReducers({reduxAsyncConnect}));
-
-  match({routes: getRoutes(), location: req.url},
+app.use((req, res) => {
+  const store = createStore();
+  store.dispatch(loginWithToken(req.cookies.authToken));
+  const routes = getRoutes(store);
+  match({routes, location: req.url},
     (error, redirectLocation, renderProps) => {
-      loadOnServer({...renderProps, store}).then(() => {
-        const appHTML = renderToString(
-          <Provider store={store} key="provider">
-            <ReduxAsyncConnect {...renderProps} />
-          </Provider>
-        );
-        const head = Helmet.rewind();
-        res.send(`
-          <!DOCTYPE html>
-          <html ${head.htmlAttributes.toString()}>
-            <head>
-                ${head.title.toString()}
-                ${head.meta.toString()}
-                ${head.link.toString()}
-            <link rel="stylesheet"
-                  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
-            <link rel="stylesheet"
-                  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"/>
-            </head>
-            <body>
-              <div id="mount">${appHTML}</div>
-              <script>window.__data = ${JSON.stringify(store.getState())}</script>
-              <script src="/public/bundle.js" async defer></script>
-            </body>
-          </html>
-        `)
-      })
-        .catch((error) => {
-          console.log(error);
-          if (error.response) {
-            res.status(error.response.status).send(error.response.statusText);
-          } else {
-            res.status(500).send('Internal server error');
-          }
-        });
-    })
-});
-
-app.get('*', (req, res) => {
-  res.status(404).send("Not found");
+      if (error) {
+        res.status(500).send(error.message)
+      } else if (redirectLocation) {
+        res.redirect(302, redirectLocation.pathname + redirectLocation.search)
+      } else if (renderProps) {
+        loadOnServer({...renderProps, store}).then(() => {
+          const appHTML = renderToString(
+            <Provider store={store} key="provider">
+              <ReduxAsyncConnect {...renderProps} />
+            </Provider>
+          );
+          const head = Helmet.rewind();
+          res.render('base', {
+            appHTML,
+            head,
+            state: JSON.stringify(store.getState())
+          })
+        })
+          .catch((error) => {
+            console.log(error);
+            if (error.response) {
+              res.status(error.response.status).send(error.response.statusText);
+            } else {
+              res.status(500).send('Internal server error');
+            }
+          });
+      } else {
+        res.status(404).send("Not found");
+      }
+    });
 });
 
 app.listen(8000);

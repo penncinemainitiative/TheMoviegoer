@@ -6,6 +6,18 @@ import jwt from "jsonwebtoken"
 
 const router = express.Router();
 
+const requireLogin = (req, res, next) => {
+  const token = req.headers.authorization;
+  if (!token) {
+    return res.redirect('/login');
+  }
+  jwt.verify(token, 'secret', (err, author) => {
+    if (err) return res.redirect('/login');
+    res.locals.author = author;
+    next();
+  });
+};
+
 router.get('/recent', (req, res) => {
   db.queryAsync(`
     SELECT author, name, url, articleId, isPublished, pubDate, title, articles.image
@@ -14,7 +26,7 @@ router.get('/recent', (req, res) => {
     ORDER BY pubDate DESC, articleId DESC
     LIMIT 10
   `).then((rows) => {
-    res.send(rows.map((item) => {
+    res.json(rows.map((item) => {
       item.pubDate = dateFormat(item.pubDate, "mmmm d, yyyy");
       return item;
     }));
@@ -36,7 +48,7 @@ router.get('/:year/:month/:day/:slug', (req, res) => {
     }
     article.pubDate = dateFormat(article.pubDate, "mmmm d, yyyy");
     article.url = 'http://pennmoviegoer.com' + article.url;
-    res.send(article);
+    res.json(article);
   });
 });
 
@@ -49,11 +61,11 @@ router.post('/login', (req, res) => {
     WHERE username = ?`, [user]
   ).then((rows) => {
     if (rows.length === 0) {
-      return res.send({success: false, msg: 'Username not found!'});
+      return res.json({success: false, msg: 'Username not found!'});
     }
     const author = rows[0];
     if (author.isEditor === -1) {
-      return res.send({
+      return res.json({
         success: false,
         msg: 'Your account has not been approved yet!'
       });
@@ -64,15 +76,31 @@ router.post('/login', (req, res) => {
           username: user,
           name: author.name,
           isEditor: author.isEditor
-        }, 'secret', { expiresIn: '7 days' }, (err, token) => {
-          res.cookie("authToken", token, { expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7)});
-          return res.send({success: true, msg: 'Welcome!'});
+        }, 'secret', {expiresIn: '7 days'}, (err, token) => {
+          res.cookie("authToken", token, {expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7)});
+          return res.json({success: true, token});
         });
       } else {
-        res.send({success: false, msg: 'Incorrect password!'});
+        res.json({success: false, msg: 'Incorrect password!'});
       }
     });
   });
+});
+
+router.post('/logout', (req, res) => {
+  res.clearCookie("authToken");
+  res.json({success: true});
+});
+
+router.get('/writers', (req, res) => {
+  db.queryAsync(`
+    SELECT name, image
+    FROM authors
+  `).then((rows) => res.json(rows));
+});
+
+router.get('/protected', requireLogin, (req, res) => {
+  res.json(res.locals.author);
 });
 
 export default router;

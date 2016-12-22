@@ -4,7 +4,7 @@ import {db} from "../db"
 const router = express.Router();
 
 router.get('/', function (req, res) {
-  const search = ['%' + req.query.q + '%'];
+  const search = ['%' + req.query.query + '%'];
   db.queryAsync(`
     SELECT url, title
     FROM articles
@@ -17,13 +17,13 @@ router.get('/', function (req, res) {
       FROM authors
       WHERE name LIKE ?
     `, search).then((authors) => {
-      res.send(articles.concat(authors));
+      res.send({options: articles.concat(authors)});
     })
   });
 });
 
 router.get('/authors', function (req, res) {
-  const search = ['%' + req.query.q + '%'];
+  const search = ['%' + req.query.query + '%'];
   db.queryAsync(`
     SELECT username, name
     FROM authors
@@ -35,7 +35,7 @@ router.get('/authors', function (req, res) {
 });
 
 router.get('/editors', function (req, res) {
-  const search = ['%' + req.query.q + '%'];
+  const search = ['%' + req.query.query + '%'];
   db.queryAsync(`
     SELECT username, name
     FROM authors

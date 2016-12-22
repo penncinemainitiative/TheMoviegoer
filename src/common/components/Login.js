@@ -1,42 +1,49 @@
 import React from "react"
 import Helmet from "react-helmet"
 import {Button} from "react-bootstrap"
-import {Link} from "react-router"
-import {http} from "../api/index"
+import Link from "react-router/lib/Link"
+import browserHistory from "react-router/lib/browserHistory"
+import cookie from "react-cookie"
+import {connect} from "react-redux"
+import {login} from "../api/index"
+import {loginWithToken, logout} from "../actions/auth"
 
+@connect()
 export default class Login extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updatePassword = this.updatePassword.bind(this);
     this.updateUsername = this.updateUsername.bind(this);
-    this.state = {username: '', password: ''};
+    this.logout = this.logout.bind(this);
+    this.state = {username: '', password: '', message: ''};
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    http
-      .post('/api/login', {
-        username: this.state.username,
-        password: this.state.password
-      })
+    login(this.state.username, this.state.password)
       .then(({data}) => {
-        console.log(data);
+        if (data.success) {
+          this.props.dispatch(loginWithToken(data.token));
+          browserHistory.push('/console');
+        } else {
+          this.setState(Object.assign({}, this.state, {message: data.msg}));
+        }
       })
   }
 
   updatePassword(e) {
-    this.setState({
-      username: this.state.username,
-      password: e.target.value
-    });
+    this.setState(Object.assign({}, this.state, {password: e.target.value}));
   }
 
   updateUsername(e) {
-    this.setState({
-      username: e.target.value,
-      password: this.state.password
-    });
+    this.setState(Object.assign({}, this.state, {username: e.target.value}));
+  }
+
+  logout() {
+    cookie.remove('authToken', {path: '/'});
+    this.props.dispatch(logout());
+    browserHistory.push('/');
   }
 
   render() {
@@ -51,6 +58,8 @@ export default class Login extends React.Component {
           <Button type="submit">Login</Button>
           <Link to="/console/signup">Become an author!</Link>
         </form>
+        <div>{this.state.message}</div>
+        <Button onClick={this.logout}>Logout</Button>
       </div>
     );
   }

@@ -1,18 +1,19 @@
 import {render} from "react-dom"
-import {ReduxAsyncConnect, reducer as reduxAsyncConnect} from "redux-connect"
-import {createStore, combineReducers} from "redux"
+import {ReduxAsyncConnect} from "redux-connect"
 import React from "react"
-import {Router, browserHistory} from "react-router"
+import Router from "react-router/lib/Router"
+import browserHistory from "react-router/lib/browserHistory"
 import getRoutes from "../common/routes"
 import {Provider} from "react-redux"
+import {createStore} from "../common/createStore"
 
-const store = createStore(combineReducers({reduxAsyncConnect}), window.__data);
+const store = createStore(window.__data);
 
 render((
   <Provider store={store} key="provider">
     <Router render={(props) => <ReduxAsyncConnect {...props}/>}
             history={browserHistory}>
-      {getRoutes()}
+      {getRoutes(store)}
     </Router>
   </Provider>
 ), document.getElementById('mount'));

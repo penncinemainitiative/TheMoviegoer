@@ -1,11 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>The Moviegoer</title>
-  </head>
-  <body>
-    <div id="mount"><%- reactHtml %></div>
-    <script src="/public/bundle.js"></script>
-  </body>
+<html <%- head.htmlAttributes.toString() %>>
+<head>
+  <%- head.title.toString() %>
+  <%- head.meta.toString() %>
+  <%- head.link.toString() %>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"/>
+  <link rel="stylesheet"
+        href="https://unpkg.com/react-select/dist/react-select.css">
+  <link rel="stylesheet" type="text/css" href="/public/css/style.css"/>
+</head>
+<body>
+<div id="mount"><%- appHTML %></div>
+<script>window.__data = <%- state %></script>
+<script src="/public/bundle.js" async defer></script>
+</body>
 </html>
