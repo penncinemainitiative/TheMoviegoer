@@ -87,11 +87,6 @@ router.post('/login', (req, res) => {
   });
 });
 
-router.post('/logout', (req, res) => {
-  res.clearCookie("authToken");
-  res.json({success: true});
-});
-
 router.get('/writers', (req, res) => {
   db.queryAsync(`
     SELECT name, image

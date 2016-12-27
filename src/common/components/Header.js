@@ -38,9 +38,10 @@ export default class Header extends React.Component {
     ];
     return (
       <Row style={style}>
-        <Link to="/" className="col-lg-1 col-md-2 col-sm-2 col-xs-3 col-lg-offset-2 col-md-offset-1 col-sm-offset-1">
+        <Link to="/"
+              className="col-lg-1 col-md-2 col-sm-2 col-xs-3 col-lg-offset-2 col-md-offset-1 col-sm-offset-1">
           <img src="/public/images/logo.png" style={logoStyle}
-                          alt="The Moviegoer"/></Link>
+               alt="The Moviegoer"/></Link>
         {items.map(function (item) {
           return <HeaderItem {...item} key={item.name}/>;
         })}
