@@ -9,6 +9,7 @@ import Login from "./components/Login"
 import Console from "./components/Console"
 import PageNotFound from "./components/PageNotFound"
 import Writers from "./components/Writers"
+import Writer from "./components/Writer"
 
 class App extends React.Component {
   render() {
@@ -41,6 +42,7 @@ export default (store) => {
       <Route path="login" component={Login}/>
       <Route path="console" component={Console} onEnter={authenticate(store)}/>
       <Route path=":year/:month/:day/:slug" component={Article}/>
+      <Route path="writer/:writer" component={Writer}/>
       <Route path="*" component={PageNotFound}/>
     </Route>
   );

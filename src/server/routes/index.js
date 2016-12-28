@@ -3,20 +3,9 @@ import {db} from "../db"
 import dateFormat from "dateformat"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
+import {requireLogin} from "../utils"
 
 const router = express.Router();
-
-const requireLogin = (req, res, next) => {
-  const token = req.headers.authorization;
-  if (!token) {
-    return res.redirect('/login');
-  }
-  jwt.verify(token, 'secret', (err, author) => {
-    if (err) return res.redirect('/login');
-    res.locals.author = author;
-    next();
-  });
-};
 
 router.get('/recent', (req, res) => {
   db.queryAsync(`

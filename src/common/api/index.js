@@ -1,12 +1,4 @@
-import {http} from "./http"
-
-const authHeader = (store) => {
-  return {
-    headers: {
-      'Authorization': store.getState().authToken
-    }
-  }
-};
+import {http, authHeader} from "./utils"
 
 export const login = (username, password) => {
   return http

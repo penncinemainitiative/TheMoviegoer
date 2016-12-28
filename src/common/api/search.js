@@ -1,4 +1,4 @@
-import {http} from "./http"
+import {http} from "./utils"
 
 export const getSearchResults = (query) => {
   return http
