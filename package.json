@@ -4,6 +4,7 @@
   "description": "Web application for The Moviegoer blog",
   "main": "app.js",
   "scripts": {
+    "db-sync": "ssh moviegoer ./backup.sh; scp moviegoer:~/backup.sql .; mysql -uroot -p < backup.sql; rm backup.sql",
     "client": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --hot --colors",
     "build-client-prod": "NODE_ENV=production ./node_modules/webpack/bin/webpack.js -p",
     "server": "./node_modules/gulp/bin/gulp.js",
