@@ -9,7 +9,7 @@ import {login} from "../api/index"
 import {loginWithToken, logout} from "../actions/auth"
 
 @connect()
-export default class Login extends React.Component {
+export default class Signup extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -56,7 +56,7 @@ export default class Login extends React.Component {
           <input onChange={this.updatePassword} value={this.state.password}
                  type="password" placeholder="Password"/>
           <Button type="submit">Login</Button>
-          <Link to="/signup">Become an author!</Link>
+          <Link to="/console/signup">Become an author!</Link>
         </form>
         <div>{this.state.message}</div>
         <Button onClick={this.logout}>Logout</Button>

@@ -1,23 +1,58 @@
 import React from "react"
 import {asyncConnect} from "redux-connect"
-import {protectedContent} from "../api/index"
+import {connect} from "react-redux"
+import {getAllUnpublishedArticles} from "../api/console"
+import {getMyUnpublishedArticles} from "../api/author"
 import Helmet from "react-helmet"
+import jwt_decode from "jwt-decode"
+import Link from "react-router/lib/Link"
 
 @asyncConnect([{
-  key: 'welcome',
-  promise: ({store, params, helpers}) => protectedContent(store)
+  key: 'allUnpublished',
+  promise: ({store, params, helpers}) => getAllUnpublishedArticles(store)
+}, {
+  key: 'myUnpublished',
+  promise: ({store, params, helpers}) => getMyUnpublishedArticles(store)
 }])
+@connect(state => {
+  return {user: state.authToken};
+})
 export default class Console extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    const {welcome} = this.props;
+    const {allUnpublished, myUnpublished, user} = this.props;
+    const author = jwt_decode(user);
     return (
       <div>
         <Helmet title="Console"/>
-        {JSON.stringify(welcome)}
+        <h4>Welcome, {author.name}!</h4>
+        <h5>Your unpublished articles</h5>
+        <ul>
+          {myUnpublished.map((article) => {
+            const innerHTML = {__html: article.title};
+            const draftUrl = '/draft/' + article.articleId;
+            return <li key={article.articleId}>
+              <Link to={draftUrl}><span
+                dangerouslySetInnerHTML={innerHTML}/></Link>
+              by {article.name}, last updated {article.updateDate}
+            </li>
+          })}
+        </ul>
+        <h5>All unpublished articles</h5>
+        <ul>
+          {allUnpublished.map((article) => {
+            const innerHTML = {__html: article.title};
+            const draftUrl = '/draft/' + article.articleId;
+            return <li key={article.articleId}>
+              <Link to={draftUrl}><span
+                dangerouslySetInnerHTML={innerHTML}/></Link>
+              by {article.name}, last updated {article.updateDate}
+            </li>
+          })}
+        </ul>
       </div>
     )
   }

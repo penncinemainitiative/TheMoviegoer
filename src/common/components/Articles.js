@@ -2,13 +2,12 @@ import React from "react"
 import {asyncConnect} from "redux-connect"
 import Helmet from "react-helmet"
 import {getRecentArticles} from "../api/index"
-import Link from "react-router/lib/Link"
 
 @asyncConnect([{
   key: 'articles',
   promise: ({params, helpers}) => getRecentArticles()
 }])
-export default class Index extends React.Component {
+export default class Articles extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -17,12 +16,13 @@ export default class Index extends React.Component {
     const {articles} = this.props;
     return (
       <div>
-        <Helmet title="The Moviegoer"/>
+        <Helmet title="Articles"/>
         {articles.map((article) => {
           const innerHTML = {__html: article.title};
-          return <h4 key={article.title}>
-            <Link to={article.url} dangerouslySetInnerHTML={innerHTML}></Link>
-          </h4>
+          return <div key={article.articleId}>
+            <h4 dangerouslySetInnerHTML={innerHTML}></h4>
+            <p>{article.excerpt}</p>
+          </div>
         })}
       </div>
     )

@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get('/recent', (req, res) => {
   db.queryAsync(`
-    SELECT author, name, url, articleId, isPublished, pubDate, title, articles.image
+    SELECT author, name, url, excerpt, articleId, isPublished, pubDate, title, articles.image
     FROM articles INNER JOIN authors ON username = author
     WHERE isPublished = 2
     ORDER BY pubDate DESC, articleId DESC
@@ -19,25 +19,6 @@ router.get('/recent', (req, res) => {
       item.pubDate = dateFormat(item.pubDate, "mmmm d, yyyy");
       return item;
     }));
-  });
-});
-
-router.get('/:year/:month/:day/:slug', (req, res) => {
-  db.queryAsync(`
-    SELECT url, name, articleId, text, articles.image, isPublished, pubDate, title
-    FROM articles INNER JOIN authors ON authors.username = articles.author
-    WHERE url = ?`, [req.url]
-  ).then((rows) => {
-    if (rows.length === 0) {
-      return res.redirect('/');
-    }
-    const article = rows[0];
-    if (article.isPublished === 0 || article.isPublished === 1) {
-      return res.redirect('/article/' + req.params.id + '/draft');
-    }
-    article.pubDate = dateFormat(article.pubDate, "mmmm d, yyyy");
-    article.url = 'http://pennmoviegoer.com' + article.url;
-    res.json(article);
   });
 });
 
@@ -65,7 +46,7 @@ router.post('/login', (req, res) => {
           username: user,
           name: author.name,
           isEditor: author.isEditor
-        }, 'secret', {expiresIn: '7 days'}, (err, token) => {
+        }, process.env.SECRET ? process.env.SECRET : 'secret', {expiresIn: '7 days'}, (err, token) => {
           res.cookie("authToken", token, {expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7)});
           return res.json({success: true, token});
         });
@@ -78,7 +59,7 @@ router.post('/login', (req, res) => {
 
 router.get('/writers', (req, res) => {
   db.queryAsync(`
-    SELECT name, image
+    SELECT name, image, username
     FROM authors
   `).then((rows) => res.json(rows));
 });

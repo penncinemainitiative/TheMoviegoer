@@ -18,9 +18,9 @@ export default class Writers extends React.Component {
     return (
       <div>
         <Helmet title="Writers"/>
-        {writers.map(function (writer) {
+        {writers.map((writer) => {
           const authorURL = "/writer/" + writer.name.replace(" ", "");
-          return <h4 key={writer.name}>
+          return <h4 key={writer.username}>
             <Link to={authorURL}>{writer.name}</Link>
           </h4>
         })}
