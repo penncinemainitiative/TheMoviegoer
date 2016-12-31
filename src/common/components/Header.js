@@ -1,6 +1,7 @@
 import React from "react"
 import Row from "react-bootstrap/lib/Row"
 import Link from "react-router/lib/Link"
+import browserHistory from "react-router/lib/browserHistory"
 
 class HeaderItem extends React.Component {
   render() {
@@ -15,7 +16,35 @@ class HeaderItem extends React.Component {
 export default class Header extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {active: 0};
+  }
+
+  componentDidMount() {
+    const search = $('#search');
+    search.select2({
+      placeholder: 'Search articles',
+      escapeMarkup: function (m) {return m;},
+      ajax: {
+        cache: true,
+        delay: 250,
+        type: 'GET',
+        url: '/api/search',
+        processResults: function (data) {
+          return {
+            results: $.map(data, function(obj) {
+              if ('title' in obj) {
+                return { id: obj.url, text: obj.title };
+              } else {
+                const url = '/writer/' + obj.name.replace(/\s+/g, '');
+                return { id: url, text: '<b>Author</b>: ' + obj.name };
+              }
+            })
+          };
+        }
+      }
+    });
+    search.on('select2:select', function(e) {
+      browserHistory.push(e.target.value);
+    });
   }
 
   render() {
@@ -46,6 +75,9 @@ export default class Header extends React.Component {
         {items.map((item) => {
           return <HeaderItem {...item} key={item.name}/>;
         })}
+        <div className='searchBar col-lg-3 col-md-3 col-sm-3 col-xs-8 col-lg-offset-0 col-md-offset-0 col-sm-offset-0'>
+          <select id="search" className="form-control"/>
+        </div>
       </Row>
     );
   }
