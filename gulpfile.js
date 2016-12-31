@@ -4,6 +4,7 @@ const path = require('path');
 const sass = require('gulp-sass');
 const concat = require('gulp-concat');
 const cleanCSS = require('gulp-clean-css');
+const neat = require('node-neat').includePaths;
 
 var spawn = require('child_process').spawn, node;
 
@@ -70,7 +71,7 @@ gulp.task('fonts', function () {
 gulp.task('sass', function () {
   return gulp.src(paths.sass)
     .pipe(sass({
-      includePaths: require('node-bourbon').includePaths
+      includePaths: ['styles'].concat(neat)
     }))
     .pipe(cleanCSS())
     .pipe(concat('style.min.css'))
