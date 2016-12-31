@@ -50,6 +50,7 @@ app.use((req, res) => {
           res.render('base', {
             appHTML,
             head,
+            env: process.env.NODE_ENV,
             state: JSON.stringify(store.getState())
           })
         })

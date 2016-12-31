@@ -1,12 +1,26 @@
-var gulp = require('gulp');
-var babel = require('gulp-babel');
-var webpack = require('webpack-stream');
-var path = require('path');
+const gulp = require('gulp');
+const babel = require('gulp-babel');
+const path = require('path');
 
-var paths = {
+var spawn = require('child_process').spawn, node;
+
+function runServer() {
+  if (node) node.kill();
+  node = spawn('node', ['dist/server/server.js'], {stdio: 'inherit'});
+  node.on('close', function (code) {
+    if (code === 8) {
+      gulp.log('Error detected, waiting for changes...');
+    }
+  });
+}
+
+process.on('exit', function() {
+  if (node) node.kill()
+});
+
+const paths = {
   src: 'src/**/*.js',
   common: 'src/common/**/*.js',
-  client: 'src/client/**/*.js',
   server: 'src/server/**/*.js',
   views: 'views/**/*',
   static: 'static/**/*',
@@ -14,38 +28,14 @@ var paths = {
   dist: 'dist'
 };
 
-gulp.task('client', function () {
-  return gulp.src('./src/client/client.js')
-    .pipe(webpack({
-      entry: './src/client/client.js',
-      output: {
-        path: path.join(__dirname, paths.public + '/assets'),
-        filename: 'bundle.js'
-      },
-      module: {
-        loaders: [{
-          test: /\.jsx?$/,
-          include: path.join(__dirname, 'src'),
-          loader: 'babel'
-        }]
-      },
-      plugins: process.env.NODE_ENV === "production" ? [
-          new webpack.webpack.DefinePlugin({
-            'process.env': {
-              'NODE_ENV': JSON.stringify('production')
-            }
-          }),
-          new webpack.webpack.optimize.DedupePlugin(),
-          new webpack.webpack.optimize.OccurrenceOrderPlugin(),
-          new webpack.webpack.optimize.UglifyJsPlugin({
-            compress: {warnings: false}
-          })
-        ] : []
-    }))
-    .pipe(gulp.dest(paths.public));
+gulp.task('server', function () {
+  return gulp.src(paths.src)
+    .pipe(babel())
+    .pipe(gulp.dest(paths.dist))
+    .on('end', runServer);
 });
 
-gulp.task('server', function () {
+gulp.task('prod-server', function() {
   return gulp.src(paths.src)
     .pipe(babel())
     .pipe(gulp.dest(paths.dist));
@@ -62,11 +52,9 @@ gulp.task('static', function () {
 });
 
 gulp.task('watch', function () {
-  gulp.watch(paths.common, ['client', 'server']);
-  gulp.watch(paths.client, ['client']);
-  gulp.watch(paths.server, ['server']);
   gulp.watch(paths.views, ['views']);
   gulp.watch(paths.static, ['static']);
+  gulp.watch([paths.common, paths.server], ['server']);
 });
 
-gulp.task('default', ['client', 'server', 'views', 'static', 'watch']);
+gulp.task('default', ['views', 'static', 'watch', 'server']);

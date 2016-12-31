@@ -4,9 +4,11 @@
   "description": "Web application for The Moviegoer blog",
   "main": "app.js",
   "scripts": {
-    "dev": "./node_modules/gulp/bin/gulp.js",
-    "watch": "./node_modules/gulp/bin/gulp.js watch",
-    "site": "node dist/server/server.js"
+    "client": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --hot --colors",
+    "build-client-prod": "NODE_ENV=production ./node_modules/webpack/bin/webpack.js -p",
+    "server": "./node_modules/gulp/bin/gulp.js",
+    "build-server-prod": "NODE_ENV=production ./node_modules/gulp/bin/gulp.js prod-server",
+    "production": "npm run build-client-prod; npm run build-server-prod; forever stopall; NODE_ENV=production forever start dist/server/server.js"
   },
   "repository": "",
   "keywords": [
@@ -32,6 +34,7 @@
     "es6-promise": "^4.0.5",
     "escape-html": "^1.0.3",
     "express": "^4.14.0",
+    "forever": "^0.15.3",
     "fs": "0.0.2",
     "googleapis": "^2.1.7",
     "hashids": "1.0.0",
@@ -73,6 +76,9 @@
     "babel-preset-stage-1": "^6.16.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
+    "react-hot-loader": "^1.3.1",
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.2",
     "webpack-stream": "^3.2.0",
     "webpack-uglify-js-plugin": "^1.1.9"
   }
