@@ -60,8 +60,7 @@
     "s3-uploader": "^0.5.1",
     "shortid": "2.1.3",
     "speakingurl": "^8.0.2",
-    "textract": "^2.0.0",
-    "webpack-uglify-js-plugin": "^1.1.9"
+    "textract": "^2.0.0"
   },
   "author": "",
   "license": "",
@@ -69,11 +68,12 @@
   "devDependencies": {
     "babel-cli": "^6.11.4",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
-    "babel-preset-stage-1": "^6.5.0",
+    "babel-preset-stage-1": "^6.16.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
-    "webpack-stream": "^3.2.0"
+    "webpack-stream": "^3.2.0",
+    "webpack-uglify-js-plugin": "^1.1.9"
   }
 }

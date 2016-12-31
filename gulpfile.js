@@ -14,7 +14,7 @@ var paths = {
   dist: 'dist'
 };
 
-gulp.task('client', function() {
+gulp.task('client', function () {
   return gulp.src('./src/client/client.js')
     .pipe(webpack({
       entry: './src/client/client.js',
@@ -29,32 +29,39 @@ gulp.task('client', function() {
           loader: 'babel'
         }]
       },
-      plugins: process.env.NODE_ENV === "PRODUCTION" ? [
-        new webpack.webpack.optimize.UglifyJsPlugin({
-          compress: { warnings: false }
-        })
-      ] : []
+      plugins: process.env.NODE_ENV === "production" ? [
+          new webpack.webpack.DefinePlugin({
+            'process.env': {
+              'NODE_ENV': JSON.stringify('production')
+            }
+          }),
+          new webpack.webpack.optimize.DedupePlugin(),
+          new webpack.webpack.optimize.OccurrenceOrderPlugin(),
+          new webpack.webpack.optimize.UglifyJsPlugin({
+            compress: {warnings: false}
+          })
+        ] : []
     }))
     .pipe(gulp.dest(paths.public));
 });
 
-gulp.task('server', function() {
+gulp.task('server', function () {
   return gulp.src(paths.src)
     .pipe(babel())
     .pipe(gulp.dest(paths.dist));
 });
 
-gulp.task('views', function() {
+gulp.task('views', function () {
   return gulp.src(paths.views)
     .pipe(gulp.dest(paths.dist + "/server/views"));
 });
 
-gulp.task('static', function() {
+gulp.task('static', function () {
   return gulp.src(paths.static)
     .pipe(gulp.dest(paths.public));
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', function () {
   gulp.watch(paths.common, ['client', 'server']);
   gulp.watch(paths.client, ['client']);
   gulp.watch(paths.server, ['server']);
