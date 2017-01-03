@@ -1,5 +1,4 @@
 import React from "react"
-import Row from "react-bootstrap/lib/Row"
 
 export default class Footer extends React.Component {
   constructor(props) {
@@ -8,9 +7,9 @@ export default class Footer extends React.Component {
 
   render() {
     return (
-      <Row>
+      <div>
         Footer
-      </Row>
+      </div>
     );
   }
 }

@@ -5,7 +5,7 @@ import browserHistory from "react-router/lib/browserHistory"
 class HeaderItem extends React.Component {
   render() {
     return (
-      <div className='nav_item'>
+      <div className="nav_item">
         <h5><Link to={this.props.url}>{this.props.name}</Link></h5>
       </div>
     );
@@ -20,8 +20,11 @@ export default class Header extends React.Component {
   componentDidMount() {
     const search = $('#search');
     search.select2({
+      width: '100%',
       placeholder: 'Search articles',
-      escapeMarkup: function (m) {return m;},
+      escapeMarkup: function (m) {
+        return m;
+      },
       ajax: {
         cache: true,
         delay: 250,
@@ -29,19 +32,19 @@ export default class Header extends React.Component {
         url: '/api/search',
         processResults: function (data) {
           return {
-            results: $.map(data, function(obj) {
+            results: $.map(data, function (obj) {
               if ('title' in obj) {
-                return { id: obj.url, text: obj.title };
+                return {id: obj.url, text: obj.title};
               } else {
                 const url = '/writer/' + obj.name.replace(/\s+/g, '');
-                return { id: url, text: '<b>Author</b>: ' + obj.name };
+                return {id: url, text: '<b>Author</b>: ' + obj.name};
               }
             })
           };
         }
       }
     });
-    search.on('select2:select', function(e) {
+    search.on('select2:select', function (e) {
       browserHistory.push(e.target.value);
     });
   }
@@ -54,16 +57,14 @@ export default class Header extends React.Component {
     ];
     return (
       <div className="nav">
-        <Link to="/"
-                className="logo">
-            <img src="/public/images/moviegoer_black.png"
-                 alt="The Moviegoer"/></Link>
+        <Link to="/" className="logo">
+          <img src="/public/images/moviegoer_black.png"
+               alt="The Moviegoer"/></Link>
         <div className="container">
-          
           {items.map((item) => {
             return <HeaderItem {...item} key={item.name}/>;
           })}
-          <div className='search_bar'>
+          <div className="search_bar">
             <select id="search" className="form-control"/>
           </div>
         </div>

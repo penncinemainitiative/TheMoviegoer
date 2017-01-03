@@ -1,8 +1,10 @@
 import axios from "axios"
 
-const baseURL = 'http://localhost:8000/';
+axios.defaults.baseURL = process.env.HOST_NAME ?
+  process.env.HOST_NAME :
+  'http://localhost:8000/';
 
-export const http = axios.create({baseURL});
+export const http = axios.create();
 
 export const authHeader = (store) => {
   return {

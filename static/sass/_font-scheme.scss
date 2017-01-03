@@ -3,6 +3,11 @@
   src: url('/public/fonts/gotham.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: perpetua;
+  src: url('/public/fonts/perpetua.ttf') format('truetype');
+}
+
 $default: perpetua;
 
 //nav

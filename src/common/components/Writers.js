@@ -6,7 +6,7 @@ import Link from "react-router/lib/Link"
 
 @asyncConnect([{
   key: 'writers',
-  promise: ({params, helpers}) => getWriters()
+  promise: () => getWriters()
 }])
 export default class Writers extends React.Component {
   constructor(props) {

@@ -1,17 +1,16 @@
 import React from "react"
 import {asyncConnect} from "redux-connect"
-import {connect} from "react-redux"
 import {getWriter} from "../api/author"
 import Helmet from "react-helmet"
 import jwt_decode from "jwt-decode"
 
 @asyncConnect([{
-  key: 'writer',
-  promise: ({params, helpers}) => getWriter(params.writer)
-}])
-@connect(state => {
-  return {user: state.authToken};
-})
+    key: 'writer',
+    promise: ({params}) => getWriter(params.writer)
+  }],
+  state => {
+    return {user: state.authToken};
+  })
 export default class Writer extends React.Component {
   constructor(props) {
     super(props);

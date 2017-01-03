@@ -51,7 +51,6 @@
     "nodemailer": "^2.0.0",
     "path": "^0.12.7",
     "react": "^15.4.1",
-    "react-bootstrap": "^0.30.7",
     "react-cookie": "^1.0.4",
     "react-dom": "^15.4.1",
     "react-helmet": "^3.2.3",

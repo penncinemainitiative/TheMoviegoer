@@ -1,17 +1,16 @@
 import React from "react"
 import {asyncConnect} from "redux-connect"
-import {connect} from "react-redux"
 import {getDraft} from "../api/article"
 import Helmet from "react-helmet"
 import jwt_decode from "jwt-decode"
 
 @asyncConnect([{
-  key: 'draft',
-  promise: ({store, params, helpers}) => getDraft(store, params.id)
-}])
-@connect(state => {
-  return {user: state.authToken};
-})
+    key: 'draft',
+    promise: ({store, params}) => getDraft(store, params.id)
+  }],
+  state => {
+    return {user: state.authToken};
+  })
 export default class Draft extends React.Component {
   constructor(props) {
     super(props);

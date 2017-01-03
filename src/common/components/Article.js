@@ -1,6 +1,5 @@
 import React from "react"
 import {asyncConnect} from "redux-connect"
-import {connect} from "react-redux"
 import {getArticle} from "../api/article"
 import Helmet from "react-helmet"
 import marked from "marked"
@@ -8,13 +7,13 @@ import Link from "react-router/lib/Link"
 import jwt_decode from "jwt-decode"
 
 @asyncConnect([{
-  key: 'article',
-  promise: ({params, helpers}) =>
-    getArticle(params.year, params.month, params.day, params.slug)
-}])
-@connect(state => {
-  return {user: state.authToken};
-})
+    key: 'article',
+    promise: ({params}) =>
+      getArticle(params.year, params.month, params.day, params.slug)
+  }],
+  state => {
+    return {user: state.authToken};
+  })
 export default class Article extends React.Component {
   constructor(props) {
     super(props);

@@ -1,6 +1,5 @@
 import React from "react"
 import {asyncConnect} from "redux-connect"
-import {connect} from "react-redux"
 import {getAllUnpublishedArticles} from "../api/console"
 import {getMyUnpublishedArticles} from "../api/author"
 import Helmet from "react-helmet"
@@ -8,15 +7,15 @@ import jwt_decode from "jwt-decode"
 import Link from "react-router/lib/Link"
 
 @asyncConnect([{
-  key: 'allUnpublished',
-  promise: ({store, params, helpers}) => getAllUnpublishedArticles(store)
-}, {
-  key: 'myUnpublished',
-  promise: ({store, params, helpers}) => getMyUnpublishedArticles(store)
-}])
-@connect(state => {
-  return {user: state.authToken};
-})
+    key: 'allUnpublished',
+    promise: ({store}) => getAllUnpublishedArticles(store)
+  }, {
+    key: 'myUnpublished',
+    promise: ({store}) => getMyUnpublishedArticles(store)
+  }],
+  state => {
+    return {user: state.authToken};
+  })
 export default class Console extends React.Component {
   constructor(props) {
     super(props);

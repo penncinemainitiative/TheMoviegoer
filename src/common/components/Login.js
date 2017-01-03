@@ -1,14 +1,13 @@
 import React from "react"
 import Helmet from "react-helmet"
-import {Button} from "react-bootstrap"
 import Link from "react-router/lib/Link"
 import browserHistory from "react-router/lib/browserHistory"
 import cookie from "react-cookie"
-import {connect} from "react-redux"
+import {asyncConnect} from "redux-connect"
 import {login} from "../api/index"
 import {loginWithToken, logout} from "../actions/auth"
 
-@connect()
+@asyncConnect([])
 export default class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -55,11 +54,11 @@ export default class Login extends React.Component {
                  type="text" placeholder="Username"/>
           <input onChange={this.updatePassword} value={this.state.password}
                  type="password" placeholder="Password"/>
-          <Button type="submit">Login</Button>
+          <button type="submit">Login</button>
           <Link to="/signup">Become an author!</Link>
         </form>
         <div>{this.state.message}</div>
-        <Button onClick={this.logout}>Logout</Button>
+        <button onClick={this.logout}>Logout</button>
       </div>
     );
   }

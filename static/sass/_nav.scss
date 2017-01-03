@@ -43,7 +43,6 @@ $nav-height: 60px;
 
 	.search_bar {
 		@include span-columns(4);
-		@include shift(1);
 		padding-top: 15px;
 	}
 }

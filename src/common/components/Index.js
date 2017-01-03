@@ -6,7 +6,7 @@ import Link from "react-router/lib/Link"
 
 @asyncConnect([{
   key: 'articles',
-  promise: ({params, helpers}) => getRecentArticles()
+  promise: () => getRecentArticles()
 }])
 export default class Index extends React.Component {
   constructor(props) {

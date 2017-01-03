@@ -5,7 +5,7 @@ import {getRecentArticles} from "../api/index"
 
 @asyncConnect([{
   key: 'articles',
-  promise: ({params, helpers}) => getRecentArticles()
+  promise: () => getRecentArticles()
 }])
 export default class Articles extends React.Component {
   constructor(props) {
