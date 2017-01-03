@@ -1,0 +1,39 @@
+.homePage {
+	@include page;
+	.feature-content {
+		@include span-columns(12);
+		height: 400px;
+		background-color: pink;
+		.test1 {
+			@include span-columns(8);
+			height: 400px;
+			background-color: red;
+		}
+		.test2 {
+			@include span-columns(4);
+			height: 200px;
+			background-color: blue;
+			@include omega;
+		}
+	}
+	.lower-content{
+		@include span-columns(12);
+		margin-top: 10px;
+		.recent {
+			@include span-columns(4);
+			height: 300px;
+			background-color: red;
+		}
+		.archive {
+			@include span-columns(8);
+			@include omega;
+			height: 300px;
+			background-color: red;
+		}
+	}
+
+	.debug {
+		clear: both;
+	}
+
+}

@@ -16,7 +16,7 @@ export default class Articles extends React.Component {
   render() {
     const {articles} = this.props;
     return (
-      <div>
+      <div className="articlesPage">
         <Helmet title="Articles"/>
         {articles.map((article) => {
           const innerHTML = {__html: article.title};

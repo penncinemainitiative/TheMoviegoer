@@ -1,8 +1,9 @@
 .writersPage {
+	@include page;
 	.featured-writer {
 		@include span-columns(10);
 		@include shift(1);
-		height: 300px;
+		height: 400px;
 		background-color: red;
 	}
 
@@ -13,8 +14,11 @@
 		background-color: pink;
 	}
 	.author_card {
-		@include span-columns(2);
+		@include span-columns(4);
+		@include omega;
 		height: 100px;
 		background-color: red;
+		margin-left: 10px;
+		margin-top: 10px;
 	}
 }

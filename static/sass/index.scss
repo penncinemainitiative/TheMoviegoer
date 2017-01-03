@@ -2,17 +2,24 @@
 $visual-grid: true;
 @import "neat";
 
+@mixin page {
+  margin-top: 10px;
+  @include outer-container();
+}
+
 @import "font-scheme";
 @import "color-scheme";
 
 @import "nav";
-@import "singlearticle";
+@import "home";
 @import "articles";
 @import "writers";
 @import "about";
+@import "singlearticle";
 
 body {
   font-family: $default;
   padding: 0;
   margin: 0;
 }
+
