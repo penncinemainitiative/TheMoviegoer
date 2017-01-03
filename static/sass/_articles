@@ -1,0 +1,27 @@
+.list-article {
+	@include span-columns(10);
+	@include shift(1);
+	margin-top: 15px;
+	background-color: $fg;
+	@include omega(auto);
+
+	.image {
+		@include span-columns(6);
+//	    padding-bottom:100%;
+//	    background:#EEE;
+//	    height:0;
+//	    position:relative;
+	}
+	
+	img {
+	    width:100%;
+//	    height:56.25%;
+//	    display:block;
+//	    position:absolute;
+	}
+	.text-container {
+		@include span-columns(4);
+		margin-left: 10px;
+		background-color: red;
+	}
+}

@@ -16,14 +16,17 @@ export default class Writers extends React.Component {
   render() {
     const {writers} = this.props;
     return (
-      <div>
+      <div className="writersPage">
         <Helmet title="Writers"/>
-        {writers.map((writer) => {
-          const authorURL = "/writer/" + writer.name.replace(" ", "");
-          return <h4 key={writer.username}>
-            <Link to={authorURL}>{writer.name}</Link>
-          </h4>
-        })}
+        <div className="featured-writer"></div>
+        <div className="writers-container">
+          {writers.map((writer) => {
+            const authorURL = "/writer/" + writer.name.replace(" ", "");
+            return <div key={writer.username} className="author_card">
+              <h4><Link to={authorURL}>{writer.name}</Link></h4>
+              </div>
+          })}
+        </div>
       </div>
     )
   }

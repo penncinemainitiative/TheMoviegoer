@@ -1,0 +1,27 @@
+.aboutPage{
+
+	.content-left {
+		@include span-columns(5);
+		@include shift(-1);
+		background-color: pink;
+		.letter {
+			@include span-columns(5 of 5);
+			height: 300px;
+			background-color: red;
+		}
+
+		.contact {
+			@include span-columns(5 of 5);
+			margin-top: 20px;
+			height: 200px;
+			background-color: red;
+		}
+	}
+
+	.staff {
+		@include span-columns(4);
+		@include shift(1);
+		height: 600px;
+		background-color: red;
+	}
+}

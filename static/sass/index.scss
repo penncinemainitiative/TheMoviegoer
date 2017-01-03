@@ -6,6 +6,10 @@ $visual-grid: true;
 @import "color-scheme";
 
 @import "nav";
+@import "singlearticle";
+@import "articles";
+@import "writers";
+@import "about";
 
 body {
   font-family: $default;
