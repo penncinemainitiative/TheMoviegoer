@@ -1,0 +1,9 @@
+@font-face {
+  font-family: gotham;
+  src: url('/public/fonts/gotham.ttf') format('truetype');
+}
+
+$default: perpetua;
+
+//nav
+$nav-buttons: gotham;

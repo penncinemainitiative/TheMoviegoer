@@ -1,29 +1,15 @@
 @import "bourbon";
+$visual-grid: true;
 @import "neat";
 
-@font-face {
-  font-family: gotham;
-  src: url('/public/fonts/gotham.ttf') format('truetype');
-}
+@import "font-scheme";
+@import "color-scheme";
+
+@import "nav";
+
 
 body {
-  font-family: gotham;
-}
-
-.headerItem {
-  h5 {
-    text-align: center;
-    margin-top: 2em;
-  }
-  a {
-    color: inherit;
-    text-decoration: none;
-    &:active {
-      color: inherit;
-      text-decoration: none;
-    }
-    &:hover {
-      color: white;
-    }
-  }
+  font-family: $default;
+  padding: 0;
+  margin: 0;
 }
