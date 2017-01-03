@@ -10,7 +10,9 @@ const router = express.Router();
 router.get('/recent', (req, res) => {
   db.queryAsync(`
     SELECT author, name, url, excerpt, articleId, isPublished, pubDate, title, articles.image
-    FROM articles INNER JOIN authors ON username = author
+    FROM articles
+    INNER JOIN authors
+      ON username = author
     WHERE isPublished = 2
     ORDER BY pubDate DESC, articleId DESC
     LIMIT 10
@@ -62,6 +64,54 @@ router.get('/writers', (req, res) => {
     SELECT name, image, username
     FROM authors
   `).then((rows) => res.json(rows));
+});
+
+router.get('/random/author', (req, res) => {
+  db.queryAsync(`
+    SELECT username, email, name, image, bio
+    FROM authors
+    WHERE LENGTH(bio) > 5
+    ORDER BY RAND()
+    LIMIT 1
+  `).then((rows) => res.json(rows[0]));
+});
+
+const randomArticlesCache = {};
+router.get('/random/articles', (req, res) => {
+  const n = parseInt(req.query.n) || 2;
+  const useCache = req.query.useCache;
+  const today = new Date();
+  const todayString = today.getDate() + '/' + today.getMonth() + 1 + '/' + today.getFullYear();
+  const cachedArticles = randomArticlesCache[todayString];
+  if (useCache && cachedArticles) {
+    return res.json(cachedArticles);
+  }
+  db.queryAsync(`
+    SELECT author, name, url, excerpt, articleId, isPublished, pubDate, title, articles.image
+    FROM articles
+    INNER JOIN authors
+      ON username = author
+    WHERE isPublished = 2 and articleId NOT IN
+      (
+      SELECT articleId
+      FROM
+        (
+        SELECT articleId
+        FROM articles
+        WHERE isPublished = 2
+        ORDER BY pubDate DESC, articleId DESC
+        LIMIT 10
+        )
+      frontPage
+      )
+    ORDER BY RAND()
+    LIMIT ?
+  `, [n]).then((rows) => {
+    if (useCache) {
+      randomArticlesCache[todayString] = rows;
+    }
+    res.json(rows);
+  });
 });
 
 router.get('/protected', requireLogin, (req, res) => {

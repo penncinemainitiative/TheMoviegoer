@@ -16,3 +16,21 @@ export const getWriters = () => {
     .get('/api/writers')
     .then(({data}) => data);
 };
+
+export const getFeaturedWriter = () => {
+  return http
+    .get('/api/random/author')
+    .then(({data}) => data);
+};
+
+export const getArchiveFront = () => {
+  return http
+    .get('/api/random/articles?n=2&useCache=true')
+    .then(({data}) => data);
+};
+
+export const getArchiveArticle = () => {
+  return http
+    .get('/api/random/articles?n=3')
+    .then(({data}) => data);
+};

@@ -1,12 +1,15 @@
 import React from "react"
 import {asyncConnect} from "redux-connect"
-import {getWriters} from "../api/index"
+import {getWriters, getFeaturedWriter} from "../api/index"
 import Helmet from "react-helmet"
 import Link from "react-router/lib/Link"
 
 @asyncConnect([{
   key: 'writers',
   promise: () => getWriters()
+}, {
+  key: 'featured',
+  promise: () => getFeaturedWriter()
 }])
 export default class Writers extends React.Component {
   constructor(props) {
@@ -14,11 +17,14 @@ export default class Writers extends React.Component {
   }
 
   render() {
-    const {writers} = this.props;
+    const {writers, featured} = this.props;
     return (
       <div className="writersPage">
         <Helmet title="Writers"/>
-        <div className="featured-writer"></div>
+        <div className="featured-writer">
+          <h4>{featured.name}</h4>
+          <p>{featured.bio}</p>
+        </div>
         <div className="writers-container">
           {writers.map((writer) => {
             const authorURL = "/writer/" + writer.name.replace(" ", "");

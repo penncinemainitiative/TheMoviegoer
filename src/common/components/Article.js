@@ -1,6 +1,7 @@
 import React from "react"
 import {asyncConnect} from "redux-connect"
 import {getArticle} from "../api/article"
+import {getArchiveArticle} from "../api/index"
 import Helmet from "react-helmet"
 import marked from "marked"
 import Link from "react-router/lib/Link"
@@ -10,6 +11,9 @@ import jwt_decode from "jwt-decode"
     key: 'article',
     promise: ({params}) =>
       getArticle(params.year, params.month, params.day, params.slug)
+  }, {
+    key: 'archive',
+    promise: () => getArchiveArticle()
   }],
   state => {
     return {token: state.token};
@@ -20,7 +24,7 @@ export default class Article extends React.Component {
   }
 
   render() {
-    const {article, token} = this.props;
+    const {article, token, archive} = this.props;
     const title = {__html: article.title};
     const text = {__html: marked(article.text.replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"))};
     const draftUrl = '/draft/' + article.articleId;
@@ -36,7 +40,14 @@ export default class Article extends React.Component {
           <div dangerouslySetInnerHTML={text}></div>
         </div>
         <div className="author_card"></div>
-        <div className="archive"></div>
+        <div className="archive">
+          {archive.map((article) => {
+            const innerHTML = {__html: article.title};
+            return <h4 key={article.title}>
+              <Link to={article.url} dangerouslySetInnerHTML={innerHTML}></Link>
+            </h4>
+          })}
+        </div>
         <div className="comments"></div>
       </div>
     )

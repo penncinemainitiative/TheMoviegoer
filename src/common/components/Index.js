@@ -1,12 +1,15 @@
 import React from "react"
 import {asyncConnect} from "redux-connect"
 import Helmet from "react-helmet"
-import {getRecentArticles} from "../api/index"
+import {getRecentArticles, getArchiveFront} from "../api/index"
 import Link from "react-router/lib/Link"
 
 @asyncConnect([{
   key: 'articles',
   promise: () => getRecentArticles()
+}, {
+  key: 'archive',
+  promise: () => getArchiveFront()
 }])
 export default class Index extends React.Component {
   constructor(props) {
@@ -14,7 +17,7 @@ export default class Index extends React.Component {
   }
 
   render() {
-    const {articles} = this.props;
+    const {articles, archive} = this.props;
     return (
       <div className="homePage">
         <Helmet title="The Moviegoer"/>
@@ -25,7 +28,14 @@ export default class Index extends React.Component {
         </div>
         <div className="lower-content">
           <div className="recent"></div>
-          <div className="archive"></div>
+          <div className="archive">
+            {archive.map((article) => {
+              const innerHTML = {__html: article.title};
+              return <h4 key={article.title}>
+                <Link to={article.url} dangerouslySetInnerHTML={innerHTML}></Link>
+              </h4>
+            })}
+          </div>
         </div>
         <div className="debug">
           {articles.map((article) => {
