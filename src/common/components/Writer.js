@@ -9,7 +9,7 @@ import jwt_decode from "jwt-decode"
     promise: ({params}) => getWriter(params.writer)
   }],
   state => {
-    return {user: state.authToken};
+    return {token: state.token};
   })
 export default class Writer extends React.Component {
   constructor(props) {
@@ -17,8 +17,8 @@ export default class Writer extends React.Component {
   }
 
   render() {
-    const {writer, user} = this.props;
-    const author = user ? jwt_decode(user) : {};
+    const {writer, token} = this.props;
+    const author = token ? jwt_decode(token) : {};
     const loggedIn = author.username === writer.username;
     return (
       <div>

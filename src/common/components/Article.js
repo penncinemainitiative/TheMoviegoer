@@ -12,7 +12,7 @@ import jwt_decode from "jwt-decode"
       getArticle(params.year, params.month, params.day, params.slug)
   }],
   state => {
-    return {user: state.authToken};
+    return {token: state.token};
   })
 export default class Article extends React.Component {
   constructor(props) {
@@ -20,11 +20,11 @@ export default class Article extends React.Component {
   }
 
   render() {
-    const {article, user} = this.props;
+    const {article, token} = this.props;
     const title = {__html: article.title};
     const text = {__html: marked(article.text.replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"))};
     const draftUrl = '/draft/' + article.articleId;
-    const author = user ? jwt_decode(user) : false;
+    const author = token ? jwt_decode(token) : false;
     return (
       <div>
         <Helmet title={article.title}/>

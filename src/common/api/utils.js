@@ -6,10 +6,10 @@ axios.defaults.baseURL = process.env.HOST_NAME ?
 
 export const http = axios.create();
 
-export const authHeader = (store) => {
+export const authHeader = (token) => {
   return {
     headers: {
-      'Authorization': store.getState().authToken
+      'Authorization': token
     }
   }
 };

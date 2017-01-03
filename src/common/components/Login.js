@@ -40,7 +40,7 @@ export default class Login extends React.Component {
   }
 
   logout() {
-    cookie.remove('authToken', {path: '/'});
+    cookie.remove('token', {path: '/'});
     this.props.dispatch(logout());
     browserHistory.push('/');
   }

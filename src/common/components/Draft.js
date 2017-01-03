@@ -1,15 +1,15 @@
 import React from "react"
 import {asyncConnect} from "redux-connect"
-import {getDraft} from "../api/article"
+import {getDraft, changeArticleAuthor} from "../api/article"
 import Helmet from "react-helmet"
 import jwt_decode from "jwt-decode"
 
 @asyncConnect([{
     key: 'draft',
-    promise: ({store, params}) => getDraft(store, params.id)
+    promise: ({store: {getState}, params}) => getDraft(getState().token, params.id)
   }],
   state => {
-    return {user: state.authToken};
+    return {token: state.token};
   })
 export default class Draft extends React.Component {
   constructor(props) {
@@ -25,6 +25,34 @@ export default class Draft extends React.Component {
       author: draft.author,
       text: draft.text
     };
+  }
+
+  componentDidMount() {
+    const search = $('#authorSearch');
+    search.select2({
+      width: '100%',
+      placeholder: 'Choose author',
+      escapeMarkup: function (m) {
+        return m;
+      },
+      ajax: {
+        cache: true,
+        delay: 250,
+        type: 'GET',
+        url: '/api/search/authors',
+        processResults: function (data) {
+          return {
+            results: $.map(data, function (obj) {
+              return {id: obj.username, text: obj.name};
+            })
+          };
+        }
+      }
+    });
+    const {params, token} = this.props;
+    search.on('select2:select', function (e) {
+      changeArticleAuthor(token, params.id, e.target.value);
+    });
   }
 
   updateTitle(e) {
@@ -44,8 +72,8 @@ export default class Draft extends React.Component {
   }
 
   render() {
-    const {draft, user} = this.props;
-    const author = jwt_decode(user);
+    const {draft, token} = this.props;
+    const author = jwt_decode(token);
     const title = {__html: draft.title};
     return (
       <div>
@@ -57,11 +85,11 @@ export default class Draft extends React.Component {
                onChange={this.updateTitle}
                placeholder="Article Title" value={this.state.title}/>
         <div>
-          <label htmlFor="authorInput">Author</label>
-          <select id="authorInput" className="form-control">
-            <option
-              onChange={this.updateAuthor}
-              value={this.state.author}>{this.state.author}</option>
+          <label htmlFor="authorSearch">Author</label>
+          <select id="authorSearch">
+            <option onChange={this.updateAuthor} value={this.state.author}>
+              {this.state.author}
+            </option>
           </select>
         </div>
         <input type="text" id="excerptInput"

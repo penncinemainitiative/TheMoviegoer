@@ -7,9 +7,9 @@ export const getWriter = (writer) => {
     .then(({data}) => data);
 };
 
-export const getMyUnpublishedArticles = (store) => {
-  const writer = jwt_decode(store.getState().authToken).username;
+export const getMyUnpublishedArticles = (token) => {
+  const writer = jwt_decode(token).username;
   return http
-    .get(`/api/author/${writer}/unpublished`, authHeader(store))
+    .get(`/api/author/${writer}/unpublished`, authHeader(token))
     .then(({data}) => data);
 };

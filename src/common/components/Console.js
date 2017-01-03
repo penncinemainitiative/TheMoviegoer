@@ -8,13 +8,13 @@ import Link from "react-router/lib/Link"
 
 @asyncConnect([{
     key: 'allUnpublished',
-    promise: ({store}) => getAllUnpublishedArticles(store)
+    promise: ({store: {getState}}) => getAllUnpublishedArticles(getState().token)
   }, {
     key: 'myUnpublished',
-    promise: ({store}) => getMyUnpublishedArticles(store)
+    promise: ({store: {getState}}) => getMyUnpublishedArticles(getState().token)
   }],
   state => {
-    return {user: state.authToken};
+    return {token: state.token};
   })
 export default class Console extends React.Component {
   constructor(props) {
@@ -22,8 +22,8 @@ export default class Console extends React.Component {
   }
 
   render() {
-    const {allUnpublished, myUnpublished, user} = this.props;
-    const author = jwt_decode(user);
+    const {allUnpublished, myUnpublished, token} = this.props;
+    const author = jwt_decode(token);
     return (
       <div>
         <Helmet title="Console"/>

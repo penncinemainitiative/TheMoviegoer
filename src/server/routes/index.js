@@ -47,7 +47,7 @@ router.post('/login', (req, res) => {
           name: author.name,
           isEditor: author.isEditor
         }, process.env.SECRET ? process.env.SECRET : 'secret', {expiresIn: '7 days'}, (err, token) => {
-          res.cookie("authToken", token, {expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7)});
+          res.cookie("token", token, {expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7)});
           return res.json({success: true, token});
         });
       } else {

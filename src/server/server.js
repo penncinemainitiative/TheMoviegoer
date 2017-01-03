@@ -31,7 +31,7 @@ app.use('/api', apiRoutes);
 
 app.use((req, res) => {
   const store = createStore();
-  store.dispatch(loginWithToken(req.cookies.authToken));
+  store.dispatch(loginWithToken(req.cookies.token));
   const routes = getRoutes(store);
   match({routes, location: req.url},
     (error, redirectLocation, renderProps) => {

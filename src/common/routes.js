@@ -27,7 +27,7 @@ class App extends React.Component {
 const authenticate = (store) => {
   return (nextState, replace) => {
     const state = store.getState();
-    if (!state.authToken) {
+    if (!state.token) {
       replace({
         pathname: '/login'
       });

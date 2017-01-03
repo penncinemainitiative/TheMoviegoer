@@ -1,7 +1,7 @@
 import {http, authHeader} from "./utils"
 
-export const getAllUnpublishedArticles = (store) => {
+export const getAllUnpublishedArticles = (token) => {
   return http
-    .get(`/api/console/unpublished`, authHeader(store))
+    .get(`/api/console/unpublished`, authHeader(token))
     .then(({data}) => data);
 };

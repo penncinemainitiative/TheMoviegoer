@@ -1,10 +1,10 @@
 import {createStore as createReduxStore, combineReducers} from "redux"
-import {auth as authToken} from "../common/reducers/auth"
+import {token} from "../common/reducers/auth"
 import {reducer as reduxAsyncConnect} from "redux-connect"
 
 const reducers = combineReducers({
   reduxAsyncConnect,
-  authToken
+  token
 });
 
 export const createStore = (initialState) => {
