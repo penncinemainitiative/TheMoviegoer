@@ -20,6 +20,8 @@ router.get('/', requireLogin, (req, res) => {
       title: 'Untitled Article',
       author: res.locals.author.username,
       assignedEditor: rows[0].username,
+      url: 'http://pennmoviegoer.com',
+      excerpt: '...',
       text: '...',
       image: 'https://www.royalacademy.org.uk/' +
       'assets/placeholder-1e385d52942ef11d42405be4f7d0a30d.jpg'
@@ -27,9 +29,8 @@ router.get('/', requireLogin, (req, res) => {
     db.queryAsync(`
       INSERT INTO articles SET ?
     `, [insertData]).then((result) => {
-      const newId = result.insertId;
-      const url = '/article/' + newId + '/draft';
-      res.redirect(url);
+      const articleId = result.insertId;
+      res.json({articleId});
     });
   });
 });
@@ -86,9 +87,24 @@ router.get('/:id/delete', requireLogin, (req, res) => {
       db.queryAsync(`
         DELETE FROM drafts WHERE articleId = ?
       `, [articleId]).then(() => {
-        res.redirect('/console/home');
+        res.json({success: true});
       });
     });
+  });
+});
+
+router.post('/:id', requireLogin, (req, res) => {
+  const articleId = parseInt(req.params.id);
+  const text = req.body.text.replace(/<script.*?>.*?<\/script>/igm, "");
+  db.queryAsync(`
+    UPDATE articles
+    SET updateDate = NOW(),
+        title = ?,
+        text = ?,
+        excerpt = ?
+    WHERE articleId = ?
+  `, [req.body.title, text, req.body.excerpt, articleId]).then(() => {
+    res.json({success: true});
   });
 });
 

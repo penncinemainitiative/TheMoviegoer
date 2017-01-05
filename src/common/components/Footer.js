@@ -1,4 +1,5 @@
 import React from "react"
+import Link from "react-router/lib/Link"
 
 export default class Footer extends React.Component {
   constructor(props) {
@@ -8,7 +9,7 @@ export default class Footer extends React.Component {
   render() {
     return (
       <div>
-        Footer
+        <Link to="/console">Console</Link>
       </div>
     );
   }

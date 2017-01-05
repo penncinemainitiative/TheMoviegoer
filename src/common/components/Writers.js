@@ -12,10 +12,6 @@ import Link from "react-router/lib/Link"
   promise: () => getFeaturedWriter()
 }])
 export default class Writers extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {writers, featured} = this.props;
     return (

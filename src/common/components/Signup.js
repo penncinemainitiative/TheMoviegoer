@@ -4,10 +4,6 @@ import {asyncConnect} from "redux-connect"
 
 @asyncConnect([])
 export default class Signup extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div>
