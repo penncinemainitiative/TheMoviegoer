@@ -9,10 +9,6 @@ import Link from "react-router/lib/Link"
   promise: () => getRecentArticles()
 }])
 export default class Articles extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {articles} = this.props;
     return (

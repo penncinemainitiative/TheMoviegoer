@@ -12,10 +12,6 @@ import jwt_decode from "jwt-decode"
     return {token: state.token};
   })
 export default class Writer extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {writer, token} = this.props;
     const author = token ? jwt_decode(token) : {};

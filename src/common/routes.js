@@ -12,13 +12,15 @@ import Writers from "./components/Writers"
 import Writer from "./components/Writer"
 import Draft from "./components/Draft"
 import Articles from "./components/Articles"
+import Footer from "./components/Footer"
 
 class App extends React.Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header/>
         {this.props.children}
+        <Footer/>
       </div>
     )
   }

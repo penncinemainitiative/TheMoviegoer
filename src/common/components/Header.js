@@ -13,10 +13,6 @@ class HeaderItem extends React.Component {
 }
 
 export default class Header extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     const search = $('#search');
     search.select2({

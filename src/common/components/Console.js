@@ -2,9 +2,63 @@ import React from "react"
 import {asyncConnect} from "redux-connect"
 import {getAllUnpublishedArticles} from "../api/console"
 import {getMyUnpublishedArticles} from "../api/author"
+import {newArticle, deleteArticle} from "../api/article"
 import Helmet from "react-helmet"
 import jwt_decode from "jwt-decode"
 import Link from "react-router/lib/Link"
+import browserHistory from "react-router/lib/browserHistory"
+
+@asyncConnect([],
+  state => {
+    return {token: state.token};
+  })
+class ArticleList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleDeleteArticle = this.handleDeleteArticle.bind(this);
+  }
+
+  handleDeleteArticle(id) {
+    const {token} = this.props;
+    deleteArticle(token, id).then(() => {
+      location.reload();
+    });
+  }
+
+  render() {
+    const {articles, username} = this.props;
+    return (
+      <table>
+        <thead>
+        <tr>
+          <th>Title</th>
+          <th>Last updated</th>
+          <th>Author</th>
+          <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        {articles.map(function (article) {
+          const deleteUrl = "/api/article/" + article.articleId + "/delete";
+          const title = {__html: article.title};
+          const draftUrl = '/draft/' + article.articleId;
+          return <tr key={article.articleId}>
+            <td><Link to={draftUrl}>
+              <span dangerouslySetInnerHTML={title}/>
+            </Link></td>
+            <td>{article.updateDate}</td>
+            <td>{article.name}</td>
+            <td>{username === article.author ?
+              <button
+                onClick={this.handleDeleteArticle.bind(null, article.articleId)}>
+                Delete</button> : null}</td>
+          </tr>;
+        }.bind(this))}
+        </tbody>
+      </table>
+    );
+  }
+}
 
 @asyncConnect([{
     key: 'allUnpublished',
@@ -19,6 +73,14 @@ import Link from "react-router/lib/Link"
 export default class Console extends React.Component {
   constructor(props) {
     super(props);
+    this.handleNewArticle = this.handleNewArticle.bind(this);
+  }
+
+  handleNewArticle() {
+    const {token} = this.props;
+    newArticle(token).then(({data}) => {
+      browserHistory.push(`/draft/${data.articleId}`);
+    });
   }
 
   render() {
@@ -28,30 +90,11 @@ export default class Console extends React.Component {
       <div>
         <Helmet title="Console"/>
         <h4>Welcome, {author.name}!</h4>
+        <button onClick={this.handleNewArticle}>New article</button>
         <h5>Your unpublished articles</h5>
-        <ul>
-          {myUnpublished.map((article) => {
-            const innerHTML = {__html: article.title};
-            const draftUrl = '/draft/' + article.articleId;
-            return <li key={article.articleId}>
-              <Link to={draftUrl}><span
-                dangerouslySetInnerHTML={innerHTML}/></Link>
-              by {article.name}, last updated {article.updateDate}
-            </li>
-          })}
-        </ul>
+        <ArticleList articles={myUnpublished} username={author.username}/>
         <h5>All unpublished articles</h5>
-        <ul>
-          {allUnpublished.map((article) => {
-            const innerHTML = {__html: article.title};
-            const draftUrl = '/draft/' + article.articleId;
-            return <li key={article.articleId}>
-              <Link to={draftUrl}><span
-                dangerouslySetInnerHTML={innerHTML}/></Link>
-              by {article.name}, last updated {article.updateDate}
-            </li>
-          })}
-        </ul>
+        <ArticleList articles={allUnpublished} username={author.username}/>
       </div>
     )
   }

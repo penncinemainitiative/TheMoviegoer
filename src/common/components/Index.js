@@ -12,10 +12,6 @@ import Link from "react-router/lib/Link"
   promise: () => getArchiveFront()
 }])
 export default class Index extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {articles, archive} = this.props;
     return (
