@@ -20,7 +20,8 @@ class ArticleList extends React.Component {
   handleDeleteArticle(id) {
     const {token} = this.props;
     deleteArticle(token, id).then(() => {
-      location.reload();
+      this.props.dispatch(getAllUnpublishedArticles());
+      this.props.dispatch(getMyUnpublishedArticles());
     });
   }
 
@@ -59,13 +60,15 @@ class ArticleList extends React.Component {
 }
 
 @asyncConnect([{
-    key: 'allUnpublished',
-    promise: ({store: {getState}}) => getAllUnpublishedArticles(getState().token)
+    promise: ({store: {dispatch}}) => dispatch(getAllUnpublishedArticles())
   }, {
-    key: 'myUnpublished',
-    promise: ({store: {getState}}) => getMyUnpublishedArticles(getState().token)
+    promise: ({store: {dispatch}}) => dispatch(getMyUnpublishedArticles())
   }],
-  state => ({token: state.token})
+  state => ({
+    token: state.token,
+    allUnpublished: state.console.allUnpublishedArticles,
+    myUnpublished: state.console.myUnpublishedArticles
+  })
 )
 export default class Console extends React.Component {
   constructor(props) {
@@ -88,7 +91,7 @@ export default class Console extends React.Component {
         <Helmet title="Console"/>
         <h4>Welcome, {author.name}!</h4>
         <button onClick={this.handleNewArticle}>New article</button>
-        <h5>Your unpublished articles</h5>
+        <h5>My unpublished articles</h5>
         <ArticleList articles={myUnpublished} username={author.username}/>
         <h5>All unpublished articles</h5>
         <ArticleList articles={allUnpublished} username={author.username}/>

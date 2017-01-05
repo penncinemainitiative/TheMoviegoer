@@ -4,12 +4,14 @@ import {
   applyMiddleware
 } from "redux"
 import {token} from "../common/reducers/auth"
+import {console} from "../common/reducers/console"
 import thunk from "redux-thunk"
 import {reducer as reduxAsyncConnect} from "redux-connect"
 
 const reducers = combineReducers({
   reduxAsyncConnect,
-  token
+  token,
+  console
 });
 
 export const createStore = (initialState) => {
