@@ -47,10 +47,10 @@ router.get('/:year/:month/:day/:slug', (req, res) => {
     }
     const article = rows[0];
     if (article.isPublished === 0 || article.isPublished === 1) {
-      return res.redirect('/article/' + req.params.id + '/draft');
+      return res.redirect(`/article/${req.params.id}/draft`);
     }
     article.pubDate = dateFormat(article.pubDate, "mmmm d, yyyy");
-    article.url = 'http://pennmoviegoer.com' + article.url;
+    article.url = `http://pennmoviegoer.com${article.url}`;
     res.json(article);
   });
 });
@@ -118,8 +118,8 @@ router.post('/:id/publish', requireLogin, (req, res) => {
     const article = rows[0];
     const today = new Date();
     const month = today.getMonth() + 1;
-    const url = '/' + today.getFullYear() + '/' + month + '/'
-      + today.getDate() + '/' + getSlug(article.title.replace(/(<([^>]+)>)/ig, "")) + ".html";
+    const slug = getSlug(article.title.replace(/(<([^>]+)>)/ig, ""));
+    const url = `/${today.getFullYear()}/${month}/${today.getDate()}/${slug}.html`;
     db.queryAsync(`
       UPDATE articles
       SET pubDate = NOW(),

@@ -19,12 +19,14 @@ export default class Articles extends React.Component {
             const innerHTML = {__html: article.title};
             return <div key={article.articleId} className="list-article">
               <Link to={article.url}>
-                <div className="image-wrapper"><img src={article.image}/></div></Link>
+                <div className="image-wrapper"><img src={article.image}/></div>
+              </Link>
               <div className="text-container">
-                <Link to={article.url} dangerouslySetInnerHTML={innerHTML}></Link>
+                <Link to={article.url}
+                      dangerouslySetInnerHTML={innerHTML}></Link>
                 <h5>{article.name} - {article.pubDate}</h5>
                 <p>{article.excerpt}</p>
-              </div> 
+              </div>
             </div>
           })}
         </div>

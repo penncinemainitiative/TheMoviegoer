@@ -4,7 +4,7 @@ import {db} from "../db"
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  const search = ['%' + req.query.q + '%'];
+  const search = [`%${req.query.q}%`];
   db.queryAsync(`
     SELECT url, title
     FROM articles
@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/authors', (req, res) => {
-  const search = ['%' + req.query.q + '%'];
+  const search = [`%${req.query.q}%`];
   db.queryAsync(`
     SELECT username, name
     FROM authors
@@ -35,7 +35,7 @@ router.get('/authors', (req, res) => {
 });
 
 router.get('/editors', (req, res) => {
-  const search = ['%' + req.query.q + '%'];
+  const search = [`%${req.query.q}%`];
   db.queryAsync(`
     SELECT username, name
     FROM authors

@@ -81,7 +81,7 @@ router.get('/random/articles', (req, res) => {
   const n = parseInt(req.query.n) || 2;
   const useCache = req.query.useCache;
   const today = new Date();
-  const todayString = today.getDate() + '/' + today.getMonth() + 1 + '/' + today.getFullYear();
+  const todayString = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
   const cachedArticles = randomArticlesCache[todayString];
   if (useCache && cachedArticles) {
     return res.json(cachedArticles);

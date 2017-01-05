@@ -8,9 +8,8 @@ import ArticleContent from "./ArticleContent"
     key: 'draft',
     promise: ({store: {getState}, params}) => getDraft(getState().token, params.id)
   }],
-  state => {
-    return {token: state.token};
-  })
+  state => ({token: state.token})
+)
 export default class Draft extends React.Component {
   constructor(props) {
     super(props);
@@ -40,21 +39,17 @@ export default class Draft extends React.Component {
     search.select2({
       width: '100%',
       placeholder: 'Choose author',
-      escapeMarkup: function (m) {
-        return m;
-      },
+      escapeMarkup: (m) => m,
       ajax: {
         cache: true,
         delay: 250,
         type: 'GET',
         url: '/api/search/authors',
-        processResults: function (data) {
-          return {
-            results: $.map(data, function (obj) {
-              return {id: obj.username, text: obj.name};
-            })
-          };
-        }
+        processResults: (data) => ({
+          results: $.map(data, (obj) => {
+            return {id: obj.username, text: obj.name};
+          })
+        })
       }
     });
     const {params, token} = this.props;

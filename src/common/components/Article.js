@@ -19,9 +19,8 @@ const defaultDescription = "The Moviegoer is a student-run blog dedicated to fil
     key: 'archive',
     promise: () => getArchiveArticle()
   }],
-  state => {
-    return {token: state.token};
-  })
+  state => ({token: state.token})
+)
 export default class Article extends React.Component {
   render() {
     const {article, token, archive} = this.props;

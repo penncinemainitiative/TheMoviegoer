@@ -8,9 +8,8 @@ import jwt_decode from "jwt-decode"
     key: 'writer',
     promise: ({params}) => getWriter(params.writer)
   }],
-  state => {
-    return {token: state.token};
-  })
+  state => ({token: state.token})
+)
 export default class Writer extends React.Component {
   render() {
     const {writer, token} = this.props;
@@ -22,8 +21,8 @@ export default class Writer extends React.Component {
         <div className="bio-container">
           <div className="image-wrapper"></div>
           <div className="text-wrapper">
-              <h4>{writer.name}</h4>
-              <p>{writer.bio}</p>
+            <h4>{writer.name}</h4>
+            <p>{writer.bio}</p>
           </div>
         </div>
         <div className="articles-container">

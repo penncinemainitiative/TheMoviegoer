@@ -18,29 +18,25 @@ export default class Header extends React.Component {
     search.select2({
       width: '100%',
       placeholder: 'Search articles',
-      escapeMarkup: function (m) {
-        return m;
-      },
+      escapeMarkup: (m) => m,
       ajax: {
         cache: true,
         delay: 250,
         type: 'GET',
         url: '/api/search',
-        processResults: function (data) {
-          return {
-            results: $.map(data, function (obj) {
-              if ('title' in obj) {
-                return {id: obj.url, text: obj.title};
-              } else {
-                const url = '/writer/' + obj.name.replace(/\s+/g, '');
-                return {id: url, text: '<b>Author</b>: ' + obj.name};
-              }
-            })
-          };
-        }
+        processResults: (data) => ({
+          results: $.map(data, (obj) => {
+            if ('title' in obj) {
+              return {id: obj.url, text: obj.title};
+            } else {
+              const url = `/writer/${obj.name.replace(/\s+/g, '')}`;
+              return {id: url, text: `<b>Author</b>: ${obj.name}`};
+            }
+          })
+        })
       }
     });
-    search.on('select2:select', function (e) {
+    search.on('select2:select', (e) => {
       browserHistory.push(e.target.value);
     });
   }

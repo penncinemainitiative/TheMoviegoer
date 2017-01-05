@@ -29,7 +29,7 @@ export default class Writers extends React.Component {
             const authorURL = "/writer/" + writer.name.replace(" ", "");
             return <div key={writer.username} className="author_card">
               <h4><Link to={authorURL}>{writer.name}</Link></h4>
-              </div>
+            </div>
           })}
         </div>
       </div>

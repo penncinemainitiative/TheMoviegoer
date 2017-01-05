@@ -7,7 +7,7 @@ export default class ArticleContent extends React.Component {
     const {article, showEdit} = this.props;
     const title = {__html: article.title};
     const text = {__html: marked(article.text.replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"))};
-    const draftUrl = '/draft/' + article.articleId;
+    const draftUrl = `/draft/${article.articleId}`;
     return (
       <div className="article_content">
         <img src={article.image}/>

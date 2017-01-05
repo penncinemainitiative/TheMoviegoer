@@ -9,9 +9,8 @@ import Link from "react-router/lib/Link"
 import browserHistory from "react-router/lib/browserHistory"
 
 @asyncConnect([],
-  state => {
-    return {token: state.token};
-  })
+  state => ({token: state.token})
+)
 class ArticleList extends React.Component {
   constructor(props) {
     super(props);
@@ -39,9 +38,8 @@ class ArticleList extends React.Component {
         </thead>
         <tbody>
         {articles.map(function (article) {
-          const deleteUrl = "/api/article/" + article.articleId + "/delete";
           const title = {__html: article.title};
-          const draftUrl = '/draft/' + article.articleId;
+          const draftUrl = `/draft/${article.articleId}`;
           return <tr key={article.articleId}>
             <td><Link to={draftUrl}>
               <span dangerouslySetInnerHTML={title}/>
@@ -67,9 +65,8 @@ class ArticleList extends React.Component {
     key: 'myUnpublished',
     promise: ({store: {getState}}) => getMyUnpublishedArticles(getState().token)
   }],
-  state => {
-    return {token: state.token};
-  })
+  state => ({token: state.token})
+)
 export default class Console extends React.Component {
   constructor(props) {
     super(props);

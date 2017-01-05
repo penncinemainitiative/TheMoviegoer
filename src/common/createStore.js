@@ -1,5 +1,10 @@
-import {createStore as createReduxStore, combineReducers} from "redux"
+import {
+  createStore as createReduxStore,
+  combineReducers,
+  applyMiddleware
+} from "redux"
 import {token} from "../common/reducers/auth"
+import thunk from "redux-thunk"
 import {reducer as reduxAsyncConnect} from "redux-connect"
 
 const reducers = combineReducers({
@@ -8,9 +13,5 @@ const reducers = combineReducers({
 });
 
 export const createStore = (initialState) => {
-  if (initialState) {
-    return createReduxStore(reducers, initialState);
-  } else {
-    return createReduxStore(reducers);
-  }
+  return createReduxStore(reducers, initialState, applyMiddleware(thunk));
 };

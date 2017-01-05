@@ -36,7 +36,7 @@ router.get('/:writer/unpublished', requireLogin, (req, res) => {
   `, [writer]).then((rows) => {
     res.json(rows.map((item) => {
       item.updateDate = dateFormat(item.updateDate, "mmmm d, yyyy");
-      item.url = '/article/' + item.articleId + '/draft';
+      item.url = `/article/${item.articleId}/draft`;
       return item;
     }));
   });

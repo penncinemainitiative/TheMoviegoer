@@ -37,23 +37,24 @@ export default class Index extends React.Component {
                 {recent.map((article) => {
                   const innerHTML = {__html: article.title};
                   return <li key={article.title}>
-                    <Link to={article.url} dangerouslySetInnerHTML={innerHTML}></Link>
+                    <Link to={article.url}
+                          dangerouslySetInnerHTML={innerHTML}></Link>
                   </li>
                 })}
               </ul>
-          </div>
-          <div className="archive">
-            <h3>Archive</h3>
-            {archive.map((article) => {
-              const innerHTML = {__html: article.title};
-              return <div key={article.title} className="image-wrapper3">
-                <Link to={article.url}><img src={article.image}/></Link>
-              </div>
-            })}
+            </div>
+            <div className="archive">
+              <h3>Archive</h3>
+              {archive.map((article) => {
+                const innerHTML = {__html: article.title};
+                return <div key={article.title} className="image-wrapper3">
+                  <Link to={article.url}><img src={article.image}/></Link>
+                </div>
+              })}
+            </div>
           </div>
         </div>
       </div>
-    </div>
     )
   }
 }
