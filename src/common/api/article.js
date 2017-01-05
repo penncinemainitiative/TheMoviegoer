@@ -25,6 +25,10 @@ export const saveArticle = (token, id, title, text, excerpt) => {
     }, authHeader(token));
 };
 
+export const publishArticle = (token, id) => {
+  return http
+    .post(`/api/article/${id}/publish`, {}, authHeader(token));
+};
 
 export const getArticle = (year, month, day, slug) => {
   return http

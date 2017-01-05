@@ -1,8 +1,9 @@
 import React from "react"
 import {asyncConnect} from "redux-connect"
-import {getDraft, changeArticleAuthor, saveArticle} from "../api/article"
+import {getDraft, changeArticleAuthor, saveArticle, publishArticle} from "../api/article"
 import Helmet from "react-helmet"
 import ArticleContent from "./ArticleContent"
+import browserHistory from "react-router/lib/browserHistory"
 
 @asyncConnect([{
     key: 'draft',
@@ -20,6 +21,7 @@ export default class Draft extends React.Component {
     this.handleSave = this.handleSave.bind(this);
     this.handlePreview = this.handlePreview.bind(this);
     this.showSelect2 = this.showSelect2.bind(this);
+    this.handlePublish = this.handlePublish.bind(this);
     const {draft} = this.props;
     this.state = {
       title: draft.title,
@@ -108,6 +110,13 @@ export default class Draft extends React.Component {
     });
   }
 
+  handlePublish() {
+    const {draft, token} = this.props;
+    publishArticle(token, draft.articleId).then(() => {
+      browserHistory.push('/');
+    });
+  }
+
   render() {
     const {draft} = this.props;
     const article = this.state;
@@ -118,6 +127,7 @@ export default class Draft extends React.Component {
         <button onClick={this.handleSave}>Save</button>
         <button
           onClick={this.handlePreview}>{this.state.preview ? "Edit" : "Preview" }</button>
+        <button onClick={this.handlePublish}>Publish</button>
         {!this.state.preview ?
           <div>
             <input type="text"
