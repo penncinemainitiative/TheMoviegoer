@@ -16,33 +16,16 @@
 
 	.top-wrapper {
     	padding-bottom: 38%;
-    	background-color: green;
-
+    	background-color: $fg;
     }
-    .content-wrapper1 {
-    	@include span-columns(8);
-    	position: relative;
-    	.text-wrapper {
-    		@include span-columns(12 of 12);
-    		padding: 10px;
-    		position: absolute;
-    		left: 0px;
-    		bottom: 0px;
 
-    		h2 {
-    			background-color: white;
-    			font-size: 30px;
-			}
-    	}
-		.image-wrapper1 {
-    		padding: 10px;
-    	}
+    .big_feature {
+    	@include feature-content (8, 50px);
     }
-    
-    .image-wrapper2 {
-    	@include span-columns(4 of 12);
+
+    .small_feature {
+    	@include feature-content (4, 20px);
     	@include omega;
-    	padding: 10px;
     }
 
 
@@ -73,14 +56,29 @@
 	    	}
 
 		    .archive {
-				@include span-columns(8 of 12);
+				@include span-columns(8);
+				position: relative;
 
 				background-color: purple;
 
-				.image-wrapper3 {
-		    		@include span-columns(6 of 12);
+				.content-wrapper{
+					@include span-columns(6);
+				}
+				.title-wrapper {
+		    		background-color: black;
+		    		
+		    		h3 {
+					
+		    		}
+		    	}
+
+				.image-wrapper {
 		    		padding: 7px;
 		    	}
+		    	.text-wrapper {
+		    		background-color: green;
+		    	}
+		    	
 		    }
 		}
 	}

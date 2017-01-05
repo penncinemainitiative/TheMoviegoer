@@ -23,19 +23,27 @@ export default class Index extends React.Component {
         <div className="content">
           <div className="top-wrapper">
 
-            <div className="content-wrapper1">
+            <div className="big_feature">
               <div className="text-wrapper">
-                <h2>Jackie</h2>
+                <h2>{big_feature.title}<span> - {big_feature.author}</span></h2>
               </div>
-              <div className="image-wrapper1">
+              <div className="image-wrapper">
                 <img src={big_feature.image}/>
               </div>
             </div>
 
             {small_features.map((article) => {
-              return <div key={article.title} className="image-wrapper2">
-                <Link to={article.url}><img src={article.image}/></Link></div>
+              return <div key={article.title} className="small_feature">
+                  <div className="text-wrapper">
+                    <h2>{article.title}<span> - {article.author}</span></h2>
+                  </div>
+                  <div className="image-wrapper">
+                    <img src={article.image}/>
+                  </div>
+                </div>
             })}
+
+
           </div>
           <div className="bot-wrapper">
             <div className="recent">
@@ -51,11 +59,12 @@ export default class Index extends React.Component {
               </ul>
             </div>
             <div className="archive">
-              <h3>Archive</h3>
+              <div className="title-wrapper"><h3>Archive</h3></div>
               {archive.map((article) => {
                 const innerHTML = {__html: article.title};
-                return <div key={article.title} className="image-wrapper3">
-                  <Link to={article.url}><img src={article.image}/></Link>
+                return <div key={article.title} className="content-wrapper">
+                  <div className="image-wrapper"><img src={article.image}/></div>
+                  <div className="text-wrapper">{article.title}</div>
                 </div>
               })}
             </div>

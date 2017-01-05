@@ -1,0 +1,31 @@
+
+
+
+//for use on homepage features
+@mixin feature-content ($total_span, $font_size) {
+	@include span-columns($total_span);
+	position: relative;
+	.text-wrapper {
+		@include span-columns(12);
+		padding: 10px;
+		position: absolute;
+		left: 0px;
+		bottom: 5%;
+
+		h2 {
+			background-color:rgba(79,79,79,0.5);
+			font-size: $font_size;
+			font-family: $main-title;
+			color: white;
+			vertical-align: bottom;
+			display: table-cell;
+			span {
+				font-size: 3/5 * $font_size;
+				color: $goldL2;
+			}
+		}
+	}
+	.image-wrapper {
+		padding: 10px;
+	}
+}
