@@ -4,33 +4,47 @@
 	img {
 		min-width: 100%;
 		max-width: 100%;
+		
 	}
 
     .content {
     	@include span-columns(12);
     	margin-top: 15px;
     	margin-bottom: 15px;
-
     	background-color: pink;
     }
 
 	.top-wrapper {
     	padding-bottom: 38%;
     	background-color: green;
+
     }
-    .image-wrapper1 {
-    	@include span-columns(8 of 12);
-    	padding: 10px;
+    .content-wrapper1 {
+    	@include span-columns(8);
+    	position: relative;
+    	.text-wrapper {
+    		@include span-columns(12 of 12);
+    		padding: 10px;
+    		position: absolute;
+    		left: 0px;
+    		bottom: 0px;
+
+    		h2 {
+    			background-color: white;
+    			font-size: 30px;
+			}
+    	}
+		.image-wrapper1 {
+    		padding: 10px;
+    	}
     }
+    
     .image-wrapper2 {
     	@include span-columns(4 of 12);
     	@include omega;
     	padding: 10px;
     }
-    .second {
-        margin-top: .3%;
 
-    }
 
     
     
@@ -40,6 +54,7 @@
 		@include span-columns(12);
 
 		background-color: orange;
+		
 
 
 	    @include display-context(table) {

@@ -22,9 +22,16 @@ export default class Index extends React.Component {
         <Helmet title="The Moviegoer"/>
         <div className="content">
           <div className="top-wrapper">
-            <div className="image-wrapper1"><Link to={big_feature.url}>
-              <img src={big_feature.image}/>
-            </Link></div>
+
+            <div className="content-wrapper1">
+              <div className="text-wrapper">
+                <h2>Jackie</h2>
+              </div>
+              <div className="image-wrapper1">
+                <img src={big_feature.image}/>
+              </div>
+            </div>
+
             {small_features.map((article) => {
               return <div key={article.title} className="image-wrapper2">
                 <Link to={article.url}><img src={article.image}/></Link></div>
