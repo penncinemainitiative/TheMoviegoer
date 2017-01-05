@@ -22,8 +22,11 @@ export default class Writers extends React.Component {
       <div className="writersPage">
         <Helmet title="Writers"/>
         <div className="featured-writer">
-          <h4>{featured.name}</h4>
-          <p>{featured.bio}</p>
+          <div className="image-wrapper"></div>
+          <div className="text-wrapper">
+            <h4>{featured.name}</h4>
+            <p>{featured.bio}</p>
+          </div>
         </div>
         <div className="writers-container">
           {writers.map((writer) => {

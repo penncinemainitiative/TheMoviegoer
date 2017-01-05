@@ -18,8 +18,8 @@
 			display: block;
 		    min-width: 100%;
 		    max-width: 100%;
-
 		}
+		
 		.text-container {
 			@include span-columns(4);
 			margin-left: 10px;

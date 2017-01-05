@@ -12,10 +12,12 @@ $visual-grid: true;
 
 @import "nav";
 @import "home";
+@import "article";
 @import "articles";
+@import "writer";
 @import "writers";
 @import "about";
-@import "singlearticle";
+
 
 body {
   font-family: $default;
