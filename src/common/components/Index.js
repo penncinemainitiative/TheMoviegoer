@@ -21,19 +21,17 @@ export default class Index extends React.Component {
     const big_feature = articles[0];
     const small_features = articles.slice(1, 3);
     const recent = articles.slice(3, 8);
-    //below construction should be simplified
     return (
       <div className="homePage">
         <Helmet title="The Moviegoer"/>
         <div className="content">
-
           <div className="top-wrapper">
-            <div className="image-wrapper1">
-              <img src={big_feature.image}/>54rrd
-            </div>
+            <div className="image-wrapper1"><Link to={big_feature.url}>
+              <img src={big_feature.image}/>
+            </Link></div>
             {small_features.map((article) => {
               return <div key={article.title} className="image-wrapper2">
-                <img src={article.image}/></div>
+                <Link to={article.url}><img src={article.image}/></Link></div>
             })}
           </div>
           <div className="bot-wrapper">

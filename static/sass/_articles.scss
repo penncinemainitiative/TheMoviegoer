@@ -1,30 +1,33 @@
 .articlesPage {
 	@include outer-container();
+	.articles {
+		@include span-columns(10); 
+		@include shift(1); 
+		margin-top: 15px;
 
-	.list-article {
-	    @include span-columns(10); 
-	    @include shift(1); 
-	    margin-top: 15px; 
-	    background-color: $fg; 
-	    height: 250px;
+		.list-article {
+			@include row();
+		    margin-top: 10px;
+		    background-color: $fg; 
+		    
 
-		.image {
-			@include span-columns(6);
-		    padding-bottom: 56.25%;
-		    position: relative;
-		}
-		
-		img {
-			display: block;
-		    min-width: 100%;
-		    max-width: 100%;
-		}
-		
-		.text-container {
-			@include span-columns(4);
-			margin-left: 10px;
-			background-color: red;
-		}
-	}	
+			.image-wrapper {
+				@include span-columns(6);
+			}
+			
+			img {
+			    min-width: 100%;
+			    max-width: 100%;
+			}
+			
+			.text-container {
+				@include span-columns(6);
+				margin-left: 10px;
+				background-color: red;
+			}
+		}	
+	}
+
+
 }
 
