@@ -107,6 +107,10 @@ router.get('/random/articles', (req, res) => {
     ORDER BY RAND()
     LIMIT ?
   `, [n]).then((rows) => {
+    rows = rows.map((item) => {
+      item.pubDate = dateFormat(item.pubDate, "mmmm d, yyyy");
+      return item;
+    });
     if (useCache) {
       randomArticlesCache[todayString] = rows;
     }
