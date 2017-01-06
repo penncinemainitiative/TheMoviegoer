@@ -6,12 +6,17 @@
 		max-width: 100%;
 		
 	}
+	
+	a {
+		text-decoration: none;
+		color: black;
+	}
 
     .content {
     	@include span-columns(12);
     	margin-top: 15px;
     	margin-bottom: 15px;
-    	background-color: pink;
+    	//background-color: pink;
     }
 
 	.top-wrapper {
@@ -34,52 +39,78 @@
 	.bot-wrapper {
 		margin-top: 10px;
 		border-spacing: 10px;
+		padding: 10px;
 		@include span-columns(12);
 
-		background-color: orange;
+		//background-color: orange;
 		
 
 
-	    @include display-context(table) {
+	    
 			.recent {
 				@include span-columns(4 of 12);
-				padding-right: 10px;
 
-				background-color: blue;
+				background-color: $fg;
+
+				.title-wrapper {
+					@include main-header($goldL1);
+				}
+				.list {
+					margin-top: 60px;
+					padding-right: 5px;
+
 					ul {
-						padding-top: 10px;
-
-						li {
-							color: white;
-						}
+						padding-left: 25px;
 					}
+
+					h4 {
+						color: black;
+						margin: 0px;
+						margin-top: 5px;
+						margin-bottom: 5px;
+					}
+
+
+					a:hover {
+						color: gray;
+					}
+				}
 	    	}
+
+
 
 		    .archive {
 				@include span-columns(8);
 				position: relative;
 
-				background-color: purple;
+				background-color: $fg;
 
 				.content-wrapper{
 					@include span-columns(6);
 				}
 				.title-wrapper {
-		    		background-color: black;
-		    		
-		    		h3 {
-					
-		    		}
+					@include main-header($goldD1);
 		    	}
 
 				.image-wrapper {
 		    		padding: 7px;
 		    	}
 		    	.text-wrapper {
-		    		background-color: green;
+		    		//background-color: green;
+		    		padding: 7px;
+		    		h3 {
+		    			margin-top: 0px;
+		    			margin-bottom: 0px;
+		    		}
+		    		h5 {
+		    			margin-top: 0px;
+		    			span {
+		    				color: $gold;
+		    			}
+		    		}
 		    	}
 		    	
 		    }
-		}
+		
 	}
 }

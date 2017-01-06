@@ -15,8 +15,9 @@ export default class Index extends React.Component {
   render() {
     const {articles, archive} = this.props;
     const big_feature = articles[0];
+    const BigInnerHTML = {__html: big_feature.title + '<span> - ' + big_feature.name + '</span>'};
     const small_features = articles.slice(1, 3);
-    const recent = articles.slice(3, 8);
+    const recent = articles.slice(3, 10);
     return (
       <div className="homePage">
         <Helmet title="The Moviegoer"/>
@@ -24,47 +25,61 @@ export default class Index extends React.Component {
           <div className="top-wrapper">
 
             <div className="big_feature">
-              <div className="text-wrapper">
-                <h2>{big_feature.title}<span> - {big_feature.author}</span></h2>
-              </div>
-              <div className="image-wrapper">
-                <img src={big_feature.image}/>
-              </div>
+              <Link to={big_feature.url}>
+                <div className="text-wrapper">
+                  <h2 dangerouslySetInnerHTML={BigInnerHTML}></h2>
+                </div>
+                <div className="image-wrapper">
+                  <img src={big_feature.image}/>
+                </div>
+              </Link>
             </div>
 
             {small_features.map((article) => {
+              const innerHTML = {__html: article.title + '<span> - ' + article.name + '</span>'}; 
               return <div key={article.title} className="small_feature">
-                  <div className="text-wrapper">
-                    <h2>{article.title}<span> - {article.author}</span></h2>
+                    <Link to={article.url}>
+                      <div className="text-wrapper">
+                        <h2 dangerouslySetInnerHTML={innerHTML}></h2>
+                      </div>
+                      <div className="image-wrapper">
+                        <img src={article.image}/>
+                      </div>
+                    </Link>
                   </div>
-                  <div className="image-wrapper">
-                    <img src={article.image}/>
-                  </div>
-                </div>
             })}
 
 
           </div>
           <div className="bot-wrapper">
             <div className="recent">
-              <h3>Recent</h3>
-              <ul>
+              <div className="title-wrapper"><h3>Recent</h3></div>
+                <div className="list">
+                <ul>
                 {recent.map((article) => {
                   const innerHTML = {__html: article.title};
-                  return <li key={article.title}>
-                    <Link to={article.url}
-                          dangerouslySetInnerHTML={innerHTML}></Link>
-                  </li>
+                  return <h4 key={article.title}>
+                    <li><Link to={article.url}
+                          dangerouslySetInnerHTML={innerHTML}></Link></li>
+                  </h4>
                 })}
-              </ul>
+                </ul>
+                </div>
             </div>
             <div className="archive">
               <div className="title-wrapper"><h3>Archive</h3></div>
               {archive.map((article) => {
                 const innerHTML = {__html: article.title};
                 return <div key={article.title} className="content-wrapper">
-                  <div className="image-wrapper"><img src={article.image}/></div>
-                  <div className="text-wrapper">{article.title}</div>
+                  <Link to={article.url}>
+                    <div className="image-wrapper">
+                      <img src={article.image}/>
+                    </div>
+                    <div className="text-wrapper">
+                      <h3 dangerouslySetInnerHTML={innerHTML}></h3>
+                      <h5><span>{article.pubDate}</span>  - {article.name}</h5>
+                    </div>
+                  </Link>
                 </div>
               })}
             </div>

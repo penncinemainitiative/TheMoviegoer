@@ -2,16 +2,12 @@
 $visual-grid: true;
 @import "neat";
 
-@mixin page {
-  margin-top: 10px;
-  @include outer-container();
-}
-
 @import "font-scheme";
 @import "color-scheme";
 @import "mixins";
 
 @import "nav";
+@import "footer";
 @import "home";
 @import "article";
 @import "articles";
@@ -24,5 +20,6 @@ body {
   font-family: $default;
   padding: 0;
   margin: 0;
+  background-color: $bg;
 }
 
