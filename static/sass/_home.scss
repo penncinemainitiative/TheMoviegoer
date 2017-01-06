@@ -6,11 +6,6 @@
 		max-width: 100%;
 		
 	}
-	
-	a {
-		text-decoration: none;
-		color: black;
-	}
 
     .content {
     	@include span-columns(12);
