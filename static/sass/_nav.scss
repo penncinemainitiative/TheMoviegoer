@@ -36,6 +36,8 @@ $nav-height: 60px;
 		@include shift(1);
 
 		img{
+			min-width: initial;
+			max-width: initial;
 			height: $nav-height;
 			margin-top: 0px;
 		}

@@ -1,13 +1,35 @@
 
 .articlePage {
 	@include page;
+
+
 	.article_content {
 		@include span-columns(7);
 		@include shift(1);
 		background-color: $fg;
-
-		img {
-			width: 100%;
+		margin-bottom: 15px;
+		p {
+			padding-left: 40px;
+			padding-right: 40px;
+			font-size: 16px;
+			text-indent: 20px;
+			line-height: 150%;
+		}
+		a {
+			padding-left: 10px;
+		}
+		h4 {
+			font-size: 50px;
+			font-family: $main-title;
+			margin-top: 0px;
+			margin-bottom: 0px;
+			padding: 20px;
+		}
+		h5 { 
+			margin-top: 0px;
+			font-size: 20px; 
+			padding-left: 25px;
+			color: $goldD1;
 		}
 	}
 
@@ -20,9 +42,10 @@
 	.archive {
 		@include span-columns(7);
 		@include shift(1);
-		height: 200px;
-		margin-top: 10px;
-		background-color: red;
+		@include archive-box(3);
+		h3 {
+			margin-top: 5px;
+		}
 	}
 
 	.comments {

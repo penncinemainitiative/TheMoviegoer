@@ -47,3 +47,31 @@
 		margin: 3px;
 	}
 }
+
+//for styling archive boxes
+@mixin archive-box ($articles) {
+	background-color: $fg;
+
+	.content-wrapper{
+		@include span-columns(12/$articles);
+	}
+	.title-wrapper {
+		@include main-header($goldD1);
+	}
+	.image-wrapper {
+		padding: 7px;
+	}
+	.text-wrapper {
+		padding: 7px;
+		h3 {
+			margin-top: 0px;
+			margin-bottom: 0px;
+		}
+		h5 {
+			margin-top: 0px;
+			span {
+				color: $gold;
+			}
+		}
+	}	    	
+}

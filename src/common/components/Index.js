@@ -23,7 +23,6 @@ export default class Index extends React.Component {
         <Helmet title="The Moviegoer"/>
         <div className="content">
           <div className="top-wrapper">
-
             <div className="big_feature">
               <Link to={big_feature.url}>
                 <div className="text-wrapper">
@@ -34,7 +33,6 @@ export default class Index extends React.Component {
                 </div>
               </Link>
             </div>
-
             {small_features.map((article) => {
               const innerHTML = {__html: article.title + '<span> - ' + article.name + '</span>'}; 
               return <div key={article.title} className="small_feature">

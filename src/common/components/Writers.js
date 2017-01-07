@@ -18,18 +18,27 @@ export default class Writers extends React.Component {
       <div className="writersPage">
         <Helmet title="Writers"/>
         <div className="featured-writer">
-          <div className="image-wrapper"></div>
+          <div className="image-wrapper">
+            <img src={featured.image}/>
+          </div>
           <div className="text-wrapper">
-            <h4>{featured.name}</h4>
+            <h2>Featured Writer</h2>
+            <div className="name-container">
+              <h4>{featured.name}</h4>
+              <div className="accent"></div>
+              <h5><i>Some description</i></h5>
+            </div>
             <p>{featured.bio}</p>
           </div>
         </div>
         <div className="writers-container">
           {writers.map((writer) => {
             const authorURL = "/writer/" + writer.name.replace(" ", "");
-            return <div key={writer.username} className="author_card">
-              <h4><Link to={authorURL}>{writer.name}</Link></h4>
-            </div>
+            return <Link key={writer.username} to={authorURL}>
+              <div className="author_card">
+                <h4>{writer.name}</h4>
+              </div>
+            </Link>
           })}
         </div>
       </div>

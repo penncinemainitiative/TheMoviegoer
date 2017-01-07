@@ -38,14 +38,28 @@ export default class Article extends React.Component {
                   {property: "og:image", content: article.image}
                 ]}/>
         <ArticleContent article={article} showEdit={author}/>
-        <div className="author_card"></div>
+        <div className="author_card">
+          <div className="text-container">
+            <h3>Writer Name</h3>
+            <p>Bio</p>
+          </div>
+        </div>
         <div className="archive">
-          {archive.map((article) => {
-            const innerHTML = {__html: article.title};
-            return <h4 key={article.title}>
-              <Link to={article.url} dangerouslySetInnerHTML={innerHTML}></Link>
-            </h4>
-          })}
+          <div className="title-wrapper"><h3>Archive</h3></div>
+              {archive.map((article) => {
+                const innerHTML = {__html: article.title};
+                return <div key={article.title} className="content-wrapper">
+                  <Link to={article.url}>
+                    <div className="image-wrapper">
+                      <img src={article.image}/>
+                    </div>
+                    <div className="text-wrapper">
+                      <h3 dangerouslySetInnerHTML={innerHTML}></h3>
+                      <h5><span>{article.pubDate}</span>  - {article.name}</h5>
+                    </div>
+                  </Link>
+                </div>
+              })}
         </div>
         <div className="comments"></div>
       </div>

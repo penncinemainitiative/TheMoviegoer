@@ -1,10 +1,45 @@
 .writersPage {
 	@include page;
+
 	.featured-writer {
 		@include span-columns(10);
 		@include shift(1);
 		height: 400px;
-		background-color: red;
+
+		background-color: $fg;
+
+		h2 {
+			font-size: 50px;
+			font-family: $main-title;
+			margin-top: 10px;
+			margin-bottom: 0px;
+		}
+
+		p {
+			padding-right: 50px;
+			padding-left: 5px;
+			text-indent: 10px;
+		}
+
+		.name-container {
+			margin-top: 10px;
+			padding-left: 5px;
+
+			h4, h5, .accent {
+				margin: 0px;
+				padding: 0px;
+			}
+
+			h4 {
+				font-size: 30px;
+			}
+
+			.accent {
+				background-color: black;
+				height: 3px;
+				width: 200px;
+			}
+		}
 
 		.image-wrapper {
 			@include span-columns(4 of 10);
@@ -13,8 +48,8 @@
 		}
 
 		.text-wrapper {
-			@include span-columns(5 of 10);
-			background-color: green;
+			@include span-columns(6 of 10);
+			//background-color: green;
 			padding-right: 20px;
 		}
 

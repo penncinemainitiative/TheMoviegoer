@@ -1,11 +1,6 @@
 .homePage {
 	@include outer-container;
 
-	img {
-		min-width: 100%;
-		max-width: 100%;
-		
-	}
 
     .content {
     	@include span-columns(12);
@@ -72,39 +67,9 @@
 				}
 	    	}
 
-
-
 		    .archive {
 				@include span-columns(8);
-				position: relative;
-
-				background-color: $fg;
-
-				.content-wrapper{
-					@include span-columns(6);
-				}
-				.title-wrapper {
-					@include main-header($goldD1);
-		    	}
-
-				.image-wrapper {
-		    		padding: 7px;
-		    	}
-		    	.text-wrapper {
-		    		//background-color: green;
-		    		padding: 7px;
-		    		h3 {
-		    			margin-top: 0px;
-		    			margin-bottom: 0px;
-		    		}
-		    		h5 {
-		    			margin-top: 0px;
-		    			span {
-		    				color: $gold;
-		    			}
-		    		}
-		    	}
-		    	
+				@include archive-box(2);		    	
 		    }
 		
 	}
