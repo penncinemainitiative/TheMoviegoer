@@ -24,7 +24,7 @@ export default class Writers extends React.Component {
           <div className="text-wrapper">
             <h2>Featured Writer</h2>
             <div className="name-container">
-              <h4>{featured.name}</h4>
+              <Link to={featured.url}><h4>{featured.name}</h4></Link>
               <div className="accent"></div>
               <h5><i>Some description</i></h5>
             </div>
@@ -33,8 +33,7 @@ export default class Writers extends React.Component {
         </div>
         <div className="writers-container">
           {writers.map((writer) => {
-            const authorURL = "/writer/" + writer.name.replace(" ", "");
-            return <Link key={writer.username} to={authorURL}>
+            return <Link key={writer.username} to={writer.url}>
               <div className="author_card">
                 <h4>{writer.name}</h4>
               </div>

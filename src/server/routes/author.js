@@ -14,6 +14,7 @@ router.get('/:writer', (req, res) => {
     WHERE REPLACE(name, " ", "") = REPLACE(?, " ", "")
   `, [req.params.writer]).then((rows) => {
     const writer = rows[0];
+    writer.url = "/writer/" + writer.name.replace(" ", "");
     db.queryAsync(`
     SELECT url, articleId, isPublished, pubDate, title, author, image
     FROM articles

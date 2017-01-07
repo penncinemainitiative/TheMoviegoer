@@ -6,7 +6,7 @@ import Link from "react-router/lib/Link"
 
 @asyncConnect([{
   key: 'articles',
-  promise: () => getRecentArticles()
+  promise: () => getRecentArticles(0)
 }, {
   key: 'archive',
   promise: () => getArchiveFront()

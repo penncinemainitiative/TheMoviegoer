@@ -8,7 +8,7 @@ import {requireLogin} from "../utils"
 const router = express.Router();
 
 router.get('/recent', (req, res) => {
-  const offset = parseInt(req.query.offset);
+  const offset = req.query.offset ? parseInt(req.query.offset) : 0;
   db.queryAsync(`
     SELECT author, name, url, excerpt, articleId, isPublished, pubDate, title, articles.image
     FROM articles
@@ -65,7 +65,13 @@ router.get('/writers', (req, res) => {
   db.queryAsync(`
     SELECT name, image, username
     FROM authors
-  `).then((rows) => res.json(rows));
+  `).then((rows) => {
+    rows = rows.map((author) => {
+      author.url = "/writer/" + author.name.replace(" ", "");
+      return author;
+    });
+    res.json(rows);
+  });
 });
 
 router.get('/random/author', (req, res) => {
@@ -75,7 +81,11 @@ router.get('/random/author', (req, res) => {
     WHERE LENGTH(bio) > 5
     ORDER BY RAND()
     LIMIT 1
-  `).then((rows) => res.json(rows[0]));
+  `).then((rows) => {
+    const author = rows[0];
+    author.url = "/writer/" + author.name.replace(" ", "");
+    res.json(author);
+  });
 });
 
 const randomArticlesCache = {};

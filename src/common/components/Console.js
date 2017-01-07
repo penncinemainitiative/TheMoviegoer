@@ -256,6 +256,7 @@ export default class Console extends React.Component {
       <div>
         <Helmet title="Console"/>
         <h4>Welcome, {author.name}!</h4>
+        <Link to={writer.url}>My profile</Link>
         <WriterEditor writer={writer} token={token}/>
         <button onClick={this.handleNewArticle}>New article</button>
         <h5>My unpublished articles</h5>
