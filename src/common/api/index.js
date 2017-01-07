@@ -5,9 +5,9 @@ export const login = (username, password) => {
     .post('/api/login', {username, password});
 };
 
-export const getRecentArticles = () => {
+export const getRecentArticles = (offset) => {
   return http
-    .get('/api/recent')
+    .get(`/api/recent?offset=${offset}`)
     .then(({data}) => data);
 };
 

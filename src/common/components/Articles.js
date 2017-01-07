@@ -6,16 +6,34 @@ import Link from "react-router/lib/Link"
 
 @asyncConnect([{
   key: 'articles',
-  promise: () => getRecentArticles()
+  promise: () => getRecentArticles(0)
 }])
 export default class Articles extends React.Component {
+  constructor(props) {
+    super(props);
+    this.requestMoreArticles = this.requestMoreArticles.bind(this);
+    this.state = {
+      articles: this.props.articles,
+      offset: 10
+    }
+  }
+
+  requestMoreArticles() {
+    const articles = this.state.articles;
+    getRecentArticles(this.state.offset).then((data) => {
+      this.setState(Object.assign({}, this.state, {
+        articles: articles.concat(data),
+        offset: this.state.offset + 10
+      }))
+    })
+  }
+
   render() {
-    const {articles} = this.props;
     return (
       <div className="articlesPage">
         <Helmet title="Articles"/>
         <div className="articles">
-          {articles.map((article) => {
+          {this.state.articles.map((article) => {
             const innerHTML = {__html: article.title};
             return <div key={article.articleId} className="list-article">
               <Link to={article.url}>
@@ -29,6 +47,7 @@ export default class Articles extends React.Component {
               </div>
             </div>
           })}
+          <button onClick={this.requestMoreArticles}>More</button>
         </div>
       </div>
     )

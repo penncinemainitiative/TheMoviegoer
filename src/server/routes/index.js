@@ -8,6 +8,7 @@ import {requireLogin} from "../utils"
 const router = express.Router();
 
 router.get('/recent', (req, res) => {
+  const offset = parseInt(req.query.offset);
   db.queryAsync(`
     SELECT author, name, url, excerpt, articleId, isPublished, pubDate, title, articles.image
     FROM articles
@@ -16,7 +17,8 @@ router.get('/recent', (req, res) => {
     WHERE isPublished = 2
     ORDER BY pubDate DESC, articleId DESC
     LIMIT 10
-  `).then((rows) => {
+    OFFSET ?
+  `, [offset]).then((rows) => {
     res.json(rows.map((item) => {
       item.pubDate = dateFormat(item.pubDate, "mmmm d, yyyy");
       return item;
