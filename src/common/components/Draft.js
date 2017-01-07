@@ -196,7 +196,7 @@ export default class Draft extends React.Component {
               </div>
               <div><textarea rows="10" cols="20"
                              type="text"
-                             onChange={this.updateAuthor}
+                             onChange={this.updateExcerpt}
                              placeholder="Excerpt" value={this.state.excerpt}/>
               </div>
               <div>

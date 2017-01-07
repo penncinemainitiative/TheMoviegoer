@@ -21,6 +21,10 @@ router.get('/:writer', (req, res) => {
     WHERE isPublished = 2 AND author = ?
     ORDER BY pubDate DESC, articleId DESC
   `, [writer.username]).then((rows) => {
+      rows = rows.map((item) => {
+        item.pubDate = dateFormat(item.pubDate, "mmmm d, yyyy");
+        return item;
+      });
       writer.articles = rows;
       res.json(writer);
     });
