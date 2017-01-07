@@ -34,17 +34,17 @@ export default class Index extends React.Component {
               </Link>
             </div>
             {small_features.map((article) => {
-              const innerHTML = {__html: article.title + '<span> - ' + article.name + '</span>'}; 
+              const innerHTML = {__html: article.title + '<span> - ' + article.name + '</span>'};
               return <div key={article.title} className="small_feature">
-                    <Link to={article.url}>
-                      <div className="text-wrapper">
-                        <h2 dangerouslySetInnerHTML={innerHTML}></h2>
-                      </div>
-                      <div className="image-wrapper">
-                        <img src={article.image}/>
-                      </div>
-                    </Link>
+                <Link to={article.url}>
+                  <div className="text-wrapper">
+                    <h2 dangerouslySetInnerHTML={innerHTML}></h2>
                   </div>
+                  <div className="image-wrapper">
+                    <img src={article.image}/>
+                  </div>
+                </Link>
+              </div>
             })}
 
 
@@ -52,17 +52,17 @@ export default class Index extends React.Component {
           <div className="bot-wrapper">
             <div className="recent">
               <div className="title-wrapper"><h3>Recent</h3></div>
-                <div className="list">
+              <div className="list">
                 <ul>
-                {recent.map((article) => {
-                  const innerHTML = {__html: article.title};
-                  return <h4 key={article.title}>
-                    <li><Link to={article.url}
-                          dangerouslySetInnerHTML={innerHTML}></Link></li>
-                  </h4>
-                })}
+                  {recent.map((article) => {
+                    const innerHTML = {__html: article.title};
+                    return <h4 key={article.title}>
+                      <li><Link to={article.url}
+                                dangerouslySetInnerHTML={innerHTML}></Link></li>
+                    </h4>
+                  })}
                 </ul>
-                </div>
+              </div>
             </div>
             <div className="archive">
               <div className="title-wrapper"><h3>Archive</h3></div>
@@ -75,7 +75,7 @@ export default class Index extends React.Component {
                     </div>
                     <div className="text-wrapper">
                       <h3 dangerouslySetInnerHTML={innerHTML}></h3>
-                      <h5><span>{article.pubDate}</span>  - {article.name}</h5>
+                      <h5><span>{article.pubDate}</span> - {article.name}</h5>
                     </div>
                   </Link>
                 </div>

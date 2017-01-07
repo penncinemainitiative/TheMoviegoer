@@ -1,7 +1,13 @@
 import React from "react"
 import {asyncConnect} from "redux-connect"
 import {getAllUnpublishedArticles} from "../api/console"
-import {getMyUnpublishedArticles, getWriterByName, updateBio, updatePassword, updatePhoto} from "../api/author"
+import {
+  getMyUnpublishedArticles,
+  getWriterByName,
+  updateBio,
+  updatePassword,
+  updatePhoto
+} from "../api/author"
 import {newArticle, deleteArticle} from "../api/article"
 import Helmet from "react-helmet"
 import jwt_decode from "jwt-decode"
@@ -135,7 +141,9 @@ class WriterEditor extends React.Component {
               {this.state.option === "photo" ?
                 <div>
                   <Dropzone onDrop={this.onDrop}>
-                    <div>Drop or click to upload your new profile image (.png or .jpg)</div>
+                    <div>Drop or click to upload your new profile image (.png or
+                      .jpg)
+                    </div>
                   </Dropzone>
                 </div> : null}
               {this.state.option === "password" ?
