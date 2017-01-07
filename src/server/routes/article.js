@@ -67,13 +67,26 @@ router.get('/:id/draft', requireLogin, (req, res) => {
     const article = rows[0];
     article.date = dateFormat(rows[0].updateDate, "mmmm d, yyyy");
     db.queryAsync(`
-      SELECT image
+      SELECT image AS url
       FROM images
       WHERE articleId = ?
     `, [articleId]).then((rows) => {
       article.imgList = rows;
       res.json(article);
     });
+  });
+});
+
+router.post('/:id/cover', requireLogin, (req, res) => {
+  const articleId = parseInt(req.params.id);
+  const image = req.body.image;
+  db.queryAsync(`
+    UPDATE articles
+    SET updateDate = NOW(),
+        image = ?
+    WHERE articleId = ?
+  `, [image, articleId]).then(() => {
+    res.json({success: true});
   });
 });
 

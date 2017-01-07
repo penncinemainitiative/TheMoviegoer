@@ -1,8 +1,15 @@
 import React from "react"
 import {asyncConnect} from "redux-connect"
-import {getDraft, changeArticleAuthor, saveArticle, publishArticle} from "../api/article"
+import {
+  getDraft,
+  changeArticleAuthor,
+  saveArticle,
+  publishArticle,
+  setCoverPhoto,
+  retractArticle
+} from "../api/article"
 import Helmet from "react-helmet"
-import ArticleContent from "./ArticleContent"
+import ArticleView from "./ArticleView"
 import browserHistory from "react-router/lib/browserHistory"
 
 @asyncConnect([{
@@ -22,6 +29,8 @@ export default class Draft extends React.Component {
     this.handlePreview = this.handlePreview.bind(this);
     this.showSelect2 = this.showSelect2.bind(this);
     this.handlePublish = this.handlePublish.bind(this);
+    this.handleCoverPhoto = this.handleCoverPhoto.bind(this);
+    this.handleRetractArticle = this.handleRetractArticle.bind(this);
     const {draft} = this.props;
     this.state = {
       title: draft.title,
@@ -117,38 +126,72 @@ export default class Draft extends React.Component {
     });
   }
 
+  handleCoverPhoto(image) {
+    const {draft, token} = this.props;
+    setCoverPhoto(token, draft.articleId, image).then(() => {
+      this.setState(Object.assign({}, this.state, {image}));
+    });
+  }
+
+  handleRetractArticle() {
+    const {draft, token} = this.props;
+    retractArticle(token, draft.articleId).then(() => {
+      browserHistory.push('/console');
+    });
+  }
+
   render() {
     const {draft} = this.props;
     const article = this.state;
+    const cleanTitle = article.title.replace(/(<([^>]+)>)/ig, "");
     return (
       <div>
-        <Helmet title={draft.title}/>
+        <Helmet title={cleanTitle}/>
         <h3>Draft</h3>
         <button onClick={this.handleSave}>Save</button>
         <button
           onClick={this.handlePreview}>{this.state.preview ? "Edit" : "Preview" }</button>
         <button onClick={this.handlePublish}>Publish</button>
+        <button onClick={this.handleRetractArticle}>Retract</button>
         {!this.state.preview ?
           <div>
-            <input type="text"
-                   onChange={this.updateTitle}
-                   placeholder="Article Title" value={this.state.title}/>
-            <div>
-              <label htmlFor="authorSearch">Author</label>
-              <select id="authorSearch">
-                <option onChange={this.updateAuthor} value={this.state.author}>
-                  {this.state.name}
-                </option>
-              </select>
+            <div style={{width: "50%", float: "right"}}>
+              <h4>Images</h4>
+              {draft.imgList.map((img) => {
+                return <div style={{width: "300px"}} key={img.url}>
+                  <img src={img.url}/>
+                  {img.url === this.state.image ? <p>Cover photo</p> :
+                    <button onClick={this.handleCoverPhoto.bind(null, img.url)}>
+                      Make article's cover photo</button>
+                  }
+                </div>
+              })}
             </div>
-            <textarea rows="10" cols="20"
-                      type="text"
-                      onChange={this.updateAuthor}
-                      placeholder="Excerpt" value={this.state.excerpt}/>
-            <textarea rows="30" cols="50" placeholder="Article Text..."
-                      onChange={this.updateText}
-                      id="textInput" value={this.state.text}/>
-          </div> : <ArticleContent article={article}/>}
+            <div style={{width: "50%"}}>
+              <input type="text"
+                     onChange={this.updateTitle}
+                     placeholder="Article Title" value={this.state.title}/>
+              <div>
+                <label htmlFor="authorSearch">Author</label>
+                <select id="authorSearch">
+                  <option onChange={this.updateAuthor}
+                          value={this.state.author}>
+                    {this.state.name}
+                  </option>
+                </select>
+              </div>
+              <div><textarea rows="10" cols="20"
+                             type="text"
+                             onChange={this.updateAuthor}
+                             placeholder="Excerpt" value={this.state.excerpt}/>
+              </div>
+              <div>
+                <textarea rows="30" cols="50" placeholder="Article Text..."
+                          onChange={this.updateText}
+                          id="textInput" value={this.state.text}/>
+              </div>
+            </div>
+          </div> : <ArticleView article={article}/>}
       </div>
     )
   }

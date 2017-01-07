@@ -42,3 +42,15 @@ export const changeArticleAuthor = (token, id, author) => {
       author
     }, authHeader(token));
 };
+
+export const setCoverPhoto = (token, id, image) => {
+  return http
+    .post(`/api/article/${id}/cover`, {
+      image
+    }, authHeader(token));
+};
+
+export const retractArticle = (token, id) => {
+  return http
+    .post(`/api/article/${id}/retract`, {}, authHeader(token));
+};
