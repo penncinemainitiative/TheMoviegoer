@@ -1,37 +1,33 @@
 .writerPage {
 	@include page;
-	.bio-container {
-		//note: this container is identical in styling to featured-writer
-		@include span-columns(10);
-		@include shift(1);
-		height: 400px;
-		background-color: red;
-
-		.image-wrapper {
-			@include span-columns(4 of 10);
-			height: 200px;
-			background-color: blue;
-		}
-
-		.text-wrapper {
-			@include span-columns(5 of 10);
-			background-color: green;
-			padding-right: 20px;
-		}
+	.writer-bio {
+		@include writer-bio;
 	}
 
 	.articles-container {
 		@include span-columns(10);
 		@include shift(1);
 		margin-top: 20px;
-		background-color: pink;
+		margin-bottom: 20px;
+		//background-color: pink;
 	}
-	li {
+	.article {
 		@include span-columns(4);
 		@include omega;
-		height: 100px;
-		background-color: red;
+		//height: 100px;
+		background-color: $fg;
 		margin-left: 10px;
 		margin-top: 10px;
+		h4 {
+			margin-top: 0px;
+			margin-bottom: 0px;
+		}
+		span {
+			color: $gold;
+		}
+
+		.text-wrapper {
+			height: 50px;
+		}
 	}
 }

@@ -35,7 +35,10 @@ export default class Writers extends React.Component {
           {writers.map((writer) => {
             return <Link key={writer.username} to={writer.url}>
               <div className="author_card">
-                <h4>{writer.name}</h4>
+                <div className="image-wrapper"><img src={writer.image}/></div>
+                <div className="text-wrapper">
+                  <h4>{writer.name}</h4>
+                </div>
               </div>
             </Link>
           })}

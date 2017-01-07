@@ -36,9 +36,9 @@ export default class ArticleView extends React.Component {
         </div>
         {article.authorImage ?
           <div className="author_card">
+            <div className="image-wrapper"><img src={article.authorImage}/></div>
             <div className="text-container">
               <h3>{article.name}</h3>
-              <img src={article.authorImage}/>
               <p>{article.bio}</p>
             </div>
           </div> : null}

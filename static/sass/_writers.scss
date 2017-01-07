@@ -1,12 +1,9 @@
 .writersPage {
 	@include page;
 
-	.featured-writer {
-		@include span-columns(10);
-		@include shift(1);
-		height: 400px;
 
-		background-color: $fg;
+	.featured-writer {
+		@include writer-bio;
 
 		h2 {
 			font-size: 50px;
@@ -14,59 +11,38 @@
 			margin-top: 10px;
 			margin-bottom: 0px;
 		}
-
-		p {
-			padding-right: 50px;
-			padding-left: 5px;
-			text-indent: 10px;
-		}
-
-		.name-container {
-			margin-top: 10px;
-			padding-left: 5px;
-
-			h4, h5, .accent {
-				margin: 0px;
-				padding: 0px;
-			}
-
-			h4 {
-				font-size: 30px;
-			}
-
-			.accent {
-				background-color: black;
-				height: 3px;
-				width: 200px;
-			}
-		}
-
-		.image-wrapper {
-			@include span-columns(4 of 10);
-			height: 200px;
-			background-color: blue;
-		}
-
-		.text-wrapper {
-			@include span-columns(6 of 10);
-			//background-color: green;
-			padding-right: 20px;
-		}
-
 	}
 
 	.writers-container {
 		@include span-columns(10);
 		@include shift(1);
 		margin-top: 20px;
-		background-color: pink;
+		margin-bottom: 20px;
 	}
 	.author_card {
 		@include span-columns(4);
 		@include omega;
 		height: 100px;
-		background-color: red;
+		background-color: $fg;
 		margin-left: 10px;
 		margin-top: 10px;
+		padding: 10px;
+
+		.image-wrapper {
+			@include author-pic(80px);
+			display: inline-block;
+		}
+		.text-wrapper {
+			display: inline-block;
+			vertical-align: top;
+			margin-top: 0px;
+			padding-top: 0px;
+			margin-left: 10px;
+		}
+
+		h4 {
+			display: inline-block;
+			margin-top: 0px;
+		}
 	}
 }

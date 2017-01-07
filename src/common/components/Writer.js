@@ -12,29 +12,36 @@ export default class Writer extends React.Component {
   render() {
     const {writer} = this.props;
     return (
-      <div className="writerPage">
-        <Helmet title={writer.name}/>
-        <div className="bio-container">
-          <div className="image-wrapper">
-            <img src={writer.image}/>
-          </div>
-          <div className="text-wrapper">
-            <h4>{writer.name}</h4>
-            <p>{writer.bio}</p>
-          </div>
+    <div className="writerPage">
+      <div className="writer-bio">
+        <div className="image-wrapper">
+          <img src={writer.image}/>
         </div>
-        <div className="articles-container">
-          <ul>
-            {writer.articles.map((article) => {
-              const innerHTML = {__html: article.title};
-              return <h4 key={article.title}>
-                <li><Link to={article.url}
-                          dangerouslySetInnerHTML={innerHTML}></Link></li>
-              </h4>
-            })}
-          </ul>
+        <div className="text-wrapper">
+          <div className="name-container">
+            <h4>{writer.name}</h4>
+            <div className="accent"></div>
+            <h5><i>Some description</i></h5>
+          </div>
+          <p>{writer.bio}</p>
         </div>
       </div>
+      <div className="articles-container">
+          {writer.articles.map((article) => {
+            const innerHTML = {__html: article.title + '<span> - ' + article.pubDate + '</span>'};
+            return <div key={article.title} className="article">
+              <Link to={article.url}>
+                <div className="image-wrapper">
+                  <img src={article.image}/>
+                </div>
+                <div className="text-wrapper">
+                  <h4 dangerouslySetInnerHTML={innerHTML}></h4>
+                </div>
+              </Link>
+            </div>
+          })}
+      </div>
+    </div>
     )
   }
 }

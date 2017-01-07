@@ -35,8 +35,26 @@
 
 	.author_card {
 		@include span-columns(3);
-		height: 500px;
-		background-color: red;
+		
+		background-color: $fg;
+		padding: 20px;
+
+		h3 {
+			font-size: 25px;
+			margin-bottom: 0px;
+		}
+
+		p {
+			padding-left: 10px;
+			text-indent: 10px;
+			line-height: 120%;
+		}
+
+		.image-wrapper {
+			@include author-pic(200px);
+			@include row();
+			
+		}
 	}
 
 	.archive {
