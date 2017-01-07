@@ -37,7 +37,8 @@ router.get('/', requireLogin, (req, res) => {
 
 router.get('/:year/:month/:day/:slug', (req, res) => {
   db.queryAsync(`
-    SELECT url, name, articleId, text, articles.image, isPublished, pubDate, title
+    SELECT url, name, articleId, text, articles.image, isPublished, pubDate, title,
+           authors.image AS authorImage, bio, username
     FROM articles
     INNER JOIN authors ON authors.username = articles.author
     WHERE url = ?`, [req.url]
