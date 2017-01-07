@@ -38,6 +38,7 @@ export default class Header extends React.Component {
     });
     search.on('select2:select', (e) => {
       browserHistory.push(e.target.value);
+      search.val('').trigger('change');
     });
   }
 

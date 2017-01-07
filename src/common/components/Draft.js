@@ -6,11 +6,13 @@ import {
   saveArticle,
   publishArticle,
   setCoverPhoto,
-  retractArticle
+  retractArticle,
+  updatePhoto
 } from "../api/article"
 import Helmet from "react-helmet"
 import ArticleView from "./ArticleView"
 import browserHistory from "react-router/lib/browserHistory"
+import Dropzone from "react-dropzone"
 
 @asyncConnect([{
     key: 'draft',
@@ -31,6 +33,7 @@ export default class Draft extends React.Component {
     this.handlePublish = this.handlePublish.bind(this);
     this.handleCoverPhoto = this.handleCoverPhoto.bind(this);
     this.handleRetractArticle = this.handleRetractArticle.bind(this);
+    this.onDrop = this.onDrop.bind(this);
     const {draft} = this.props;
     this.state = {
       title: draft.title,
@@ -140,6 +143,14 @@ export default class Draft extends React.Component {
     });
   }
 
+  onDrop(files) {
+    const {draft, token} = this.props;
+    const file = files[0];
+    updatePhoto(token, draft.articleId, file).then(() => {
+      location.reload();
+    });
+  }
+
   render() {
     const {draft} = this.props;
     const article = this.state;
@@ -157,6 +168,9 @@ export default class Draft extends React.Component {
           <div>
             <div style={{width: "50%", float: "right"}}>
               <h4>Images</h4>
+              <Dropzone onDrop={this.onDrop}>
+                <div>Drop or click to upload a new photo (.png or .jpg)</div>
+              </Dropzone>
               {draft.imgList.map((img) => {
                 return <div style={{width: "300px"}} key={img.url}>
                   <img src={img.url}/>

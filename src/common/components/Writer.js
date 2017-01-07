@@ -2,20 +2,15 @@ import React from "react"
 import {asyncConnect} from "redux-connect"
 import {getWriter} from "../api/author"
 import Helmet from "react-helmet"
-import jwt_decode from "jwt-decode"
 import Link from "react-router/lib/Link"
 
 @asyncConnect([{
-    key: 'writer',
-    promise: ({params}) => getWriter(params.writer)
-  }],
-  state => ({token: state.token})
-)
+  key: 'writer',
+  promise: ({params}) => getWriter(params.writer)
+}])
 export default class Writer extends React.Component {
   render() {
-    const {writer, token} = this.props;
-    const author = token ? jwt_decode(token) : {};
-    const loggedIn = author.username === writer.username;
+    const {writer} = this.props;
     return (
       <div className="writerPage">
         <Helmet title={writer.name}/>

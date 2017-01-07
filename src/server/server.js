@@ -14,11 +14,13 @@ import apiRoutes from "./api"
 import {createStore} from "../common/createStore"
 import {loginWithToken} from "../common/actions/auth"
 import path from "path"
+import multer from "multer"
 
 const app = express();
 
 app.use(compression());
 app.use(helmet());
+app.use(multer({dest: './uploads/', includeEmptyFields: true}).single('photo'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cookieParser());

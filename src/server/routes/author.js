@@ -1,8 +1,9 @@
 import express from "express"
 import {db} from "../db"
-import {requireLogin} from "../utils"
+import {requireLogin, getSignedS3URL} from "../utils"
 import bcrypt from "bcrypt"
 import dateFormat from "dateformat"
+import url from "url"
 
 const router = express.Router();
 
@@ -43,10 +44,10 @@ router.get('/:writer/unpublished', requireLogin, (req, res) => {
 });
 
 
-router.post('/password', requireLogin, (req, res) => {
-  const oldPassword = req.body.oldpassword;
-  const newPassword = req.body.newpassword;
-  const username = res.locals.author.username;
+router.post('/:writer/password', requireLogin, (req, res) => {
+  const oldPassword = req.body.oldPassword;
+  const newPassword = req.body.newPassword;
+  const username = req.params.writer;
   db.queryAsync(`
     SELECT password
     FROM authors
@@ -64,31 +65,51 @@ router.post('/password', requireLogin, (req, res) => {
             `, [hash, username]).then(() => {
               res.send({
                 success: true,
-                msg: "Password has been successfully changed!"
+                message: "Password has been successfully changed!"
               });
             });
           });
         });
       } else {
-        return res.send({success: false, msg: "Incorrect old password!"});
+        return res.send({success: false, message: "Incorrect old password!"});
       }
     });
   });
 });
 
-router.post('/description', requireLogin, (req, res) => {
+router.post('/:writer/description', requireLogin, (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
   const bio = req.body.bio;
-  const username = res.locals.author.username;
+  const username = req.params.writer;
   db.queryAsync(`
     UPDATE authors
-    SET name = ?
-        email = ?
+    SET name = ?,
+        email = ?,
         bio = ?
     WHERE username = ?
-  `, [name, email, bio]).then(() => {
+  `, [name, email, bio, username]).then(() => {
     res.send({success: true});
+  });
+});
+
+router.post('/:writer/photo/url', requireLogin, (req, res) => {
+  const username = req.params.writer;
+  const filename = req.body.filename;
+  const filetype = req.body.filetype;
+  getSignedS3URL(filename, username, filetype, (err, data) => {
+    const strippedURL = url.parse(data).pathname;
+    const image = `https://moviegoer.s3.amazonaws.com${strippedURL}`;
+    db.queryAsync(`
+      UPDATE authors
+      SET image = ?
+      WHERE username = ?
+    `, [image, username]).then(() => {
+      res.json({
+        signedURL: data,
+        cleanURL: image
+      });
+    })
   });
 });
 

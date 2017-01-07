@@ -1,4 +1,5 @@
 import {http, authHeader} from "./utils"
+import axios from "axios"
 
 export const getDraft = (token, id) => {
   return http
@@ -53,4 +54,21 @@ export const setCoverPhoto = (token, id, image) => {
 export const retractArticle = (token, id) => {
   return http
     .post(`/api/article/${id}/retract`, {}, authHeader(token));
+};
+
+export const updatePhoto = (token, id, file) => {
+  return http
+    .post(`/api/article/${id}/photos`, {
+      filename: file.name,
+      filetype: file.type
+    }, authHeader(token))
+    .then(({data}) => {
+      const signedURL = data.signedURL;
+      const options = {
+        headers: {
+          'Content-Type': file.type
+        }
+      };
+      return axios.put(signedURL, file, options);
+    });
 };

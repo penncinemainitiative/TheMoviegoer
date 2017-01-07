@@ -20,7 +20,7 @@
   "private": true,
   "dependencies": {
     "async": "^1.5.1",
-    "aws-sdk": "^2.2.26",
+    "aws-sdk": "^2.7.21",
     "axios": "^0.15.2",
     "babel-core": "^6.21.0",
     "babel-loader": "^6.2.10",
@@ -53,6 +53,7 @@
     "react": "^15.4.1",
     "react-cookie": "^1.0.4",
     "react-dom": "^15.4.1",
+    "react-dropzone": "^3.8.0",
     "react-helmet": "^3.2.3",
     "react-redux": "^4.4.6",
     "react-router": "^3.0.0",

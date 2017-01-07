@@ -2,7 +2,8 @@ import express from "express"
 import {db} from "../db"
 import dateFormat from "dateformat"
 import getSlug from "speakingurl"
-import {requireLogin} from "../utils"
+import {requireLogin, getSignedS3URL} from "../utils"
+import url from "url"
 
 const router = express.Router();
 
@@ -87,6 +88,32 @@ router.post('/:id/cover', requireLogin, (req, res) => {
     WHERE articleId = ?
   `, [image, articleId]).then(() => {
     res.json({success: true});
+  });
+});
+
+router.post('/:id/photos', requireLogin, (req, res) => {
+  const articleId = req.params.id;
+  const filename = req.body.filename;
+  const filetype = req.body.filetype;
+  getSignedS3URL(filename, articleId, filetype, (err, data) => {
+    const strippedURL = url.parse(data).pathname;
+    const image = `https://moviegoer.s3.amazonaws.com${strippedURL}`;
+    db.queryAsync(`
+      UPDATE articles
+      SET image = ?,
+          updateDate = NOW()
+      WHERE articleId = ?
+    `, [image, articleId]).then(() => {
+      db.queryAsync(`
+        INSERT INTO images
+        SET ?
+      `, {articleId, image}).then(() => {
+        res.json({
+          signedURL: data,
+          cleanURL: image
+        });
+      });
+    })
   });
 });
 
