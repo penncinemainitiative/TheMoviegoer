@@ -15,6 +15,10 @@ import Articles from "./components/Articles"
 import Footer from "./components/Footer"
 
 class App extends React.Component {
+  componentDidUpdate() {
+    FB.XFBML.parse();
+  }
+
   render() {
     return (
       <div>

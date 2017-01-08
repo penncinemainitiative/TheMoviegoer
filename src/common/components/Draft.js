@@ -14,6 +14,8 @@ import ArticleView from "./ArticleView"
 import browserHistory from "react-router/lib/browserHistory"
 import Dropzone from "react-dropzone"
 
+let editor;
+
 @asyncConnect([{
     key: 'draft',
     promise: ({store: {getState}, params}) => getDraft(getState().token, params.id)
@@ -26,10 +28,9 @@ export default class Draft extends React.Component {
     this.updateTitle = this.updateTitle.bind(this);
     this.updateAuthor = this.updateAuthor.bind(this);
     this.updateExcerpt = this.updateExcerpt.bind(this);
-    this.updateText = this.updateText.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handlePreview = this.handlePreview.bind(this);
-    this.showSelect2 = this.showSelect2.bind(this);
+    this.loadLibraries = this.loadLibraries.bind(this);
     this.handlePublish = this.handlePublish.bind(this);
     this.handleCoverPhoto = this.handleCoverPhoto.bind(this);
     this.handleRetractArticle = this.handleRetractArticle.bind(this);
@@ -48,7 +49,7 @@ export default class Draft extends React.Component {
     };
   }
 
-  showSelect2() {
+  loadLibraries() {
     const search = $('#authorSearch');
     search.select2({
       width: '100%',
@@ -74,14 +75,18 @@ export default class Draft extends React.Component {
         this.setState(Object.assign({}, this.state, {author, name}));
       });
     }.bind(this));
+    editor = new SimpleMDE({
+      element: document.getElementById("textInput"),
+      spellChecker: false
+    });
   }
 
   componentDidMount() {
-    this.showSelect2();
+    this.loadLibraries();
   }
 
   componentDidUpdate() {
-    this.showSelect2();
+    this.loadLibraries();
   }
 
   updateTitle(e) {
@@ -96,15 +101,11 @@ export default class Draft extends React.Component {
     this.setState(Object.assign({}, this.state, {excerpt: e.target.value}));
   }
 
-  updateText(e) {
-    this.setState(Object.assign({}, this.state, {text: e.target.value}));
-  }
-
   handleSave() {
     const {draft, token} = this.props;
-    const {title, text, excerpt} = this.state;
-    saveArticle(token, draft.articleId, title, text, excerpt).then(() => {
-      this.setState(Object.assign({}, this.state));
+    const {title, excerpt} = this.state;
+    saveArticle(token, draft.articleId, title, editor.value(), excerpt).then(() => {
+      this.setState(Object.assign({}, this.state, {text: editor.value()}));
     });
   }
 
@@ -115,9 +116,10 @@ export default class Draft extends React.Component {
     }
     const {draft, token} = this.props;
     const {title, text, excerpt} = this.state;
-    saveArticle(token, draft.articleId, title, text, excerpt).then(() => {
+    saveArticle(token, draft.articleId, title, editor.value(), excerpt).then(() => {
       this.setState(Object.assign({}, this.state, {
-        preview: true
+        preview: true,
+        text: editor.value()
       }));
     });
   }
@@ -201,8 +203,7 @@ export default class Draft extends React.Component {
               </div>
               <div>
                 <textarea rows="30" cols="50" placeholder="Article Text..."
-                          onChange={this.updateText}
-                          id="textInput" value={this.state.text}/>
+                          id="textInput" defaultValue={this.state.text}/>
               </div>
             </div>
           </div> : <ArticleView article={article}/>}

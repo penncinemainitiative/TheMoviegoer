@@ -60,7 +60,11 @@ export default class ArticleView extends React.Component {
               </div>
             })}
           </div> : null }
-        {archive ? <div className="comments"></div> : null}
+        {archive ?
+          <div className="comments">
+            <div className="fb-comments" data-href={article.url}
+                 data-width="100%" data-numposts="5"></div>
+          </div> : null}
       </div>
     )
   }
