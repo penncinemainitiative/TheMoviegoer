@@ -21,6 +21,7 @@
 <body>
 <div id="mount"><%- env === 'production' ? appHTML : null %></div>
 <script>window.__data = <%- state %></script>
+<script type="text/javascript" src="/public/js/raw/fbSDK.js"></script>
 <% if (env === 'production') { %>
 <script src="/public/bundle.js"></script>
   <% if (!state.token) { %>
@@ -29,6 +30,5 @@
 <% } else { %>
 <script src="http://localhost:8080/public/bundle.js"></script>
 <% } %>
-<script type="text/javascript" src="/public/js/raw/fbSDK.js"></script>
 </body>
 </html>

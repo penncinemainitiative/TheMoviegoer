@@ -9,6 +9,14 @@ const defaultDescription = "The Moviegoer is a student-run blog dedicated to fil
   "It is run by the Penn Cinema Initiative.";
 
 export default class ArticleView extends React.Component {
+  componentDidUpdate() {
+    FB.XFBML.parse();
+  }
+
+  componentDidMount() {
+    FB.XFBML.parse();
+  }
+
   render() {
     const {article, token, archive} = this.props;
     const title = {__html: article.title};
@@ -30,8 +38,7 @@ export default class ArticleView extends React.Component {
         <div className="article_content">
           <img src={article.image}/>
           <h4 dangerouslySetInnerHTML={title}></h4>
-          <h5>{article.name} - {article.pubDate}</h5>
-          {author ? <Link to={draftUrl}>Edit</Link> : null}
+          <h5>{article.name} - {article.pubDate} {author ? <Link to={draftUrl}>Edit</Link> : null}</h5>
           <div dangerouslySetInnerHTML={text}></div>
         </div>
         {article.authorImage ?

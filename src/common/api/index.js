@@ -5,6 +5,16 @@ export const login = (username, password) => {
     .post('/api/login', {username, password});
 };
 
+export const signup = (name, username, password, email) => {
+  return http
+    .post('/api/signup', {
+      name,
+      username,
+      password,
+      email
+    });
+};
+
 export const getRecentArticles = (offset) => {
   return http
     .get(`/api/recent?offset=${offset}`)

@@ -6,7 +6,7 @@ export default class PageNotFound extends React.Component {
     return (
       <div>
         <Helmet title="Page Not Found"/>
-        404
+        <h1>Not found</h1>
       </div>
     )
   }

@@ -6,6 +6,7 @@ import About from "./components/About"
 import Article from "./components/Article"
 import Header from "./components/Header"
 import Login from "./components/Login"
+import Signup from "./components/Signup"
 import Console from "./components/Console"
 import PageNotFound from "./components/PageNotFound"
 import Writers from "./components/Writers"
@@ -15,10 +16,6 @@ import Articles from "./components/Articles"
 import Footer from "./components/Footer"
 
 class App extends React.Component {
-  componentDidUpdate() {
-    FB.XFBML.parse();
-  }
-
   render() {
     return (
       <div>
@@ -49,7 +46,7 @@ export default (store) => {
       <Route path="writers" component={Writers}/>
       <Route path="articles" component={Articles}/>
       <Route path="login" component={Login}/>
-      <Route path="signup" component={Login}/>
+      <Route path="signup" component={Signup}/>
       <Route path="console" component={Console} onEnter={authenticate(store)}/>
       <Route path="draft/:id" component={Draft}
              onEnter={authenticate(store)}/>

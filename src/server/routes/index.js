@@ -26,6 +26,37 @@ router.get('/recent', (req, res) => {
   });
 });
 
+router.post('/signup', (req, res) => {
+  const insertData = {
+    username: req.body.username,
+    email: req.body.email,
+    name: req.body.name,
+    isEditor: -1,
+    assignedEditor: req.body.username,
+    image: 'https://www.royalacademy.org.uk/assets/placeholder-1e385d52942ef11d42405be4f7d0a30d.jpg',
+    bio: '...'
+  };
+
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(req.body.password, salt, (err, hash) => {
+      insertData.password = hash;
+      db.queryAsync(`
+        INSERT INTO authors SET ?
+      `, insertData).then(() => {
+        res.send({
+          success: true,
+          msg: 'Account has been created and is awaiting approval!'
+        });
+      }).catch((err) => {
+        res.send({
+          success: false,
+          msg: 'Try again with a different username!'
+        });
+      });
+    });
+  });
+});
+
 router.post('/login', (req, res) => {
   const user = req.body.username;
   const password = req.body.password;
@@ -65,6 +96,7 @@ router.get('/writers', (req, res) => {
   db.queryAsync(`
     SELECT name, image, username
     FROM authors
+    WHERE isEditor > -1
   `).then((rows) => {
     rows = rows.map((author) => {
       author.url = "/writer/" + author.name.replace(" ", "");
