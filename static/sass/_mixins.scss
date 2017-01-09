@@ -137,3 +137,12 @@
 		padding-right: 20px;
 	}
 }
+
+//placeholder image for fluid layouts dependent on image size
+@mixin load-placeholder ($width, $height) {
+	position: relative;
+	padding-bottom: percentage($height/$width);
+	img {
+		position: absolute;
+	}	
+}

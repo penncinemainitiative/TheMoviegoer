@@ -11,6 +11,7 @@
 		margin-bottom: 20px;
 		//background-color: pink;
 	}
+
 	.article {
 		@include span-columns(4);
 		@include omega;
@@ -28,6 +29,12 @@
 
 		.text-wrapper {
 			height: 50px;
+		}
+
+
+
+		.image-wrapper {
+			@include load-placeholder(16, 9);
 		}
 	}
 }

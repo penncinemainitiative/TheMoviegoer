@@ -29,7 +29,7 @@ export default class Index extends React.Component {
                   <h2 dangerouslySetInnerHTML={BigInnerHTML}></h2>
                 </div>
                 <div className="image-wrapper">
-                  <img src={big_feature.image}/>
+                  <div className="inner-wrapper"><img src={big_feature.image}/></div>
                 </div>
               </Link>
             </div>
@@ -41,13 +41,11 @@ export default class Index extends React.Component {
                     <h2 dangerouslySetInnerHTML={innerHTML}></h2>
                   </div>
                   <div className="image-wrapper">
-                    <img src={article.image}/>
+                    <div className="inner-wrapper"><img src={article.image}/></div>
                   </div>
                 </Link>
               </div>
             })}
-
-
           </div>
           <div className="bot-wrapper">
             <div className="recent">
@@ -70,9 +68,9 @@ export default class Index extends React.Component {
                 const innerHTML = {__html: article.title};
                 return <div key={article.title} className="content-wrapper">
                   <Link to={article.url}>
-                    <div className="image-wrapper">
+                    <div className="image-wrapper"><div className="inner-wrapper">
                       <img src={article.image}/>
-                    </div>
+                    </div></div>
                     <div className="text-wrapper">
                       <h3 dangerouslySetInnerHTML={innerHTML}></h3>
                       <h5><span>{article.pubDate}</span> - {article.name}</h5>

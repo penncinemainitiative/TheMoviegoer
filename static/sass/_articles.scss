@@ -12,18 +12,35 @@
 		    
 
 			.image-wrapper {
-				@include span-columns(6);
-			}
-			
-			img {
-			    min-width: 100%;
-			    max-width: 100%;
+				@include span-columns(7);
+				.inner-wrapper {
+					position: relative;
+					padding-bottom: 56.25%;
+					img {
+						position: absolute;
+					}		
+				}
+						
+				
 			}
 			
 			.text-container {
-				@include span-columns(6);
+				@include span-columns(5);
 				margin-left: 10px;
-				background-color: red;
+
+				h3 {
+					font-family: $main-title;
+					margin-top: 5px;
+					margin-bottom: 5px;
+				}
+				h5 {
+					margin-top: 0px;
+					span {
+						color: $gold;
+					}
+				}
+
+
 			}
 		}	
 	}
