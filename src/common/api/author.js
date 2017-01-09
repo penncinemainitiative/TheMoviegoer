@@ -26,12 +26,15 @@ export const getMyUnpublishedArticles = () => {
   };
 };
 
-export const updateBio = (token, writer, name, email, bio) => {
+export const updateBio = (token, writer, name, email, bio, hometown, allow_featured_writer, accent_color) => {
   return http
     .post(`/api/author/${writer}/description`, {
       name,
       email,
-      bio
+      bio,
+      hometown,
+      accent_color,
+      allow_featured_writer
     }, authHeader(token))
     .then(({data}) => data);
 };

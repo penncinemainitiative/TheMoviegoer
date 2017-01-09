@@ -28,6 +28,9 @@ class WriterEditor extends React.Component {
     this.updateCurrentPassword = this.updateCurrentPassword.bind(this);
     this.updateNewPassword = this.updateNewPassword.bind(this);
     this.updateConfirmedPassword = this.updateConfirmedPassword.bind(this);
+    this.updateAccentColor = this.updateAccentColor.bind(this);
+    this.updateHometown = this.updateHometown.bind(this);
+    this.updateAllowFeaturedWriter = this.updateAllowFeaturedWriter.bind(this);
     this.onDrop = this.onDrop.bind(this);
     const {writer} = this.props;
     this.state = {
@@ -39,6 +42,9 @@ class WriterEditor extends React.Component {
       bio: writer.bio,
       name: writer.name,
       email: writer.email,
+      hometown: writer.hometown,
+      accent_color: writer.accent_color,
+      allow_featured_writer: writer.allow_featured_writer === 1,
       message: ""
     }
   }
@@ -46,7 +52,14 @@ class WriterEditor extends React.Component {
   handleEdit() {
     const {writer, token} = this.props;
     if (this.state.option === "bio") {
-      updateBio(token, writer.username, this.state.name, this.state.email, this.state.bio).then(() => {
+      updateBio(token,
+        writer.username,
+        this.state.name,
+        this.state.email,
+        this.state.bio,
+        this.state.hometown,
+        this.state.allow_featured_writer ? 1 : 0,
+        this.state.accent_color).then(() => {
         this.setState(Object.assign({}, this.state, {editing: !this.state.editing}));
       });
     } else if (this.state.option === "password") {
@@ -106,6 +119,25 @@ class WriterEditor extends React.Component {
     });
   }
 
+  updateHometown(e) {
+    this.setState(Object.assign({}, this.state, {hometown: e.target.value}));
+  }
+
+  updateAccentColor(e) {
+    const value = e.target.value;
+    if (value.startsWith("#") && value.length === 7) {
+      this.setState(Object.assign({}, this.state, {accent_color: value}));
+    } else {
+      this.setState(Object.assign({}, this.state, {message: "Incorrect color value"}));
+    }
+  }
+
+  updateAllowFeaturedWriter(e) {
+    this.setState(Object.assign({}, this.state, {
+      allow_featured_writer: !this.state.allow_featured_writer
+    }));
+  }
+
   render() {
     return (
       <div>
@@ -134,6 +166,23 @@ class WriterEditor extends React.Component {
                   <p>
                     <input type="text" value={this.state.email}
                            onChange={this.updateEmail}/>
+                  </p>
+                  <p>
+                    <input type="text" value={this.state.hometown}
+                           placeholder="Hometown"
+                           onChange={this.updateHometown}/>
+                  </p>
+                  <p>
+                    <input type="text" value={this.state.accent_color}
+                           placeholder="Accent color"
+                           onChange={this.updateAccentColor}/>
+                  </p>
+                  <p>
+                    Allow profile to be featured on <Link to="/writer">writers
+                    page</Link>?
+                    <input type="checkbox"
+                           checked={this.state.allow_featured_writer}
+                           onChange={this.updateAllowFeaturedWriter}/>
                   </p>
                   <textarea rows="10" cols="50" value={this.state.bio}
                             onChange={this.updateBio}/>

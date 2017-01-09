@@ -27,7 +27,7 @@ router.get('/unpublished', (req, res) => {
     SELECT author, name, url, articleId, isPublished, updateDate, title
     FROM articles
     INNER JOIN authors ON authors.username = articles.author
-    WHERE isPublished < 2
+    WHERE isPublished < 2 AND isPublished > -2
     ORDER BY updateDate DESC, articleId DESC
   `).then((rows) => {
     res.json(rows.map((item) => {

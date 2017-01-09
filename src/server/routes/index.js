@@ -27,13 +27,17 @@ router.get('/recent', (req, res) => {
 });
 
 router.post('/signup', (req, res) => {
+  const colors = ["#5DCFC2", "#A3D967", "#D96864", "#A189CF"];
   const insertData = {
     username: req.body.username,
     email: req.body.email,
     name: req.body.name,
     isEditor: -1,
+    hometown: "",
+    allow_featured_writer: 1,
     assignedEditor: req.body.username,
     image: 'https://www.royalacademy.org.uk/assets/placeholder-1e385d52942ef11d42405be4f7d0a30d.jpg',
+    accent_color: colors[Math.floor(Math.random() * colors.length)],
     bio: '...'
   };
 
@@ -94,7 +98,7 @@ router.post('/login', (req, res) => {
 
 router.get('/writers', (req, res) => {
   db.queryAsync(`
-    SELECT name, image, username
+    SELECT username, email, name, image, accent_color, bio, hometown, position
     FROM authors
     WHERE isEditor > -1
   `).then((rows) => {
@@ -108,9 +112,9 @@ router.get('/writers', (req, res) => {
 
 router.get('/random/author', (req, res) => {
   db.queryAsync(`
-    SELECT username, email, name, image, bio
+    SELECT username, email, name, image, accent_color, bio, hometown, position
     FROM authors
-    WHERE LENGTH(bio) > 5
+    WHERE LENGTH(bio) > 5 AND allow_featured_writer = 1
     ORDER BY RAND()
     LIMIT 1
   `).then((rows) => {
@@ -118,6 +122,20 @@ router.get('/random/author', (req, res) => {
     author.url = "/writer/" + author.name.replace(" ", "");
     res.json(author);
   });
+});
+
+router.get('/staff', (req, res) => {
+  db.queryAsync(`
+    SELECT username, email, name, image, accent_color, bio, hometown, position
+    FROM authors
+    WHERE position IS NOT NULL
+  `).then((rows) => {
+    rows = rows.map((author) => {
+      author.url = "/writer/" + author.name.replace(" ", "");
+      return author;
+    });
+    res.json(rows);
+  })
 });
 
 const randomArticlesCache = {};

@@ -38,12 +38,14 @@ export default class ArticleView extends React.Component {
         <div className="article_content">
           <img src={article.image}/>
           <h4 dangerouslySetInnerHTML={title}></h4>
-          <h5>{article.name} - {article.pubDate} {author ? <Link to={draftUrl}>Edit</Link> : null}</h5>
+          <h5>{article.name} - {article.pubDate} {author ?
+            <Link to={draftUrl}>Edit</Link> : null}</h5>
           <div dangerouslySetInnerHTML={text}></div>
         </div>
         {article.authorImage ?
           <div className="author_card">
-            <div className="image-wrapper"><img src={article.authorImage}/></div>
+            <div className="image-wrapper"><img src={article.authorImage}/>
+            </div>
             <div className="text-container">
               <h3>{article.name}</h3>
               <p>{article.bio}</p>

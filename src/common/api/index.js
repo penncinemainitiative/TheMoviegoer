@@ -44,3 +44,13 @@ export const getArchiveArticle = () => {
     .get('/api/random/articles?n=3')
     .then(({data}) => data);
 };
+
+export const getStaff = (order) => {
+  return http
+    .get('/api/staff')
+    .then(({data}) => {
+      return data.sort((a, b) => {
+        return order.indexOf(a.position) - order.indexOf(b.position);
+      });
+    });
+};

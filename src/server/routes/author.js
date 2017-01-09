@@ -9,18 +9,18 @@ const router = express.Router();
 
 router.get('/:writer', (req, res) => {
   db.queryAsync(`
-    SELECT username, email, name, bio, image
+    SELECT username, email, name, image, accent_color, bio, hometown, position, allow_featured_writer
     FROM authors
     WHERE REPLACE(name, " ", "") = REPLACE(?, " ", "")
   `, [req.params.writer]).then((rows) => {
     const writer = rows[0];
     writer.url = "/writer/" + writer.name.replace(" ", "");
     db.queryAsync(`
-    SELECT url, articleId, isPublished, pubDate, title, author, image
-    FROM articles
-    WHERE isPublished = 2 AND author = ?
-    ORDER BY pubDate DESC, articleId DESC
-  `, [writer.username]).then((rows) => {
+      SELECT url, articleId, isPublished, pubDate, title, author, image
+      FROM articles
+      WHERE isPublished = 2 AND author = ?
+      ORDER BY pubDate DESC, articleId DESC
+    `, [writer.username]).then((rows) => {
       rows = rows.map((item) => {
         item.pubDate = dateFormat(item.pubDate, "mmmm d, yyyy");
         return item;
@@ -86,14 +86,20 @@ router.post('/:writer/description', requireLogin, (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
   const bio = req.body.bio;
+  const hometown = req.body.hometown;
+  const accent_color = req.body.accent_color;
+  const allow_featured_writer = req.body.allow_featured_writer;
   const username = req.params.writer;
   db.queryAsync(`
     UPDATE authors
     SET name = ?,
         email = ?,
-        bio = ?
+        bio = ?,
+        hometown = ?,
+        accent_color = ?,
+        allow_featured_writer = ?
     WHERE username = ?
-  `, [name, email, bio, username]).then(() => {
+  `, [name, email, bio, hometown, accent_color, allow_featured_writer, username]).then(() => {
     res.send({success: true});
   });
 });
