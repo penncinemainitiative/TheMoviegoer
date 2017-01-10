@@ -110,7 +110,7 @@ router.post('/:writer/photo/url', requireLogin, (req, res) => {
   const filetype = req.body.filetype;
   getSignedS3URL(filename, username, filetype, (err, data) => {
     const strippedURL = url.parse(data).pathname;
-    const image = `http://assets.pennmoviegoer.com${strippedURL}`;
+    const image = `https://s3.amazonaws.com/moviegoer${strippedURL}`;
     db.queryAsync(`
       UPDATE authors
       SET image = ?

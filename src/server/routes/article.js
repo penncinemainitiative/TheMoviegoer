@@ -97,7 +97,7 @@ router.post('/:id/photos', requireLogin, (req, res) => {
   const filetype = req.body.filetype;
   getSignedS3URL(filename, articleId, filetype, (err, data) => {
     const strippedURL = url.parse(data).pathname;
-    const image = `http://assets.pennmoviegoer.com${strippedURL}`;
+    const image = `https://s3.amazonaws.com/moviegoer${strippedURL}`;
     db.queryAsync(`
       UPDATE articles
       SET image = ?,
