@@ -36,7 +36,7 @@ export default class ArticleView extends React.Component {
                   {property: "og:image", content: article.image}
                 ]}/>
         <div className="article_content">
-          <img src={article.image}/>
+          <div className="image-wrapper"><img src={article.image}/></div>
           <h4 dangerouslySetInnerHTML={title}></h4>
           <h5>{article.name} - {article.pubDate} {author ?
             <Link to={draftUrl}>Edit</Link> : null}</h5>

@@ -11,8 +11,8 @@
 		p {
 			padding-left: 40px;
 			padding-right: 40px;
-			font-size: 16px;
 			text-indent: 20px;
+			font-size: 16px;
 			line-height: 150%;
 		}
 		a {
@@ -30,6 +30,9 @@
 			font-size: 20px; 
 			padding-left: 25px;
 			color: $goldD1;
+		}
+		.image-wrapper {
+			@include load-placeholder(16,9);
 		}
 	}
 

@@ -6,7 +6,6 @@
     	@include span-columns(12);
     	margin-top: 15px;
     	margin-bottom: 15px;
-    	//background-color: pink;
     }
 
 	.top-wrapper {
@@ -16,11 +15,21 @@
 
     .big_feature {
     	@include feature-content (8, 50px);
+    	@include omega;
+    	margin-right: 1.5%;
+    	margin-left: .3%;
     }
 
     .small_feature {
     	@include feature-content (4, 20px);
     	@include omega;
+    }
+    .text-wrapper {
+    	z-index: 2;
+    }
+
+    .inner-wrapper {
+    	@include load-placeholder(16, 9);
     }
 
 
@@ -69,7 +78,7 @@
 
 		    .archive {
 				@include span-columns(8);
-				@include archive-box(2);		    	
+				@include archive-box(2);	    	
 		    }
 		
 	}
