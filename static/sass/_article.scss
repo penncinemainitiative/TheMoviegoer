@@ -8,6 +8,7 @@
 		@include shift(1);
 		background-color: $fg;
 		margin-bottom: 15px;
+
 		p {
 			padding-left: 40px;
 			padding-right: 40px;
@@ -33,6 +34,12 @@
 		}
 		.image-wrapper {
 			@include load-placeholder(16,9);
+		}
+
+		.image-container {
+			padding-left: 0px;
+			padding-right: 0px;
+			text-indent: 0px;
 		}
 	}
 

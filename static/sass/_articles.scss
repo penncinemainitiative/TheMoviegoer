@@ -3,7 +3,6 @@
 	.articles {
 		@include span-columns(10); 
 		@include shift(1); 
-		margin-top: 15px;
 
 		.list-article {
 			@include row();

@@ -1,6 +1,7 @@
 //default page settings
 @mixin page {
-  margin-top: 10px;
+  margin-top: 15px;
+  margin-bottom: 40px;
   @include outer-container();
 }
 
