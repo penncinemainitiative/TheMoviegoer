@@ -10,7 +10,8 @@
 		margin-bottom: 15px;
 		@include media($mobile) {
 			
-			@include span-columns(5);
+			@include span-columns(6);
+			@include shift(0);
 		};	
 
 		p {
@@ -71,15 +72,15 @@
 			@include row();
 
 			@include media($mobile) {
-			
-			@include author-pic(70px);
+				@include author-pic(70px);
 			}	
 			
 		}
 
 		@include media($mobile) {
-			@include span-columns(5);
-			display: none;
+			@include span-columns(6);
+			//display: none;
+			margin-bottom: 15px;
 		}
 	}
 
@@ -93,7 +94,8 @@
 
 		@include media($mobile) {
 			
-			@include span-columns(5);
+			@include span-columns(6);
+			@include shift(0);
 		}	
 	}
 

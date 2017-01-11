@@ -4,6 +4,23 @@
 		@include span-columns(10); 
 		@include shift(1); 
 
+		@include media($mobile) {
+			@include span-columns(6);
+			@include shift(0);
+			p {
+				display: none;
+			}
+
+			.image-wrapper  {
+			
+				
+			}
+			.text-container {
+
+			}
+
+		}	
+
 		.list-article {
 			@include row();
 		    margin-top: 10px;
@@ -12,6 +29,10 @@
 
 			.image-wrapper {
 				@include span-columns(7);
+				@include media($mobile) {
+					@include span-columns(6);
+				}
+
 				.inner-wrapper {
 					position: relative;
 					padding-bottom: 56.25%;

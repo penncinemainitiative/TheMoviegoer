@@ -3,6 +3,10 @@
 	height: 200px;
 	background-color: $goldD2;
 
+	@include media($mobile) {
+		height: 300px;
+	}
+
 	img {
 	min-width: initial;
 	max-width: initial;
