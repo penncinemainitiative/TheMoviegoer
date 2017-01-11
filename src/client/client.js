@@ -7,15 +7,14 @@ import applyRouterMiddleware from "react-router/lib/applyRouterMiddleware"
 import getRoutes from "../common/routes"
 import {Provider} from "react-redux"
 import {createStore} from "../common/createStore"
-import {useScroll} from "react-router-scroll"
+import useScroll from "react-router-scroll/lib/useScroll"
 
 const store = createStore(window.__data);
 
 render((
   <Provider store={store} key="provider">
     <Router render={(props) =>
-      <ReduxAsyncConnect {...props}
-                         render={applyRouterMiddleware(useScroll())}/>}
+      <ReduxAsyncConnect {...props} render={applyRouterMiddleware(useScroll())}/>}
             history={browserHistory}>
       {getRoutes(store)}
     </Router>

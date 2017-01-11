@@ -9,12 +9,16 @@ const defaultDescription = "The Moviegoer is a student-run blog dedicated to fil
   "It is run by the Penn Cinema Initiative.";
 
 export default class ArticleView extends React.Component {
-  componentDidUpdate() {
-    FB.XFBML.parse();
+  componentDidMount() {
+    if (typeof FB !== 'undefined' && FB !== null) {
+      FB.XFBML.parse();
+    }
   }
 
-  componentDidMount() {
-    FB.XFBML.parse();
+  componentDidUpdate() {
+    if (typeof FB !== 'undefined' && FB !== null) {
+      FB.XFBML.parse();
+    }
   }
 
   render() {
@@ -71,7 +75,8 @@ export default class ArticleView extends React.Component {
           </div> : null }
         {archive ?
           <div className="comments">
-            <div className="fb-comments" data-href={article.url}
+            <div id="fb-root"></div>
+            <div id="comments" className="fb-comments" data-href={article.url}
                  data-width="100%" data-numposts="5"></div>
           </div> : null}
       </div>

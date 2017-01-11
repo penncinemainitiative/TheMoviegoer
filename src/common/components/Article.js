@@ -16,9 +16,6 @@ import ArticleView from "../components/ArticleView"
 )
 export default class Article extends React.Component {
   componentDidMount() {
-    //use jQuery for more granular styling of article body
-    console.log('test');
-    console.log($('p:has(img)'));
     $('p:has(img)').addClass('image-container');
   }
 
