@@ -5,6 +5,7 @@ $visual-grid: false;
 @import "font-scheme";
 @import "color-scheme";
 @import "mixins";
+@import "breakpoints";
 
 @import "nav";
 @import "footer";
@@ -21,6 +22,10 @@ body {
   padding: 0;
   margin: 0;
   background-color: $bg;
+
+  @include media($mobile) {
+		background-color: pink;
+	};	
 }
 
 img {

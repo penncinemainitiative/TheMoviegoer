@@ -8,6 +8,10 @@
 		@include shift(1);
 		background-color: $fg;
 		margin-bottom: 15px;
+		@include media($mobile) {
+			
+			@include span-columns(5);
+		};	
 
 		p {
 			padding-left: 40px;
@@ -49,6 +53,8 @@
 		background-color: $fg;
 		padding: 20px;
 
+		
+
 		h3 {
 			font-size: 25px;
 			margin-bottom: 0px;
@@ -63,7 +69,17 @@
 		.image-wrapper {
 			@include author-pic(200px);
 			@include row();
+
+			@include media($mobile) {
 			
+			@include author-pic(70px);
+			}	
+			
+		}
+
+		@include media($mobile) {
+			@include span-columns(5);
+			display: none;
 		}
 	}
 
@@ -74,6 +90,11 @@
 		h3 {
 			margin-top: 5px;
 		}
+
+		@include media($mobile) {
+			
+			@include span-columns(5);
+		}	
 	}
 
 	.comments {
