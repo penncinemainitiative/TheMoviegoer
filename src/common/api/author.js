@@ -58,7 +58,8 @@ export const updatePhoto = (token, writer, file) => {
       const signedURL = data.signedURL;
       const options = {
         headers: {
-          'Content-Type': file.type
+          'Content-Type': file.type,
+          'Cache-Control': 'public ,max-age= 31536000'
         }
       };
       return axios.put(signedURL, file, options);
