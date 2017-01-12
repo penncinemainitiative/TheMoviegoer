@@ -30,12 +30,19 @@
 			margin-top: 0px;
 			margin-bottom: 0px;
 			padding: 20px;
+
+			@include media($mobile) {
+				padding: 5px;
+			}	
 		}
 		h5 { 
 			margin-top: 0px;
 			font-size: 20px; 
 			padding-left: 25px;
 			color: $goldD1;
+			@include media($mobile) {
+				padding-left: 10px;
+			}	
 		}
 		.image-wrapper {
 			@include load-placeholder(16,9);
@@ -72,7 +79,7 @@
 			@include row();
 
 			@include media($mobile) {
-				@include author-pic(70px);
+				display: none;
 			}	
 			
 		}
@@ -92,8 +99,7 @@
 			margin-top: 5px;
 		}
 
-		@include media($mobile) {
-			
+		@include media($mobile) {	
 			@include span-columns(6);
 			@include shift(0);
 		}	
@@ -104,5 +110,10 @@
 		@include shift(1);
 		height: 300px;
 		margin-top: 10px;
+
+		@include media($mobile) {
+			@include span-columns(6);
+			@include shift(0);
+		}	
 	}
 }

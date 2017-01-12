@@ -5,6 +5,13 @@
 	.content-left {
 		@include span-columns(5);
 		@include shift(1);
+
+		@include media($mobile) {
+			@include span-columns(5);
+			p {
+				font-size: 15px;
+			}
+		}
 		.letter {
 			@include span-columns(5 of 5);
 			height: 300px;
@@ -16,6 +23,10 @@
 			margin-top: 20px;
 			height: 200px;
 			background-color: $fg;
+
+			@include media($mobile) {
+				margin-bottom: 20px;
+			}
 		}
 	}
 
@@ -23,6 +34,10 @@
 		@include span-columns(5);
 		@include shift(1);
 		background-color: $fg;
+
+		@include media($mobile) {
+			@include span-columns(5);
+		}
 	}
 
 	h3 {
@@ -34,6 +49,10 @@
 
 	p {
 		padding: 10px;
+
+		@include media($mobile) {
+			font-size: 12px;
+		}
 	}
 
 	.author_card {

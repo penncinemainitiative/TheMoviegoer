@@ -4,12 +4,13 @@
 
 	.featured-writer {
 		@include writer-bio;
+		
 		@include media($mobile) {
 			.image-wrapper {
-				@include author-pic(70px);
+				@include author-pic(200px);
 			}
-			display: none;
 		}	
+		
 
 		h2 {
 			font-size: 50px;

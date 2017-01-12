@@ -1,9 +1,6 @@
 .homePage {
 	@include outer-container;
 
-	
-
-
     .content {
     	@include span-columns(12);
     	margin-top: 10px;
@@ -13,6 +10,10 @@
 	.top-wrapper {
     	padding-bottom: 38%;
     	background-color: $fg;
+
+    	@include media($mobile) {
+			padding-bottom: 177%;
+		}
     }
 
     .big_feature {
@@ -20,11 +21,20 @@
     	@include omega;
     	margin-right: 1.5%;
     	margin-left: .3%;
+
+    	@include media($mobile) {
+			@include feature-content (6, 20px);
+		}
+
+
     }
 
     .small_feature {
     	@include feature-content (4, 20px);
     	@include omega;
+    	@include media($mobile) {
+			@include feature-content (6, 20px);
+		}
     }
     .text-wrapper {
     	z-index: 2;
@@ -43,13 +53,18 @@
 		padding: 10px;
 		@include span-columns(12);
 
-		//background-color: orange;
-		
 
-
+		@include media($mobile) {
+			padding: 0px;
+		}	  
 	    
 			.recent {
 				@include span-columns(4 of 12);
+
+				@include media($mobile) {
+					@include span-columns(6);
+					margin-bottom: 15px;
+				}	  
 
 				background-color: $fg;
 
@@ -80,7 +95,10 @@
 
 		    .archive {
 				@include span-columns(8);
-				@include archive-box(2);	    	
+				@include archive-box(2);
+				@include media($mobile) {
+					@include span-columns(6);
+				}	    	
 		    }
 		
 	}

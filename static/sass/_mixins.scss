@@ -17,6 +17,11 @@
 		left: 0px;
 		bottom: 5%;
 
+		@include media($mobile) {
+			width: 100%;
+		}	  
+
+
 		h2 {
 			background-color:rgba(79,79,79,0.5);
 			font-size: $font_size;
@@ -98,11 +103,18 @@
 	padding: 20px;
 	background-color: $fg;
 
+	@include media($mobile) {
+		@include span-columns(5);
+	}	
+
 
 	p {
 		padding-right: 50px;
 		padding-left: 5px;
 		text-indent: 10px;
+		@include media($mobile) {
+			padding-right: 10px;
+		}	
 	}
 
 	.name-container {
@@ -136,6 +148,10 @@
 		@include span-columns(6 of 10);
 		//background-color: green;
 		padding-right: 20px;
+		@include media($mobile) {
+			@include span-columns(6);
+		}	
+
 	}
 }
 

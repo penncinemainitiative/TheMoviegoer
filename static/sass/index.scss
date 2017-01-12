@@ -24,7 +24,6 @@ body {
   background-color: $bg;
 
   @include media($mobile) {
-		background-color: pink;
 	}
 }
 
