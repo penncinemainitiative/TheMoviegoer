@@ -15,7 +15,7 @@ function getPlugins() {
     JSON.stringify('production') :
     JSON.stringify('development');
   const host = production ?
-    JSON.stringify('http://pennmoviegoer.com/') :
+    JSON.stringify('https://pennmoviegoer.com/') :
     JSON.stringify('http://localhost:8000/');
   const plugins = [
     new webpack.DefinePlugin({
