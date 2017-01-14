@@ -3,6 +3,7 @@ import {asyncConnect} from "redux-connect"
 import {getWriters, getFeaturedWriter} from "../api/index"
 import Helmet from "react-helmet"
 import Link from "react-router/lib/Link"
+import {getResizedImage} from "./utils"
 
 @asyncConnect([{
   key: 'writers',
@@ -19,7 +20,7 @@ export default class Writers extends React.Component {
         <Helmet title="Writers"/>
         <div className="featured-writer">
           <div className="image-wrapper">
-            <img src={featured.image}/>
+            {getResizedImage(featured.image, 400, 400)}
           </div>
           <div className="text-wrapper">
             <h2>Featured Writer</h2>
@@ -36,7 +37,9 @@ export default class Writers extends React.Component {
             return <Link key={writer.username} to={writer.url}>
               <div className="author_card">
                 <div className="image-wrapper">
-                  <div className="inner-wrapper"><img src={writer.image}/></div>
+                  <div className="inner-wrapper">
+                    {getResizedImage(writer.image, 200, 200)}
+                  </div>
                 </div>
                 <div className="text-wrapper">
                   <h4>{writer.name}</h4>

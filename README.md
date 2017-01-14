@@ -12,6 +12,8 @@ $ npm run client (in one terminal)
 $ npm run server (in another terminal)
 ```
 
+The site will be running at [http://localhost:8000](http://localhost:8000).
+
 Be sure to use `nvm install node` to install the latest version of node.
 
 ### Production

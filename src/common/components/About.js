@@ -2,6 +2,7 @@ import React from "react"
 import Helmet from "react-helmet"
 import {asyncConnect} from "redux-connect"
 import {getStaff} from "../api/index"
+import {getResizedImage} from "./utils"
 
 const positionOrdering = [
   "Editor-in-Chief",
@@ -46,7 +47,9 @@ export default class About extends React.Component {
             return (
                 <div key={writer.name} className="author_card">
                   <div className="image-wrapper">
-                    <div className="inner-wrapper"><img src={writer.image}/></div>
+                    <div className="inner-wrapper">
+                      {getResizedImage(writer.image, 200, 200)}
+                    </div>
                   </div>
                   <div className="text-wrapper">
                     <p><b>{writer.position}</b>: {writer.name}</p>

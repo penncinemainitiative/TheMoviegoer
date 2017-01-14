@@ -3,6 +3,7 @@ import {asyncConnect} from "redux-connect"
 import Helmet from "react-helmet"
 import {getRecentArticles} from "../api/index"
 import Link from "react-router/lib/Link"
+import {getResizedImage} from "./utils"
 
 @asyncConnect([{
   key: 'articles',
@@ -38,7 +39,9 @@ export default class Articles extends React.Component {
             return <div key={article.articleId} className="list-article">
               <Link to={article.url}>
                 <div className="image-wrapper">
-                  <div className="inner-wrapper"><img src={article.image}/></div>
+                  <div className="inner-wrapper">
+                    {getResizedImage(article.image, 600, 600)}
+                  </div>
                 </div>
               </Link>
               <div className="text-container">

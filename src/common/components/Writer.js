@@ -2,6 +2,7 @@ import React from "react"
 import {asyncConnect} from "redux-connect"
 import {getWriter} from "../api/author"
 import Link from "react-router/lib/Link"
+import {getResizedImage} from "./utils"
 
 @asyncConnect([{
   key: 'writer',
@@ -14,7 +15,7 @@ export default class Writer extends React.Component {
       <div className="writerPage">
         <div className="writer-bio">
           <div className="image-wrapper">
-            <img src={writer.image}/>
+            {getResizedImage(writer.image, 400, 400)}
           </div>
           <div className="text-wrapper">
             <div className="name-container">
@@ -31,7 +32,7 @@ export default class Writer extends React.Component {
             return <div key={article.title} className="article">
               <Link to={article.url}>
                 <div className="image-wrapper">
-                  <img src={article.image}/>
+                  {getResizedImage(article.image, 400, 600)}
                 </div>
                 <div className="text-wrapper">
                   <h4 dangerouslySetInnerHTML={innerHTML}></h4>

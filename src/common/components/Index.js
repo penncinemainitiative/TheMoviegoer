@@ -3,6 +3,7 @@ import {asyncConnect} from "redux-connect"
 import Helmet from "react-helmet"
 import {getRecentArticles, getArchiveFront} from "../api/index"
 import Link from "react-router/lib/Link"
+import {getResizedImage} from "./utils"
 
 @asyncConnect([{
   key: 'articles',
@@ -29,7 +30,9 @@ export default class Index extends React.Component {
                   <h2 dangerouslySetInnerHTML={BigInnerHTML}></h2>
                 </div>
                 <div className="image-wrapper">
-                  <div className="inner-wrapper"><img src={big_feature.image}/></div>
+                  <div className="inner-wrapper">
+                    {getResizedImage(big_feature.image, 800, 600)}
+                  </div>
                 </div>
               </Link>
             </div>
@@ -41,7 +44,9 @@ export default class Index extends React.Component {
                     <h2 dangerouslySetInnerHTML={innerHTML}></h2>
                   </div>
                   <div className="image-wrapper">
-                    <div className="inner-wrapper"><img src={article.image}/></div>
+                    <div className="inner-wrapper">
+                      {getResizedImage(article.image, 600, 600)}
+                    </div>
                   </div>
                 </Link>
               </div>
@@ -68,9 +73,11 @@ export default class Index extends React.Component {
                 const innerHTML = {__html: article.title};
                 return <div key={article.title} className="content-wrapper">
                   <Link to={article.url}>
-                    <div className="image-wrapper"><div className="inner-wrapper">
-                      <img src={article.image}/>
-                    </div></div>
+                    <div className="image-wrapper">
+                      <div className="inner-wrapper">
+                        {getResizedImage(article.image, 400, 400)}
+                      </div>
+                    </div>
                     <div className="text-wrapper">
                       <h3 dangerouslySetInnerHTML={innerHTML}></h3>
                       <h5><span>{article.pubDate}</span> - {article.name}</h5>

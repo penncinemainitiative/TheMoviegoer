@@ -3,6 +3,7 @@ import marked from "marked"
 import Link from "react-router/lib/Link"
 import jwt_decode from "jwt-decode"
 import Helmet from "react-helmet"
+import {getResizedImage} from "./utils"
 
 const defaultDescription = "The Moviegoer is a student-run blog dedicated to film appreciation - " +
   "posting film analyses, reviews, previews, and all things related. " +
@@ -40,7 +41,9 @@ export default class ArticleView extends React.Component {
                   {property: "og:image", content: article.image}
                 ]}/>
         <div className="article_content">
-          <div className="image-wrapper"><img src={article.image}/></div>
+          <div className="image-wrapper">
+            {getResizedImage(article.image, 800, 600)}
+          </div>
           <h4 dangerouslySetInnerHTML={title}></h4>
           <h5>{article.name} - {article.pubDate} {author ?
             <Link to={draftUrl}>Edit</Link> : null}</h5>
@@ -48,7 +51,8 @@ export default class ArticleView extends React.Component {
         </div>
         {article.authorImage ?
           <div className="author_card">
-            <div className="image-wrapper"><img src={article.authorImage}/>
+            <div className="image-wrapper">
+              {getResizedImage(article.authorImage, 400, 600)}
             </div>
             <div className="text-container">
               <h3>{article.name}</h3>
@@ -63,7 +67,7 @@ export default class ArticleView extends React.Component {
               return <div key={article.title} className="content-wrapper">
                 <Link to={article.url}>
                   <div className="image-wrapper">
-                    <img src={article.image}/>
+                    {getResizedImage(article.image, 200, 200)}
                   </div>
                   <div className="text-wrapper">
                     <h3 dangerouslySetInnerHTML={innerHTML}></h3>
