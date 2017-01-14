@@ -100,7 +100,7 @@ router.get('/writers', (req, res) => {
   db.queryAsync(`
     SELECT username, email, name, image, accent_color, bio, hometown, position
     FROM authors
-    WHERE isEditor > -1
+    WHERE isEditor > -1 AND name <> 'Admin'
   `).then((rows) => {
     rows = rows.map((author) => {
       author.url = "/writer/" + author.name.replace(" ", "");
