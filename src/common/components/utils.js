@@ -4,7 +4,7 @@ export const getResizedImage = (url, desktopSize, mobileSize) => {
   if (!url.includes("https://s3.amazonaws.com/moviegoer")) {
     return <img src={url}/>;
   }
-  const cdnUrl = url.replace("https://s3.amazonaws.com/moviegoer", "http://images.pennmoviegoer.com");
+  const cdnUrl = url.replace("https://s3.amazonaws.com/moviegoer", "https://de1zegu7c2bac.cloudfront.net");
   const images = {};
   const widths = [800, 600, 400, 200];
   const dot = cdnUrl.lastIndexOf('.');
