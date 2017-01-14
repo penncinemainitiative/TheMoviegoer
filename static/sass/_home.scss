@@ -1,6 +1,8 @@
 .homePage {
 	@include outer-container;
 
+
+
     .content {
     	@include span-columns(12);
     	margin-top: 10px;

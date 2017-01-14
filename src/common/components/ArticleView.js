@@ -44,9 +44,11 @@ export default class ArticleView extends React.Component {
           <div className="image-wrapper">
             {getResizedImage(article.image, 800, 600)}
           </div>
-          <h4 dangerouslySetInnerHTML={title}></h4>
-          <h5>{article.name} - {article.pubDate} {author ?
-            <Link to={draftUrl}>Edit</Link> : null}</h5>
+          <div className="title">
+            <h4 dangerouslySetInnerHTML={title}></h4>
+            <h5>{article.name} - {article.pubDate} {author ?
+              <Link to={draftUrl}>Edit</Link> : null}</h5>
+          </div>
           <div dangerouslySetInnerHTML={text}></div>
         </div>
         {article.authorImage ?

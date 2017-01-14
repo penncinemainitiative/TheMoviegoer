@@ -1,8 +1,8 @@
 //default page settings
 @mixin page {
-  margin-top: 15px;
-  margin-bottom: 40px;
-  @include outer-container();
+	margin-top: 15px;
+	margin-bottom: 40px;
+	@include outer-container();
 }
 
 
@@ -104,7 +104,13 @@
 	background-color: $fg;
 
 	@include media($mobile) {
-		@include span-columns(5);
+		@include span-columns(6);
+		@include shift(0);
+		padding-right:0px;
+
+		.image-wrapper {
+			@include author-pic(200px);
+		}
 	}	
 
 
@@ -127,7 +133,7 @@
 		}
 
 		h4 {
-			font-size: 30px;
+			font-size: 45px;
 		}
 
 		.accent {

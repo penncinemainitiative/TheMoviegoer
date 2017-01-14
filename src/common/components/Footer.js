@@ -15,9 +15,9 @@ export default class Footer extends React.Component {
             If you
             would like to work with us, please find out more under the about
             tab.
-            The Moviegoer is generously sponsored by the The Kelly Writers House
-            at
-            the University of Pennsylvania.</p>
+            The Moviegoer is generously sponsored by 
+            <a href="http://www.writing.upenn.edu/~wh/"> The Kelly Writers House </a>
+            at the University of Pennsylvania.</p>
           <p><img src="/public/images/facebook-logo.png"/></p>
           <p><span>Webmaster: dlakata (at) seas (dot) upenn (dot) edu</span></p>
           <p><span><Link to="/console">Go to Author Console</Link></span></p>

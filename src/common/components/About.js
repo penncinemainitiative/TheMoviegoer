@@ -30,7 +30,7 @@ export default class About extends React.Component {
             to film appreciation - posting film analyses, reviews, previews, 
             and all things related. If you would like to work with us, 
             please find out more under the about tab. The Moviegoer is 
-            generously sponsored by the The Kelly Writers House at the University 
+            generously sponsored by <a className="special-link" href="http://www.writing.upenn.edu/~wh/">The Kelly Writers House</a> at the University 
             of Pennsylvania.</p>
           </div>
           <div className="contact">
