@@ -9,9 +9,10 @@
     "build-client-prod": "NODE_ENV=production ./node_modules/webpack/bin/webpack.js -p",
     "server": "./node_modules/gulp/bin/gulp.js",
     "build-server-prod": "NODE_ENV=production ./node_modules/gulp/bin/gulp.js prod-server",
-    "production": "npm run build-client-prod; npm run build-server-prod; forever stopall; NODE_ENV=production forever start dist/server/server.js"
+    "production":
+    "nvm use node; npm run build-client-prod; npm run build-server-prod; forever stop dist/server/server.js; NODE_ENV=production forever start dist/server/server.js"
   },
-  "repository": "",
+  "repository": "https://github.com/penncinemainitiative/TheMoviegoer.git",
   "keywords": [
     "node.js",
     "eclipse",

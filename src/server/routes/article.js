@@ -52,6 +52,7 @@ router.get('/:year/:month/:day/:slug', (req, res) => {
       return res.redirect(`/article/${req.params.id}/draft`);
     }
     article.pubDate = dateFormat(article.pubDate, "mmmm d, yyyy");
+    article.authorUrl = "/writer/" + article.name.replace(" ", "");
     article.url = `http://pennmoviegoer.com${article.url}`;
     res.json(article);
   });

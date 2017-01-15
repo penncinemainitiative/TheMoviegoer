@@ -57,7 +57,7 @@ export default class ArticleView extends React.Component {
               {getResizedImage(article.authorImage, 400, 600)}
             </div>
             <div className="text-container">
-              <h3>{article.name}</h3>
+              <Link to={article.authorUrl}><h3>{article.name}</h3></Link>
               <p>{article.bio}</p>
             </div>
           </div> : null}

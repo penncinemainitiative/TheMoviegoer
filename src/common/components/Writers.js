@@ -27,7 +27,7 @@ export default class Writers extends React.Component {
             <div className="name-container">
               <Link to={featured.url}><h4>{featured.name}</h4></Link>
               <div className="accent"></div>
-              <h5><i>Some description</i></h5>
+              <h5><i>{featured.position ? featured.position : "Writer"}</i></h5>
             </div>
             <p>{featured.bio}</p>
           </div>

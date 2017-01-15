@@ -21,7 +21,7 @@ export default class Writer extends React.Component {
             <div className="name-container">
               <h4>{writer.name}</h4>
               <div className="accent"></div>
-              <h5><i>Some description</i></h5>
+              <h5><i>{writer.position ? writer.position : "Writer"}</i></h5>
             </div>
             <p>{writer.bio}</p>
           </div>
