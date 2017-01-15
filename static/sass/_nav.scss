@@ -38,16 +38,23 @@ $nav-height: 60px;
 	.logo {
 		@include span-columns(1);
 		@include shift(1);
+		margin-top: 5px;
+		margin-left: 50px;
 
 		@include media($mobile) {
 			margin-left: 5%;
 		};	
 
-		img{
+		.mobile {
+				display: none;
+			}
+
+		img {
 			min-width: initial;
 			max-width: initial;
 			height: $nav-height;
 			margin-top: 0px;
+			
 		}
 	}
 

@@ -1,1 +1,2 @@
-$mobile: new-breakpoint(max-width 550px 6);
+$mobile: new-breakpoint(max-width 750px 6);
+$medium: new-breakpoint(max-width 960px min-width 551px);

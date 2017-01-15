@@ -1,20 +1,25 @@
 .aboutPage {
 	@include page;
 
+	@include media($mobile) {
+		padding: 10px;
+	}
+
 
 	.content-left {
 		@include span-columns(5);
 		@include shift(1);
 
 		@include media($mobile) {
-			@include span-columns(5);
+			@include span-columns(6);
+			@include shift(0);
 			p {
 				font-size: 15px;
 			}
 		}
 		.letter {
 			@include span-columns(5 of 5);
-			height: 300px;
+			
 			background-color: $fg;
 		}
 
@@ -25,6 +30,8 @@
 			background-color: $fg;
 
 			@include media($mobile) {
+				@include span-columns(6);
+				@include shift(0);
 				margin-bottom: 20px;
 			}
 		}
@@ -36,7 +43,8 @@
 		background-color: $fg;
 
 		@include media($mobile) {
-			@include span-columns(5);
+			@include span-columns(6);
+			@include shift(0);
 		}
 	}
 

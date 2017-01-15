@@ -1,5 +1,11 @@
 .writerPage {
 	@include page;
+
+
+	@include media($mobile) {
+		padding: 10px;
+	}	
+
 	.writer-bio {
 		@include writer-bio;
 	}
@@ -8,16 +14,19 @@
 		@include span-columns(10);
 		@include shift(1);
 		margin-top: 20px;
+
 		@include media($mobile) {
-			
+			@include span-columns(6);
 			@include shift(0);
 		}	
 	}
 
 	.article {
 		@include span-columns(4);
+
 		@include media($mobile) {
 			@include span-columns(6);
+			margin-left: 0px;
 		}	
 
 		

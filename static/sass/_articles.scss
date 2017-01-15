@@ -1,5 +1,10 @@
 .articlesPage {
 	@include outer-container();
+
+	@include media($mobile) {
+		padding: 10px;
+	}
+	
 	.articles {
 		@include span-columns(10); 
 		@include shift(1); 
@@ -7,6 +12,7 @@
 		@include media($mobile) {
 			@include span-columns(6);
 			@include shift(0);
+			//padding: 10px;
 			p {
 				display: none;
 			}
@@ -15,10 +21,6 @@
 			
 				
 			}
-			.text-container {
-
-			}
-
 		}	
 
 		.list-article {
@@ -47,6 +49,10 @@
 			.text-container {
 				@include span-columns(5);
 				margin-left: 10px;
+
+				@include media($mobile) {
+					@include span-columns(6);
+				}	
 
 				h3 {
 					font-family: $main-title;

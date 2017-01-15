@@ -19,11 +19,11 @@ export default class Writers extends React.Component {
       <div className="writersPage">
         <Helmet title="Writers"/>
         <div className="featured-writer">
+          <h2>Featured Writer</h2>
           <div className="image-wrapper">
             {getResizedImage(featured.image, 400, 400)}
           </div>
           <div className="text-wrapper">
-            <h2>Featured Writer</h2>
             <div className="name-container">
               <Link to={featured.url}><h4>{featured.name}</h4></Link>
               <div className="accent"></div>
