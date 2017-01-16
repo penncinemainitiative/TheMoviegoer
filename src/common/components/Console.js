@@ -140,7 +140,7 @@ class WriterEditor extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="writer-editor">
         <button onClick={this.handleEdit}>
           {this.state.editing ? "Save" : "Update account"}
         </button>
@@ -302,16 +302,23 @@ export default class Console extends React.Component {
     const {allUnpublished, myUnpublished, token, writer} = this.props;
     const author = jwt_decode(token);
     return (
-      <div>
+      <div className="console">
         <Helmet title="Console"/>
-        <h4>Welcome, {author.name}!</h4>
-        <Link to={writer.url}>My profile</Link>
-        <WriterEditor writer={writer} token={token}/>
-        <button onClick={this.handleNewArticle}>New article</button>
-        <h5>My unpublished articles</h5>
-        <ArticleList articles={myUnpublished} username={author.username}/>
-        <h5>All unpublished articles</h5>
-        <ArticleList articles={allUnpublished} username={author.username}/>
+        <div className="profile">
+          <h4>Welcome, {author.name}!</h4>
+          <Link to={writer.url}><h5>My profile</h5></Link>
+          <WriterEditor writer={writer} token={token}/>
+          <button onClick={this.handleNewArticle}>New article</button>
+          <button>Logout</button>
+        </div>
+        <div className="my-articles">
+          <h5>My unpublished articles</h5>
+          <ArticleList articles={myUnpublished} username={author.username}/>
+        </div>
+        <div className="all-articles">
+          <h5>All unpublished articles</h5>
+          <ArticleList articles={allUnpublished} username={author.username}/>
+        </div>
       </div>
     )
   }

@@ -166,6 +166,7 @@ export default class Draft extends React.Component {
           onClick={this.handlePreview}>{this.state.preview ? "Edit" : "Preview" }</button>
         <button onClick={this.handlePublish}>Publish</button>
         <button onClick={this.handleRetractArticle}>Retract</button>
+        <button>Exit</button>
         {!this.state.preview ?
           <div>
             <div style={{width: "50%", float: "right"}}>
