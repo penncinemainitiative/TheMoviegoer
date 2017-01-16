@@ -74,7 +74,6 @@
 
 	.author_card {
 		@include span-columns(3);
-		
 		background-color: $fg;
 		padding: 20px;
 
@@ -120,6 +119,7 @@
 		@include span-columns(7);
 		@include shift(1);
 		@include archive-box(3);
+
 		h3 {
 			margin-top: 5px;
 		}

@@ -23,6 +23,7 @@
 
 	.article {
 		@include span-columns(4);
+		@include drop-shadow;
 
 		@include media($mobile) {
 			@include span-columns(6);

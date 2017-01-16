@@ -5,6 +5,11 @@
 	@include outer-container();
 }
 
+@mixin drop-shadow () {
+	-webkit-box-shadow: 2px 2px 7px -1px rgba(0,0,0,0.6);
+	-moz-box-shadow: 2px 2px 7px -1px rgba(0,0,0,0.6);
+	box-shadow: 2px 2px 7px -1px rgba(0,0,0,0.6);
+}
 
 //for use on homepage features
 @mixin feature-content ($total_span, $font_size) {
@@ -99,6 +104,7 @@
 @mixin writer-bio () {
 	@include span-columns(10);
 	@include shift(1);
+	@include drop-shadow;
 	min-height: 350px;
 	padding: 20px;
 	background-color: $fg;
@@ -169,3 +175,4 @@
 		position: absolute;
 	}	
 }
+

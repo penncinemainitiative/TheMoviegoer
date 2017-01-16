@@ -52,7 +52,9 @@ export default class Articles extends React.Component {
               </div>
             </div>
           })}
-          <button onClick={this.requestMoreArticles}>More</button>
+          <div className="more-button" onClick={this.requestMoreArticles}>
+            <p>More?</p>
+          </div>
         </div>
       </div>
     )

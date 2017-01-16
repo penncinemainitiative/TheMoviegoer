@@ -19,8 +19,8 @@
 		}
 		.letter {
 			@include span-columns(5 of 5);
-			
 			background-color: $fg;
+			@include drop-shadow;
 		}
 
 		.contact {
@@ -28,6 +28,7 @@
 			margin-top: 20px;
 			height: 200px;
 			background-color: $fg;
+			@include drop-shadow;
 
 			@include media($mobile) {
 				@include span-columns(6);
@@ -41,6 +42,7 @@
 		@include span-columns(5);
 		@include shift(1);
 		background-color: $fg;
+		@include drop-shadow;
 
 		@include media($mobile) {
 			@include span-columns(6);

@@ -27,6 +27,8 @@
 			@include row();
 		    margin-top: 10px;
 		    background-color: $fg; 
+
+		   @include drop-shadow;
 		    
 
 			.image-wrapper {
@@ -71,6 +73,32 @@
 		}	
 	}
 
+	.more-button {
+		@include row();
+		height: 70px;
+		background-color: $fg;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		@include drop-shadow;
+
+		@include media($mobile) {
+			@include span-columns(6);
+			@include shift(0);
+		}
+		
+		p {
+			text-align: center;
+			font-size: 30px;
+			font-family: $main-title;
+			padding: 15px;
+			margin-top: 0px;
+		}
+		p:hover {
+			color: gray;
+		}
+
+		
+	}
 
 }
 
