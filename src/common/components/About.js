@@ -26,19 +26,17 @@ export default class About extends React.Component {
         <div className="content-left">
           <div className="letter">
             <h3>About</h3>
-            <p>The Moviegoer is a student-run blog dedicated 
+            <p><em>The Moviegoer</em> is a student-run blog dedicated 
             to film appreciation - posting film analyses, reviews, previews, 
-            and all things related. If you would like to work with us, 
-            please find out more under the about tab. The Moviegoer is 
+            and all things related. The Moviegoer is 
             generously sponsored by <a className="special-link" href="http://www.writing.upenn.edu/~wh/">The Kelly Writers House</a> at the University 
             of Pennsylvania.</p>
           </div>
           <div className="contact">
             <h3>Contact Us</h3>
-            <p>If you would like to work with The Moviegoer, 
-            either by writing for us or by aiding in web development, 
-            please contact our Editor-in-Chief, Brad Pettigrew 
-            (bradpett at sas dot upenn).</p>
+            <p>If you would like to get involved with <em>The Moviegoer</em>,
+            please contact our Editor-in-Chief, Brad Pettigrew, at
+            <b> bradpett (at) sas (dot) upenn (dot) edu</b>.</p>
           </div>
         </div>
         <div className="staff">

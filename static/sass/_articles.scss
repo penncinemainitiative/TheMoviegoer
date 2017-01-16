@@ -12,15 +12,6 @@
 		@include media($mobile) {
 			@include span-columns(6);
 			@include shift(0);
-			//padding: 10px;
-			p {
-				display: none;
-			}
-
-			.image-wrapper  {
-			
-				
-			}
 		}	
 
 		.list-article {
@@ -54,6 +45,9 @@
 
 				@include media($mobile) {
 					@include span-columns(6);
+					p {
+						display: none;
+					}
 				}	
 
 				h3 {

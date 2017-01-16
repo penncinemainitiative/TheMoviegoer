@@ -19,7 +19,10 @@ export default class Footer extends React.Component {
             <a href="http://www.writing.upenn.edu/~wh/"> The Kelly Writers House </a>
             at the University of Pennsylvania.</p>
           <p><img src="/public/images/facebook-logo.png"/></p>
-          <p><span>Webmaster: dlakata (at) seas (dot) upenn (dot) edu</span></p>
+          <div>
+            <p><span>Webmaster: dlakata (at) seas (dot) upenn (dot) edu</span></p>
+            <p><span>Front-End by: bradpett (at) sas (dot) upenn (dot) edu</span></p>
+          </div>
           <p><span><Link to="/console">Go to Author Console</Link></span></p>
         </div>
       </div>
