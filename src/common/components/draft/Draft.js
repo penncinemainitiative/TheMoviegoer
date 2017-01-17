@@ -8,11 +8,12 @@ import {
   setCoverPhoto,
   retractArticle,
   updatePhoto
-} from "../api/article"
+} from "../../api/article"
 import Helmet from "react-helmet"
-import ArticleView from "./ArticleView"
+import ArticleView from "../ArticleView"
 import browserHistory from "react-router/lib/browserHistory"
 import Dropzone from "react-dropzone"
+import jwt_decode from "jwt-decode"
 
 let editor;
 
@@ -34,6 +35,7 @@ export default class Draft extends React.Component {
     this.handlePublish = this.handlePublish.bind(this);
     this.handleCoverPhoto = this.handleCoverPhoto.bind(this);
     this.handleRetractArticle = this.handleRetractArticle.bind(this);
+    this.handleExit = this.handleExit.bind(this);
     this.onDrop = this.onDrop.bind(this);
     const {draft} = this.props;
     this.state = {
@@ -145,6 +147,10 @@ export default class Draft extends React.Component {
     });
   }
 
+  handleExit() {
+    browserHistory.push('/console');
+  }
+
   onDrop(files) {
     const {draft, token} = this.props;
     const file = files[0];
@@ -154,9 +160,10 @@ export default class Draft extends React.Component {
   }
 
   render() {
-    const {draft} = this.props;
+    const {draft, token} = this.props;
     const article = this.state;
     const cleanTitle = article.title.replace(/(<([^>]+)>)/ig, "");
+    const author = token ? jwt_decode(token) : undefined;
     return (
       <div>
         <Helmet title={cleanTitle}/>
@@ -164,9 +171,11 @@ export default class Draft extends React.Component {
         <button onClick={this.handleSave}>Save</button>
         <button
           onClick={this.handlePreview}>{this.state.preview ? "Edit" : "Preview" }</button>
-        <button onClick={this.handlePublish}>Publish</button>
-        <button onClick={this.handleRetractArticle}>Retract</button>
-        <button>Exit</button>
+        {author.can_publish ?
+          <button onClick={this.handlePublish}>Publish</button> : null}
+        {author.can_publish ?
+          <button onClick={this.handleRetractArticle}>Retract</button> : null}
+        <button onClick={this.handleExit}>Exit</button>
         {!this.state.preview ?
           <div>
             <div style={{width: "50%", float: "right"}}>
@@ -175,8 +184,10 @@ export default class Draft extends React.Component {
                 <div>Drop or click to upload a new photo (.png or .jpg)</div>
               </Dropzone>
               {draft.imgList.map((img) => {
+                const markdown = `![](${img.url})`;
                 return <div style={{width: "300px"}} key={img.url}>
                   <img src={img.url}/>
+                  <input type="text" defaultValue={markdown} readOnly="true"/>
                   {img.url === this.state.image ? <p>Cover photo</p> :
                     <button onClick={this.handleCoverPhoto.bind(null, img.url)}>
                       Make article's cover photo</button>

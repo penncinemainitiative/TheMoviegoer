@@ -46,7 +46,7 @@ export default class ArticleView extends React.Component {
           </div>
           <div className="title">
             <h4 dangerouslySetInnerHTML={title}></h4>
-            <h5>{article.name} - {article.pubDate} {author ?
+            <h5>{article.name} - {article.pubDate} {author.can_edit_published ?
               <Link to={draftUrl}>Edit</Link> : null}</h5>
           </div>
           <div dangerouslySetInnerHTML={text}></div>

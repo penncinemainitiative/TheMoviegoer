@@ -10,7 +10,7 @@
     "server": "./node_modules/gulp/bin/gulp.js",
     "build-server-prod": "NODE_ENV=production ./node_modules/gulp/bin/gulp.js prod-server",
     "production":
-    "nvm use node; npm run build-client-prod; npm run build-server-prod; forever stop dist/server/server.js; NODE_ENV=production forever start dist/server/server.js"
+    "npm run build-client-prod; npm run build-server-prod; forever stop dist/server/server.js; NODE_ENV=production forever start dist/server/server.js"
   },
   "repository": "https://github.com/penncinemainitiative/TheMoviegoer.git",
   "keywords": [

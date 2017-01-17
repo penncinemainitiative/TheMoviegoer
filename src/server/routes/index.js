@@ -36,7 +36,7 @@ router.post('/signup', (req, res) => {
     hometown: "",
     allow_featured_writer: 1,
     assignedEditor: req.body.username,
-    image: 'https://www.royalacademy.org.uk/assets/placeholder-1e385d52942ef11d42405be4f7d0a30d.jpg',
+    image: 'https://s3.amazonaws.com/moviegoer/uploads/dlakata/d566f160-dc1b-11e6-8612-954c27f70d36.png',
     accent_color: colors[Math.floor(Math.random() * colors.length)],
     bio: '...'
   };
@@ -65,8 +65,10 @@ router.post('/login', (req, res) => {
   const user = req.body.username;
   const password = req.body.password;
   db.queryAsync(`
-    SELECT username, password, name, isEditor
+    SELECT username, password, name, isEditor, can_edit_published, can_publish, can_assign_editor
     FROM authors
+    INNER JOIN permissions
+      ON permissions_role = role
     WHERE username = ?`, [user]
   ).then((rows) => {
     if (rows.length === 0) {
@@ -84,7 +86,9 @@ router.post('/login', (req, res) => {
         jwt.sign({
           username: user,
           name: author.name,
-          isEditor: author.isEditor
+          can_edit_published: author.can_edit_published,
+          can_publish: author.can_publish,
+          can_assign_editor: author.can_assign_editor
         }, process.env.SECRET ? process.env.SECRET : 'secret', {expiresIn: '7 days'}, (err, token) => {
           res.cookie("token", token, {expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7)});
           return res.json({success: true, token});

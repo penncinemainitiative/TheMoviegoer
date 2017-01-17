@@ -46,7 +46,7 @@ export default class Articles extends React.Component {
               </Link>
               <div className="text-container">
                 <h3><Link to={article.url}
-                      dangerouslySetInnerHTML={innerHTML}></Link></h3>
+                          dangerouslySetInnerHTML={innerHTML}></Link></h3>
                 <h5><span>{article.pubDate}</span> - {article.name}</h5>
                 <p>{article.excerpt}</p>
               </div>

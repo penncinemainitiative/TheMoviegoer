@@ -151,6 +151,9 @@ router.post('/:id', requireLogin, (req, res) => {
 });
 
 router.post('/:id/publish', requireLogin, (req, res) => {
+  if (!res.locals.author.can_publish) {
+    return res.send({success: false});
+  }
   const articleId = parseInt(req.params.id);
   db.queryAsync(`
     SELECT title

@@ -14,7 +14,8 @@ const store = createStore(window.__data);
 render((
   <Provider store={store} key="provider">
     <Router render={(props) =>
-      <ReduxAsyncConnect {...props} render={applyRouterMiddleware(useScroll())}/>}
+      <ReduxAsyncConnect {...props}
+                         render={applyRouterMiddleware(useScroll())}/>}
             history={browserHistory}>
       {getRoutes(store)}
     </Router>
