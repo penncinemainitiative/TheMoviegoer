@@ -20,7 +20,7 @@
     }
 
     .big_feature {
-    	@include feature-content (8, 50px);
+    	@include feature-content (8, 42px);
     	@include omega;
     	margin-right: 1.5%;
     	margin-left: .3%;
@@ -33,7 +33,7 @@
     }
 
     .small_feature {
-    	@include feature-content (4, 20px);
+    	@include feature-content (4, 30px);
     	@include omega;
     	@include media($mobile) {
 			@include feature-content (6, 20px);
