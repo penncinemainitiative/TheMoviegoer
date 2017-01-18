@@ -81,6 +81,9 @@ export default class Console extends React.Component {
     super(props);
     this.handleNewArticle = this.handleNewArticle.bind(this);
     this.logout = this.logout.bind(this);
+    if (!Array.isArray(this.props.allUnpublished)) {
+      browserHistory.push(`/login`);
+    }
     this.state = {
       err: ''
     };

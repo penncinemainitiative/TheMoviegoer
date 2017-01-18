@@ -5,10 +5,10 @@ import aws from "aws-sdk"
 export const requireLogin = (req, res, next) => {
   const token = req.headers.authorization;
   if (!token) {
-    return res.send({err: "UNAUTHORIZED"});
+    return res.json({err: "UNAUTHORIZED"});
   }
   jwt.verify(token, process.env.SECRET ? process.env.SECRET : 'secret', (err, author) => {
-    if (err) return res.redirect('/login');
+    if (err) return res.json({err: "UNAUTHORIZED"});
     res.locals.author = author;
     next();
   });
