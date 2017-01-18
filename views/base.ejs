@@ -20,14 +20,14 @@
 <div id="mount"><%- env === 'production' ? appHTML : null %></div>
 <script>window.__data = <%- state %></script>
 <script type="text/javascript" src="/public/js/raw/fbSDK.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 <% if (env === 'production') { %>
 <script src="/public/bundle.js"></script>
   <% if (!state.token) { %>
   <script src="/public/js/raw/ga.js"></script>
   <% } %>
 <% } else { %>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 <script src="http://localhost:8080/public/bundle.js"></script>
 <% } %>
 </body>
