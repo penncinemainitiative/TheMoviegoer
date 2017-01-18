@@ -40,7 +40,7 @@
 
 	.staff {
 		@include span-columns(5);
-		@include shift(1);
+		//@include shift(1);
 		background-color: $fg;
 		@include drop-shadow;
 

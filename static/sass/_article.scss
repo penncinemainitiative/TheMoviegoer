@@ -3,7 +3,7 @@
 	@include page;
 
 	@include media($mobile) {
-		padding: 10px;
+		padding: 0px;
 	}
 
 	.article_content {
@@ -12,7 +12,6 @@
 		background-color: $fg;
 		margin-bottom: 15px;
 		@include media($mobile) {
-			
 			@include span-columns(6);
 			@include shift(0);
 		};	
@@ -20,7 +19,7 @@
 		p {
 			padding-left: 35px;
 			padding-right: 55px;
-			text-indent: 20px;
+			text-indent: 15px;
 			font-size: 16px;
 			line-height: 150%;
 		}
@@ -66,7 +65,7 @@
 					padding: 5px;
 				}	
 			}
-			h5 { 
+			a, h5 { 
 				margin-top: 0px;
 				font-size: 20px; 
 				padding-left: 25px;

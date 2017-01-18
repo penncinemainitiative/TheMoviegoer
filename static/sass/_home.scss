@@ -1,12 +1,11 @@
 .homePage {
 	@include outer-container;
 
-
-
     .content {
     	@include span-columns(12);
-    	margin-top: 10px;
     	margin-bottom: 15px;
+    	padding: 10px;
+    	padding-top: 0px;
     }
 
 	.top-wrapper {
@@ -48,18 +47,11 @@
     }
 
 
-    
-    
 	.bot-wrapper {
 		margin-top: 10px;
 		border-spacing: 10px;
-		padding: 10px;
+		//padding: 10px;
 		@include span-columns(12);
-
-
-		@include media($mobile) {
-			padding: 0px;
-		}	  
 	    
 			.recent {
 				@include span-columns(4 of 12);
@@ -88,7 +80,6 @@
 						margin-top: 5px;
 						margin-bottom: 5px;
 					}
-
 
 					a:hover {
 						color: gray;

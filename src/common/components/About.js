@@ -1,6 +1,7 @@
 import React from "react"
 import Helmet from "react-helmet"
 import {asyncConnect} from "redux-connect"
+import Link from "react-router/lib/Link"
 import {getStaff} from "../api/index"
 import {getResizedImage} from "./utils"
 
@@ -52,7 +53,7 @@ export default class About extends React.Component {
                   </div>
                 </div>
                 <div className="text-wrapper">
-                  <p><b>{writer.position}</b>: {writer.name}</p>
+                  <p><Link to={writer.url}><b>{writer.position}</b>: {writer.name}</Link></p>
                 </div>
               </div>
             );

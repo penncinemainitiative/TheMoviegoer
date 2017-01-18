@@ -2,7 +2,7 @@
 	@include page;
 
 	@include media($mobile) {
-		padding: 10px;
+		padding: 0px;
 	}	
 	
 
@@ -30,6 +30,7 @@
 		@include media($mobile) {
 			@include span-columns(6);
 			@include shift(0);
+			padding-right: 5px;
 		}	
 
 	}

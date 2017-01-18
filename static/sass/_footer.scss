@@ -31,6 +31,9 @@
 		color: white;
 		span {
 			color: $goldL2;
+			@include media($mobile) {
+				font-size: 14px;
+			}
 		}
 	}
 
