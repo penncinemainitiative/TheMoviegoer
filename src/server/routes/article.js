@@ -24,6 +24,7 @@ router.get('/', requireLogin, (req, res) => {
       url: 'http://pennmoviegoer.com',
       excerpt: '...',
       text: '...',
+      status: 'UNSUBMITTED',
       image: 'https://www.royalacademy.org.uk/' +
       'assets/placeholder-1e385d52942ef11d42405be4f7d0a30d.jpg'
     };
@@ -32,6 +33,8 @@ router.get('/', requireLogin, (req, res) => {
     `, [insertData]).then((result) => {
       const articleId = result.insertId;
       res.json({articleId});
+    }).catch((err) => {
+      res.json({err});
     });
   }).catch((err) => {
     res.json({err});

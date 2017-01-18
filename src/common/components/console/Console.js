@@ -90,12 +90,12 @@ export default class Console extends React.Component {
     const {token} = this.props;
     newArticle(token).then(({data}) => {
       if (data.err) {
-        this.setState(Object.assign({}, this.state, {err: data.err}));
+        this.setState(Object.assign({}, this.state, {err: JSON.stringify(data.err)}));
       } else {
         browserHistory.push(`/draft/${data.articleId}`);
       }
     }).catch((err) => {
-      this.setState(Object.assign({}, this.state, {err}));
+      this.setState(Object.assign({}, this.state, {err: JSON.stringify(data.err)}));
     });
   }
 

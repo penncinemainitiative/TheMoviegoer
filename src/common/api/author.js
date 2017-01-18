@@ -2,6 +2,7 @@ import {http, authHeader} from "./utils"
 import axios from "axios"
 import jwt_decode from "jwt-decode"
 import {receiveMyUnpublishedArticles} from "../actions/console"
+import browserHistory from "react-router/lib/browserHistory"
 
 export const getWriter = (writer) => {
   return http
@@ -22,7 +23,13 @@ export const getMyUnpublishedArticles = () => {
     const writer = jwt_decode(token).username;
     return http
       .get(`/api/author/${writer}/unpublished`, authHeader(token))
-      .then(({data}) => dispatch(receiveMyUnpublishedArticles(data)));
+      .then(({data}) => {
+        if (data.err) {
+          browserHistory.push('/login');
+        } else {
+          return dispatch(receiveMyUnpublishedArticles(data));
+        }
+      });
   };
 };
 

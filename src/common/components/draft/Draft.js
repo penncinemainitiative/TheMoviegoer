@@ -112,7 +112,7 @@ export default class Draft extends React.Component {
     const {title, excerpt} = this.state;
     saveArticle(token, draft.articleId, title, editor.value(), excerpt).then(({data}) => {
       if (data.err) {
-        this.setState(Object.assign({}, this.state, {message: data.err}));
+        this.setState(Object.assign({}, this.state, {message: JSON.stringify(data.err)}));
       } else {
         this.setState(Object.assign({}, this.state, {text: editor.value()}));
       }
@@ -128,7 +128,7 @@ export default class Draft extends React.Component {
     const {title, excerpt} = this.state;
     saveArticle(token, draft.articleId, title, editor.value(), excerpt).then(({data}) => {
       if (data.err) {
-        this.setState(Object.assign({}, this.state, {message: data.err}));
+        this.setState(Object.assign({}, this.state, {message: JSON.stringify(data.err)}));
       } else {
         this.setState(Object.assign({}, this.state, {
           preview: true,
@@ -147,11 +147,11 @@ export default class Draft extends React.Component {
     const {title, excerpt} = this.state;
     saveArticle(token, draft.articleId, title, editor.value(), excerpt).then(({data}) => {
       if (data.err) {
-        this.setState(Object.assign({}, this.state, {message: data.err}));
+        this.setState(Object.assign({}, this.state, {message: JSON.stringify(data.err)}));
       } else {
         publishArticle(token, draft.articleId).then(({data}) => {
           if (data.err) {
-            this.setState(Object.assign({}, this.state, {message: data.err}));
+            this.setState(Object.assign({}, this.state, {message: JSON.stringify(data.err)}));
           } else {
             browserHistory.push('/');
           }
@@ -164,7 +164,7 @@ export default class Draft extends React.Component {
     const {draft, token} = this.props;
     setCoverPhoto(token, draft.articleId, image).then(({data}) => {
       if (data.err) {
-        this.setState(Object.assign({}, this.state, {message: data.err}));
+        this.setState(Object.assign({}, this.state, {message: JSON.stringify(data.err)}));
       } else {
         this.setState(Object.assign({}, this.state, {image}));
       }
@@ -175,7 +175,7 @@ export default class Draft extends React.Component {
     const {draft, token} = this.props;
     retractArticle(token, draft.articleId).then(({data}) => {
       if (data.err) {
-        this.setState(Object.assign({}, this.state, {message: data.err}));
+        this.setState(Object.assign({}, this.state, {message: JSON.stringify(data.err)}));
       } else {
         browserHistory.push('/console');
       }
@@ -191,7 +191,7 @@ export default class Draft extends React.Component {
     const file = files[0];
     updatePhoto(token, draft.articleId, file).then(({data}) => {
       if (data.err) {
-        this.setState(Object.assign({}, this.state, {message: data.err}));
+        this.setState(Object.assign({}, this.state, {message: JSON.stringify(data.err)}));
       } else {
         location.reload();
       }
