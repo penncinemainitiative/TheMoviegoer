@@ -6,27 +6,24 @@ import Link from "react-router/lib/Link"
 import {getResizedImage} from "./utils"
 
 @asyncConnect([{
-  key: 'articles',
-  promise: () => getRecentArticles(0)
-}])
+  promise: ({store: {getState, dispatch}}) => {
+    if (getState().recentArticles.articles.length === 0) {
+      return dispatch(getRecentArticles());
+    } else {
+      return Promise.resolve();
+    }
+  }
+}], (state) => ({
+  articles: state.recentArticles.articles
+}))
 export default class Articles extends React.Component {
   constructor(props) {
     super(props);
     this.requestMoreArticles = this.requestMoreArticles.bind(this);
-    this.state = {
-      articles: this.props.articles,
-      offset: 10
-    }
   }
 
   requestMoreArticles() {
-    const articles = this.state.articles;
-    getRecentArticles(this.state.offset).then((data) => {
-      this.setState(Object.assign({}, this.state, {
-        articles: articles.concat(data),
-        offset: this.state.offset + 10
-      }))
-    })
+    this.props.dispatch(getRecentArticles());
   }
 
   render() {
@@ -34,7 +31,7 @@ export default class Articles extends React.Component {
       <div className="articlesPage">
         <Helmet title="Articles"/>
         <div className="articles">
-          {this.state.articles.map((article) => {
+          {this.props.articles.map((article) => {
             const innerHTML = {__html: article.title};
             return <div key={article.articleId} className="list-article">
               <Link to={article.url}>

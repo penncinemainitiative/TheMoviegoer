@@ -18,6 +18,9 @@ export default class Header extends React.Component {
     search.select2({
       width: '100%',
       placeholder: 'Search articles',
+      language: {
+        noResults: () => ""
+      },
       escapeMarkup: (m) => m,
       ajax: {
         cache: true,

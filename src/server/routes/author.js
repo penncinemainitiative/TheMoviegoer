@@ -28,6 +28,8 @@ router.get('/:writer', (req, res) => {
       writer.articles = rows;
       res.json(writer);
     });
+  }).catch((err) => {
+    res.json({err});
   });
 });
 
@@ -45,6 +47,8 @@ router.get('/:writer/unpublished', requireLogin, (req, res) => {
       item.url = `/article/${item.articleId}/draft`;
       return item;
     }));
+  }).catch((err) => {
+    res.json({err});
   });
 });
 
@@ -79,6 +83,8 @@ router.post('/:writer/password', requireLogin, (req, res) => {
         return res.send({success: false, message: "Incorrect old password!"});
       }
     });
+  }).catch((err) => {
+    res.json({err});
   });
 });
 
@@ -101,6 +107,8 @@ router.post('/:writer/description', requireLogin, (req, res) => {
     WHERE username = ?
   `, [name, email, bio, hometown, accent_color, allow_featured_writer, username]).then(() => {
     res.send({success: true});
+  }).catch((err) => {
+    res.json({err});
   });
 });
 
@@ -120,7 +128,9 @@ router.post('/:writer/photo/url', requireLogin, (req, res) => {
         signedURL: data,
         cleanURL: image
       });
-    })
+    }).catch((err) => {
+      res.json({err});
+    });
   });
 });
 

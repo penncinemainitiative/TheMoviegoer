@@ -47,11 +47,15 @@ export default class Draft extends React.Component {
       name: draft.name,
       pubDate: draft.date,
       articleId: draft.articleId,
-      preview: false
+      preview: false,
+      message: ''
     };
   }
 
   loadLibraries() {
+    if (document.getElementsByClassName('CodeMirror').length > 0) {
+      return;
+    }
     const search = $('#authorSearch');
     search.select2({
       width: '100%',
@@ -106,8 +110,12 @@ export default class Draft extends React.Component {
   handleSave() {
     const {draft, token} = this.props;
     const {title, excerpt} = this.state;
-    saveArticle(token, draft.articleId, title, editor.value(), excerpt).then(() => {
-      this.setState(Object.assign({}, this.state, {text: editor.value()}));
+    saveArticle(token, draft.articleId, title, editor.value(), excerpt).then(({data}) => {
+      if (data.err) {
+        this.setState(Object.assign({}, this.state, {message: data.err}));
+      } else {
+        this.setState(Object.assign({}, this.state, {text: editor.value()}));
+      }
     });
   }
 
@@ -117,33 +125,60 @@ export default class Draft extends React.Component {
       return;
     }
     const {draft, token} = this.props;
-    const {title, text, excerpt} = this.state;
-    saveArticle(token, draft.articleId, title, editor.value(), excerpt).then(() => {
-      this.setState(Object.assign({}, this.state, {
-        preview: true,
-        text: editor.value()
-      }));
+    const {title, excerpt} = this.state;
+    saveArticle(token, draft.articleId, title, editor.value(), excerpt).then(({data}) => {
+      if (data.err) {
+        this.setState(Object.assign({}, this.state, {message: data.err}));
+      } else {
+        this.setState(Object.assign({}, this.state, {
+          preview: true,
+          text: editor.value()
+        }));
+      }
     });
   }
 
   handlePublish() {
+    if (this.state.excerpt.length < 5) {
+      this.setState(Object.assign({}, this.state, {message: 'An excerpt is required to publish!'}));
+      return;
+    }
     const {draft, token} = this.props;
-    publishArticle(token, draft.articleId).then(() => {
-      browserHistory.push('/');
+    const {title, excerpt} = this.state;
+    saveArticle(token, draft.articleId, title, editor.value(), excerpt).then(({data}) => {
+      if (data.err) {
+        this.setState(Object.assign({}, this.state, {message: data.err}));
+      } else {
+        publishArticle(token, draft.articleId).then(({data}) => {
+          if (data.err) {
+            this.setState(Object.assign({}, this.state, {message: data.err}));
+          } else {
+            browserHistory.push('/');
+          }
+        });
+      }
     });
   }
 
   handleCoverPhoto(image) {
     const {draft, token} = this.props;
-    setCoverPhoto(token, draft.articleId, image).then(() => {
-      this.setState(Object.assign({}, this.state, {image}));
+    setCoverPhoto(token, draft.articleId, image).then(({data}) => {
+      if (data.err) {
+        this.setState(Object.assign({}, this.state, {message: data.err}));
+      } else {
+        this.setState(Object.assign({}, this.state, {image}));
+      }
     });
   }
 
   handleRetractArticle() {
     const {draft, token} = this.props;
-    retractArticle(token, draft.articleId).then(() => {
-      browserHistory.push('/console');
+    retractArticle(token, draft.articleId).then(({data}) => {
+      if (data.err) {
+        this.setState(Object.assign({}, this.state, {message: data.err}));
+      } else {
+        browserHistory.push('/console');
+      }
     });
   }
 
@@ -154,8 +189,12 @@ export default class Draft extends React.Component {
   onDrop(files) {
     const {draft, token} = this.props;
     const file = files[0];
-    updatePhoto(token, draft.articleId, file).then(() => {
-      location.reload();
+    updatePhoto(token, draft.articleId, file).then(({data}) => {
+      if (data.err) {
+        this.setState(Object.assign({}, this.state, {message: data.err}));
+      } else {
+        location.reload();
+      }
     });
   }
 
@@ -208,6 +247,7 @@ export default class Draft extends React.Component {
                   </option>
                 </select>
               </div>
+              <div>{this.state.message}</div>
               <div><textarea rows="10" cols="20"
                              type="text"
                              onChange={this.updateExcerpt}

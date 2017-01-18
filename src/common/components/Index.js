@@ -1,13 +1,13 @@
 import React from "react"
 import {asyncConnect} from "redux-connect"
 import Helmet from "react-helmet"
-import {getRecentArticles, getArchiveFront} from "../api/index"
+import {getFrontPageArticles, getArchiveFront} from "../api/index"
 import Link from "react-router/lib/Link"
 import {getResizedImage} from "./utils"
 
 @asyncConnect([{
   key: 'articles',
-  promise: () => getRecentArticles(0)
+  promise: () => getFrontPageArticles()
 }, {
   key: 'archive',
   promise: () => getArchiveFront()

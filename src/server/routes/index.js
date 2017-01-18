@@ -23,6 +23,8 @@ router.get('/recent', (req, res) => {
       item.pubDate = dateFormat(item.pubDate, "mmmm d, yyyy");
       return item;
     }));
+  }).catch((err) => {
+    res.json({err});
   });
 });
 
@@ -58,6 +60,8 @@ router.post('/signup', (req, res) => {
         });
       });
     });
+  }).catch((err) => {
+    res.json({err});
   });
 });
 
@@ -97,6 +101,8 @@ router.post('/login', (req, res) => {
         res.json({success: false, msg: 'Incorrect password!'});
       }
     });
+  }).catch((err) => {
+    res.json({err});
   });
 });
 
@@ -111,6 +117,8 @@ router.get('/writers', (req, res) => {
       return author;
     });
     res.json(rows);
+  }).catch((err) => {
+    res.json({err});
   });
 });
 
@@ -125,6 +133,8 @@ router.get('/random/author', (req, res) => {
     const author = rows[0];
     author.url = "/writer/" + author.name.replace(" ", "");
     res.json(author);
+  }).catch((err) => {
+    res.json({err});
   });
 });
 
@@ -139,7 +149,9 @@ router.get('/staff', (req, res) => {
       return author;
     });
     res.json(rows);
-  })
+  }).catch((err) => {
+    res.json({err});
+  });
 });
 
 const randomArticlesCache = {};
@@ -181,11 +193,9 @@ router.get('/random/articles', (req, res) => {
       randomArticlesCache[todayString] = rows;
     }
     res.json(rows);
+  }).catch((err) => {
+    res.json({err});
   });
-});
-
-router.get('/protected', requireLogin, (req, res) => {
-  res.json(res.locals.author);
 });
 
 export default router;

@@ -19,6 +19,8 @@ router.get('/recent', (req, res) => {
       item.pubDate = dateFormat(item.pubDate, "mmmm d, yyyy");
       return item;
     }));
+  }).catch((err) => {
+    res.json({err});
   });
 });
 
@@ -35,6 +37,8 @@ router.get('/unpublished', (req, res) => {
       item.url = `/article/${item.articleId}/draft`;
       return item;
     }));
+  }).catch((err) => {
+    res.json({err});
   });
 });
 

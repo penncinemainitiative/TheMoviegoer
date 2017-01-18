@@ -1,4 +1,5 @@
 import {http} from "./utils"
+import {receiveMoreRecentArticles} from "../actions/articles"
 
 export const login = (username, password) => {
   return http
@@ -15,10 +16,19 @@ export const signup = (name, username, password, email) => {
     });
 };
 
-export const getRecentArticles = (offset) => {
+export const getFrontPageArticles = () => {
   return http
-    .get(`/api/recent?offset=${offset}`)
+    .get(`/api/recent?offset=0`)
     .then(({data}) => data);
+};
+
+export const getRecentArticles = () => {
+  return (dispatch, getState) => {
+    const offset = getState().recentArticles.offset;
+    return http
+      .get(`/api/recent?offset=${offset}`)
+      .then(({data}) => dispatch(receiveMoreRecentArticles(data)));
+  };
 };
 
 export const getWriters = () => {

@@ -81,12 +81,21 @@ export default class Console extends React.Component {
     super(props);
     this.handleNewArticle = this.handleNewArticle.bind(this);
     this.logout = this.logout.bind(this);
+    this.state = {
+      err: ''
+    };
   }
 
   handleNewArticle() {
     const {token} = this.props;
     newArticle(token).then(({data}) => {
-      browserHistory.push(`/draft/${data.articleId}`);
+      if (data.err) {
+        this.setState(Object.assign({}, this.state, {err: data.err}));
+      } else {
+        browserHistory.push(`/draft/${data.articleId}`);
+      }
+    }).catch((err) => {
+      this.setState(Object.assign({}, this.state, {err}));
     });
   }
 
@@ -105,6 +114,7 @@ export default class Console extends React.Component {
         {author ?
           <div>
             <div className="profile">
+              {this.state.err ? <div>Error: {this.state.err}</div> : null}
               <h4>Welcome, {author.name}!</h4>
               <Link to={writer.url}><h5>My profile</h5></Link>
               <WriterEditor writer={writer} token={token}/>

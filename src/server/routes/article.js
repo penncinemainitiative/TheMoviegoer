@@ -33,6 +33,8 @@ router.get('/', requireLogin, (req, res) => {
       const articleId = result.insertId;
       res.json({articleId});
     });
+  }).catch((err) => {
+    res.json({err});
   });
 });
 
@@ -55,6 +57,8 @@ router.get('/:year/:month/:day/:slug', (req, res) => {
     article.authorUrl = "/writer/" + article.name.replace(" ", "");
     article.url = `http://pennmoviegoer.com${article.url}`;
     res.json(article);
+  }).catch((err) => {
+    res.json({err});
   });
 });
 
@@ -76,6 +80,8 @@ router.get('/:id/draft', requireLogin, (req, res) => {
       article.imgList = rows;
       res.json(article);
     });
+  }).catch((err) => {
+    res.json({err});
   });
 });
 
@@ -89,6 +95,8 @@ router.post('/:id/cover', requireLogin, (req, res) => {
     WHERE articleId = ?
   `, [image, articleId]).then(() => {
     res.json({success: true});
+  }).catch((err) => {
+    res.json({err});
   });
 });
 
@@ -115,6 +123,8 @@ router.post('/:id/photos', requireLogin, (req, res) => {
         });
       });
     })
+  }).catch((err) => {
+    res.json({err});
   });
 });
 
@@ -132,6 +142,8 @@ router.get('/:id/delete', requireLogin, (req, res) => {
         res.json({success: true});
       });
     });
+  }).catch((err) => {
+    res.json({err});
   });
 });
 
@@ -147,6 +159,8 @@ router.post('/:id', requireLogin, (req, res) => {
     WHERE articleId = ?
   `, [req.body.title, text, req.body.excerpt, articleId]).then(() => {
     res.json({success: true});
+  }).catch((err) => {
+    res.json({err});
   });
 });
 
@@ -175,6 +189,8 @@ router.post('/:id/publish', requireLogin, (req, res) => {
     `, [url, articleId]).then(() => {
       res.send({success: true});
     });
+  }).catch((err) => {
+    res.json({err});
   });
 });
 
@@ -187,6 +203,8 @@ router.post('/:id/author', requireLogin, (req, res) => {
     WHERE articleId = ?
   `, [req.body.author, articleId]).then(() => {
     res.send({success: true});
+  }).catch((err) => {
+    res.json({err});
   });
 });
 
@@ -199,6 +217,8 @@ router.post('/:id/retract', requireLogin, (req, res) => {
     WHERE articleId = ?
   `, [articleId]).then(() => {
     res.send({success: true});
+  }).catch((err) => {
+    res.json({err});
   });
 });
 

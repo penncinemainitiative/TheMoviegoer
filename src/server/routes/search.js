@@ -19,6 +19,8 @@ router.get('/', (req, res) => {
     `, search).then((authors) => {
       res.json(articles.concat(authors));
     })
+  }).catch((err) => {
+    res.json({err});
   });
 });
 
@@ -31,6 +33,8 @@ router.get('/authors', (req, res) => {
   `, search
   ).then((authors) => {
     res.json(authors);
+  }).catch((err) => {
+    res.json({err});
   });
 });
 
@@ -43,6 +47,8 @@ router.get('/editors', (req, res) => {
   `, search
   ).then((editors) => {
     res.json(editors);
+  }).catch((err) => {
+    res.json({err});
   });
 });
 
