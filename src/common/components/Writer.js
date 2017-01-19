@@ -3,6 +3,7 @@ import {asyncConnect} from "redux-connect"
 import {getWriter} from "../api/author"
 import Link from "react-router/lib/Link"
 import {getResizedImage} from "./utils"
+import Helmet from "react-helmet"
 
 @asyncConnect([{
   key: 'writer',
@@ -13,6 +14,7 @@ export default class Writer extends React.Component {
     const {writer} = this.props;
     return (
       <div className="writerPage">
+        <Helmet title={writer.name}/>
         <div className="writer-bio">
           <div className="image-wrapper">
             {getResizedImage(writer.image, 400, 400)}
