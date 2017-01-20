@@ -1,89 +1,84 @@
 .articlesPage {
-	@include page();
+  @include page();
 
-	
-	.articles {
-		@include span-columns(10); 
-		@include shift(1);
-		@include media($mobile) {
-			@include span-columns(6);
-		}	
+  .articles {
+    @include span-columns(10);
+    @include shift(1);
+    @include media($mobile) {
+      @include span-columns(6);
+    }
 
-		.list-article {
-			@include drop-shadow;
-			@include row();
-		    margin-bottom: 10px;
-		    background-color: $fg; 
+    .list-article {
+      @include drop-shadow;
+      @include row();
+      margin-bottom: 10px;
+      background-color: $fg;
 
+      .image-wrapper {
+        @include span-columns(7);
+        @include media($mobile) {
+          @include span-columns(6);
+        }
 
-			.image-wrapper {
-				@include span-columns(7);
-				@include media($mobile) {
-					@include span-columns(6);
-				}
+        .inner-wrapper {
+          position: relative;
+          padding-bottom: 56.25%;
+          img {
+            position: absolute;
+          }
+        }
 
-				.inner-wrapper {
-					position: relative;
-					padding-bottom: 56.25%;
-					img {
-						position: absolute;
-					}		
-				}
-						
-				
-			}
-			
-			.text-container {
-				@include span-columns(5);
-				margin-left: 10px;
+      }
 
-				@include media($mobile) {
-					@include span-columns(6);
-					p {
-						display: none;
-					}
-				}	
+      .text-container {
+        @include span-columns(5);
+        margin-left: 10px;
 
-				h3 {
-					font-family: $main-title;
-					margin-top: 5px;
-					margin-bottom: 5px;
-				}
-				h5 {
-					margin-top: 0px;
-					span {
-						color: $gold;
-					}
-				}
+        @include media($mobile) {
+          @include span-columns(6);
+          p {
+            display: none;
+          }
+        }
 
+        h3 {
+          font-family: $main-title;
+          margin-top: 5px;
+          margin-bottom: 5px;
+        }
+        h5 {
+          margin-top: 0px;
+          span {
+            color: $gold;
+          }
+        }
 
-			}
-		}	
-	}
+      }
+    }
+  }
 
-	.more-button {
-		@include row();
-		height: 70px;
-		background-color: $fg;
-		@include drop-shadow;
+  .more-button {
+    @include row();
+    height: 70px;
+    background-color: $fg;
+    @include drop-shadow;
 
-		@include media($mobile) {
-			@include span-columns(6);
-		}
-		
-		p {
-			text-align: center;
-			font-size: 30px;
-			font-family: $main-title;
-			padding: 15px;
-			margin-top: 0px;
-		}
-		p:hover {
-			color: gray;
-		}
+    @include media($mobile) {
+      @include span-columns(6);
+    }
 
-		
-	}
+    p {
+      text-align: center;
+      font-size: 30px;
+      font-family: $main-title;
+      padding: 15px;
+      margin-top: 0px;
+    }
+    p:hover {
+      color: gray;
+    }
+
+  }
 
 }
 

@@ -66,7 +66,7 @@ const SignupRoute = {
 const AuthRoutes = (store) => ({
   onEnter: authenticate(store),
   getChildRoutes(location, cb) {
-    cb(null, [ ConsoleRoute, DraftRoute ])
+    cb(null, [ConsoleRoute, DraftRoute])
   }
 });
 

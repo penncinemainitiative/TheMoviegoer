@@ -1,6 +1,8 @@
 import React from "react"
 import Link from "react-router/lib/Link"
 import browserHistory from "react-router/lib/browserHistory"
+import Select from "react-select"
+import {searchArticles} from "../api/index"
 
 class HeaderItem extends React.Component {
   render() {
@@ -12,39 +14,11 @@ class HeaderItem extends React.Component {
   }
 }
 
-export default class Header extends React.Component {
-  componentDidMount() {
-    const search = $('#search');
-    search.select2({
-      width: '100%',
-      placeholder: 'Search articles',
-      language: {
-        noResults: () => ""
-      },
-      escapeMarkup: (m) => m,
-      ajax: {
-        cache: true,
-        delay: 250,
-        type: 'GET',
-        url: '/api/search',
-        processResults: (data) => ({
-          results: $.map(data, (obj) => {
-            if ('title' in obj) {
-              return {id: obj.url, text: obj.title};
-            } else {
-              const url = `/writer/${obj.name.replace(/\s+/g, '')}`;
-              return {id: url, text: `<b>Author</b>: ${obj.name}`};
-            }
-          })
-        })
-      }
-    });
-    search.on('select2:select', (e) => {
-      browserHistory.push(e.target.value);
-      search.val('').trigger('change');
-    });
-  }
+const onSelect = (clicked) => {
+  browserHistory.push(clicked.value);
+};
 
+export default class Header extends React.Component {
   render() {
     const items = [
       {name: 'Articles', url: '/articles'},
@@ -61,7 +35,12 @@ export default class Header extends React.Component {
             return <HeaderItem {...item} key={item.name}/>;
           })}
           <div className="search_bar">
-            <select id="search" className="form-control"/>
+            <Select.Async
+              name="form-field-name"
+              placeholder="Search for articles"
+              noResultsText="No results found!"
+              onChange={onSelect}
+              loadOptions={searchArticles}/>
           </div>
         </div>
       </div>

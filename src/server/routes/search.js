@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
   db.queryAsync(`
     SELECT url, title
     FROM articles
-    WHERE title LIKE ?
+    WHERE title LIKE ? AND isPublished = 2
     ORDER BY pubDate DESC
   `, search
   ).then((articles) => {

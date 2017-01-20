@@ -1,73 +1,74 @@
 $nav-height: 60px;
 
 .nav {
-	background-color: #ffffff;
-	width: 100%;
-	height: $nav-height;
-	top: 0px;
-	left: 0px;
-	-webkit-box-shadow: 1px 4px 11px -3px rgba(205,146,82,1);
-	-moz-box-shadow: 1px 4px 11px -3px rgba(205,146,82,1);
-	box-shadow: 1px 4px 11px -3px rgba(205,146,82,1);
+  background-color: #ffffff;
+  width: 100%;
+  height: $nav-height;
+  top: 0px;
+  left: 0px;
+  -webkit-box-shadow: 1px 4px 11px -3px rgba(205, 146, 82, 1);
+  -moz-box-shadow: 1px 4px 11px -3px rgba(205, 146, 82, 1);
+  box-shadow: 1px 4px 11px -3px rgba(205, 146, 82, 1);
 
-	.container {
-		@include row();
-		@include shift(2);
-	}
+  .container {
+    @include row();
+    @include shift(2);
+  }
 
-	.nav_item {
-		height: 60px;
-		margin-left: 10px;
-		padding-left: 10px;
-		@include span-columns(2);
-		a {
-			color: $gold;
-			font-size: 20px;
-			font-family: gotham;
-			text-decoration: none;
-			@include media($mobile) {
-				font-size: 15px;
-			}
+  .nav_item {
+    height: 60px;
+    margin-left: 10px;
+    padding-left: 10px;
+    @include span-columns(2);
+    a {
+      color: $gold;
+      font-size: 20px;
+      font-family: gotham;
+      text-decoration: none;
+      @include media($mobile) {
+        font-size: 15px;
+      }
 
-			&:hover {
-		      color: $goldD1;
-		    }
-		}
-	}
+      &:hover {
+        color: $goldD1;
+      }
+    }
+  }
 
-	.logo {
-		@include span-columns(1);
-		@include shift(1);
-		margin-top: 0px;
-		margin-left: 50px;
+  .logo {
+    @include span-columns(1);
+    @include shift(1);
+    margin-top: 0px;
+    margin-left: 50px;
 
-		@include media($mobile) {
-			margin-left: 5%;
-		};	
+    @include media($mobile) {
+      margin-left: 5%;
+    }
+  ;
 
-		.mobile {
-				display: none;
-			}
+    .mobile {
+      display: none;
+    }
 
-		img {
-			min-width: initial;
-			max-width: initial;
-			height: 70px;
-			margin-top: 0px;
+    img {
+      min-width: initial;
+      max-width: initial;
+      height: 70px;
+      margin-top: 0px;
 
-			@include media($mobile) {
-				height: 60px;
-			}
-			
-		}
-	}
+      @include media($mobile) {
+        height: 60px;
+      }
 
-	.search_bar {
-		@include span-columns(4);
-		padding-top: 15px;
+    }
+  }
 
-		@include media($mobile) {
-			margin-left: 15px;
-		}
-	}
+  .search_bar {
+    @include span-columns(4);
+    padding-top: 15px;
+
+    @include media($mobile) {
+      margin-left: 15px;
+    }
+  }
 }

@@ -16,7 +16,15 @@ import ArticleView from "../components/ArticleView"
 )
 export default class Article extends React.Component {
   componentDidMount() {
-    $('p:has(img)').addClass('image-container');
+    if (typeof FB !== 'undefined' && FB !== null) {
+      FB.XFBML.parse();
+    }
+  }
+
+  componentDidUpdate() {
+    if (typeof FB !== 'undefined' && FB !== null) {
+      FB.XFBML.parse();
+    }
   }
 
   render() {

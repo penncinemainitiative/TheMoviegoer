@@ -1,60 +1,57 @@
 .writerPage {
-	@include page;
+  @include page;
 
+  @include media($mobile) {
+    padding: 0px;
+  }
 
-	@include media($mobile) {
-		padding: 0px;
-	}	
+  .writer-bio {
+    @include writer-bio;
+  }
 
-	.writer-bio {
-		@include writer-bio;
-	}
+  .articles-container {
+    @include span-columns(10);
+    @include shift(1);
+    margin-top: 20px;
 
-	.articles-container {
-		@include span-columns(10);
-		@include shift(1);
-		margin-top: 20px;
+    @include media($mobile) {
+      @include span-columns(6);
+      @include shift(0);
+      padding: 10px;
+    }
+  }
 
-		@include media($mobile) {
-			@include span-columns(6);
-			@include shift(0);
-			padding: 10px;
-		}	
-	}
+  .article {
+    @include span-columns(4);
+    @include drop-shadow;
 
-	.article {
-		@include span-columns(4);
-		@include drop-shadow;
+    @include media($mobile) {
+      @include span-columns(6);
+      margin-left: 0px;
+    }
 
-		@include media($mobile) {
-			@include span-columns(6);
-			margin-left: 0px;
-		}	
+    @include omega;
+    background-color: $fg;
+    margin-left: 10px;
+    margin-top: 10px;
+    h4 {
+      margin-top: 0px;
+      margin-bottom: 0px;
+      //font-family: $main-title;
+      @include media($mobile) {
+        font-size: 20px;
+      }
+    }
+    span {
+      color: $gold;
+    }
 
-		@include omega;
-		background-color: $fg;
-		margin-left: 10px;
-		margin-top: 10px;
-		h4 {
-			margin-top: 0px;
-			margin-bottom: 0px;
-			//font-family: $main-title;
-			@include media($mobile) {
-				font-size: 20px;
-			}	
-		}
-		span {
-			color: $gold;
-		}
+    .text-wrapper {
+      height: 50px;
+    }
 
-		.text-wrapper {
-			height: 50px;
-		}
-
-
-
-		.image-wrapper {
-			@include load-placeholder(16, 9);
-		}
-	}
+    .image-wrapper {
+      @include load-placeholder(16, 9);
+    }
+  }
 }

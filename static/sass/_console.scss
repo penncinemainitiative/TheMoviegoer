@@ -1,31 +1,31 @@
 .console {
-	@include page;
-	h4, h5 {
-		font-family: $main-title;
-	}
-	h4 {
-		font-size: 20px;
-	}
-	h5 {
-		font-size: 18px;
-	}
+  @include page;
+  h4, h5 {
+    font-family: $main-title;
+  }
+  h4 {
+    font-size: 20px;
+  }
+  h5 {
+    font-size: 18px;
+  }
 
-	.profile {
-		@include span-columns(4);
-		background-color: $fg;
-		padding: 10px;
-	}
-	.my-articles {
-		@include span-columns(8);
-		background-color: $fg;
-		@include omega;
-		height: 250px;
-		padding: 10px;
-	}
-	.all-articles {
-		@include span-columns(12);
-		background-color: $fg;
-		margin-top: 15px;
-		padding: 10px;
-	}
+  .profile {
+    @include span-columns(4);
+    background-color: $fg;
+    padding: 10px;
+  }
+  .my-articles {
+    @include span-columns(8);
+    background-color: $fg;
+    @include omega;
+    height: 250px;
+    padding: 10px;
+  }
+  .all-articles {
+    @include span-columns(12);
+    background-color: $fg;
+    margin-top: 15px;
+    padding: 10px;
+  }
 }

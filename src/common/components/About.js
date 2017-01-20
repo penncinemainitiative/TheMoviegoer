@@ -53,7 +53,9 @@ export default class About extends React.Component {
                   </div>
                 </div>
                 <div className="text-wrapper">
-                  <p><Link to={writer.url}><b>{writer.position}</b>: {writer.name}</Link></p>
+                  <p><Link
+                    to={writer.url}><b>{writer.position}</b>: {writer.name}
+                  </Link></p>
                 </div>
               </div>
             );

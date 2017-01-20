@@ -64,3 +64,42 @@ export const getStaff = (order) => {
       });
     });
 };
+
+export const searchArticles = (input) => {
+  if (input === '') {
+    return Promise.resolve({
+      options: []
+    });
+  }
+  return http
+    .get(`/api/search?q=${input}`)
+    .then(({data}) => {
+      const json = data.map((obj) => {
+        if ('title' in obj) {
+          return {
+            value: obj.url,
+            label: obj.title.replace(/(<([^>]+)>)/ig, "")
+          };
+        } else {
+          const url = `/writer/${obj.name.replace(/\s+/g, '')}`;
+          return {value: url, label: `Author: ${obj.name}`};
+        }
+      });
+      return {
+        options: json
+      };
+    });
+};
+
+export const searchAuthors = (input) => {
+  return http
+    .get(`/api/search/authors?q=${input}`)
+    .then(({data}) => {
+      const json = data.map((obj) => {
+        return {value: obj.username, label: obj.name};
+      });
+      return {
+        options: json
+      };
+    });
+};

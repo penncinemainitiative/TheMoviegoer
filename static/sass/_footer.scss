@@ -1,51 +1,51 @@
 .footer {
-	width: 100%;
-	height: 200px;
-	background-color: $goldD2;
+  width: 100%;
+  height: 200px;
+  background-color: $goldD2;
 
-	@include media($mobile) {
-		height: 300px;
-	}
+  @include media($mobile) {
+    height: 300px;
+  }
 
-	img {
-	min-width: initial;
-	max-width: initial;
-	
-	}
+  img {
+    min-width: initial;
+    max-width: initial;
 
-	.text-container {
-		padding-top: 15px;
+  }
 
-		div {
-			line-height: 50%;
-			margin-bottom: 10px;
-		}
-	}
+  .text-container {
+    padding-top: 15px;
 
-	p {
-		text-align: center;
-		padding: 50px;
-		padding-top: 10px;
-		padding-bottom: 0px;
-		margin: 0px;
-		color: white;
-		span {
-			color: $goldL2;
-			@include media($mobile) {
-				font-size: 14px;
-			}
-		}
-	}
+    div {
+      line-height: 50%;
+      margin-bottom: 10px;
+    }
+  }
 
-	img {
-		height: 40px;
-	}
+  p {
+    text-align: center;
+    padding: 50px;
+    padding-top: 10px;
+    padding-bottom: 0px;
+    margin: 0px;
+    color: white;
+    span {
+      color: $goldL2;
+      @include media($mobile) {
+        font-size: 14px;
+      }
+    }
+  }
 
-	a {
-		color: $goldL2;
-	}
+  img {
+    height: 40px;
+  }
 
-	a:hover {
-		color: #b2b2b2;
-	}
+  a {
+    color: $goldL2;
+  }
+
+  a:hover {
+    color: #b2b2b2;
+  }
 }

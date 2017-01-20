@@ -3,7 +3,6 @@ import {db} from "../db"
 import dateFormat from "dateformat"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
-import {requireLogin} from "../utils"
 
 const router = express.Router();
 

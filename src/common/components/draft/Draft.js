@@ -14,8 +14,9 @@ import ArticleView from "../ArticleView"
 import browserHistory from "react-router/lib/browserHistory"
 import Dropzone from "react-dropzone"
 import jwt_decode from "jwt-decode"
-
-let editor;
+import Select from "react-select"
+import {searchAuthors} from "../../api/index"
+import SimpleMDE from "react-simplemde-editor"
 
 @asyncConnect([{
     key: 'draft',
@@ -29,13 +30,14 @@ export default class Draft extends React.Component {
     this.updateTitle = this.updateTitle.bind(this);
     this.updateAuthor = this.updateAuthor.bind(this);
     this.updateExcerpt = this.updateExcerpt.bind(this);
+    this.updateText = this.updateText.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handlePreview = this.handlePreview.bind(this);
-    this.loadLibraries = this.loadLibraries.bind(this);
     this.handlePublish = this.handlePublish.bind(this);
     this.handleCoverPhoto = this.handleCoverPhoto.bind(this);
     this.handleRetractArticle = this.handleRetractArticle.bind(this);
     this.handleExit = this.handleExit.bind(this);
+    this.loadOptions = this.loadOptions.bind(this);
     this.onDrop = this.onDrop.bind(this);
     const {draft} = this.props;
     this.state = {
@@ -52,69 +54,35 @@ export default class Draft extends React.Component {
     };
   }
 
-  loadLibraries() {
-    if (document.getElementsByClassName('CodeMirror').length > 0) {
-      return;
-    }
-    const search = $('#authorSearch');
-    search.select2({
-      width: '100%',
-      placeholder: 'Choose author',
-      escapeMarkup: (m) => m,
-      ajax: {
-        cache: true,
-        delay: 250,
-        type: 'GET',
-        url: '/api/search/authors',
-        processResults: (data) => ({
-          results: $.map(data, (obj) => {
-            return {id: obj.username, text: obj.name};
-          })
-        })
-      }
-    });
-    const {params, token} = this.props;
-    search.on('select2:select', function (e) {
-      const author = e.target.value;
-      const name = search.select2('data')[0].text;
-      changeArticleAuthor(token, params.id, author).then(() => {
-        this.setState(Object.assign({}, this.state, {author, name}));
-      });
-    }.bind(this));
-    editor = new SimpleMDE({
-      element: document.getElementById("textInput"),
-      spellChecker: false
-    });
-  }
-
-  componentDidMount() {
-    this.loadLibraries();
-  }
-
-  componentDidUpdate() {
-    this.loadLibraries();
-  }
-
   updateTitle(e) {
     this.setState(Object.assign({}, this.state, {title: e.target.value}));
   }
 
-  updateAuthor(e) {
-    this.setState(Object.assign({}, this.state, {author: e.target.value}));
+  updateAuthor(clicked) {
+    const author = clicked.value;
+    const name = clicked.label;
+    const {params, token} = this.props;
+    changeArticleAuthor(token, params.id, author).then(() => {
+      this.setState(Object.assign({}, this.state, {author, name}));
+    });
   }
 
   updateExcerpt(e) {
     this.setState(Object.assign({}, this.state, {excerpt: e.target.value}));
   }
 
+  updateText(text) {
+    this.setState(Object.assign({}, this.state, {text}));
+  }
+
   handleSave() {
     const {draft, token} = this.props;
-    const {title, excerpt} = this.state;
-    saveArticle(token, draft.articleId, title, editor.value(), excerpt).then(({data}) => {
+    const {title, excerpt, text} = this.state;
+    saveArticle(token, draft.articleId, title, text, excerpt).then(({data}) => {
       if (data.err) {
         this.setState(Object.assign({}, this.state, {message: JSON.stringify(data.err)}));
       } else {
-        this.setState(Object.assign({}, this.state, {text: editor.value()}));
+        this.setState(Object.assign({}, this.state, {text}));
       }
     });
   }
@@ -125,14 +93,14 @@ export default class Draft extends React.Component {
       return;
     }
     const {draft, token} = this.props;
-    const {title, excerpt} = this.state;
-    saveArticle(token, draft.articleId, title, editor.value(), excerpt).then(({data}) => {
+    const {title, excerpt, text} = this.state;
+    saveArticle(token, draft.articleId, title, text, excerpt).then(({data}) => {
       if (data.err) {
         this.setState(Object.assign({}, this.state, {message: JSON.stringify(data.err)}));
       } else {
         this.setState(Object.assign({}, this.state, {
           preview: true,
-          text: editor.value()
+          text
         }));
       }
     });
@@ -145,7 +113,7 @@ export default class Draft extends React.Component {
     }
     const {draft, token} = this.props;
     const {title, excerpt} = this.state;
-    saveArticle(token, draft.articleId, title, editor.value(), excerpt).then(({data}) => {
+    saveArticle(token, draft.articleId, title, text, excerpt).then(({data}) => {
       if (data.err) {
         this.setState(Object.assign({}, this.state, {message: JSON.stringify(data.err)}));
       } else {
@@ -184,6 +152,17 @@ export default class Draft extends React.Component {
 
   handleExit() {
     browserHistory.push('/console');
+  }
+
+  loadOptions(input) {
+    if (input === '') {
+      return Promise.resolve({
+        options: [
+          {value: this.state.author, label: this.state.name}
+        ]
+      });
+    }
+    return searchAuthors(input);
   }
 
   onDrop(files) {
@@ -239,13 +218,13 @@ export default class Draft extends React.Component {
                      onChange={this.updateTitle}
                      placeholder="Article Title" value={this.state.title}/>
               <div>
-                <label htmlFor="authorSearch">Author</label>
-                <select id="authorSearch">
-                  <option onChange={this.updateAuthor}
-                          value={this.state.author}>
-                    {this.state.name}
-                  </option>
-                </select>
+                Author:
+                <Select.Async
+                  name="form-field-name"
+                  value={this.state.author}
+                  noResultsText="No results found!"
+                  onChange={this.updateAuthor}
+                  loadOptions={searchAuthors}/>
               </div>
               <div>{this.state.message}</div>
               <div><textarea rows="10" cols="20"
@@ -254,8 +233,14 @@ export default class Draft extends React.Component {
                              placeholder="Excerpt" value={this.state.excerpt}/>
               </div>
               <div>
-                <textarea rows="30" cols="50" placeholder="Article Text..."
-                          id="textInput" defaultValue={this.state.text}/>
+                <SimpleMDE
+                  onChange={this.updateText}
+                  value={this.state.text}
+                  options={{
+                    autofocus: true,
+                    spellChecker: false
+                  }}
+                />
               </div>
             </div>
           </div> : <ArticleView article={article}/>}
