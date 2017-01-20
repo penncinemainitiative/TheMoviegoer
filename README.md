@@ -40,6 +40,18 @@ S3 bucket | Contents
 `moviegoer-images`|Upon an object creation in the `moviegoer` bucket, a Lambda function resizes that image into 800, 600, 400, and 200 pixels wide, and places the resized images in the `moviegoer-images` bucket, e.g., `moviegoer-images/uploads/[articleId or username]/[original random string]-[800/600/400/200]w.jpg`. This bucket forms the basis for a Cloudfront distribution.
 `moviegoer-db-backups`| Every night, a gzipped dump of the MySQL database is placed into the `moviegoer-db-backups` bucket, e.g., `moviegoer-db-backups/%Y-%m-%d.sql.gz`.
 
+#### Testing
+
+Install [http://casperjs.org/](CasperJS) and [https://slimerjs.org/](SlimerJS) globally.
+```
+npm install -g casperjs slimerjs
+```
+Run
+```
+casperjs test tests/index.js --engine=slimerjs
+```
+
+
 ### Production
 
 Set the environment variable SECRET to a random string.
