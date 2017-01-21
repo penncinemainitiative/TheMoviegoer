@@ -55,7 +55,7 @@ export default class ArticleView extends React.Component {
             <div className="title-wrapper"><h3>Archive</h3></div>
             {archive.map((article) => {
               const innerHTML = {__html: article.title};
-              return <div key={article.title} className="content-wrapper">
+              return <div key={article.articleId} className="content-wrapper">
                 <Link to={article.url}>
                   <div className="image-wrapper">
                     {getResizedImage(article.image, 200, 200)}

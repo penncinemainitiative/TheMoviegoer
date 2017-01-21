@@ -38,7 +38,7 @@ export default class Index extends React.Component {
             </div>
             {small_features.map((article) => {
               const innerHTML = {__html: article.title + '<span> - ' + article.name + '</span>'};
-              return <div key={article.title} className="small_feature">
+              return <div key={article.articleId} className="small_feature">
                 <Link to={article.url}>
                   <div className="text-wrapper">
                     <h2 dangerouslySetInnerHTML={innerHTML}></h2>
@@ -59,7 +59,7 @@ export default class Index extends React.Component {
                 <ul>
                   {recent.map((article) => {
                     const innerHTML = {__html: article.title};
-                    return <h4 key={article.title}>
+                    return <h4 key={article.articleId}>
                       <li><Link to={article.url}
                                 dangerouslySetInnerHTML={innerHTML}></Link></li>
                     </h4>
@@ -71,7 +71,7 @@ export default class Index extends React.Component {
               <div className="title-wrapper"><h3>Archive</h3></div>
               {archive.map((article) => {
                 const innerHTML = {__html: article.title};
-                return <div key={article.title} className="content-wrapper">
+                return <div key={article.articleId} className="content-wrapper">
                   <Link to={article.url}>
                     <div className="image-wrapper">
                       <div className="inner-wrapper">

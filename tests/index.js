@@ -1,33 +1,202 @@
+casper.options.clientScripts = ["static/js/raw/jquery-3.1.1.min.js"];
 const baseURL = 'http://localhost:8000';
 
 casper.start(baseURL);
 
+function login() {
+  casper.then(function () {
+    this.clickLabel("Go to Author Console", "a");
+  });
+  casper.then(function() {
+    casper.waitForSelector(".loginPage", function() {
+      this.test.assertTitle('Login');
+      this.sendKeys('#username', casper.cli.get('username'));
+      this.sendKeys('#password', casper.cli.get('password'));
+      this.clickLabel("Login", "button");
+      casper.waitForResource(/.*api\/author.*/);
+    });
+  });
+
+  casper.then(function() {
+    casper.waitForSelector(".console", function() {
+      this.test.assertTitle('Console');
+    });
+  });
+}
+
+function logout() {
+  casper.then(function () {
+    this.clickLabel("Go to Author Console", "a");
+  });
+
+  casper.then(function () {
+    casper.waitForResource(/.*api\/author.*/, function () {
+      this.clickLabel("Logout", "button");
+    });
+  });
+
+  casper.then(function () {
+    casper.waitForSelector(".loginPage", function () {
+      this.test.assertTitle('Login');
+    });
+  });
+}
+
+casper.test.begin("Ability to login and logout", function (test) {
+  login();
+  logout();
+
+  casper.thenOpen(baseURL + '/console');
+
+  casper.then(function() {
+    casper.waitForSelector(".loginPage", function () {
+      this.test.assertTitle('Login');
+    });
+  });
+
+  casper.run(function() {
+    test.done();
+  });
+});
+
+casper.test.begin("Ability to create a new article", function (test) {
+  login();
+
+  let draftUrl;
+
+  casper.then(function () {
+    this.clickLabel("New article", "button");
+    casper.waitForSelector(".draft", function () {
+      this.test.assertTitle('Untitled Article');
+      draftUrl = this.getCurrentUrl();
+    });
+  });
+
+  casper.then(function () {
+    this.clickLabel("Exit", "button");
+    casper.waitForSelector(".console", function () {
+      this.test.assertTitle('Console');
+      casper.evaluate(function() {
+        document.querySelector(".my-articles td a").click();
+      });
+    });
+  });
+
+  casper.then(function () {
+    casper.waitForSelector(".draft", function () {
+      this.test.assertTitle('Untitled Article');
+      this.test.assertEquals(draftUrl, this.getCurrentUrl(), "same draft");
+    });
+  });
+
+  logout();
+
+  casper.run(function() {
+    test.done();
+  });
+});
+
+casper.test.begin("Ability to save an article", function (test) {
+  login();
+
+  casper.then(function () {
+    casper.evaluate(function() {
+      document.querySelector(".my-articles td a").click();
+    });
+  });
+
+  const title = "test title";
+  const excerpt = "test excerpt";
+
+  casper.then(function () {
+    casper.waitForSelector(".CodeMirror", function () {
+      this.sendKeys('#excerpt', excerpt, {reset: true});
+      this.sendKeys('#title', title, {reset: true});
+      this.clickLabel("Save", "button");
+      this.reload(function() {
+        casper.waitForSelector(".CodeMirror", function() {
+          const newTitle = casper.evaluate(function() {
+            return document.querySelector("#title").value;
+          });
+          const newExcerpt = casper.evaluate(function() {
+            return document.querySelector("#excerpt").value;
+          });
+          this.test.assertEquals(newTitle, title, "title was saved");
+          this.test.assertEquals(newExcerpt, excerpt, "excerpt was saved");
+        });
+      });
+    });
+  });
+
+  logout();
+
+  casper.run(function() {
+    test.done();
+  });
+});
+
+casper.test.begin("Ability to publish an article", function (test) {
+  login();
+
+  casper.then(function () {
+    casper.evaluate(function() {
+      document.querySelector(".my-articles td a").click();
+    });
+  });
+
+  const title = "test title";
+
+  casper.then(function () {
+    casper.waitForSelector(".CodeMirror", function () {
+      this.sendKeys('#title', title, {reset: true});
+      this.clickLabel("Publish", "button");
+    });
+  });
+
+  casper.then(function() {
+    casper.waitForSelector(".big_feature", function() {
+      const newTitle = casper.evaluate(function() {
+        return document.querySelector(".big_feature h2").innerText;
+      });
+      this.test.assert(newTitle.includes(title), "article is published with correct title");
+    });
+  });
+
+  logout();
+
+  casper.run(function() {
+    test.done();
+  });
+});
+
 casper.test.begin("Sanity check of react router", function (test) {
-  casper.open(baseURL);
-  casper.waitForSelector(".homePage", function () {
+  casper.thenOpen(baseURL);
+  casper.waitForSelector(".homePage");
+
+  casper.then(function() {
     casper.evaluate(function () {
       document.querySelectorAll(".nav_item a")[0].click();
     });
-    casper.waitForUrl("/articles", function () {
+    casper.waitForSelector(".articlesPage", function () {
       this.test.assertTitle('Articles');
     });
+  });
 
-    casper.then(function () {
-      casper.evaluate(function () {
-        document.querySelectorAll(".nav_item a")[1].click();
-      });
-      casper.waitForUrl("/writers", function () {
-        this.test.assertTitle('Writers');
-      });
+  casper.then(function () {
+    casper.evaluate(function () {
+      document.querySelectorAll(".nav_item a")[1].click();
     });
+    casper.waitForSelector(".writersPage", function () {
+      this.test.assertTitle('Writers');
+    });
+  });
 
-    casper.then(function () {
-      casper.evaluate(function () {
-        document.querySelectorAll(".nav_item a")[2].click();
-      });
-      casper.waitForUrl("/about", function () {
-        this.test.assertTitle('About');
-      });
+  casper.then(function () {
+    casper.evaluate(function () {
+      document.querySelectorAll(".nav_item a")[2].click();
+    });
+    casper.waitForSelector(".aboutPage", function () {
+      this.test.assertTitle('About');
     });
   });
 
@@ -37,9 +206,10 @@ casper.test.begin("Sanity check of react router", function (test) {
 });
 
 casper.test.begin("Sanity check of homepage", function (test) {
-  casper.open(baseURL);
+  casper.thenOpen(baseURL);
+  casper.waitForSelector(".homePage");
 
-  casper.waitForSelector(".homePage", function() {
+  casper.then(function () {
     this.test.assertTitle('The Moviegoer');
 
     const bigFeatures =  casper.evaluate(function () {
@@ -69,9 +239,10 @@ casper.test.begin("Sanity check of homepage", function (test) {
 });
 
 casper.test.begin("Sanity check of articles page", function (test) {
-  casper.open(baseURL + '/articles');
+  casper.thenOpen(baseURL + '/articles');
+  casper.waitForSelector(".articlesPage");
 
-  casper.waitForSelector(".articlesPage", function() {
+  casper.then(function() {
     this.test.assertTitle('Articles');
 
     const articles = casper.evaluate(function () {
@@ -90,7 +261,7 @@ casper.test.begin("Sanity check of articles page", function (test) {
         return document.querySelectorAll('.list-article').length;
       });
       this.test.assertEquals(newArticles, 20, "Correct number of new articles");
-    })
+    });
   });
 
   casper.run(function() {
@@ -99,9 +270,10 @@ casper.test.begin("Sanity check of articles page", function (test) {
 });
 
 casper.test.begin("Sanity check of writers page", function (test) {
-  casper.open(baseURL + '/writers');
+  casper.thenOpen(baseURL + '/writers');
+  casper.waitForSelector(".writersPage");
 
-  casper.waitForSelector(".writersPage", function() {
+  casper.then(function() {
     this.test.assertTitle('Writers');
 
     const featured =  casper.evaluate(function () {
@@ -116,9 +288,10 @@ casper.test.begin("Sanity check of writers page", function (test) {
 });
 
 casper.test.begin("Sanity check of about page", function (test) {
-  casper.open(baseURL + '/about');
+  casper.thenOpen(baseURL + '/about');
+  casper.waitForSelector(".aboutPage");
 
-  casper.waitForSelector(".aboutPage", function() {
+  casper.then(function() {
     this.test.assertTitle('About');
   });
 

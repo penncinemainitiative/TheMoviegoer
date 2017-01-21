@@ -112,7 +112,7 @@ export default class Draft extends React.Component {
       return;
     }
     const {draft, token} = this.props;
-    const {title, excerpt} = this.state;
+    const {title, excerpt, text} = this.state;
     saveArticle(token, draft.articleId, title, text, excerpt).then(({data}) => {
       if (data.err) {
         this.setState(Object.assign({}, this.state, {message: JSON.stringify(data.err)}));
@@ -183,7 +183,7 @@ export default class Draft extends React.Component {
     const cleanTitle = article.title.replace(/(<([^>]+)>)/ig, "");
     const author = token ? jwt_decode(token) : undefined;
     return (
-      <div>
+      <div className="draft">
         <Helmet title={cleanTitle}/>
         <h3>Draft</h3>
         <button onClick={this.handleSave}>Save</button>
@@ -215,6 +215,7 @@ export default class Draft extends React.Component {
             </div>
             <div style={{width: "50%"}}>
               <input type="text"
+                     id="title"
                      onChange={this.updateTitle}
                      placeholder="Article Title" value={this.state.title}/>
               <div>
@@ -226,9 +227,10 @@ export default class Draft extends React.Component {
                   onChange={this.updateAuthor}
                   loadOptions={searchAuthors}/>
               </div>
-              <div>{this.state.message}</div>
+              <div id="message">{this.state.message}</div>
               <div><textarea rows="10" cols="20"
                              type="text"
+                             id="excerpt"
                              onChange={this.updateExcerpt}
                              placeholder="Excerpt" value={this.state.excerpt}/>
               </div>

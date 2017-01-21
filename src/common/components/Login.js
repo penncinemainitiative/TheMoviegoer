@@ -47,14 +47,14 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="loginPage">
         <Helmet title="Login"/>
         <form onSubmit={this.handleSubmit}>
-          <input onChange={this.updateUsername} value={this.state.username}
+          <input id="username" onChange={this.updateUsername} value={this.state.username}
                  type="text" placeholder="Username"/>
-          <input onChange={this.updatePassword} value={this.state.password}
+          <input id="password" onChange={this.updatePassword} value={this.state.password}
                  type="password" placeholder="Password"/>
-          <button type="submit">Login</button>
+          <button id="login" type="submit">Login</button>
           <Link to="/signup">Become an author!</Link>
         </form>
         <div>{this.state.message}</div>

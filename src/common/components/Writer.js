@@ -31,7 +31,7 @@ export default class Writer extends React.Component {
         <div className="articles-container">
           {writer.articles.map((article) => {
             const innerHTML = {__html: article.title + '<span> - ' + article.pubDate + '</span>'};
-            return <div key={article.title} className="article">
+            return <div key={article.articleId} className="article">
               <Link to={article.url}>
                 <div className="image-wrapper">
                   {getResizedImage(article.image, 400, 600)}
