@@ -44,14 +44,14 @@ S3 bucket | Contents
 
 Install [http://casperjs.org/](CasperJS) and [https://slimerjs.org/](SlimerJS) globally.
 ```
+$ npm install -g casperjs slimerjs
 $ npm run db-sync
 $ npm run client (in one terminal)
 $ npm run server (in another terminal)
-$ npm install -g casperjs slimerjs (in yet another terminal)
 ```
 As a user with admin privileges, use your username and password to run the tests:
 ```
-$ casperjs test tests/index.js --engine=slimerjs --username=my_username --password=my_password
+$ casperjs test tests/index.js --engine=slimerjs --username=my_username --password=my_password (in yet another terminal)
 ```
 
 

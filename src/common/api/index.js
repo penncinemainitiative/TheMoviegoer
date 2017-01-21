@@ -91,15 +91,12 @@ export const searchArticles = (input) => {
     });
 };
 
-export const searchAuthors = (input) => {
+export const allAuthors = () => {
   return http
-    .get(`/api/search/authors?q=${input}`)
+    .get(`/api/search/authors?q=`)
     .then(({data}) => {
-      const json = data.map((obj) => {
+      return data.map((obj) => {
         return {value: obj.username, label: obj.name};
       });
-      return {
-        options: json
-      };
     });
 };

@@ -211,6 +211,20 @@ router.post('/:id/author', requireLogin, (req, res) => {
   });
 });
 
+router.post('/:id/editor', requireLogin, (req, res) => {
+  const articleId = parseInt(req.params.id);
+  db.queryAsync(`
+    UPDATE articles
+    SET updateDate = NOW(),
+        assignedEditor = ?
+    WHERE articleId = ?
+  `, [req.body.editor, articleId]).then(() => {
+    res.send({success: true});
+  }).catch((err) => {
+    res.json({err});
+  });
+});
+
 router.post('/:id/retract', requireLogin, (req, res) => {
   const articleId = parseInt(req.params.id);
   db.queryAsync(`

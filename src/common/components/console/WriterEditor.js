@@ -173,7 +173,7 @@ export default class WriterEditor extends React.Component {
                            checked={this.state.allow_featured_writer}
                            onChange={this.updateAllowFeaturedWriter}/>
                   </p>
-                  <textarea rows="10" cols="50" value={this.state.bio}
+                  <textarea id="bio" rows="10" cols="50" value={this.state.bio}
                             onChange={this.updateBio}/>
                 </div> : null}
               {this.state.option === "photo" ?

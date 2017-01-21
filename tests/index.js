@@ -59,6 +59,38 @@ casper.test.begin("Ability to login and logout", function (test) {
   });
 });
 
+casper.test.begin("Ability to edit profile", function (test) {
+  login();
+
+  const bio = "test bio";
+
+  casper.then(function () {
+    this.clickLabel("Update account", "button");
+    casper.waitForSelector("#bio", function() {
+      this.sendKeys('#bio', bio, {reset: true});
+      this.clickLabel("Save", "button");
+      casper.evaluate(function() {
+        document.querySelector("#profileLink").click();
+      });
+    });
+  });
+
+  casper.then(function () {
+    casper.waitForSelector(".writerPage", function () {
+      const newBio = casper.evaluate(function() {
+        return document.querySelector("#bio").innerText;
+      });
+      this.test.assertEquals(bio, newBio, "bio updates correctly");
+    });
+  });
+
+  logout();
+
+  casper.run(function() {
+    test.done();
+  });
+});
+
 casper.test.begin("Ability to create a new article", function (test) {
   login();
 
@@ -269,6 +301,30 @@ casper.test.begin("Sanity check of articles page", function (test) {
   });
 });
 
+casper.test.begin("Sanity check of article page", function (test) {
+  casper.thenOpen(baseURL);
+  casper.waitForSelector(".homePage");
+
+  casper.then(function() {
+    casper.evaluate(function () {
+      return document.querySelector(".recent a").click();
+    });
+  });
+
+  casper.then(function() {
+    casper.waitForSelector(".articlePage", function () {
+      const archive = casper.evaluate(function () {
+        return document.querySelectorAll('.archive img').length;
+      });
+      this.test.assertEquals(archive, 3, "Correct number of archive articles");
+    });
+  });
+
+  casper.run(function() {
+    test.done();
+  });
+});
+
 casper.test.begin("Sanity check of writers page", function (test) {
   casper.thenOpen(baseURL + '/writers');
   casper.waitForSelector(".writersPage");
@@ -276,7 +332,7 @@ casper.test.begin("Sanity check of writers page", function (test) {
   casper.then(function() {
     this.test.assertTitle('Writers');
 
-    const featured =  casper.evaluate(function () {
+    const featured = casper.evaluate(function () {
       return document.querySelectorAll('.featured-writer img').length;
     });
     this.test.assertEquals(featured, 1, "Correct number of featured writers");

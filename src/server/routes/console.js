@@ -26,7 +26,7 @@ router.get('/recent', (req, res) => {
 
 router.get('/unpublished', (req, res) => {
   db.queryAsync(`
-    SELECT author, name, url, articleId, isPublished, updateDate, title
+    SELECT author, name, url, articleId, isPublished, updateDate, articles.assignedEditor, title
     FROM articles
     INNER JOIN authors ON authors.username = articles.author
     WHERE isPublished < 2 AND isPublished > -2

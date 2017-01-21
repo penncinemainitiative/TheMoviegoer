@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
     db.queryAsync(`
       SELECT name
       FROM authors
-      WHERE name LIKE ?
+      WHERE name LIKE ? AND name <> 'Admin'
     `, search).then((authors) => {
       res.json(articles.concat(authors));
     })
@@ -29,24 +29,10 @@ router.get('/authors', (req, res) => {
   db.queryAsync(`
     SELECT username, name
     FROM authors
-    WHERE name LIKE ?
+    WHERE name LIKE ? AND name <> 'Admin'
   `, search
   ).then((authors) => {
     res.json(authors);
-  }).catch((err) => {
-    res.json({err});
-  });
-});
-
-router.get('/editors', (req, res) => {
-  const search = [`%${req.query.q}%`];
-  db.queryAsync(`
-    SELECT username, name
-    FROM authors
-    WHERE name LIKE ? AND isEditor > 0
-  `, search
-  ).then((editors) => {
-    res.json(editors);
   }).catch((err) => {
     res.json({err});
   });

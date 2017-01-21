@@ -21,8 +21,11 @@ $visual-grid: false;
 @import "simplemde";
 
 .Select {
-  z-index: 10;
   width: 75%;
+}
+
+.Select-menu-outer {
+  z-index: 10;
 }
 
 body {

@@ -36,7 +36,6 @@ export default class Header extends React.Component {
           })}
           <div className="search_bar">
             <Select.Async
-              name="form-field-name"
               placeholder="Search for articles"
               noResultsText="No results found!"
               onChange={onSelect}

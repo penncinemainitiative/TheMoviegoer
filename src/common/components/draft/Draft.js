@@ -15,12 +15,15 @@ import browserHistory from "react-router/lib/browserHistory"
 import Dropzone from "react-dropzone"
 import jwt_decode from "jwt-decode"
 import Select from "react-select"
-import {searchAuthors} from "../../api/index"
+import {allAuthors} from "../../api/index"
 import SimpleMDE from "react-simplemde-editor"
 
 @asyncConnect([{
     key: 'draft',
     promise: ({store: {getState}, params}) => getDraft(getState().token, params.id)
+  }, {
+    key: 'authors',
+    promise: () => allAuthors()
   }],
   state => ({token: state.token})
 )
@@ -37,7 +40,6 @@ export default class Draft extends React.Component {
     this.handleCoverPhoto = this.handleCoverPhoto.bind(this);
     this.handleRetractArticle = this.handleRetractArticle.bind(this);
     this.handleExit = this.handleExit.bind(this);
-    this.loadOptions = this.loadOptions.bind(this);
     this.onDrop = this.onDrop.bind(this);
     const {draft} = this.props;
     this.state = {
@@ -154,17 +156,6 @@ export default class Draft extends React.Component {
     browserHistory.push('/console');
   }
 
-  loadOptions(input) {
-    if (input === '') {
-      return Promise.resolve({
-        options: [
-          {value: this.state.author, label: this.state.name}
-        ]
-      });
-    }
-    return searchAuthors(input);
-  }
-
   onDrop(files) {
     const {draft, token} = this.props;
     const file = files[0];
@@ -178,7 +169,7 @@ export default class Draft extends React.Component {
   }
 
   render() {
-    const {draft, token} = this.props;
+    const {draft, token, authors} = this.props;
     const article = this.state;
     const cleanTitle = article.title.replace(/(<([^>]+)>)/ig, "");
     const author = token ? jwt_decode(token) : undefined;
@@ -220,12 +211,12 @@ export default class Draft extends React.Component {
                      placeholder="Article Title" value={this.state.title}/>
               <div>
                 Author:
-                <Select.Async
-                  name="form-field-name"
-                  value={this.state.author}
+                <Select
                   noResultsText="No results found!"
+                  clearable={false}
+                  value={this.state.author}
                   onChange={this.updateAuthor}
-                  loadOptions={searchAuthors}/>
+                  options={authors}/>
               </div>
               <div id="message">{this.state.message}</div>
               <div><textarea rows="10" cols="20"
@@ -239,7 +230,6 @@ export default class Draft extends React.Component {
                   onChange={this.updateText}
                   value={this.state.text}
                   options={{
-                    autofocus: true,
                     spellChecker: false
                   }}
                 />
