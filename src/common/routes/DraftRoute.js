@@ -1,6 +1,6 @@
 import Draft from "../components/draft/Draft"
 
-export const DraftRoute = {
+export default {
   path: 'draft/:id',
   component: Draft
 };

@@ -10,8 +10,6 @@ import Writers from "../components/Writers"
 import Writer from "../components/Writer"
 import Articles from "../components/Articles"
 import Footer from "../components/Footer"
-import {ConsoleRoute} from "./ConsoleRoute"
-import {DraftRoute} from "./DraftRoute"
 
 if (typeof require.ensure !== 'function') require.ensure = (d, c) => c(require);
 
@@ -66,7 +64,13 @@ const SignupRoute = {
 const AuthRoutes = (store) => ({
   onEnter: authenticate(store),
   getChildRoutes(location, cb) {
-    cb(null, [ConsoleRoute, DraftRoute])
+    require.ensure([], (require) =>
+      cb(null, [
+        require('./ConsoleRoute').default,
+        require('./DraftRoute').default
+        ]
+      )
+    )
   }
 });
 
@@ -97,9 +101,9 @@ export default (store) => ({
     ArticlesRoute,
     LoginRoute,
     SignupRoute,
-    AuthRoutes(store),
     ArticleRoute,
     WriterRoute,
+    AuthRoutes(store),
     PageNotFoundRoute
   ]
 });

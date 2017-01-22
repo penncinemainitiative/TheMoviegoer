@@ -41,7 +41,8 @@ module.exports = {
   entry: getEntrySources(['./src/client/client.js']),
   output: {
     filename: 'public/bundle.js',
-    publicPath: 'http://localhost:8080/'
+    chunkFilename: 'public/[id].js',
+    publicPath: production ? '/' : 'http://localhost:8080/'
   },
   module: {
     loaders: [{

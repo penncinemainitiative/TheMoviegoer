@@ -1,6 +1,6 @@
 import Console from "../components/console/Console"
 
-export const ConsoleRoute = {
+export default {
   path: 'console',
   component: Console
 };
