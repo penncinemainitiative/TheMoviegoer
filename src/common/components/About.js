@@ -23,7 +23,13 @@ export default class About extends React.Component {
     const {staff} = this.props;
     return (
       <div className="aboutPage">
-        <Helmet title="About"/>
+        <Helmet title="About"
+                meta={[
+                  {
+                    property: "description",
+                    content: "Learn more about the staff of The Moviegoer and how to get involved."
+                  },
+                ]}/>
         <div className="content-left">
           <div className="letter">
             <h3>About</h3>

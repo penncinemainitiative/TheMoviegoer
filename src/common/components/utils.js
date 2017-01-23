@@ -16,3 +16,12 @@ export const getResizedImage = (url, desktopSize, mobileSize) => {
   const sizes = `(max-width: 550px) ${mobileSize}px, ${desktopSize}px`;
   return <img srcSet={srcSet} src={images[desktopSize]} sizes={sizes}/>
 };
+
+export const get800WidthUrl = (url) => {
+  if (!url.includes("https://s3.amazonaws.com/moviegoer")) {
+    return url;
+  }
+  const cdnUrl = url.replace("https://s3.amazonaws.com/moviegoer", "https://de1zegu7c2bac.cloudfront.net");
+  const dot = cdnUrl.lastIndexOf('.');
+  return cdnUrl.substring(0, dot) + `-800w.` + cdnUrl.substring(dot + 1);
+};

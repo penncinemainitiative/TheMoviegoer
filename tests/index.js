@@ -9,7 +9,7 @@ function login() {
   });
   casper.then(function() {
     casper.waitForSelector(".loginPage", function() {
-      this.test.assertTitle('Login');
+      this.test.assertTitle('Login | The Moviegoer');
       this.sendKeys('#username', casper.cli.get('username'));
       this.sendKeys('#password', casper.cli.get('password'));
       this.clickLabel("Login", "button");
@@ -19,7 +19,7 @@ function login() {
 
   casper.then(function() {
     casper.waitForSelector(".console", function() {
-      this.test.assertTitle('Console');
+      this.test.assertTitle('Console | The Moviegoer');
     });
   });
 }
@@ -37,7 +37,7 @@ function logout() {
 
   casper.then(function () {
     casper.waitForSelector(".loginPage", function () {
-      this.test.assertTitle('Login');
+      this.test.assertTitle('Login | The Moviegoer');
     });
   });
 }
@@ -50,7 +50,7 @@ casper.test.begin("Ability to login and logout", function (test) {
 
   casper.then(function() {
     casper.waitForSelector(".loginPage", function () {
-      this.test.assertTitle('Login');
+      this.test.assertTitle('Login | The Moviegoer');
     });
   });
 
@@ -99,7 +99,7 @@ casper.test.begin("Ability to create a new article", function (test) {
   casper.then(function () {
     this.clickLabel("New article", "button");
     casper.waitForSelector(".draft", function () {
-      this.test.assertTitle('Untitled Article');
+      this.test.assertTitle('Untitled Article | The Moviegoer');
       draftUrl = this.getCurrentUrl();
     });
   });
@@ -107,7 +107,7 @@ casper.test.begin("Ability to create a new article", function (test) {
   casper.then(function () {
     this.clickLabel("Exit", "button");
     casper.waitForSelector(".console", function () {
-      this.test.assertTitle('Console');
+      this.test.assertTitle('Console | The Moviegoer');
       casper.evaluate(function() {
         document.querySelector(".my-articles td a").click();
       });
@@ -116,7 +116,7 @@ casper.test.begin("Ability to create a new article", function (test) {
 
   casper.then(function () {
     casper.waitForSelector(".draft", function () {
-      this.test.assertTitle('Untitled Article');
+      this.test.assertTitle('Untitled Article | The Moviegoer');
       this.test.assertEquals(draftUrl, this.getCurrentUrl(), "same draft");
     });
   });
@@ -210,7 +210,7 @@ casper.test.begin("Sanity check of react router", function (test) {
       document.querySelectorAll(".nav_item a")[0].click();
     });
     casper.waitForSelector(".articlesPage", function () {
-      this.test.assertTitle('Articles');
+      this.test.assertTitle('Articles | The Moviegoer');
     });
   });
 
@@ -219,7 +219,7 @@ casper.test.begin("Sanity check of react router", function (test) {
       document.querySelectorAll(".nav_item a")[1].click();
     });
     casper.waitForSelector(".writersPage", function () {
-      this.test.assertTitle('Writers');
+      this.test.assertTitle('Writers | The Moviegoer');
     });
   });
 
@@ -228,7 +228,7 @@ casper.test.begin("Sanity check of react router", function (test) {
       document.querySelectorAll(".nav_item a")[2].click();
     });
     casper.waitForSelector(".aboutPage", function () {
-      this.test.assertTitle('About');
+      this.test.assertTitle('About | The Moviegoer');
     });
   });
 
@@ -242,7 +242,7 @@ casper.test.begin("Sanity check of homepage", function (test) {
   casper.waitForSelector(".homePage");
 
   casper.then(function () {
-    this.test.assertTitle('The Moviegoer');
+    this.test.assertTitle('The Moviegoer | The Moviegoer');
 
     const bigFeatures =  casper.evaluate(function () {
       return document.querySelectorAll('.big_feature').length;
@@ -275,7 +275,7 @@ casper.test.begin("Sanity check of articles page", function (test) {
   casper.waitForSelector(".articlesPage");
 
   casper.then(function() {
-    this.test.assertTitle('Articles');
+    this.test.assertTitle('Articles | The Moviegoer');
 
     const articles = casper.evaluate(function () {
       return document.querySelectorAll('.list-article').length;
@@ -330,7 +330,7 @@ casper.test.begin("Sanity check of writers page", function (test) {
   casper.waitForSelector(".writersPage");
 
   casper.then(function() {
-    this.test.assertTitle('Writers');
+    this.test.assertTitle('Writers | The Moviegoer');
 
     const featured = casper.evaluate(function () {
       return document.querySelectorAll('.featured-writer img').length;
@@ -348,7 +348,7 @@ casper.test.begin("Sanity check of about page", function (test) {
   casper.waitForSelector(".aboutPage");
 
   casper.then(function() {
-    this.test.assertTitle('About');
+    this.test.assertTitle('About | The Moviegoer');
   });
 
   casper.run(function() {

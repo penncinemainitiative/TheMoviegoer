@@ -66,12 +66,12 @@ class ArticleList extends React.Component {
             <td>{article.name}</td>
             <td style={{width: "300px"}}>
               <Select
-                menuContainerStyle={{ zIndex: 500 }}
+                menuContainerStyle={{zIndex: 500}}
                 clearable={false}
-              noResultsText="No results found!"
-              value={article.assignedEditor}
-              onChange={this.updateEditor.bind(null, article.articleId)}
-              options={authors}/>
+                noResultsText="No results found!"
+                value={article.assignedEditor}
+                onChange={this.updateEditor.bind(null, article.articleId)}
+                options={authors}/>
             </td>
             <td>{username === article.author ?
               <button

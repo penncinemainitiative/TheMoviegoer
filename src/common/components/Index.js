@@ -21,7 +21,13 @@ export default class Index extends React.Component {
     const recent = articles.slice(3, 10);
     return (
       <div className="homePage">
-        <Helmet title="The Moviegoer"/>
+        <Helmet title="The Moviegoer"
+                meta={[
+                  {
+                    property: "description", content: `The Moviegoer, a student-run blog dedicated to film appreciation -
+                  posting film analyses, reviews, previews, and all things related.`
+                  },
+                ]}/>
         <div className="content">
           <div className="top-wrapper">
             <div className="big_feature">

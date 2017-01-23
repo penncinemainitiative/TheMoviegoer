@@ -29,7 +29,13 @@ export default class Articles extends React.Component {
   render() {
     return (
       <div className="articlesPage">
-        <Helmet title="Articles"/>
+        <Helmet title="Articles"
+                meta={[
+                  {
+                    property: "description",
+                    content: "Browse all The Moviegoer's articles, from contemporary cinema to classic films."
+                  },
+                ]}/>
         <div className="articles">
           {this.props.articles.map((article) => {
             const innerHTML = {__html: article.title};

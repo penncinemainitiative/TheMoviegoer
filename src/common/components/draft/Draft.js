@@ -49,7 +49,7 @@ export default class Draft extends React.Component {
       text: draft.text,
       image: draft.image,
       name: draft.name,
-      pubDate: draft.date,
+      pubDate: draft.pubDate,
       articleId: draft.articleId,
       preview: false,
       message: ''

@@ -3,7 +3,7 @@ import marked from "marked"
 import Link from "react-router/lib/Link"
 import jwt_decode from "jwt-decode"
 import Helmet from "react-helmet"
-import {getResizedImage} from "./utils"
+import {getResizedImage, get800WidthUrl} from "./utils"
 
 const defaultDescription = "The Moviegoer is a student-run blog dedicated to film appreciation - " +
   "posting film analyses, reviews, previews, and all things related. " +
@@ -18,6 +18,37 @@ export default class ArticleView extends React.Component {
     const cleanTitle = article.title.replace(/(<([^>]+)>)/ig, "");
     const text = {__html: marked(article.text.replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"))};
     const draftUrl = `/draft/${article.articleId}`;
+    const ldJson = `
+    {
+      "@context": "http://schema.org",
+      "@type": "Article",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "${article.url}"
+      },
+      "headline": "${cleanTitle}",
+      "image": {
+        "@type": "ImageObject",
+        "url": "${get800WidthUrl(article.image)}",
+        "width": 800,
+        "height": 450
+      },
+      "datePublished": "${new Date(article.pubDate).toISOString()}",
+      "dateModified": "${new Date(article.updateDate).toISOString()}",
+      "author": {
+        "@type": "Person",
+        "name": "${article.name}"
+      },
+       "publisher": {
+        "@type": "Organization",
+        "name": "The Moviegoer",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://pennmoviegoer.com/public/images/moviegoer_black.png"
+        }
+      },
+      "description": "${description}"
+    }`;
     return (
       <div className="articlePage">
         <Helmet title={cleanTitle}
@@ -27,6 +58,9 @@ export default class ArticleView extends React.Component {
                   {property: "og:title", content: cleanTitle},
                   {property: "og:url", content: article.url},
                   {property: "og:image", content: article.image}
+                ]}
+                script={[
+                  {type: "application/ld+json", innerHTML: ldJson}
                 ]}/>
         <div className="article_content">
           <div className="image-wrapper">

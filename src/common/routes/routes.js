@@ -10,6 +10,7 @@ import Writers from "../components/Writers"
 import Writer from "../components/Writer"
 import Articles from "../components/Articles"
 import Footer from "../components/Footer"
+import Helmet from "react-helmet"
 
 if (typeof require.ensure !== 'function') require.ensure = (d, c) => c(require);
 
@@ -17,6 +18,9 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <Helmet
+          titleTemplate="%s | The Moviegoer"
+          defaultTitle="The Moviegoer"/>
         <Header/>
         {this.props.children}
         <Footer/>
@@ -66,8 +70,8 @@ const AuthRoutes = (store) => ({
   getChildRoutes(location, cb) {
     require.ensure([], (require) =>
       cb(null, [
-        require('./ConsoleRoute').default,
-        require('./DraftRoute').default
+          require('./ConsoleRoute').default,
+          require('./DraftRoute').default
         ]
       )
     )
@@ -104,6 +108,12 @@ export default (store) => ({
     ArticleRoute,
     WriterRoute,
     AuthRoutes(store),
+    {path: "movies*", onEnter: (_, replace) => replace({
+      pathname: '/articles'
+    })},
+    {path: "features*", onEnter: (_, replace) => replace({
+      pathname: '/articles'
+    })},
     PageNotFoundRoute
   ]
 });

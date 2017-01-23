@@ -12,9 +12,16 @@ import Helmet from "react-helmet"
 export default class Writer extends React.Component {
   render() {
     const {writer} = this.props;
+    const position = writer.position ? writer.position : "Writer";
     return (
       <div className="writerPage">
-        <Helmet title={writer.name}/>
+        <Helmet title={writer.name}
+                meta={[
+                  {
+                    property: "description",
+                    content: `Read about ${writer.name}, ${position} at The Moviegoer.`
+                  },
+                ]}/>
         <div className="writer-bio">
           <div className="image-wrapper">
             {getResizedImage(writer.image, 400, 400)}
@@ -23,7 +30,7 @@ export default class Writer extends React.Component {
             <div className="name-container">
               <h4>{writer.name}</h4>
               <div className="accent"></div>
-              <h5><i>{writer.position ? writer.position : "Writer"}</i></h5>
+              <h5><i>{position}</i></h5>
             </div>
             <p id="bio">{writer.bio}</p>
           </div>

@@ -17,7 +17,13 @@ export default class Writers extends React.Component {
     const {writers, featured} = this.props;
     return (
       <div className="writersPage">
-        <Helmet title="Writers"/>
+        <Helmet title="Writers"
+                meta={[
+                  {
+                    property: "description",
+                    content: `Meet the writers of The Moviegoer.`
+                  },
+                ]}/>
         <div className="featured-writer">
           <h2>Featured Writer</h2>
           <div className="image-wrapper">

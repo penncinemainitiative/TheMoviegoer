@@ -56,7 +56,13 @@ export default class Signup extends React.Component {
   render() {
     return (
       <div>
-        <Helmet title="Signup"/>
+        <Helmet title="Signup"
+                meta={[
+                  {
+                    property: "description",
+                    content: "Become a writer at The Moviegoer!"
+                  },
+                ]}/>
         <form onSubmit={this.handleSubmit}>
           <input onChange={this.updateName} value={this.state.name}
                  type="text" placeholder="Name"/>

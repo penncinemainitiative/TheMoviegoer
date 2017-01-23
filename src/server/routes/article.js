@@ -44,7 +44,7 @@ router.get('/', requireLogin, (req, res) => {
 router.get('/:year/:month/:day/:slug', (req, res) => {
   db.queryAsync(`
     SELECT url, name, articleId, text, articles.image, isPublished, pubDate, title,
-           authors.image AS authorImage, bio, username
+           authors.image AS authorImage, bio, username, updateDate, excerpt
     FROM articles
     INNER JOIN authors ON authors.username = articles.author
     WHERE url = ?`, [req.url]
@@ -57,6 +57,7 @@ router.get('/:year/:month/:day/:slug', (req, res) => {
       return res.redirect(`/article/${req.params.id}/draft`);
     }
     article.pubDate = dateFormat(article.pubDate, "mmmm d, yyyy");
+    article.updateDate = dateFormat(article.updateDate, "mmmm d, yyyy");
     article.authorUrl = "/writer/" + article.name.replace(" ", "");
     article.url = `http://pennmoviegoer.com${article.url}`;
     res.json(article);
@@ -68,13 +69,14 @@ router.get('/:year/:month/:day/:slug', (req, res) => {
 router.get('/:id/draft', requireLogin, (req, res) => {
   const articleId = parseInt(req.params.id);
   db.queryAsync(`
-    SELECT excerpt, name, articleId, text, articles.image, isPublished, pubDate, type, title, author
+    SELECT excerpt, name, articleId, text, articles.image, isPublished, pubDate, updateDate, type, title, author
     FROM articles
     INNER JOIN authors ON authors.username = articles.author
     WHERE articleId = ?
   `, [articleId]).then((rows) => {
     const article = rows[0];
-    article.date = dateFormat(rows[0].updateDate, "mmmm d, yyyy");
+    article.pubDate = dateFormat(rows[0].updateDate, "mmmm d, yyyy");
+    article.updateDate = dateFormat(article.updateDate, "mmmm d, yyyy");
     db.queryAsync(`
       SELECT image AS url
       FROM images

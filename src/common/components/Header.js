@@ -26,7 +26,7 @@ export default class Header extends React.Component {
       {name: 'About', url: '/about'}
     ];
     return (
-      <div className="nav">
+      <nav className="nav">
         <Link to="/" className="logo">
           <img src="/public/images/moviegoer_black.png"
                alt="The Moviegoer"/></Link>
@@ -42,7 +42,7 @@ export default class Header extends React.Component {
               loadOptions={searchArticles}/>
           </div>
         </div>
-      </div>
+      </nav>
     );
   }
 }
