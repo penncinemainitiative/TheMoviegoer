@@ -57,10 +57,10 @@ $ casperjs test tests/index.js --engine=slimerjs --username=my_username --passwo
 
 ### Production
 
-Set the environment variable SECRET to a random string.
+Set the server's environment variable SECRET to a random string.
 
 ```
-$ npm run production
+$ npm run deploy
 ```
 This assumes that an Nginx instance is running that proxies requests for [https://pennmoviegoer.com](https://pennmoviegoer.com) to [http://localhost:8000](http://localhost:8000). A typical configuration in `/etc/nginx/sites-available/moviegoer.conf` (symlinked to `/etc/nginx/sites-enabled/moviegoer.conf`):
 ```

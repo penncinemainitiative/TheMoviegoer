@@ -6,6 +6,7 @@
   <%- head.link.toString() %>
   <%- head.script.toString() %>
   <link rel="shortcut icon" href="/public/images/favicon.png"/>
+  <meta name="google-site-verification" content="QTaFTCdWpUqHjDxr_c0clo0363x-PmIPT_rM4YBU_E0" />
   <meta property="og:site_name" content="Penn Moviegoer"/>
   <meta property="og:type" content="article"/>
   <meta property="fb:app_id" content="132619720416789"/>
@@ -16,12 +17,32 @@
 <body>
 <div id="mount"><%- env === 'production' ? appHTML : null %></div>
 <script>window.__data = <%- state %></script>
-<script type="text/javascript" src="/public/js/raw/fbSDK.js"></script>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId: '132619720416789',
+      xfbml: true,
+      version: 'v2.4'
+    });
+  };
+  (function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
 <% if (env === 'production') { %>
 <script src="/public/bundle.js"></script>
-  <% if (!state.token) { %>
-  <script src="/public/js/raw/ga.js"></script>
-  <% } %>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70091996-1', 'auto');
+  ga('send', 'pageview');
+</script>
 <% } else { %>
 <script src="http://localhost:8080/public/bundle.js"></script>
 <% } %>

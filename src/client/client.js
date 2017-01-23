@@ -12,7 +12,7 @@ import useScroll from "react-router-scroll/lib/useScroll"
 const store = createStore(window.__data);
 
 browserHistory.listen((location) => {
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV === 'production' && window.ga) {
     window.ga('send', 'pageview', location.pathname);
   }
 });
