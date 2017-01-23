@@ -110,7 +110,7 @@ router.get('/writers', (req, res) => {
     WHERE isEditor > -1 AND name <> 'Admin'
   `).then((rows) => {
     rows = rows.map((author) => {
-      author.url = "/writer/" + author.name.replace(" ", "");
+      author.url = "/writer/" + author.name.replace(/\s+/g, '');
       return author;
     });
     res.json(rows);
@@ -128,7 +128,7 @@ router.get('/random/author', (req, res) => {
     LIMIT 1
   `).then((rows) => {
     const author = rows[0];
-    author.url = "/writer/" + author.name.replace(" ", "");
+    author.url = "/writer/" + author.name.replace(/\s+/g, '');
     res.json(author);
   }).catch((err) => {
     res.json({err});
@@ -142,7 +142,7 @@ router.get('/staff', (req, res) => {
     WHERE position IS NOT NULL
   `).then((rows) => {
     rows = rows.map((author) => {
-      author.url = "/writer/" + author.name.replace(" ", "");
+      author.url = "/writer/" + author.name.replace(/\s+/g, '');
       return author;
     });
     res.json(rows);

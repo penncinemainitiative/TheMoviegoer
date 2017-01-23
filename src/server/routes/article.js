@@ -47,7 +47,7 @@ router.get('/:year/:month/:day/:slug', (req, res) => {
            authors.image AS authorImage, bio, username, updateDate, excerpt
     FROM articles
     INNER JOIN authors ON authors.username = articles.author
-    WHERE url = ?`, [req.url]
+    WHERE url = ? AND isPublished = 2`, [req.url]
   ).then((rows) => {
     if (rows.length === 0) {
       return res.redirect('/');
@@ -58,7 +58,7 @@ router.get('/:year/:month/:day/:slug', (req, res) => {
     }
     article.pubDate = dateFormat(article.pubDate, "mmmm d, yyyy");
     article.updateDate = dateFormat(article.updateDate, "mmmm d, yyyy");
-    article.authorUrl = "/writer/" + article.name.replace(" ", "");
+    article.authorUrl = "/writer/" + article.name.replace(/\s+/g, '');
     article.url = `http://pennmoviegoer.com${article.url}`;
     res.json(article);
   }).catch((err) => {

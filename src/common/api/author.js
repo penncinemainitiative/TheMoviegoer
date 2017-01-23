@@ -11,7 +11,7 @@ export const getWriter = (writer) => {
 };
 
 export const getWriterByName = (writerName) => {
-  const writer = writerName.replace(" ", "");
+  const writer = writerName.replace(/\s+/g, '');
   return http
     .get(`/api/author/${writer}`)
     .then(({data}) => data);
