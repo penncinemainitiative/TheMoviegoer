@@ -26,7 +26,7 @@ $nav-height: 60px;
       font-family: gotham;
       text-decoration: none;
       @include media($mobile) {
-        font-size: 15px;
+        font-size: 13px;
       }
 
       &:hover {
