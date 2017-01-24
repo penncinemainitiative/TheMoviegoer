@@ -1,5 +1,6 @@
 .homePage {
-  @include outer-container;
+  //@include outer-container;
+  @include page;
 
   .content {
     @include span-columns(12);

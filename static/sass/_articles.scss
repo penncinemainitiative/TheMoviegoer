@@ -1,11 +1,13 @@
 .articlesPage {
-  @include page();
+  @include page;
 
   .articles {
     @include span-columns(10);
     @include shift(1);
     @include media($mobile) {
       @include span-columns(6);
+      @include shift(0);
+      padding: 10px;
     }
 
     .list-article {
@@ -36,10 +38,13 @@
 
         @include media($mobile) {
           @include span-columns(6);
+          padding: 10px;
+          margin-left: 0px;
           p {
             display: none;
           }
         }
+
 
         h3 {
           font-family: $main-title;

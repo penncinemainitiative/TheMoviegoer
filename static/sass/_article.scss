@@ -15,7 +15,6 @@
       @include span-columns(6);
       @include shift(0);
     }
-  ;
 
     p {
       padding-left: 35px;
@@ -51,7 +50,9 @@
     }
 
     a {
-      padding-left: 10px;
+      //padding-left: 10px;
+      color: $goldD1;
+      text-decoration: underline;
     }
 
     .title {
