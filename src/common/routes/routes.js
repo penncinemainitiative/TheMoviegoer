@@ -108,12 +108,16 @@ export default (store) => ({
     ArticleRoute,
     WriterRoute,
     AuthRoutes(store),
-    {path: "movies*", onEnter: (_, replace) => replace({
+    {
+      path: "movies*", onEnter: (_, replace) => replace({
       pathname: '/articles'
-    })},
-    {path: "features*", onEnter: (_, replace) => replace({
+    })
+    },
+    {
+      path: "features*", onEnter: (_, replace) => replace({
       pathname: '/articles'
-    })},
+    })
+    },
     PageNotFoundRoute
   ]
 });
