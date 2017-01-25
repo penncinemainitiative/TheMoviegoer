@@ -126,11 +126,13 @@ router.post('/:id/photos', requireLogin, (req, res) => {
           signedURL: data,
           cleanURL: image
         });
+      }).catch((err) => {
+        res.json({err});
       });
-    })
-  }).catch((err) => {
-    res.json({err});
-  });
+    }).catch((err) => {
+      res.json({err});
+    });
+  })
 });
 
 router.get('/:id/delete', requireLogin, (req, res) => {
