@@ -1,3 +1,11 @@
+let im;
+const TESTING = process.env.NODE_ENV === 'testing';
+
+if (TESTING) {
+  im = require('istanbul-middleware');
+  im.hookLoader(__dirname);
+}
+
 import express from "express"
 import React from "react"
 import {renderToString} from "react-dom/server"
@@ -24,6 +32,11 @@ app.use(multer({dest: './uploads/', includeEmptyFields: true}).single('photo'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cookieParser());
+
+if (TESTING) {
+  app.use('/coverage', im.createHandler());
+  app.use(im.createClientHandler("/public"));
+}
 
 app.use('/public', express.static('public'));
 app.set('views', path.join(__dirname, 'views'));

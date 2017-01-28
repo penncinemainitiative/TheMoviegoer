@@ -3,6 +3,19 @@ const baseURL = 'http://localhost:8000';
 
 casper.start(baseURL);
 
+function finish() {
+  casper.evaluate(function () {
+    $.ajax('/coverage/client', {
+      data: JSON.stringify(window.__coverage__),
+      contentType: 'application/json',
+      type: 'POST'
+    });
+  });
+  casper.run(function () {
+    this.test.done();
+  });
+}
+
 function login() {
   casper.then(function () {
     this.clickLabel("Go to Author Console", "a");
@@ -54,9 +67,7 @@ casper.test.begin("Ability to login and logout", function (test) {
     });
   });
 
-  casper.run(function () {
-    test.done();
-  });
+  finish();
 });
 
 casper.test.begin("Ability to edit profile", function (test) {
@@ -86,9 +97,7 @@ casper.test.begin("Ability to edit profile", function (test) {
 
   logout();
 
-  casper.run(function () {
-    test.done();
-  });
+  finish();
 });
 
 casper.test.begin("Ability to create a new article", function (test) {
@@ -123,9 +132,7 @@ casper.test.begin("Ability to create a new article", function (test) {
 
   logout();
 
-  casper.run(function () {
-    test.done();
-  });
+  finish();
 });
 
 casper.test.begin("Ability to save an article", function (test) {
@@ -162,9 +169,7 @@ casper.test.begin("Ability to save an article", function (test) {
 
   logout();
 
-  casper.run(function () {
-    test.done();
-  });
+  finish();
 });
 
 casper.test.begin("Ability to preview an article", function (test) {
@@ -202,9 +207,7 @@ casper.test.begin("Ability to preview an article", function (test) {
 
   logout();
 
-  casper.run(function () {
-    test.done();
-  });
+  finish();
 });
 
 casper.test.begin("Ability to publish an article", function (test) {
@@ -236,9 +239,7 @@ casper.test.begin("Ability to publish an article", function (test) {
 
   logout();
 
-  casper.run(function () {
-    test.done();
-  });
+  finish();
 });
 
 casper.test.begin("Sanity check of react router", function (test) {
@@ -272,9 +273,7 @@ casper.test.begin("Sanity check of react router", function (test) {
     });
   });
 
-  casper.run(function () {
-    test.done();
-  });
+  finish();
 });
 
 casper.test.begin("Sanity check of homepage", function (test) {
@@ -305,9 +304,7 @@ casper.test.begin("Sanity check of homepage", function (test) {
     this.test.assertEquals(recent, 7, "Correct number of recent articles");
   });
 
-  casper.run(function () {
-    test.done();
-  });
+  finish();
 });
 
 casper.test.begin("Sanity check of articles page", function (test) {
@@ -336,9 +333,7 @@ casper.test.begin("Sanity check of articles page", function (test) {
     });
   });
 
-  casper.run(function () {
-    test.done();
-  });
+  finish();
 });
 
 casper.test.begin("Sanity check of article page", function (test) {
@@ -360,9 +355,7 @@ casper.test.begin("Sanity check of article page", function (test) {
     });
   });
 
-  casper.run(function () {
-    test.done();
-  });
+  finish();
 });
 
 casper.test.begin("Sanity check of writers page", function (test) {
@@ -378,9 +371,7 @@ casper.test.begin("Sanity check of writers page", function (test) {
     this.test.assertEquals(featured, 1, "Correct number of featured writers");
   });
 
-  casper.run(function () {
-    test.done();
-  });
+  finish();
 });
 
 casper.test.begin("Sanity check of about page", function (test) {
@@ -391,7 +382,5 @@ casper.test.begin("Sanity check of about page", function (test) {
     this.test.assertTitle('About | The Moviegoer');
   });
 
-  casper.run(function () {
-    test.done();
-  });
+  finish();
 });

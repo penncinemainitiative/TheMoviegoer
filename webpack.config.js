@@ -37,6 +37,16 @@ function getPlugins() {
   return plugins;
 }
 
+function getLoaders() {
+  const loaders = ['react-hot'];
+  if (production) {
+    loaders.push('babel?cacheDirectory');
+  } else {
+    loaders.push('babel-istanbul?cacheDirectory');
+  }
+  return loaders;
+}
+
 module.exports = {
   entry: getEntrySources(['./src/client/client.js']),
   output: {
@@ -48,7 +58,7 @@ module.exports = {
     loaders: [{
       test: /\.js$/,
       exclude: /node_modules/,
-      loaders: ['react-hot', 'babel?cacheDirectory']
+      loaders: getLoaders()
     }]
   },
   plugins: getPlugins()
