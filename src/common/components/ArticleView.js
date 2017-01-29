@@ -1,10 +1,20 @@
 import React from "react"
+import {render} from "react-dom"
 import marked from "marked"
 import Link from "react-router/lib/Link"
 import jwt_decode from "jwt-decode"
 import {getResizedImage} from "./utils"
+import AudioPlayer from "./AudioPlayer"
 
 export default class ArticleView extends React.Component {
+  componentDidMount() {
+    const player = document.getElementById('player');
+    if (player) {
+      const url = player.getAttribute('data-podcast');
+      render(<AudioPlayer url={url}/>, player);
+    }
+  }
+
   render() {
     const {article, token, archive} = this.props;
     const title = {__html: article.title};

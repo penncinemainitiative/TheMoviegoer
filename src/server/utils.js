@@ -17,9 +17,10 @@ export const requireLogin = (req, res, next) => {
 const awsObj = JSON.parse(fs.readFileSync('json/aws.json', 'utf8'));
 aws.config.update(awsObj);
 
+const s3 = new aws.S3();
+const uuid = require('node-uuid');
+
 export const getSignedS3URL = (filename, folder, filetype, callback) => {
-  const s3 = new aws.S3();
-  const uuid = require('node-uuid');
   const file_suffix = folder + '/' + uuid.v1();
 
   let file_ext = '';
@@ -33,6 +34,23 @@ export const getSignedS3URL = (filename, folder, filetype, callback) => {
   const params = {
     Bucket: 'moviegoer',
     Key: 'uploads/' + file_suffix + file_ext,
+    Expires: 60,
+    ContentType: filetype
+  };
+
+  s3.getSignedUrl("putObject", params, (err, data) => {
+    callback(err, data);
+  });
+};
+
+export const getSignedS3PodcastURL = (filename, folder, filetype, callback) => {
+  const file_suffix = folder + '/' + uuid.v1();
+
+  const file_ext = '.mp3';
+
+  const params = {
+    Bucket: 'moviegoer-podcasts',
+    Key: file_suffix + file_ext,
     Expires: 60,
     ContentType: filetype
   };

@@ -22,6 +22,7 @@ export default class Header extends React.Component {
   render() {
     const items = [
       {name: 'Articles', url: '/articles'},
+      {name: 'Podcasts', url: '/podcasts'},
       {name: 'Writers', url: '/writers'},
       {name: 'About', url: '/about'}
     ];

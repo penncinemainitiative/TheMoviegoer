@@ -1,45 +1,45 @@
 import React from "react"
 import {asyncConnect} from "redux-connect"
 import Helmet from "react-helmet"
-import {getRecentArticles} from "../api/index"
+import {getRecentPodcasts} from "../api/index"
 import Link from "react-router/lib/Link"
 import {getResizedImage} from "./utils"
 
 @asyncConnect([{
   promise: ({store: {getState, dispatch}}) => {
-    if (getState().recentArticles.articles.length === 0) {
-      return dispatch(getRecentArticles());
+    if (getState().recentPodcasts.podcasts.length === 0) {
+      return dispatch(getRecentPodcasts());
     } else {
       return Promise.resolve();
     }
   }
 }], (state) => ({
-  articles: state.recentArticles.articles,
-  offset: state.recentArticles.offset
+  podcasts: state.recentPodcasts.podcasts,
+  offset: state.recentPodcasts.offset
 }))
-export default class Articles extends React.Component {
+export default class Podcasts extends React.Component {
   constructor(props) {
     super(props);
-    this.requestMoreArticles = this.requestMoreArticles.bind(this);
+    this.requestMorePodcasts = this.requestMorePodcasts.bind(this);
   }
 
-  requestMoreArticles() {
-    this.props.dispatch(getRecentArticles());
+  requestMorePodcasts() {
+    this.props.dispatch(getRecentPodcasts());
   }
 
   render() {
-    const {articles, offset} = this.props;
+    const {podcasts, offset} = this.props;
     return (
       <div className="articlesPage">
-        <Helmet title="Articles"
+        <Helmet title="Podcasts"
                 meta={[
                   {
                     property: "description",
-                    content: "Browse all The Moviegoer's articles, from contemporary cinema to classic films."
+                    content: "Listen to The Moviegoer's staff discuss contemporary and classic films."
                   },
                 ]}/>
         <div className="articles">
-          {articles.map((article) => {
+          {podcasts.map((article) => {
             const innerHTML = {__html: article.title};
             return <div key={article.articleId} className="list-article">
               <Link to={article.url}>
@@ -57,10 +57,11 @@ export default class Articles extends React.Component {
               </div>
             </div>
           })}
-          {articles.length >= offset ?
-            <div className="more-button" onClick={this.requestMoreArticles}>
+          {podcasts.length >= offset ?
+            <div className="more-button" onClick={this.requestMorePodcasts}>
               <p>More?</p>
-            </div> : null}
+            </div>
+            : null }
         </div>
       </div>
     )

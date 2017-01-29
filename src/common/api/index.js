@@ -1,5 +1,6 @@
 import {http} from "./utils"
 import {receiveMoreRecentArticles} from "../actions/articles"
+import {receiveMoreRecentPodcasts} from "../actions/podcasts"
 
 export const login = (username, password) => {
   return http
@@ -28,6 +29,15 @@ export const getRecentArticles = () => {
     return http
       .get(`/api/recent?offset=${offset}`)
       .then(({data}) => dispatch(receiveMoreRecentArticles(data)));
+  };
+};
+
+export const getRecentPodcasts = () => {
+  return (dispatch, getState) => {
+    const offset = getState().recentPodcasts.offset;
+    return http
+      .get(`/api/recent/podcasts?offset=${offset}`)
+      .then(({data}) => dispatch(receiveMoreRecentPodcasts(data)));
   };
 };
 

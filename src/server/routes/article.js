@@ -2,7 +2,7 @@ import express from "express"
 import {db} from "../db"
 import dateFormat from "dateformat"
 import getSlug from "speakingurl"
-import {requireLogin, getSignedS3URL} from "../utils"
+import {requireLogin, getSignedS3URL, getSignedS3PodcastURL} from "../utils"
 import url from "url"
 
 const router = express.Router();
@@ -17,7 +17,7 @@ router.get('/', requireLogin, (req, res) => {
     const insertData = {
       isPublished: -1,
       updateDate: new Date(),
-      type: 'feature',
+      type: 'article',
       title: 'Untitled Article',
       author: res.locals.author.username,
       assignedEditor: rows[0].username,
@@ -69,7 +69,8 @@ router.get('/:year/:month/:day/:slug', (req, res) => {
 router.get('/:id/draft', requireLogin, (req, res) => {
   const articleId = parseInt(req.params.id);
   db.queryAsync(`
-    SELECT excerpt, name, articleId, text, articles.image, isPublished, pubDate, updateDate, type, title, author
+    SELECT excerpt, name, articleId, text, articles.image, isPublished, pubDate,
+           updateDate, type, title, author, podcast
     FROM articles
     INNER JOIN authors ON authors.username = articles.author
     WHERE articleId = ?
@@ -128,6 +129,29 @@ router.post('/:id/photos', requireLogin, (req, res) => {
         });
       }).catch((err) => {
         res.json({err});
+      });
+    }).catch((err) => {
+      res.json({err});
+    });
+  })
+});
+
+router.post('/:id/podcast', requireLogin, (req, res) => {
+  const articleId = req.params.id;
+  const filename = req.body.filename;
+  const filetype = req.body.filetype;
+  getSignedS3PodcastURL(filename, articleId, filetype, (err, data) => {
+    const strippedURL = url.parse(data).pathname;
+    const podcast = `https://s3.amazonaws.com/moviegoer-podcasts${strippedURL}`;
+    db.queryAsync(`
+      UPDATE articles
+      SET podcast = ?,
+          updateDate = NOW()
+      WHERE articleId = ?
+    `, [podcast, articleId]).then(() => {
+      res.json({
+        signedURL: data,
+        cleanURL: podcast
       });
     }).catch((err) => {
       res.json({err});
@@ -209,6 +233,20 @@ router.post('/:id/author', requireLogin, (req, res) => {
         author = ?
     WHERE articleId = ?
   `, [req.body.author, articleId]).then(() => {
+    res.send({success: true});
+  }).catch((err) => {
+    res.json({err});
+  });
+});
+
+router.post('/:id/type', requireLogin, (req, res) => {
+  const articleId = parseInt(req.params.id);
+  db.queryAsync(`
+    UPDATE articles
+    SET updateDate = NOW(),
+        type = ?
+    WHERE articleId = ?
+  `, [req.body.type, articleId]).then(() => {
     res.send({success: true});
   }).catch((err) => {
     res.json({err});

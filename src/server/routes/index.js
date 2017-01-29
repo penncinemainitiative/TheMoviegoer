@@ -13,7 +13,28 @@ router.get('/recent', (req, res) => {
     FROM articles
     INNER JOIN authors
       ON username = author
-    WHERE isPublished = 2
+    WHERE isPublished = 2 AND type <> "podcast"
+    ORDER BY pubDate DESC, articleId DESC
+    LIMIT 10
+    OFFSET ?
+  `, [offset]).then((rows) => {
+    res.json(rows.map((item) => {
+      item.pubDate = dateFormat(item.pubDate, "mmmm d, yyyy");
+      return item;
+    }));
+  }).catch((err) => {
+    res.json({err});
+  });
+});
+
+router.get('/recent/podcasts', (req, res) => {
+  const offset = req.query.offset ? parseInt(req.query.offset) : 0;
+  db.queryAsync(`
+    SELECT author, name, url, excerpt, articleId, isPublished, pubDate, title, articles.image
+    FROM articles
+    INNER JOIN authors
+      ON username = author
+    WHERE isPublished = 2 AND type = "podcast"
     ORDER BY pubDate DESC, articleId DESC
     LIMIT 10
     OFFSET ?
@@ -166,7 +187,7 @@ router.get('/random/articles', (req, res) => {
     FROM articles
     INNER JOIN authors
       ON username = author
-    WHERE isPublished = 2 and articleId NOT IN
+    WHERE isPublished = 2 AND articleId NOT IN
       (
       SELECT articleId
       FROM

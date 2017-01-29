@@ -44,6 +44,13 @@ export const changeArticleAuthor = (token, id, author) => {
     }, authHeader(token));
 };
 
+export const changeArticleType = (token, id, type) => {
+  return http
+    .post(`/api/article/${id}/type`, {
+      type
+    }, authHeader(token));
+};
+
 export const changeArticleEditor = (token, id, editor) => {
   return http
     .post(`/api/article/${id}/editor`, {
@@ -66,6 +73,24 @@ export const retractArticle = (token, id) => {
 export const updatePhoto = (token, id, file) => {
   return http
     .post(`/api/article/${id}/photos`, {
+      filename: file.name,
+      filetype: file.type
+    }, authHeader(token))
+    .then(({data}) => {
+      const signedURL = data.signedURL;
+      const options = {
+        headers: {
+          'Content-Type': file.type,
+          'Cache-Control': 'public ,max-age= 31536000'
+        }
+      };
+      return axios.put(signedURL, file, options);
+    });
+};
+
+export const updatePodcast = (token, id, file) => {
+  return http
+    .post(`/api/article/${id}/podcast`, {
       filename: file.name,
       filetype: file.type
     }, authHeader(token))

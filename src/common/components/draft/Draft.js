@@ -3,20 +3,28 @@ import {asyncConnect} from "redux-connect"
 import {
   getDraft,
   changeArticleAuthor,
+  changeArticleType,
   saveArticle,
   publishArticle,
   setCoverPhoto,
   retractArticle,
-  updatePhoto
+  updatePhoto,
+  updatePodcast
 } from "../../api/article"
 import Helmet from "react-helmet"
 import ArticleView from "../ArticleView"
+import AudioPlayer from "../AudioPlayer"
 import browserHistory from "react-router/lib/browserHistory"
 import Dropzone from "react-dropzone"
 import jwt_decode from "jwt-decode"
 import Select from "react-select"
 import {allAuthors} from "../../api/index"
 import SimpleMDE from "react-simplemde-editor"
+
+const types = [
+  {value: "podcast", label: "Podcast"},
+  {value: "article", label: "Article"}
+];
 
 @asyncConnect([{
     key: 'draft',
@@ -31,6 +39,7 @@ export default class Draft extends React.Component {
   constructor(props) {
     super(props);
     this.updateTitle = this.updateTitle.bind(this);
+    this.updateType = this.updateType.bind(this);
     this.updateAuthor = this.updateAuthor.bind(this);
     this.updateExcerpt = this.updateExcerpt.bind(this);
     this.updateText = this.updateText.bind(this);
@@ -40,7 +49,8 @@ export default class Draft extends React.Component {
     this.handleCoverPhoto = this.handleCoverPhoto.bind(this);
     this.handleRetractArticle = this.handleRetractArticle.bind(this);
     this.handleExit = this.handleExit.bind(this);
-    this.onDrop = this.onDrop.bind(this);
+    this.onDropImage = this.onDropImage.bind(this);
+    this.onDropPodcast = this.onDropPodcast.bind(this);
     const {draft} = this.props;
     this.state = {
       title: draft.title,
@@ -51,6 +61,8 @@ export default class Draft extends React.Component {
       name: draft.name,
       pubDate: draft.pubDate,
       articleId: draft.articleId,
+      type: draft.type,
+      podcast: draft.podcast,
       preview: false,
       message: ''
     };
@@ -58,6 +70,14 @@ export default class Draft extends React.Component {
 
   updateTitle(e) {
     this.setState(Object.assign({}, this.state, {title: e.target.value}));
+  }
+
+  updateType(clicked) {
+    const type = clicked.value;
+    const {params, token} = this.props;
+    changeArticleType(token, params.id, type).then(() => {
+      this.setState(Object.assign({}, this.state, {type}));
+    });
   }
 
   updateAuthor(clicked) {
@@ -156,7 +176,7 @@ export default class Draft extends React.Component {
     browserHistory.push('/console');
   }
 
-  onDrop(files) {
+  onDropImage(files) {
     const {draft, token} = this.props;
     const file = files[0];
     updatePhoto(token, draft.articleId, file).then(({data}) => {
@@ -164,6 +184,22 @@ export default class Draft extends React.Component {
         this.setState(Object.assign({}, this.state, {message: JSON.stringify(data.err)}));
       } else {
         location.reload();
+      }
+    });
+  }
+
+  onDropPodcast(files) {
+    const {draft, token} = this.props;
+    const file = files[0];
+    this.setState(Object.assign({}, this.state, {message: "Please wait for the upload to complete...."}));
+    updatePodcast(token, draft.articleId, file).then(({data}) => {
+      if (data.err) {
+        this.setState(Object.assign({}, this.state, {message: JSON.stringify(data.err)}));
+      } else {
+        this.setState(Object.assign({}, this.state, {message: "Upload complete!"}));
+        setTimeout(() => {
+          location.reload();
+        }, 2000);
       }
     });
   }
@@ -188,8 +224,22 @@ export default class Draft extends React.Component {
         {!this.state.preview ?
           <div>
             <div style={{width: "50%", float: "right"}}>
+              {this.state.type === "podcast" ?
+                <div>
+                  <h4>Podcast</h4>
+                  {this.state.podcast ?
+                    <div>
+                      Copy and paste this text into the article where the audio player should appear:
+                      <input type="text" defaultValue={`<div id='player' data-podcast='${this.state.podcast}'></div>`} readOnly="true"/>
+                      <AudioPlayer url={this.state.podcast}/>
+                    </div>
+                    : null}
+                  <Dropzone onDrop={this.onDropPodcast}>
+                    <div>Drop or click to upload a new podcast (.mp3)</div>
+                  </Dropzone>
+                </div> : null}
               <h4>Images</h4>
-              <Dropzone onDrop={this.onDrop}>
+              <Dropzone onDrop={this.onDropImage}>
                 <div>Drop or click to upload a new photo (.png or .jpg)</div>
               </Dropzone>
               {draft.imgList.map((img) => {
@@ -205,6 +255,7 @@ export default class Draft extends React.Component {
               })}
             </div>
             <div style={{width: "50%"}}>
+              <div id="message">{this.state.message}</div>
               <input type="text"
                      id="title"
                      onChange={this.updateTitle}
@@ -218,8 +269,17 @@ export default class Draft extends React.Component {
                   onChange={this.updateAuthor}
                   options={authors}/>
               </div>
-              <div id="message">{this.state.message}</div>
-              <div><textarea rows="10" cols="20"
+              <div>
+                Type:
+                <Select
+                  noResultsText="No results found!"
+                  clearable={false}
+                  value={this.state.type}
+                  onChange={this.updateType}
+                  options={types}/>
+              </div>
+              <div>Excerpt:
+                <textarea rows="3" cols="60"
                              type="text"
                              id="excerpt"
                              onChange={this.updateExcerpt}

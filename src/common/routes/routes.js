@@ -10,6 +10,7 @@ import Writers from "../components/Writers"
 import Writer from "../components/Writer"
 import Articles from "../components/Articles"
 import Footer from "../components/Footer"
+import Podcasts from "../components/Podcasts"
 import Helmet from "react-helmet"
 
 if (typeof require.ensure !== 'function') require.ensure = (d, c) => c(require);
@@ -53,6 +54,11 @@ const WritersRoute = {
 const ArticlesRoute = {
   path: 'articles',
   component: Articles
+};
+
+const PodcastsRoute = {
+  path: 'podcasts',
+  component: Podcasts
 };
 
 const LoginRoute = {
@@ -103,6 +109,7 @@ export default (store) => ({
     AboutRoute,
     WritersRoute,
     ArticlesRoute,
+    PodcastsRoute,
     LoginRoute,
     SignupRoute,
     ArticleRoute,
