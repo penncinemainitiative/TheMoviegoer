@@ -64,6 +64,7 @@ export default class Draft extends React.Component {
       type: draft.type,
       podcast: draft.podcast,
       preview: false,
+      uploadProgress: 0,
       message: ''
     };
   }
@@ -192,7 +193,11 @@ export default class Draft extends React.Component {
     const {draft, token} = this.props;
     const file = files[0];
     this.setState(Object.assign({}, this.state, {message: "Please wait for the upload to complete...."}));
-    updatePodcast(token, draft.articleId, file).then(({data}) => {
+    const uploadProgress = (event) => {
+      const percentage = Math.floor(event.loaded / event.total * 100);
+      this.setState(Object.assign({}, this.state, {uploadProgress: percentage}));
+    };
+    updatePodcast(token, draft.articleId, file, uploadProgress).then(({data}) => {
       if (data.err) {
         this.setState(Object.assign({}, this.state, {message: JSON.stringify(data.err)}));
       } else {
@@ -237,6 +242,7 @@ export default class Draft extends React.Component {
                   <Dropzone onDrop={this.onDropPodcast}>
                     <div>Drop or click to upload a new podcast (.mp3)</div>
                   </Dropzone>
+                  <progress value={this.state.uploadProgress} max="100"/>
                 </div> : null}
               <h4>Images</h4>
               <Dropzone onDrop={this.onDropImage}>

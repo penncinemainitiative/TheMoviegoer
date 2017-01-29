@@ -88,7 +88,7 @@ export const updatePhoto = (token, id, file) => {
     });
 };
 
-export const updatePodcast = (token, id, file) => {
+export const updatePodcast = (token, id, file, uploadProgress) => {
   return http
     .post(`/api/article/${id}/podcast`, {
       filename: file.name,
@@ -100,7 +100,8 @@ export const updatePodcast = (token, id, file) => {
         headers: {
           'Content-Type': file.type,
           'Cache-Control': 'public ,max-age= 31536000'
-        }
+        },
+        onUploadProgress: uploadProgress
       };
       return axios.put(signedURL, file, options);
     });
