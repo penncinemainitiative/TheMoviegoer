@@ -39,7 +39,8 @@ router.post('/signup', (req, res) => {
     assignedEditor: req.body.username,
     image: 'https://s3.amazonaws.com/moviegoer/uploads/dlakata/d566f160-dc1b-11e6-8612-954c27f70d36.png',
     accent_color: colors[Math.floor(Math.random() * colors.length)],
-    bio: '...'
+    bio: '...',
+    permissions_role: "writer"
   };
 
   bcrypt.genSalt(10, (err, salt) => {

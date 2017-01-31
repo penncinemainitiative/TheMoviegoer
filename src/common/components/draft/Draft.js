@@ -180,10 +180,8 @@ export default class Draft extends React.Component {
         <button onClick={this.handleSave}>Save</button>
         <button
           onClick={this.handlePreview}>{this.state.preview ? "Edit" : "Preview" }</button>
-        {author.can_publish ?
-          <button onClick={this.handlePublish}>Publish</button> : null}
-        {author.can_publish ?
-          <button onClick={this.handleRetractArticle}>Retract</button> : null}
+        <button onClick={this.handlePublish}>Publish</button>
+        <button onClick={this.handleRetractArticle}>Retract</button>
         <button onClick={this.handleExit}>Exit</button>
         {!this.state.preview ?
           <div>
