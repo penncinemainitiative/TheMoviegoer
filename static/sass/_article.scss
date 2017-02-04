@@ -45,15 +45,17 @@
       padding-right: 40px;
     }
 
-    em {
-      font-size: 16px;
-    }
-
     a {
       //padding-left: 10px;
       color: $goldD1;
       text-decoration: underline;
     }
+
+    em {
+      font-size: 16px;
+    }
+
+
 
     .title {
       h4 {
@@ -72,6 +74,7 @@
         font-size: 20px;
         padding-left: 25px;
         color: $goldD1;
+        text-decoration: none;
         @include media($mobile) {
           padding-left: 10px;
         }
