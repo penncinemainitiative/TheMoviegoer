@@ -3,6 +3,36 @@ import marked from "marked"
 import Link from "react-router/lib/Link"
 import jwt_decode from "jwt-decode"
 import {getResizedImage} from "./utils"
+import { FacebookButton, TwitterButton, EmailButton } from "react-social"
+
+const trackShare = (channel, url) => () => {
+  if (process.env.NODE_ENV === 'production' && window.ga) {
+    window.ga('send', 'event', 'share', channel, url);
+  }
+};
+
+class ShareButtons extends React.Component{
+  render() {
+    const {article} = this.props;
+    const message = "Check out this article on The Moviegoer!";
+    return (
+      <span>
+        <FacebookButton title="Share via Facebook" appId='132619720416789' message={message}
+                        url={article.url} element="a" className="share" onClick={trackShare('facebook', article.url)}>
+          <i className="fa fa-facebook-square"/>
+        </FacebookButton>
+        <TwitterButton title="Share via Twitter" url={article.url} message={message} element="a"
+                       className="share"  onClick={trackShare('twitter', article.url)}>
+          <i className="fa fa-twitter-square"/>
+        </TwitterButton>
+        <EmailButton title="Share via E-Mail" url={article.url} message={message} element="a"
+                     className="share"  onClick={trackShare('email', article.url)}>
+          <i className="fa fa-at"/>
+        </EmailButton>
+      </span>
+    );
+  }
+}
 
 export default class ArticleView extends React.Component {
   render() {
@@ -19,8 +49,7 @@ export default class ArticleView extends React.Component {
           </div>
           <div className="title">
             <h4 dangerouslySetInnerHTML={title}></h4>
-            <h5><Link to={article.authorUrl}>{article.name}</Link>
-              - {article.pubDate} {author.can_edit_published ?
+            <h5><Link to={article.authorUrl}>{article.name}</Link> - {article.pubDate} <ShareButtons article={article}/> {author.can_edit_published ?
                 <Link to={draftUrl}>Edit</Link> : null}</h5>
           </div>
           <div dangerouslySetInnerHTML={text}></div>

@@ -6,6 +6,10 @@
     padding: 0px;
   }
 
+  .share:hover {
+    cursor: pointer;
+  }
+
   .article_content {
     @include span-columns(7);
     @include shift(1);
