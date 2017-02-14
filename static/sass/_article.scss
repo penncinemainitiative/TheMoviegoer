@@ -10,6 +10,18 @@
     cursor: pointer;
   }
 
+  .fa-facebook-square {
+    color: #3b5998;
+  }
+
+  .fa-twitter-square {
+    color: #4099FF;
+  }
+
+  .fa-at {
+    color: black;
+  }
+
   .article_content {
     @include span-columns(7);
     @include shift(1);
