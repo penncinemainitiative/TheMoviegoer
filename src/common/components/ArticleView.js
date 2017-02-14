@@ -15,17 +15,21 @@ class ShareButtons extends React.Component{
   render() {
     const {article} = this.props;
     const message = "Check out this article on The Moviegoer!";
+    const windowSize = ['width=600', 'height=600'];
     return (
       <span>
         <FacebookButton title="Share via Facebook" appId='132619720416789' message={message}
+                        windowOptions={windowSize}
                         url={article.url} element="a" className="share" onClick={trackShare('facebook', article.url)}>
           <i className="fa fa-facebook-square"/>
         </FacebookButton>
         <TwitterButton title="Share via Twitter" url={article.url} message={message} element="a"
+                       windowOptions={windowSize}
                        className="share"  onClick={trackShare('twitter', article.url)}>
           <i className="fa fa-twitter-square"/>
         </TwitterButton>
         <EmailButton title="Share via E-Mail" url={article.url} message={message} element="a"
+                     windowOptions={windowSize} target="_blank"
                      className="share"  onClick={trackShare('email', article.url)}>
           <i className="fa fa-at"/>
         </EmailButton>
