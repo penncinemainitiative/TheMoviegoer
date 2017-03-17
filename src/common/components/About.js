@@ -44,8 +44,8 @@ export default class About extends React.Component {
           <div className="contact">
             <h3>Contact Us</h3>
             <p>If you would like to get involved with <em>The Moviegoer</em>,
-              please contact our Editor-in-Chief, Brad Pettigrew, at
-              <b> bradpett (at) sas (dot) upenn (dot) edu</b>.</p>
+              please contact our Editor-in-Chief, Stephan Cho, at
+              <b> stec (at) sas (dot) upenn (dot) edu</b>.</p>
           </div>
         </div>
         <div className="staff">
