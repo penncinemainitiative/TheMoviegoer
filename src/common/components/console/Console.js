@@ -73,10 +73,8 @@ class ArticleList extends React.Component {
                 onChange={this.updateEditor.bind(null, article.articleId)}
                 options={authors}/>
             </td>
-            <td>{username === article.author ?
-              <button
-                onClick={this.handleDeleteArticle.bind(null, article.articleId)}>
-                Delete</button> : null}</td>
+            <td><button onClick={this.handleDeleteArticle.bind(null, article.articleId)}>
+              Delete</button></td>
           </tr>;
         }.bind(this))}
         </tbody>

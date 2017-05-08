@@ -4,7 +4,7 @@ import Link from "react-router/lib/Link"
 import browserHistory from "react-router/lib/browserHistory"
 import cookie from "react-cookie"
 import {asyncConnect} from "redux-connect"
-import {login} from "../api/index"
+import {login, sendPassword} from "../api/index"
 import {loginWithToken, logout} from "../actions/auth"
 
 @asyncConnect([])
@@ -14,6 +14,7 @@ export default class Login extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updatePassword = this.updatePassword.bind(this);
     this.updateUsername = this.updateUsername.bind(this);
+    this.forgotPassword = this.forgotPassword.bind(this);
     this.logout = this.logout.bind(this);
     this.state = {username: '', password: '', message: ''};
   }
@@ -39,6 +40,16 @@ export default class Login extends React.Component {
     this.setState(Object.assign({}, this.state, {username: e.target.value}));
   }
 
+  forgotPassword() {
+    if (this.state.email !== '') {
+      cookie.remove('token', {path: '/'});
+      this.props.dispatch(logout());
+      sendPassword(this.state.username).then(({data}) => {
+        this.setState(Object.assign({}, this.state, {message: data.msg}));
+      });
+    }
+  }
+
   logout() {
     cookie.remove('token', {path: '/'});
     this.props.dispatch(logout());
@@ -55,16 +66,22 @@ export default class Login extends React.Component {
                     content: "Login to the author's console."
                   },
                 ]}/>
-        <form onSubmit={this.handleSubmit}>
-          <input id="username" onChange={this.updateUsername}
-                 value={this.state.username}
-                 type="text" placeholder="Username"/>
-          <input id="password" onChange={this.updatePassword}
-                 value={this.state.password}
-                 type="password" placeholder="Password"/>
-          <button id="login" type="submit">Login</button>
-          <Link to="/signup">Become an author!</Link>
-        </form>
+        <div>
+          <form onSubmit={this.handleSubmit}>
+            <input id="username" onChange={this.updateUsername}
+                   value={this.state.username}
+                   type="text" placeholder="Username"/>
+            <input id="password" onChange={this.updatePassword}
+                   value={this.state.password}
+                   type="password" placeholder="Password"/>
+            <button id="login" type="submit">Login</button>
+          </form>
+        </div>
+        <button><Link to="/signup">Become an author!</Link></button>
+        <div>
+          Forgot your password? Type in your username in the above field.
+          <button onClick={this.forgotPassword} type="submit">Recover my password</button>
+        </div>
         <div>{this.state.message}</div>
         <button onClick={this.logout}>Logout</button>
       </div>

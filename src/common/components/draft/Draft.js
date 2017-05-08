@@ -13,10 +13,11 @@ import Helmet from "react-helmet"
 import ArticleView from "../ArticleView"
 import browserHistory from "react-router/lib/browserHistory"
 import Dropzone from "react-dropzone"
-import jwt_decode from "jwt-decode"
 import Select from "react-select"
 import {allAuthors} from "../../api/index"
 import SimpleMDE from "react-simplemde-editor"
+
+let articleText;
 
 @asyncConnect([{
     key: 'draft',
@@ -42,11 +43,12 @@ export default class Draft extends React.Component {
     this.handleExit = this.handleExit.bind(this);
     this.onDrop = this.onDrop.bind(this);
     const {draft} = this.props;
+    articleText = draft.text;
     this.state = {
       title: draft.title,
+      text: draft.text,
       excerpt: draft.excerpt,
       author: draft.author,
-      text: draft.text,
       image: draft.image,
       name: draft.name,
       pubDate: draft.pubDate,
@@ -74,35 +76,34 @@ export default class Draft extends React.Component {
   }
 
   updateText(text) {
-    this.setState(Object.assign({}, this.state, {text}));
+    articleText = text;
   }
 
   handleSave() {
     const {draft, token} = this.props;
-    const {title, excerpt, text} = this.state;
-    saveArticle(token, draft.articleId, title, text, excerpt).then(({data}) => {
+    const {title, excerpt} = this.state;
+    saveArticle(token, draft.articleId, title, articleText, excerpt).then(({data}) => {
       if (data.err) {
         this.setState(Object.assign({}, this.state, {message: JSON.stringify(data.err)}));
       } else {
-        this.setState(Object.assign({}, this.state, {text}));
+        this.setState(Object.assign({}, this.state, {articleText}));
       }
     });
   }
 
   handlePreview() {
     if (this.state.preview) {
-      this.setState(Object.assign({}, this.state, {preview: false}));
+      this.setState(Object.assign({}, this.state, {text: articleText, preview: false}));
       return;
     }
     const {draft, token} = this.props;
-    const {title, excerpt, text} = this.state;
-    saveArticle(token, draft.articleId, title, text, excerpt).then(({data}) => {
+    const {title, excerpt} = this.state;
+    saveArticle(token, draft.articleId, title, articleText, excerpt).then(({data}) => {
       if (data.err) {
         this.setState(Object.assign({}, this.state, {message: JSON.stringify(data.err)}));
       } else {
         this.setState(Object.assign({}, this.state, {
-          preview: true,
-          text
+          preview: true
         }));
       }
     });
@@ -114,8 +115,8 @@ export default class Draft extends React.Component {
       return;
     }
     const {draft, token} = this.props;
-    const {title, excerpt, text} = this.state;
-    saveArticle(token, draft.articleId, title, text, excerpt).then(({data}) => {
+    const {title, excerpt} = this.state;
+    saveArticle(token, draft.articleId, title, articleText, excerpt).then(({data}) => {
       if (data.err) {
         this.setState(Object.assign({}, this.state, {message: JSON.stringify(data.err)}));
       } else {
@@ -169,10 +170,9 @@ export default class Draft extends React.Component {
   }
 
   render() {
-    const {draft, token, authors} = this.props;
-    const article = this.state;
+    const {draft, authors} = this.props;
+    const article = Object.assign({}, this.state, {text: articleText});
     const cleanTitle = article.title.replace(/(<([^>]+)>)/ig, "");
-    const author = token ? jwt_decode(token) : undefined;
     return (
       <div className="draft">
         <Helmet title={cleanTitle}/>

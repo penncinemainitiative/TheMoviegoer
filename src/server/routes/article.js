@@ -174,7 +174,7 @@ router.post('/:id', requireLogin, (req, res) => {
 router.post('/:id/publish', requireLogin, (req, res) => {
   const articleId = parseInt(req.params.id);
   db.queryAsync(`
-    SELECT title
+    SELECT title, isPublished
     FROM articles
     WHERE articleId = ?
   `, [articleId]).then((rows) => {
@@ -183,7 +183,18 @@ router.post('/:id/publish', requireLogin, (req, res) => {
     const month = today.getMonth() + 1;
     const slug = getSlug(article.title.replace(/(<([^>]+)>)/ig, ""));
     const url = `/${today.getFullYear()}/${month}/${today.getDate()}/${slug}.html`;
-    db.queryAsync(`
+    if (article.isPublished) {
+      db.queryAsync(`
+      UPDATE articles
+      SET url = ?,
+          updateDate = NOW(),
+          isPublished = 2
+      WHERE articleId = ?
+    `, [url, articleId]).then(() => {
+        res.send({success: true});
+      });
+    } else {
+      db.queryAsync(`
       UPDATE articles
       SET pubDate = NOW(),
           url = ?,
@@ -191,8 +202,9 @@ router.post('/:id/publish', requireLogin, (req, res) => {
           isPublished = 2
       WHERE articleId = ?
     `, [url, articleId]).then(() => {
-      res.send({success: true});
-    });
+        res.send({success: true});
+      });
+    }
   }).catch((err) => {
     res.json({err});
   });

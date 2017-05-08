@@ -3,6 +3,8 @@ import {db} from "../db"
 import dateFormat from "dateformat"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
+import nodemailer from "nodemailer"
+import crypto from "crypto"
 
 const router = express.Router();
 
@@ -61,6 +63,55 @@ router.post('/signup', (req, res) => {
       });
     });
   });
+});
+
+const forgotEmail = "forgotmymoviegoer@gmail.com";
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: forgotEmail,
+    pass: process.env.FORGOT_PASS
+  }
+});
+
+router.post('/forgot', (req, res) => {
+  const username = req.body.username;
+  db.queryAsync(`
+    SELECT email
+    FROM authors
+    WHERE username = ?`, [username]
+  ).then((rows => {
+    if (rows.length === 0) {
+      return res.json({success: false, msg: 'Email not found!'});
+    }
+    const author = rows[0];
+    const email = author.email;
+    const newPassword = crypto.randomBytes(20).toString('hex');
+
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(newPassword, salt, (err, hash) => {
+        db.queryAsync(`
+          UPDATE authors
+          SET password = ?
+          WHERE username = ?
+      `, [hash, username]).then(() => {
+          const mailOptions = {
+            from: forgotEmail,
+            to: email,
+            subject: "You forgot your password!",
+            text: `New password: ${newPassword}`
+          };
+          transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+              return res.json({success: false, msg: error});
+            }
+            res.json({success: true, msg: "Sent!"});
+          });
+        });
+      });
+    });
+  }));
 });
 
 router.post('/login', (req, res) => {

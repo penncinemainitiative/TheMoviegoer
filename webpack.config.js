@@ -55,7 +55,9 @@ module.exports = {
     publicPath: production ? '/' : 'http://localhost:8080/'
   },
   module: {
-    loaders: [{
+    loaders: [
+      { test: /\.json$/, loader: 'json'},
+      {
       test: /\.js$/,
       exclude: /node_modules/,
       loaders: getLoaders()

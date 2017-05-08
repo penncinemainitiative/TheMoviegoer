@@ -16,6 +16,11 @@ export const signup = (name, username, password, email) => {
     });
 };
 
+export const sendPassword = (username) => {
+  return http
+    .post('/api/forgot', {username});
+};
+
 export const getFrontPageArticles = () => {
   return http
     .get(`/api/recent?offset=0`)
