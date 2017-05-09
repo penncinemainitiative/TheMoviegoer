@@ -42,7 +42,7 @@ class ArticleList extends React.Component {
   }
 
   render() {
-    const {articles, username, authors} = this.props;
+    const {articles, authors} = this.props;
     return (
       <table>
         <thead>
@@ -140,6 +140,7 @@ export default class Console extends React.Component {
             <div className="profile">
               {this.state.err ? <div>Error: {this.state.err}</div> : null}
               <h4>Welcome, {author.name}!</h4>
+              {author.can_edit_permissions ? <Link to="/manage">Manage users</Link> : null}
               <Link id="profileLink" to={writer.url}><h5>My profile</h5></Link>
               <WriterEditor writer={writer} token={token}/>
               <button onClick={this.handleNewArticle}>New article</button>

@@ -118,7 +118,8 @@ router.post('/login', (req, res) => {
   const user = req.body.username;
   const password = req.body.password;
   db.queryAsync(`
-    SELECT username, password, name, isEditor, can_edit_published, can_publish, can_assign_editor
+    SELECT username, password, name, isEditor, can_edit_published, can_publish,
+           can_assign_editor, can_edit_about, can_edit_permissions
     FROM authors
     INNER JOIN permissions
       ON permissions_role = role
@@ -141,7 +142,9 @@ router.post('/login', (req, res) => {
           name: author.name,
           can_edit_published: author.can_edit_published,
           can_publish: author.can_publish,
-          can_assign_editor: author.can_assign_editor
+          can_assign_editor: author.can_assign_editor,
+          can_edit_permissions: author.can_edit_permissions,
+          can_edit_about: author.can_edit_about
         }, process.env.SECRET ? process.env.SECRET : 'secret', {expiresIn: '7 days'}, (err, token) => {
           res.cookie("token", token, {expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7)});
           return res.json({success: true, token});

@@ -42,4 +42,41 @@ router.get('/unpublished', (req, res) => {
   });
 });
 
+router.get('/users', (req, res) => {
+  db.queryAsync(`
+    SELECT username, name, permissions_role AS role, email
+    FROM authors
+  `).then((rows) => {
+    res.json(rows);
+  }).catch((err) => {
+    res.json({err});
+  });
+});
+
+router.get('/roles', (req, res) => {
+  db.queryAsync(`
+    SELECT role, can_assign_author, can_assign_editor, can_delete_articles,
+           can_edit_published, can_publish, can_edit_about
+    FROM permissions
+  `).then((rows) => {
+    res.json(rows);
+  }).catch((err) => {
+    res.json({err});
+  });
+});
+
+router.post('/change_role', (req, res) => {
+  const username = req.body.username;
+  const role = req.body.role;
+  db.queryAsync(`
+    UPDATE authors
+      SET permissions_role = ?
+    WHERE username = ?
+  `, [role, username]).then(() => {
+    res.json({success: true});
+  }).catch((err) => {
+    res.json({err});
+  });
+});
+
 export default router;

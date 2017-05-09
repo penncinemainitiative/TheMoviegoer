@@ -71,7 +71,8 @@ const AuthRoutes = (store) => ({
     require.ensure([], (require) =>
       cb(null, [
           require('./ConsoleRoute').default,
-          require('./DraftRoute').default
+          require('./DraftRoute').default,
+          require('./UserManagementRoute').default
         ]
       )
     )

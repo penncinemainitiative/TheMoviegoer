@@ -16,3 +16,24 @@ export const getAllUnpublishedArticles = () => {
       });
   };
 };
+
+export const getRoles = (token) => {
+  return http
+    .get(`/api/console/roles`, authHeader(token))
+    .then(({data}) => data);
+};
+
+export const getUsers = (token) => {
+  return http
+    .get(`/api/console/users`, authHeader(token))
+    .then(({data}) => data);
+};
+
+export const changeRole = (token, username, role) => {
+  return http
+    .post(`/api/console/change_role`, {
+      username,
+      role
+    }, authHeader(token))
+    .then(({data}) => data);
+};
