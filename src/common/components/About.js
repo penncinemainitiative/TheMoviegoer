@@ -2,8 +2,12 @@ import React from "react"
 import Helmet from "react-helmet"
 import {asyncConnect} from "redux-connect"
 import Link from "react-router/lib/Link"
-import {getStaff} from "../api/index"
+import {getAboutText, getStaff} from "../api/about"
+import {allAuthors} from "../api/index"
 import {getResizedImage} from "./utils"
+import jwt_decode from "jwt-decode"
+import marked from "marked"
+import Select from "react-select"
 
 const positionOrdering = [
   "Editor-in-Chief",
@@ -15,12 +19,42 @@ const positionOrdering = [
 ];
 
 @asyncConnect([{
+  key: 'text',
+  promise: () => getAboutText()
+}, {
   key: 'staff',
   promise: () => getStaff(positionOrdering)
-}])
+}, {
+  key: 'authors',
+  promise: () => allAuthors()
+}],
+  state => ({
+    token: state.token
+  })
+)
 export default class About extends React.Component {
+  constructor(props) {
+    super(props);
+    this.saveChanges = this.saveChanges.bind(this);
+    const {text} = this.props;
+    this.state = {
+      about: text.find((obj) => obj.field === "about").description,
+      contact: text.find((obj) => obj.field === "contact").description
+    };
+  }
+
+  saveChanges() {
+
+  }
+
   render() {
-    const {staff} = this.props;
+    const {token, staff, text, authors} = this.props;
+    const author = token ? jwt_decode(token) : undefined;
+    const editable = author ? author.can_edit_about : false;
+    const aboutText = text.find((obj) => obj.field === "about").description;
+    const contactText = text.find((obj) => obj.field === "contact").description;
+    const aboutHtml = {__html: marked(aboutText)};
+    const contactHtml = {__html: marked(contactText)};
     return (
       <div className="aboutPage">
         <Helmet title="About"
@@ -30,22 +64,17 @@ export default class About extends React.Component {
                     content: "Learn more about the staff of The Moviegoer and how to get involved."
                   },
                 ]}/>
+        {editable ? <div><button onClick={this.saveChanges}>Save</button></div> : null}
         <div className="content-left">
           <div className="letter">
             <h3>About</h3>
-            <p><em>The Moviegoer</em> is a student-run blog dedicated
-              to film appreciation - posting film analyses, reviews, previews,
-              and all things related. The Moviegoer is
-              generously sponsored by <a className="special-link"
-                                         href="http://www.writing.upenn.edu/~wh/">The
-                Kelly Writers House</a> at the University
-              of Pennsylvania.</p>
+            {editable ? <textarea cols="50" rows="10" defaultValue={this.state.about}/> :
+              <div dangerouslySetInnerHTML={aboutHtml}/> }
           </div>
           <div className="contact">
             <h3>Contact Us</h3>
-            <p>If you would like to get involved with <em>The Moviegoer</em>,
-              please contact our Editor-in-Chief, Stephan Cho, at
-              <b> stec (at) sas (dot) upenn (dot) edu</b>.</p>
+            {editable ? <textarea cols="50" rows="5" defaultValue={this.state.contact}/> :
+             <div dangerouslySetInnerHTML={contactHtml}/> }
           </div>
         </div>
         <div className="staff">
@@ -59,9 +88,18 @@ export default class About extends React.Component {
                   </div>
                 </div>
                 <div className="text-wrapper">
-                  <p><Link
-                    to={writer.url}><b>{writer.position}</b>: {writer.name}
-                  </Link></p>
+                  {editable ?
+                    <div style={{width: "300px"}}>
+                      <b>{writer.position}</b>: <Select
+                        menuContainerStyle={{zIndex: 500}}
+                        clearable={false}
+                        noResultsText="No results found!"
+                        value={writer.username}
+                        options={authors}/>
+                    </div>
+                     :
+                    <p><Link to={writer.url}><b>{writer.position}</b>: {writer.name}</Link></p>
+                    }
                 </div>
               </div>
             );
