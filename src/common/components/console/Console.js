@@ -26,7 +26,6 @@ class ArticleList extends React.Component {
   updateEditor(id, clicked) {
     const {token} = this.props;
     const editor = clicked.value;
-    console.log(editor);
     changeArticleEditor(token, id, editor).then(() => {
       this.props.dispatch(getAllUnpublishedArticles());
       this.props.dispatch(getMyUnpublishedArticles());
@@ -42,7 +41,10 @@ class ArticleList extends React.Component {
   }
 
   render() {
-    const {articles, authors} = this.props;
+    const {articles, authors, token} = this.props;
+    const author = token ? jwt_decode(token) : undefined;
+    const canDelete = author ? author.can_delete_articles : false;
+    const canAssignEditor = author ? author.can_assign_editor : false;
     return (
       <table>
         <thead>
@@ -65,16 +67,19 @@ class ArticleList extends React.Component {
             <td>{article.updateDate}</td>
             <td>{article.name}</td>
             <td style={{width: "300px"}}>
-              <Select
-                menuContainerStyle={{zIndex: 500}}
-                clearable={false}
-                noResultsText="No results found!"
-                value={article.assignedEditor}
-                onChange={this.updateEditor.bind(null, article.articleId)}
-                options={authors}/>
+              {canAssignEditor ?
+                <Select
+                  menuContainerStyle={{zIndex: 500}}
+                  clearable={false}
+                  noResultsText="No results found!"
+                  value={article.assignedEditor}
+                  onChange={this.updateEditor.bind(null, article.articleId)}
+                  options={authors}/>
+                : authors.find((author) => author.value === article.assignedEditor).label}
             </td>
-            <td><button onClick={this.handleDeleteArticle.bind(null, article.articleId)}>
-              Delete</button></td>
+            <td>{canDelete || article.author === author.username ?
+              <button onClick={this.handleDeleteArticle.bind(null, article.articleId)}>Delete</button>
+              : null}</td>
           </tr>;
         }.bind(this))}
         </tbody>
@@ -151,13 +156,12 @@ export default class Console extends React.Component {
               <ArticleList articles={myUnpublished} authors={authors}
                            username={author.username}/>
             </div>
-            {author.can_assign_editor ?
-              <div className="all-articles">
-                <h5>All unpublished articles</h5>
-                <ArticleList articles={allUnpublished}
-                             authors={authors}
-                             username={author.username}/>
-              </div> : null}
+            <div className="all-articles">
+              <h5>All unpublished articles</h5>
+              <ArticleList articles={allUnpublished}
+                           authors={authors}
+                           username={author.username}/>
+            </div>
           </div> : null}
       </div>
     )

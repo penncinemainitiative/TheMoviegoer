@@ -35,14 +35,14 @@ router.post('/signup', (req, res) => {
     username: req.body.username,
     email: req.body.email,
     name: req.body.name,
-    isEditor: -1,
+    isEditor: 0,
     hometown: "",
     allow_featured_writer: 1,
     assignedEditor: req.body.username,
     image: 'https://s3.amazonaws.com/moviegoer/uploads/dlakata/d566f160-dc1b-11e6-8612-954c27f70d36.png',
     accent_color: colors[Math.floor(Math.random() * colors.length)],
     bio: '...',
-    permissions_role: "writer"
+    permissions_role: "unconfirmed"
   };
 
   bcrypt.genSalt(10, (err, salt) => {
@@ -118,8 +118,9 @@ router.post('/login', (req, res) => {
   const user = req.body.username;
   const password = req.body.password;
   db.queryAsync(`
-    SELECT username, password, name, isEditor, can_edit_published, can_publish,
-           can_assign_editor, can_edit_about, can_edit_permissions
+    SELECT username, password, name, can_edit_published, can_publish,
+           can_assign_editor, can_edit_about, can_edit_permissions, can_delete_articles,
+           can_assign_author, permissions_role
     FROM authors
     INNER JOIN permissions
       ON permissions_role = role
@@ -129,7 +130,7 @@ router.post('/login', (req, res) => {
       return res.json({success: false, msg: 'Username not found!'});
     }
     const author = rows[0];
-    if (author.isEditor === -1) {
+    if (author.permissions_role === "unconfirmed") {
       return res.json({
         success: false,
         msg: 'Your account has not been approved yet!'
@@ -144,7 +145,9 @@ router.post('/login', (req, res) => {
           can_publish: author.can_publish,
           can_assign_editor: author.can_assign_editor,
           can_edit_permissions: author.can_edit_permissions,
-          can_edit_about: author.can_edit_about
+          can_edit_about: author.can_edit_about,
+          can_assign_author: author.can_assign_author,
+          can_delete_articles: author.can_delete_articles
         }, process.env.SECRET ? process.env.SECRET : 'secret', {expiresIn: '7 days'}, (err, token) => {
           res.cookie("token", token, {expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7)});
           return res.json({success: true, token});
@@ -160,9 +163,9 @@ router.post('/login', (req, res) => {
 
 router.get('/writers', (req, res) => {
   db.queryAsync(`
-    SELECT username, email, name, image, accent_color, bio, hometown, position
+    SELECT username, email, name, image, accent_color, bio, hometown, position, permissions_role
     FROM authors
-    WHERE isEditor > -1 AND name <> 'Admin'
+    WHERE permissions_role <> 'unconfirmed'
   `).then((rows) => {
     rows = rows.map((author) => {
       author.url = "/writer/" + author.name.replace(/\s+/g, '');

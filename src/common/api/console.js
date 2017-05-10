@@ -57,3 +57,11 @@ export const changePermission = (token, role, permission, enabled) => {
     }, authHeader(token))
     .then(({data}) => data);
 };
+
+export const deleteUser = (token, username) => {
+  return http
+    .post(`/api/console/users/delete`, {
+      username
+    }, authHeader(token))
+    .then(({data}) => data);
+};

@@ -11,7 +11,9 @@ router.get('/', requireLogin, (req, res) => {
   db.queryAsync(`
     SELECT username
     FROM authors
-    WHERE isEditor = 2
+    INNER JOIN permissions
+      ON permissions_role = role
+    WHERE can_assign_editor = 1
     ORDER BY username DESC
   `).then((rows) => {
     const insertData = {
@@ -21,7 +23,7 @@ router.get('/', requireLogin, (req, res) => {
       title: 'Untitled Article',
       author: res.locals.author.username,
       assignedEditor: rows[0].username,
-      url: 'http://pennmoviegoer.com',
+      url: 'https://pennmoviegoer.com',
       excerpt: '...',
       text: '...',
       status: 'UNSUBMITTED',
@@ -183,7 +185,7 @@ router.post('/:id/publish', requireLogin, (req, res) => {
     const month = today.getMonth() + 1;
     const slug = getSlug(article.title.replace(/(<([^>]+)>)/ig, ""));
     const url = `/${today.getFullYear()}/${month}/${today.getDate()}/${slug}.html`;
-    if (article.isPublished) {
+    if (article.isPublished === 2) {
       db.queryAsync(`
       UPDATE articles
       SET url = ?,

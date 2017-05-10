@@ -16,6 +16,7 @@ import Dropzone from "react-dropzone"
 import Select from "react-select"
 import {allAuthors} from "../../api/index"
 import SimpleMDE from "react-simplemde-editor"
+import jwt_decode from "jwt-decode"
 
 let articleText;
 
@@ -170,7 +171,10 @@ export default class Draft extends React.Component {
   }
 
   render() {
-    const {draft, authors} = this.props;
+    const {draft, authors, token} = this.props;
+    const author = token ? jwt_decode(token) : undefined;
+    const canAssignAuthor = author ? author.can_assign_author : false;
+    const canPublish = author ? author.can_publish : false;
     const article = Object.assign({}, this.state, {text: articleText});
     const cleanTitle = article.title.replace(/(<([^>]+)>)/ig, "");
     return (
@@ -180,9 +184,9 @@ export default class Draft extends React.Component {
         <button onClick={this.handleSave}>Save</button>
         <button
           onClick={this.handlePreview}>{this.state.preview ? "Edit" : "Preview" }</button>
-        <button onClick={this.handlePublish}>Publish</button>
-        <button onClick={this.handleRetractArticle}>Retract</button>
-        <button onClick={this.handleExit}>Exit</button>
+        {canPublish ? <span><button onClick={this.handlePublish}>Publish</button>
+            <button onClick={this.handleRetractArticle}>Retract</button></span> : null}
+        <button onClick={this.handleExit}>Back to console</button>
         {!this.state.preview ?
           <div>
             <div style={{width: "50%", float: "right"}}>
@@ -209,12 +213,14 @@ export default class Draft extends React.Component {
                      placeholder="Article Title" value={this.state.title}/>
               <div>
                 Author:
-                <Select
-                  noResultsText="No results found!"
-                  clearable={false}
-                  value={this.state.author}
-                  onChange={this.updateAuthor}
-                  options={authors}/>
+                {canAssignAuthor ?
+                  <Select
+                    noResultsText="No results found!"
+                    clearable={false}
+                    value={this.state.author}
+                    onChange={this.updateAuthor}
+                    options={authors}/>
+                  : authors.find((author) => author.value === this.state.author).label}
               </div>
               <div id="message">{this.state.message}</div>
               <div><textarea rows="10" cols="20"

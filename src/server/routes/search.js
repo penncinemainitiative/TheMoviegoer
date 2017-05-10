@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
     db.queryAsync(`
       SELECT name
       FROM authors
-      WHERE name LIKE ? AND name <> 'Admin'
+      WHERE name LIKE ?
     `, search).then((authors) => {
       res.json(articles.concat(authors));
     })
@@ -29,7 +29,7 @@ router.get('/authors', (req, res) => {
   db.queryAsync(`
     SELECT username, name
     FROM authors
-    WHERE name LIKE ? AND name <> 'Admin'
+    WHERE name LIKE ?
   `, search
   ).then((authors) => {
     res.json(authors);

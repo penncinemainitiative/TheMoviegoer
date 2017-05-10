@@ -1,7 +1,7 @@
 import React from "react"
 import Helmet from "react-helmet"
 import {asyncConnect} from "redux-connect"
-import {getUsers, getRoles, changeUserRole, changePermission} from "../../api/console"
+import {getUsers, getRoles, changeUserRole, changePermission, deleteUser} from "../../api/console"
 import Select from "react-select"
 
 @asyncConnect([{
@@ -20,6 +20,8 @@ export default class UserManagement extends React.Component {
     super(props);
     this.updateRole = this.updateRole.bind(this);
     this.updatePermission = this.updatePermission.bind(this);
+    this.deleteAuthor = this.deleteAuthor.bind(this);
+    this.state = {message: ''};
   }
 
   updateRole(username, e) {
@@ -32,10 +34,19 @@ export default class UserManagement extends React.Component {
 
   updatePermission(role, permission, enabled) {
     const {token} = this.props;
-    console.log(permission);
-    console.log(enabled);
     changePermission(token, role, permission, enabled).then(() => {
       this.props.dispatch(getRoles());
+    });
+  }
+
+  deleteAuthor(username) {
+    const {token} = this.props;
+    deleteUser(token, username).then((data) => {
+      if (data.success) {
+        this.props.dispatch(getUsers());
+      } else {
+        this.setState(Object.assign({}, this.state, {message: data.err}));
+      }
     });
   }
 
@@ -48,6 +59,7 @@ export default class UserManagement extends React.Component {
     return (
       <div >
         <Helmet title="User Management"/>
+        <div>{this.state.message}</div>
         <h3>Users</h3>
         <table>
           <tbody>
@@ -55,6 +67,7 @@ export default class UserManagement extends React.Component {
             <th>Name</th>
             <th>Email</th>
             <th>Role</th>
+            <th>Delete</th>
           </tr>
           {users.map(function (user) {
             return <tr key={user.username}>
@@ -69,6 +82,7 @@ export default class UserManagement extends React.Component {
                   onChange={this.updateRole.bind(null, user.username)}
                   options={options}/>
               </td>
+              <td><button onClick={this.deleteAuthor.bind(null, user.username)}>Delete</button></td>
             </tr>
           }.bind(this))}
           </tbody>

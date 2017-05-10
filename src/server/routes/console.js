@@ -67,6 +67,29 @@ router.post('/users', (req, res) => {
   });
 });
 
+router.post('/users/delete', (req, res) => {
+  const username = req.body.username;
+  db.queryAsync(`
+    SELECT title
+    FROM articles
+    WHERE author = ?
+  `, [username]).then((rows) => {
+    if (rows.length > 0) {
+      res.json({err: "You cannot delete an author unless all their articles have been deleted or reassigned."});
+    } else {
+      db.queryAsync(`
+        DELETE FROM
+          authors
+        WHERE username = ?
+      `, [username]).then(() => {
+        res.json({success: true});
+      }).catch((err) => {
+        res.json({err});
+      });
+    }
+  });
+});
+
 router.get('/roles', (req, res) => {
   db.queryAsync(`
     SELECT role, can_assign_author, can_assign_editor, can_delete_articles,
