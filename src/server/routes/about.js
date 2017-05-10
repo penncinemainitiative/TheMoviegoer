@@ -32,10 +32,9 @@ router.get('/positions', (req, res) => {
   });
 });
 
-router.post('/', requireLogin, (req, res) => {
+router.post('/text', requireLogin, (req, res) => {
   const about = req.body.about;
   const contact = req.body.contact;
-  const positions = req.body.positions;
   db.queryAsync(`
     UPDATE about_text
     SET description = ?
@@ -48,7 +47,19 @@ router.post('/', requireLogin, (req, res) => {
     `, [contact]).then(() => {
       res.json({success: true});
     });
-  })
+  });
+});
+
+router.post('/positions', requireLogin, (req, res) => {
+  const position = req.body.position;
+  const author = req.body.author;
+  db.queryAsync(`
+    UPDATE about_staff
+    SET username = ?
+    WHERE position = ?
+  `, [author, position]).then(() => {
+    res.json({success: true});
+  });
 });
 
 export default router;

@@ -2,7 +2,7 @@ import React from "react"
 import Helmet from "react-helmet"
 import {asyncConnect} from "redux-connect"
 import Link from "react-router/lib/Link"
-import {getAboutText, getStaff} from "../api/about"
+import {getAboutText, getStaff, saveAboutText, saveAboutPosition} from "../api/about"
 import {allAuthors} from "../api/index"
 import {getResizedImage} from "./utils"
 import jwt_decode from "jwt-decode"
@@ -19,40 +19,59 @@ const positionOrdering = [
 ];
 
 @asyncConnect([{
-  key: 'text',
-  promise: () => getAboutText()
+  promise: ({store: {dispatch}}) => dispatch(getAboutText())
 }, {
-  key: 'staff',
-  promise: () => getStaff(positionOrdering)
+  promise: ({store: {dispatch}}) => dispatch(getStaff(positionOrdering))
 }, {
   key: 'authors',
   promise: () => allAuthors()
 }],
   state => ({
-    token: state.token
+    token: state.token,
+    staff: state.about.staff,
+    aboutText: state.about.aboutText.description,
+    contactText: state.about.contactText.description
   })
 )
 export default class About extends React.Component {
   constructor(props) {
     super(props);
     this.saveChanges = this.saveChanges.bind(this);
-    const {text} = this.props;
+    this.updateAboutText = this.updateAboutText.bind(this);
+    this.updateContactText = this.updateContactText.bind(this);
+    this.updatePosition = this.updatePosition.bind(this);
+    const {aboutText, contactText} = this.props;
     this.state = {
-      about: text.find((obj) => obj.field === "about").description,
-      contact: text.find((obj) => obj.field === "contact").description
+      aboutText,
+      contactText
     };
   }
 
-  saveChanges() {
+  updateAboutText(e) {
+    this.setState(Object.assign({}, this.state, {aboutText: e.target.value}));
+  }
 
+  updateContactText(e) {
+    this.setState(Object.assign({}, this.state, {contactText: e.target.value}));
+  }
+
+  updatePosition(position, e) {
+    saveAboutPosition(e.value, position, this.props.token).then(() => {
+      this.props.dispatch(getStaff(positionOrdering));
+    })
+  }
+
+  saveChanges() {
+    const {token} = this.props;
+    saveAboutText(this.state.aboutText, this.state.contactText, token).then(() => {
+      this.props.dispatch(getAboutText());
+    })
   }
 
   render() {
-    const {token, staff, text, authors} = this.props;
+    const {token, staff, aboutText, contactText, authors} = this.props;
     const author = token ? jwt_decode(token) : undefined;
     const editable = author ? author.can_edit_about : false;
-    const aboutText = text.find((obj) => obj.field === "about").description;
-    const contactText = text.find((obj) => obj.field === "contact").description;
     const aboutHtml = {__html: marked(aboutText)};
     const contactHtml = {__html: marked(contactText)};
     return (
@@ -68,12 +87,12 @@ export default class About extends React.Component {
         <div className="content-left">
           <div className="letter">
             <h3>About</h3>
-            {editable ? <textarea cols="50" rows="10" defaultValue={this.state.about}/> :
+            {editable ? <textarea cols="50" rows="10" onChange={this.updateAboutText} defaultValue={aboutText}/> :
               <div dangerouslySetInnerHTML={aboutHtml}/> }
           </div>
           <div className="contact">
             <h3>Contact Us</h3>
-            {editable ? <textarea cols="50" rows="5" defaultValue={this.state.contact}/> :
+            {editable ? <textarea cols="50" rows="5" onChange={this.updateContactText} defaultValue={contactText}/> :
              <div dangerouslySetInnerHTML={contactHtml}/> }
           </div>
         </div>
@@ -95,6 +114,7 @@ export default class About extends React.Component {
                         clearable={false}
                         noResultsText="No results found!"
                         value={writer.username}
+                        onChange={this.updatePosition.bind(null, writer.position)}
                         options={authors}/>
                     </div>
                      :
