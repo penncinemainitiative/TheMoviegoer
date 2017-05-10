@@ -1,16 +1,20 @@
 import React from "react"
 import Helmet from "react-helmet"
 import {asyncConnect} from "redux-connect"
-import {getUsers, getRoles} from "../../api/console"
+import {getUsers, getRoles, changeUserRole, changePermission} from "../../api/console"
 import Select from "react-select"
 
 @asyncConnect([{
-  key: 'users',
-  promise: ({store: {getState}, params}) => getUsers(getState().token)
+  promise: ({store: {dispatch}}) => dispatch(getUsers())
 }, {
-  key: 'roles',
-  promise: ({store: {getState}, params}) => getRoles(getState().token)
-}])
+  promise: ({store: {dispatch}}) => dispatch(getRoles())
+}],
+  state => ({
+    token: state.token,
+    users: state.console.users,
+    roles: state.console.roles
+  })
+)
 export default class UserManagement extends React.Component {
   constructor(props) {
     super(props);
@@ -18,12 +22,21 @@ export default class UserManagement extends React.Component {
     this.updatePermission = this.updatePermission.bind(this);
   }
 
-  updateRole(username) {
-
+  updateRole(username, e) {
+    const {token} = this.props;
+    const role = e.value;
+    changeUserRole(token, username, role).then(() => {
+      this.props.dispatch(getUsers());
+    });
   }
 
-  updatePermission(role, permission) {
-
+  updatePermission(role, permission, enabled) {
+    const {token} = this.props;
+    console.log(permission);
+    console.log(enabled);
+    changePermission(token, role, permission, enabled).then(() => {
+      this.props.dispatch(getRoles());
+    });
   }
 
   render() {
@@ -53,6 +66,7 @@ export default class UserManagement extends React.Component {
                   clearable={false}
                   noResultsText="No results found!"
                   value={user.role}
+                  onChange={this.updateRole.bind(null, user.username)}
                   options={options}/>
               </td>
             </tr>
@@ -75,17 +89,17 @@ export default class UserManagement extends React.Component {
             return <tr key={role.role}>
               <td>{role.role}</td>
               <td><input type="checkbox" checked={role.can_assign_author}
-                         onChange={this.updatePermission.bind(null, role.role, "can_assign_author")}/></td>
+                         onChange={this.updatePermission.bind(null, role.role, "can_assign_author", !role.can_assign_author)}/></td>
               <td><input type="checkbox" checked={role.can_assign_editor}
-                         onChange={this.updatePermission.bind(null, role.role, "can_assign_editor")}/></td>
+                         onChange={this.updatePermission.bind(null, role.role, "can_assign_editor", !role.can_assign_editor)}/></td>
               <td><input type="checkbox" checked={role.can_delete_articles}
-                         onChange={this.updatePermission.bind(null, role.role, "can_delete_articles")}/></td>
+                         onChange={this.updatePermission.bind(null, role.role, "can_delete_articles", !role.can_delete_articles)}/></td>
               <td><input type="checkbox" checked={role.can_edit_published}
-                         onChange={this.updatePermission.bind(null, role.role, "can_edit_published")}/></td>
+                         onChange={this.updatePermission.bind(null, role.role, "can_edit_published", !role.can_edit_published)}/></td>
               <td><input type="checkbox" checked={role.can_publish}
-                         onChange={this.updatePermission.bind(null, role.role, "can_publish")}/></td>
+                         onChange={this.updatePermission.bind(null, role.role, "can_publish", !role.can_publish)}/></td>
               <td><input type="checkbox" checked={role.can_edit_about}
-                         onChange={this.updatePermission.bind(null, role.role, "can_edit_about")}/></td>
+                         onChange={this.updatePermission.bind(null, role.role, "can_edit_about", !role.can_edit_about)}/></td>
             </tr>
           }.bind(this))}
           </tbody>

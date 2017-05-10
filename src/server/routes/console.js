@@ -53,6 +53,20 @@ router.get('/users', (req, res) => {
   });
 });
 
+router.post('/users', (req, res) => {
+  const username = req.body.username;
+  const role = req.body.role;
+  db.queryAsync(`
+    UPDATE authors
+      SET permissions_role = ?
+    WHERE username = ?
+  `, [role, username]).then(() => {
+    res.json({success: true});
+  }).catch((err) => {
+    res.json({err});
+  });
+});
+
 router.get('/roles', (req, res) => {
   db.queryAsync(`
     SELECT role, can_assign_author, can_assign_editor, can_delete_articles,
@@ -65,14 +79,15 @@ router.get('/roles', (req, res) => {
   });
 });
 
-router.post('/change_role', (req, res) => {
-  const username = req.body.username;
+router.post('/roles', (req, res) => {
   const role = req.body.role;
+  const permission = req.body.permission;
+  const enabled = req.body.enabled;
   db.queryAsync(`
-    UPDATE authors
-      SET permissions_role = ?
-    WHERE username = ?
-  `, [role, username]).then(() => {
+    UPDATE permissions
+      SET ${permission} = ?
+    WHERE role = ?
+  `, [enabled, role]).then(() => {
     res.json({success: true});
   }).catch((err) => {
     res.json({err});

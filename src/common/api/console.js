@@ -1,5 +1,5 @@
 import {http, authHeader} from "./utils"
-import {receiveAllUnpublishedArticles} from "../actions/console"
+import {receiveRoles, receiveUsers, receiveAllUnpublishedArticles} from "../actions/console"
 import browserHistory from "react-router/lib/browserHistory"
 
 export const getAllUnpublishedArticles = () => {
@@ -17,23 +17,43 @@ export const getAllUnpublishedArticles = () => {
   };
 };
 
-export const getRoles = (token) => {
-  return http
-    .get(`/api/console/roles`, authHeader(token))
-    .then(({data}) => data);
+export const getUsers = () => {
+  return (dispatch, getState) => {
+    const token = getState().token;
+    return http
+      .get(`/api/console/users`, authHeader(token))
+      .then(({data}) => {
+        return dispatch(receiveUsers(data));
+      });
+  };
 };
 
-export const getUsers = (token) => {
-  return http
-    .get(`/api/console/users`, authHeader(token))
-    .then(({data}) => data);
+export const getRoles = () => {
+  return (dispatch, getState) => {
+    const token = getState().token;
+    return http
+      .get(`/api/console/roles`, authHeader(token))
+      .then(({data}) => {
+        return dispatch(receiveRoles(data));
+      });
+  };
 };
 
-export const changeRole = (token, username, role) => {
+export const changeUserRole = (token, username, role) => {
   return http
-    .post(`/api/console/change_role`, {
+    .post(`/api/console/users`, {
       username,
       role
+    }, authHeader(token))
+    .then(({data}) => data);
+};
+
+export const changePermission = (token, role, permission, enabled) => {
+  return http
+    .post(`/api/console/roles`, {
+      role,
+      permission,
+      enabled
     }, authHeader(token))
     .then(({data}) => data);
 };
