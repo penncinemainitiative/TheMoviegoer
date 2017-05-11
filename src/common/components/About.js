@@ -83,7 +83,15 @@ export default class About extends React.Component {
                     content: "Learn more about the staff of The Moviegoer and how to get involved."
                   },
                 ]}/>
-        {editable ? <div><button onClick={this.saveChanges}>Save</button></div> : null}
+        {editable ?
+        <div className="editBar">
+          <div className="container">
+            <div className="bar-item_text"><p>You are in editor mode</p></div>
+            <div className="bar-item"><p><Link onClick={this.saveChanges}>Save</Link></p></div>
+            <div className="bar-item"><p><Link to="/console">Console</Link></p></div>
+            <div className="bar-item"><p><Link to="/console">Logout</Link></p></div>
+          </div>
+        </div> : null}
         <div className="content-left">
           <div className="letter">
             <h3>About</h3>

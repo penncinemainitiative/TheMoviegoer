@@ -1,5 +1,6 @@
 .aboutPage {
   @include page;
+  @include editBar;
 
   @include media($mobile) {
     padding: 10px;
@@ -88,6 +89,12 @@
     p {
       display: inline-block;
       margin-top: 0px;
+    }
+  }
+
+  .editBar {
+    p {
+      padding: 0px;
     }
   }
 }

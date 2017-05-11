@@ -1,6 +1,8 @@
 
 .articlePage {
   @include page;
+  @include editBar;
+
 
   @include media($mobile) {
     padding: 0px;

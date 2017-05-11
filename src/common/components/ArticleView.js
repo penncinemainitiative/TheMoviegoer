@@ -47,14 +47,22 @@ export default class ArticleView extends React.Component {
     const draftUrl = `/draft/${article.articleId}`;
     return (
       <div className="articlePage">
+        {author.can_edit_published ?
+                <div className="editBar">
+                  <div className="container">
+                    <div className="bar-item_text"><p>You are in editor mode</p></div>
+                    <div className="bar-item"><p><Link to={draftUrl}>Edit</Link></p></div>
+                    <div className="bar-item"><p><Link to="/console">Console</Link></p></div>
+                    <div className="bar-item"><p><Link to="/console">Logout</Link></p></div>
+                  </div>
+                </div> : null}
         <div className="article_content">
           <div className="image-wrapper">
             {getResizedImage(article.image, 800, 600)}
           </div>
           <div className="title">
             <h4 dangerouslySetInnerHTML={title}></h4>
-            <h5><Link to={article.authorUrl}>{article.name}</Link> - {article.pubDate} <ShareButtons article={article}/> {author.can_edit_published ?
-                <Link to={draftUrl}>Edit</Link> : null}</h5>
+            <h5><Link to={article.authorUrl}>{article.name}</Link> - {article.pubDate} <ShareButtons article={article}/> </h5>
           </div>
           <div dangerouslySetInnerHTML={text}></div>
         </div>
