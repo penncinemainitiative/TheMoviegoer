@@ -1,4 +1,7 @@
 import React from "react"
+import cookie from "react-cookie"
+import {logout} from "../actions/auth"
+import browserHistory from "react-router/lib/browserHistory"
 
 export const getResizedImage = (url, desktopSize, mobileSize) => {
   if (!url.includes("https://s3.amazonaws.com/moviegoer")) {
@@ -24,4 +27,10 @@ export const get800WidthUrl = (url) => {
   const cdnUrl = url.replace("https://s3.amazonaws.com/moviegoer", "https://de1zegu7c2bac.cloudfront.net");
   const dot = cdnUrl.lastIndexOf('.');
   return cdnUrl.substring(0, dot) + `-800w.` + cdnUrl.substring(dot + 1);
+};
+
+export const userLogout = (dispatch) => {
+  cookie.remove('token', {path: '/'});
+  dispatch(logout());
+  browserHistory.push('/');
 };

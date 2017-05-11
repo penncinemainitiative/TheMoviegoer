@@ -12,6 +12,7 @@ import {logout} from "../../actions/auth"
 import WriterEditor from "./WriterEditor"
 import {allAuthors} from "../../api/index"
 import Select from "react-select"
+import {userLogout} from "../utils"
 
 @asyncConnect([],
   state => ({token: state.token})
@@ -109,7 +110,6 @@ export default class Console extends React.Component {
   constructor(props) {
     super(props);
     this.handleNewArticle = this.handleNewArticle.bind(this);
-    this.logout = this.logout.bind(this);
     this.state = {
       err: ''
     };
@@ -128,12 +128,6 @@ export default class Console extends React.Component {
     });
   }
 
-  logout() {
-    cookie.remove('token', {path: '/'});
-    this.props.dispatch(logout());
-    browserHistory.push('/login');
-  }
-
   render() {
     const {allUnpublished, myUnpublished, token, writer, authors} = this.props;
     const author = token ? jwt_decode(token) : undefined;
@@ -149,7 +143,7 @@ export default class Console extends React.Component {
               <Link id="profileLink" to={writer.url}><h5>My profile</h5></Link>
               <WriterEditor writer={writer} token={token}/>
               <button onClick={this.handleNewArticle}>New article</button>
-              <button onClick={this.logout}>Logout</button>
+              <button onClick={userLogout.bind(null, this.props.dispatch)}>Logout</button>
             </div>
             <div className="my-articles">
               <h5>My unpublished articles</h5>

@@ -6,6 +6,7 @@ import cookie from "react-cookie"
 import {asyncConnect} from "redux-connect"
 import {login, sendPassword} from "../api/index"
 import {loginWithToken, logout} from "../actions/auth"
+import {userLogout} from "./utils"
 
 @asyncConnect([])
 export default class Login extends React.Component {
@@ -15,7 +16,6 @@ export default class Login extends React.Component {
     this.updatePassword = this.updatePassword.bind(this);
     this.updateUsername = this.updateUsername.bind(this);
     this.forgotPassword = this.forgotPassword.bind(this);
-    this.logout = this.logout.bind(this);
     this.state = {username: '', password: '', message: ''};
   }
 
@@ -50,12 +50,6 @@ export default class Login extends React.Component {
     }
   }
 
-  logout() {
-    cookie.remove('token', {path: '/'});
-    this.props.dispatch(logout());
-    browserHistory.push('/');
-  }
-
   render() {
     return (
       <div className="loginPage">
@@ -83,7 +77,7 @@ export default class Login extends React.Component {
           <button onClick={this.forgotPassword} type="submit">Recover my password</button>
         </div>
         <div>{this.state.message}</div>
-        <button onClick={this.logout}>Logout</button>
+        <button onClick={userLogout.bind(null, this.props.dispatch)}>Logout</button>
       </div>
     );
   }

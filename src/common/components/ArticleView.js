@@ -2,7 +2,7 @@ import React from "react"
 import marked from "marked"
 import Link from "react-router/lib/Link"
 import jwt_decode from "jwt-decode"
-import {getResizedImage} from "./utils"
+import {getResizedImage, userLogout} from "./utils"
 import { FacebookButton, TwitterButton, EmailButton } from "react-social"
 
 const trackShare = (channel, url) => () => {
@@ -53,7 +53,7 @@ export default class ArticleView extends React.Component {
                     <div className="bar-item_text"><p>You are in editor mode</p></div>
                     <div className="bar-item"><p><Link to={draftUrl}>Edit</Link></p></div>
                     <div className="bar-item"><p><Link to="/console">Console</Link></p></div>
-                    <div className="bar-item"><p><Link to="/console">Logout</Link></p></div>
+                    <div className="bar-item"><p><Link onClick={userLogout.bind(null, this.props.dispatch)}>Logout</Link></p></div>
                   </div>
                 </div> : null}
         <div className="article_content">
