@@ -4,7 +4,7 @@ import {asyncConnect} from "redux-connect"
 import Link from "react-router/lib/Link"
 import {getAboutText, getStaff, saveAboutText, saveAboutPosition} from "../api/about"
 import {allAuthors} from "../api/index"
-import {getResizedImage} from "./utils"
+import {getResizedImage, userLogout} from "./utils"
 import jwt_decode from "jwt-decode"
 import marked from "marked"
 import Select from "react-select"
@@ -89,7 +89,7 @@ export default class About extends React.Component {
             <div className="bar-item_text"><p>You are in editor mode</p></div>
             <div className="bar-item"><p><Link onClick={this.saveChanges}>Save</Link></p></div>
             <div className="bar-item"><p><Link to="/console">Console</Link></p></div>
-            <div className="bar-item"><p><Link to="/console">Logout</Link></p></div>
+            <div className="bar-item"><p><Link onClick={userLogout.bind(null, this.props.dispatch)}>Logout</Link></p></div>
           </div>
         </div> : null}
         <div className="content-left">
